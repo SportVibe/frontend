@@ -1,26 +1,16 @@
-import Button from 'react-bootstrap/Button';
-import CardComponent from './components/Card/Card';
+import CardComponent from "./components/Card/Card";
 // import PATHROUTES from './helpers/pathroutes';
 import Home from "./components/Home/Home";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <div>
-        <Button variant="outline-primary">Primary</Button>{' '}
-        <Button variant="outline-secondary">Secondary</Button>{' '}
-        <Button variant="outline-success">Success</Button>{' '}
-        <Button variant="outline-warning">Warning</Button>{' '}
-        <Button variant="outline-danger">Danger</Button>{' '}
-        <Button variant="outline-info">Info</Button>{' '}
-        <Button variant="outline-light">Light</Button>{' '}
-        <Button variant="outline-dark">Dark</Button>
-      </div>
-        <CardComponent />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
-
-
+export default App;
