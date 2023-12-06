@@ -1,14 +1,16 @@
-
-// import Button from 'react-bootstrap/Button';
+import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
+import CardComponent from "./components/Card/Card";
+import Button from 'react-bootstrap/Button';
 // import PATHROUTES from './helpers/pathroutes';
 import Home from "./components/Home/Home";
-import Carousel from "./components/Carousel/Carousel";
 
 function App() {
   return (
     <div>
-      <Carousel />
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/dashboard" element={<AdminDashBoard />}></Route>
+      </Routes>
     </div>
   );
 }
