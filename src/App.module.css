@@ -1,0 +1,37 @@
+:root {
+    --button-color: #0d6efd;
+    --gb-color-body: #ebebeb;
+    --bg-color1: rgb(0, 136, 255);
+    --bg-gradient1: linear-gradient(117deg, rgba(0, 136, 255, 1) 0%, rgba(0, 214, 255, 1) 26%, rgba(0, 187, 255, 1) 77%);
+}
+
+/* MAIN DIV */
+.mainView {
+    width: 100%;
+    background-color: var(--gb-color-body);
+    display: flex;
+    flex-direction: column;
+    /* overflow-x: hidden; */
+}
+
+/* NAV BAR */
+.navBarContainer {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color1);
+    background: var(--bg-gradient1);
+}
+
+/* CAROUSEL CONTAINER */
+.carouselContainer {
+    height: 300px;
+    width: 100%;
+}
+
+/* ROUTES */
+.routesContainer {
+    width: 100%;
+}

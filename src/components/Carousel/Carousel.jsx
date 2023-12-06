@@ -12,7 +12,7 @@ function Carousel() {
       <div
         id="carouselExample"
         className="carousel slide"
-        style={{ width: "100%" }}
+        style={{ width: "100%", height: "100%" }}
       >
         <div className="carousel-inner">
           <div className="carousel-item active text-center">
