@@ -4,7 +4,7 @@ import image from "../../assets/react.svg";
 
 function CardComponent() {
   return (
-    <Card style={{ width: "20rem", margin: "20px" }}>
+    <Card style={{ width: "100%", height: "100%", margin: "20px", overflow: "hidden" }}>
       <Card.Img variant="top" src={image} />
       <Card.Body>
         <Card.Title>Card Title</Card.Title>
