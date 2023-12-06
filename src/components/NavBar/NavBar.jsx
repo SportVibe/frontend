@@ -6,7 +6,7 @@ import Logo from'../../Images/Logo.jpg';
 
 function NavBar() {
   return (
-    <Navbar expand="lg" bg="light" variant="light">
+    <Navbar  className="w-100" expand="lg" bg="white" variant="light">
       <Navbar.Brand as={Link} to="/">
       <img
       src={Logo} 
