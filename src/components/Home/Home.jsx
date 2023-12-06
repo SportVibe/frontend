@@ -1,11 +1,20 @@
-
+import styles from "./Home.module.css";
+import CardComponent from "../Card/Card";
+import Carousel from "../Carousel/Carousel";
 
 function Home() {
-    return (
-        <div>
-            <h1>HOOOMEEEE</h1>
-        </div>
-    );
+  return (
+    <div className={styles.conteinerHome}>
+      <h1 className={styles.title}>Productos Recomendados</h1>
+      <Carousel />
+      <div className={styles.conteinerCards}>
+        <CardComponent />
+        <CardComponent />
+        <CardComponent />
+        <CardComponent />
+      </div>
+    </div>
+  );
 }
 
 export default Home;
