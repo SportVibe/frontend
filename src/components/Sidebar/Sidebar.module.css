@@ -1,0 +1,10 @@
+.text a {
+    color:rgb(226, 203, 203)
+}
+
+a:link { text-decoration:none; }
+
+ul li:hover {
+    background-color:rebeccapurple;
+    border-radius: 10px;
+}
