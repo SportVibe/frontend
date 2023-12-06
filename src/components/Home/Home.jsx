@@ -1,6 +1,6 @@
 import styles from "./Home.module.css";
 import CardComponent from "../Card/Card";
-import Carousel from "../Carousel/Carousel";
+import Carousel from "../../components/Carousel/Carousel";
 
 function Home() {
   return (

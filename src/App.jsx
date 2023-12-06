@@ -3,6 +3,7 @@ import CardComponent from "./components/Card/Card";
 import Button from 'react-bootstrap/Button';
 // import PATHROUTES from './helpers/pathroutes';
 import Home from "./components/Home/Home";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
