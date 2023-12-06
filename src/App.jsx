@@ -3,13 +3,9 @@ import CardComponent from "./components/Card/Card";
 import Button from 'react-bootstrap/Button';
 import { PATHROUTES } from './helpers/pathroutes';
 import styles from './App.module.css';
-import Home from "./components/Home/Home";
+import {Home,CarouselComponent,About,ShoppingCart, Login, NavBar } from "./helpers/indexComponents";
 import CarouselComponent from "./components/CarouselComponent/CarouselComponent";
 import { Route, Routes, useLocation } from "react-router-dom";
-import About from "./components/About/About"; // crear el componente
-import ShoppingCart from "./components/ShoppingCart/ShoppingCart"; // crear el componente
-import Login from "./components/Login/Login"; // crear el componente
-import NavBar from "./components/NavBar/NavBar";
 
 
 function App() {
