@@ -42,7 +42,7 @@ function About() {
 
   return (
     <div className={styles.aboutContainer}>
-      <h2>About Us</h2>
+      
       <Card className={styles.companyCard}>
         <Row className="g-0">
           <Col md={4}>
@@ -63,7 +63,6 @@ function About() {
         </Row>
       </Card>
 
-      <h3>Equipo de Trabajo</h3>
       <Row xs={1} md={2} lg={3} className={styles.teamCardsContainer}>
         {teamMembers.map((member) => (
           <Col key={member.id}>
