@@ -1,0 +1,15 @@
+.teamCard {
+    width: 18rem;
+    margin-bottom: 20px;
+  }
+  
+  .imageContainer {
+    border-radius: 50%; 
+    overflow: hidden; 
+  }
+  
+  .memberImage {
+    width: 100%;
+    height: auto; 
+  }
+  
