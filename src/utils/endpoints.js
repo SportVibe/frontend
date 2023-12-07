@@ -9,3 +9,5 @@ export async function allUsers(value) {
     const { data } = await axios('http:ncjnskjnkjcd', value);
     return data;
 }
+
+

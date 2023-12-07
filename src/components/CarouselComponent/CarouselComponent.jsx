@@ -3,6 +3,9 @@ import styles from './CarouselComponent.module.css';
 import image1 from "../../Images/camiseta-seleccion-argentina-adidas.webp";
 import image2 from "../../Images/1366_2000.jpeg";
 import image3 from "../../Images/121296-960w.webp";
+import image4 from "../../Images/BOCA-RIVER-CAMISETAS-ADIDAS02.jpg";
+import image5 from "../../Images/river202.webp";
+
 
 function CarouselComponent() {
     return (
@@ -56,6 +59,12 @@ function CarouselComponent() {
                     </div>
                     <div>
                         <img src={image3} alt="" />
+                    </div>
+                    <div>
+                        <img src={image4} alt="" />
+                    </div>
+                    <div>
+                        <img src={image5} alt="" />
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ function Home() {
         <FilterBar />
       </div>
       <div className={styles.conteinerHome}>
-        <h1 className={styles.title}>Productos Recomendados</h1>
+        <h2 className={styles.title}>Productos Recomendados</h2>
         <Carousel />
         <div className={styles.conteinerCards}>
           {/* {holi.map(number => {
