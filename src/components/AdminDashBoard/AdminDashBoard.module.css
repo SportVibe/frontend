@@ -1,3 +1,17 @@
 .text-sidebar{
     color:white;
 }
+
+.cardComponentContainer{
+    width: 200px;
+    height: 400px;
+  }
+
+  .conteinerCards{
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
