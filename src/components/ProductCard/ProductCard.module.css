@@ -1,0 +1,114 @@
+.mainView {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    background-color: transparent;
+    color: black;
+}
+
+.subMainView {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.imgContainer {
+    position: relative;
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.412);
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.714);
+    }
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: .4s ease-in-out;
+    }
+}
+
+#imgHover {
+    & img {
+        scale: 1.2;
+    }
+}
+
+.layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 21%, rgba(0, 0, 0, 0.38672768878718533) 96%);
+
+    & i {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 30px;
+        font-weight: 500;
+        color: white;
+
+        &:hover {
+            color: var(--button-color);
+        }
+    }
+}
+
+.downSideContainer {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.titleContainer {
+    width: 100%;
+    cursor: pointer;
+
+    & p {
+        font-size: 18px;
+        font-weight: 500;
+        padding: 0;
+        margin: 0;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.categoryNameContainer {
+    cursor: pointer;
+
+    & p {
+        width: auto;
+        font-size: 14px;
+        font-weight: 500;
+        color: gray;
+        padding: 0;
+        margin: 0;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.priceContainer {
+    width: 100%;
+
+    & p {
+        font-size: 30px;
+        padding: 0;
+        margin: 0;
+    }
+}

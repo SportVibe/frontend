@@ -1,7 +1,9 @@
 :root {
     --button-color: #0d6efd;
-    --gb-color-body: #ebebeb;
-    /* --gb-color-body: white; */
+    /* --bg-color-body: #ebebeb; */
+    --bg-color-body: white;
+    --bg-color-gray: #ebebeb;
+    --bg-color2: #9d75c4;
     --bg-color1: rgb(0, 136, 255);
     --bg-gradient1: linear-gradient(117deg, rgba(0, 136, 255, 1) 0%, rgba(0, 214, 255, 1) 26%, rgba(0, 187, 255, 1) 77%);
 }
@@ -9,7 +11,7 @@
 /* MAIN DIV */
 .mainView {
     width: 100%;
-    background-color: var(--gb-color-body);
+    background-color: var(--bg-color-body);
     display: flex;
     flex-direction: column;
     /* overflow-x: hidden; */
@@ -28,7 +30,13 @@
 
 /* CAROUSEL CONTAINER */
 .carouselContainer {
-    height: 300px;
+    height: 400px;
+    width: 100%;
+}
+
+/* CAROUSEL 2 CONTAINER */
+.carousel2Container {
+    height: 180px;
     width: 100%;
 }
 

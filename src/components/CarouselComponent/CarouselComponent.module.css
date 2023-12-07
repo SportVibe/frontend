@@ -49,12 +49,16 @@
     height: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
+    &::-webkit-scrollbar {
+        height: 0;
+    }
 }
 
 .imgBox {
     height: 100%;
-    width: 100%;
+    /* width: 100%; */
     object-fit: contain;
+    cursor: pointer;
 
     & img {
         width: 100%;
@@ -63,18 +67,24 @@
     }
 }
 
-.ul {
+.divImages {
     list-style: none;
     display: flex;
     height: 100%;
     padding: 0;
+    margin: 0;
 
-    & img {
-        width: 100%;
-        /* object-fit: contain; */
-        object-fit: cover;
-        animation: scale 1s ease-in-out both;
-        transform: translateX(-100%);
+    & div {
+        overflow: hidden;
+        min-width: 100%;
+        height: 100%;
+
+        & img {
+            object-fit: cover;
+            object-position: center;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
 
@@ -92,11 +102,13 @@
     padding-right: 20px;
     font-size: 20px;
     cursor: pointer;
-    background-color: var(--gb-color-body);
+    background-color: var(--bg-color-gray);
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
     z-index: 50;
 
     &:hover {
         background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -114,11 +126,13 @@
     padding-left: 20px;
     font-size: 20px;
     cursor: pointer;
-    background-color: var(--gb-color-body);
+    background-color: var(--bg-color-gray);
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
     z-index: 50;
 
     &:hover {
         background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     }
 }
 

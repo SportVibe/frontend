@@ -6,12 +6,12 @@ import Sidebar from "../Sidebar/Sidebar";
 function AdminDashBoard() {
     return (
         <div className="d-flex">
-         <Sidebar />
-         <div className="bg-black w-100">
-            <p className="text-center text-white">OTHER COMPONENTS</p>
-         </div>
+            <Sidebar />
+            <div className="bg-black w-100">
+                <p className="text-center text-white">OTHER COMPONENTS</p>
+            </div>
         </div>
-    
+
     );
 }
 
