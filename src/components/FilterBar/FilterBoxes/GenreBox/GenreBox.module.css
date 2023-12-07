@@ -16,6 +16,8 @@
 
 .genreBox {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 2px;
     height: var(--input-height);
     width: 100%;

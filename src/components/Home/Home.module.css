@@ -2,15 +2,22 @@
   position: relative;
   width: 100%;
   display: flex;
+  background-color: var(--bg-color-body);
 }
 
-.FilterBarContainer{
+.FilterBarContainer {
   position: sticky;
   top: 0;
   left: 0;
   width: 260px;
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
   z-index: 100;
 }
 
@@ -45,10 +52,10 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .cardComponentContainer{
-  width: 200px;
-  height: 100px;
+  width: 300px;
+  height: 400px;
 }
