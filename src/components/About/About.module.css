@@ -1,0 +1,22 @@
+.aboutContainer {
+    padding: 20px;
+  }
+  
+  .companyCard {
+    margin-top: 20px;
+  }
+  
+  .teamCardsContainer {
+    margin-top: 20px;
+  }
+  
+  .teamCard {
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    height: 100%; 
+    width: complite;
+    display: block; 
+    margin: 0 auto; 
+  }
