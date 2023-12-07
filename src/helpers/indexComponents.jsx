@@ -5,4 +5,4 @@ import NavBar from "../components/NavBar/NavBar";
 import Home from "../components/Home/Home";
 import CarouselComponent from "../components/CarouselComponent/CarouselComponent";
 
-export default {About, ShoppingCart, Login, NavBar, Home, CarouselComponent}
+export {About, ShoppingCart, Login, NavBar, Home, CarouselComponent}

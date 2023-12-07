@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import { PATHROUTES } from './helpers/pathroutes';
 import styles from './App.module.css';
 import {Home,CarouselComponent,About,ShoppingCart, Login, NavBar } from "./helpers/indexComponents";
-import CarouselComponent from "./components/CarouselComponent/CarouselComponent";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 

@@ -1,5 +1,5 @@
 import styles from './FilterBar.module.css';
-import {PriceBox, SizeBox, ColorBox, GenreBox} from '../../helpers/filterComponents';
+import {PriceBox, SizeBox, ColorBox, GenreBox} from '../../helpers/filterComponents.jsx';
 
 
 function FilterBar() {
