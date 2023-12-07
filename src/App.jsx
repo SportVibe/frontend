@@ -3,7 +3,7 @@ import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import styles from './App.module.css';
 import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2 } from "./helpers/indexComponents";
 import { Route, Routes, useLocation } from "react-router-dom";
-
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 
 function App() {
   const location = useLocation();
@@ -31,6 +31,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/detail/:id" element={<ProductDetail />} />
+
       </Routes>
     </div>
   );
