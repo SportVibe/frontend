@@ -23,14 +23,14 @@ function CarouselComponent() {
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img src={image2} alt="" />
+                    <img src={image2} alt="" className='w-100 vh-100' />
                     <Carousel.Caption>
                         <h3>Second slide label</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img src={image3} alt="" />
+                    <img src={image3} alt="" className='w-100 vh-100 ' />
                     <Carousel.Caption>
                         <h3>Third slide label</h3>
                         <p>
