@@ -85,7 +85,17 @@
     }
 }
 
-.button {
+.buttonContainer{
     text-align: center;
     margin-top: 10px;
+    height: var(--height-button);
+
+    & button {
+        color: white;
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--button-color);
+    }
 }

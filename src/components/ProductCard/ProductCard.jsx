@@ -8,14 +8,18 @@ function ProductCard({ productData }) {
     const categoryName = category.name;
     let priceFormat = (price / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    function handleImgHover() {
-        setImgHover(!imgHover);
+    function handleMouseEnter() {
+        setImgHover(true);
+    }
+
+    function handleMouseLeave() {
+        setImgHover(false);
     }
 
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
-                <div className={styles.imgContainer} id={imgHover && styles.imgHover} onMouseEnter={handleImgHover} onMouseLeave={handleImgHover}>
+                <div className={styles.imgContainer} id={imgHover && styles.imgHover} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <img src={images[0]} alt="" />
                     {imgHover &&
                         <div className={styles.layout}>

@@ -11,31 +11,31 @@ import UserForm from "../UserForm/UserForm";
 
 function AdminDashBoard() {
 
-    const [productArray, setProductArray] = useState(null);
-    const [sidebarRender,setSidebarRender] = useState(null);
-    //const [crearProducto,setCrearProducto] = useState(false)
-    
+  const [productArray, setProductArray] = useState(null);
+  const [sidebarRender, setSidebarRender] = useState(null);
+  //const [crearProducto,setCrearProducto] = useState(false)
 
-    useEffect(() => {
-        axios("https://api.escuelajs.co/api/v1/products").then(({ data }) => {
-          setProductArray(data);
-        });
-      }, []);
-      
-     
+
+  useEffect(() => {
+    axios("https://api.escuelajs.co/api/v1/products").then(({ data }) => {
+      setProductArray(data);
+    });
+  }, []);
+
+
 
   const renderProducts = () => {
-     return productArray?.length > 0  && productArray.map((product, i) => {
-        return (
-          <div key={i} className={styles.cardComponentContainer}>
-            <ProductCard productData={product} />
-          </div>
-        );
-      })
-    }
+    return productArray?.length > 0 && productArray.map((product, i) => {
+      return (
+        <div key={i} className={styles.cardComponentContainer}>
+          <ProductCard productData={product} />
+        </div>
+      );
+    })
+  }
 
-    
- return (
+
+  return (
     <div className="d-flex">
       <Sidebar setSidebarRender={setSidebarRender} />
       <div className="bg-transparent w-100">
@@ -61,16 +61,16 @@ function AdminDashBoard() {
           </form>
         </nav>
         {sidebarRender === "productos" ? <div className={styles.conteinerCards}>
-            {renderProducts()}
-            </div> : null}
-        {sidebarRender === "nuevo"  && 
-        <div>
+          {renderProducts()}
+        </div> : null}
+        {sidebarRender === "nuevo" &&
+          <div>
             <ProductForm />
-        </div>}
-        {sidebarRender === "usuarios" ? <UserForm/> : null}
-        
+          </div>}
+        {sidebarRender === "usuarios" ? <UserForm /> : null}
+
       </div>
-      
+
     </div>
   );
 }

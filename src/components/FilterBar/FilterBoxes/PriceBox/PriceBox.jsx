@@ -1,5 +1,5 @@
 import styles from './PriceBox.module.css';
-import Button from 'react-bootstrap/Button';
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
 
 function PriceBox() {
     return (
@@ -14,8 +14,8 @@ function PriceBox() {
                     <input type="text" placeholder='Máximo' />
                 </div>
             </div>
-            <div className={styles.button}>
-                <Button variant="primary">Agregar filtro</Button>{' '}
+            <div className={styles.buttonContainer}>
+                <ButtonComponent text='Agregar filtro'/>
             </div>
         </div>
     );
