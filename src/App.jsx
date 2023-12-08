@@ -5,6 +5,8 @@ import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2 
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 
+
+
 function App() {
   const location = useLocation();
 
