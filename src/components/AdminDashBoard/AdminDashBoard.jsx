@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
+import UserForm from "../UserForm/UserForm";
 
 
 function AdminDashBoard() {
@@ -64,6 +65,7 @@ function AdminDashBoard() {
         <div>
             <ProductForm />
         </div>}
+        {sidebarRender === "usuarios" ? <UserForm/> : null}
         
       </div>
       

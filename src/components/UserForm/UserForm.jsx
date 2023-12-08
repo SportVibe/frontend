@@ -1,7 +1,7 @@
 function UserForm() {
     return (
         <div>
-            
+            <h1>OPCIONES USUARIOS</h1>
         </div>
     );
 }

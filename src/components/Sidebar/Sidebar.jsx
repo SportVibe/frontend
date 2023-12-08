@@ -4,16 +4,9 @@ import "./styles.css"
 
 function Sidebar(props) {
 
-    const products = (e) =>{
+    const opcionSeleccionadaSidebar = (e) =>{
         e.preventDefault();
-        setActive(2);
-        props.setSidebarRender(e.target.attributes.name.nodeValue)
-    }
-
-    const nuevoProd = (e) => {
-        e.preventDefault();
-        setActive(3);
-        props.setSidebarRender(e.target.attributes.name.nodeValue)
+       props.setSidebarRender(e.target.attributes.name.nodeValue)
     }
 
     
@@ -34,28 +27,28 @@ function Sidebar(props) {
                     </a>
                     </li>
                     <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(2)}>
-                    <a href="" className="p-1 text-white" onClick={products}>
+                    <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-columns-gap me-3 fs-4"></i>
                         <span className="fs-4" name="productos">Productos</span>
                         
                     </a>
                     </li>
                     <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(3)}>
-                    <a href="" className="p-1 text-white" onClick={nuevoProd}>
+                    <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-bag-plus me-3 fs-4"></i>
                         <span className="fs-4" name="nuevo">Nuevo</span>
                     </a>
                     </li>
                     <li className={active === 4 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(4)}>
-                    <a href="" className="p-1 text-white">
+                    <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-person-circle me-3 fs-4"></i>
-                        <span className="fs-4">Usuarios</span>
+                        <span className="fs-4" name="usuarios">Usuarios</span>
                     </a>
                     </li>
                     <li className={active === 5 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(5)}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-bullseye me-3 fs-4"></i>
-                        <span className="fs-4">Otro</span>
+                        <span className="fs-4" name="otro">Otro</span>
                     </a>
                     </li>
                     </ul>
