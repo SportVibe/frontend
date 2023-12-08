@@ -46,7 +46,7 @@
 }
 
 .conteinerHome {
-  background-color: rgb(99, 99, 99);
+  /* background-color: rgb(99, 99, 99); */
   flex: 1;
   display: flex;
   flex-direction: column;
