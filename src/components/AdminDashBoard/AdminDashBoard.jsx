@@ -5,19 +5,38 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styles from "./AdminDashBoard.module.css";
+import ProductForm from "../ProductForm/ProductForm";
+
 
 function AdminDashBoard() {
-  const [productArray, setProductArray] = useState(null);
-  const [productRender,setProductRender] = useState(0);
-  useEffect(() => {
-    axios("https://api.escuelajs.co/api/v1/products").then(({ data }) => {
-      setProductArray(data);
-    });
-  }, []);
 
-  return (
+    const [productArray, setProductArray] = useState(null);
+    const [sidebarRender,setSidebarRender] = useState(null);
+    //const [crearProducto,setCrearProducto] = useState(false)
+    
+
+    useEffect(() => {
+        axios("https://api.escuelajs.co/api/v1/products").then(({ data }) => {
+          setProductArray(data);
+        });
+      }, []);
+      
+     
+
+  const renderProducts = () => {
+     return productArray?.length > 0  && productArray.map((product, i) => {
+        return (
+          <div key={i} className={styles.cardComponentContainer}>
+            <ProductCard productData={product} />
+          </div>
+        );
+      })
+    }
+
+    
+ return (
     <div className="d-flex">
-      <Sidebar />
+      <Sidebar setSidebarRender={setSidebarRender} />
       <div className="bg-transparent w-100">
         <nav className="navbar navbar-ligth bg-body-secondary justify-content-around">
           <a className="bi bi-bezier2"></a>
@@ -38,16 +57,14 @@ function AdminDashBoard() {
             </div>
           </form>
         </nav>
-        <div className={styles.conteinerCards}>
-        {productArray?.length > 0 &&
-          productArray.map((product, i) => {
-            return (
-              <div key={i} className={styles.cardComponentContainer}>
-                <ProductCard productData={product} />
-              </div>
-            );
-          })}
-      </div>
+        {sidebarRender === "productos" ? <div className={styles.conteinerCards}>
+            {renderProducts()}
+            </div> : null}
+        {sidebarRender === "nuevo"  && 
+        <div>
+            <ProductForm />
+        </div>}
+        
       </div>
       
     </div>

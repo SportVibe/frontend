@@ -2,10 +2,18 @@ import React , { useState }from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles.css"
 
-function Sidebar() {
+function Sidebar(props) {
 
     const products = (e) =>{
-    
+        e.preventDefault();
+        setActive(2);
+        props.setSidebarRender(e.target.attributes.name.nodeValue)
+    }
+
+    const nuevoProd = (e) => {
+        e.preventDefault();
+        setActive(3);
+        props.setSidebarRender(e.target.attributes.name.nodeValue)
     }
     const [active,setActive] = useState();
     return (
@@ -23,22 +31,23 @@ function Sidebar() {
                         <span className="fs-4">Dasboard</span>
                     </a>
                     </li>
-                    <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(2)}>
+                    <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} onClick={products}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-columns-gap me-3 fs-4"></i>
-                        <span className="fs-4">Products</span>
+                        <span className="fs-4" name="productos">Productos</span>
+                        
                     </a>
                     </li>
-                    <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(3)}>
+                    <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={nuevoProd}>
                     <a href="" className="p-1 text-white">
-                        <i className="bi bi-graph-down me-3 fs-4"></i>
-                        <span className="fs-4">Metricas</span>
+                        <i className="bi bi-bag-plus me-3 fs-4"></i>
+                        <span className="fs-4" name="nuevo">Nuevo</span>
                     </a>
                     </li>
                     <li className={active === 4 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(4)}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-person-circle me-3 fs-4"></i>
-                        <span className="fs-4">Users</span>
+                        <span className="fs-4">Usuarios</span>
                     </a>
                     </li>
                     <li className={active === 5 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(5)}>
