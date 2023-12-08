@@ -12,12 +12,16 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
+    & p {
+        overflow: hidden;
+    }
 }
 
 .imgContainer {
     position: relative;
     width: 100%;
-    height: 70%;
+    min-height: 70%;
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.412);
@@ -51,15 +55,25 @@
     background: rgb(255, 255, 255);
     background: linear-gradient(0deg, rgba(255, 255, 255, 0) 21%, rgba(0, 0, 0, 0.38672768878718533) 96%);
 
-    & i {
+    & div {
         position: absolute;
         top: 5px;
         right: 10px;
-        font-size: 30px;
-        font-weight: 500;
-        color: white;
+        background-color: rgba(255, 255, 255, 0.665);
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
+            background-color: rgb(255, 255, 255);
+        }
+
+        & i {
+            font-size: 20px;
+            font-weight: 500;
             color: var(--button-color);
         }
     }
@@ -72,9 +86,11 @@
 
 .titleContainer {
     width: 100%;
+    height: 30px;
     cursor: pointer;
 
     & p {
+        height: 100%;
         font-size: 18px;
         font-weight: 500;
         padding: 0;
@@ -88,8 +104,10 @@
 
 .categoryNameContainer {
     cursor: pointer;
+    height: 22px;
 
     & p {
+        height: 100%;
         width: auto;
         font-size: 14px;
         font-weight: 500;
@@ -105,9 +123,12 @@
 
 .priceContainer {
     width: 100%;
+    height: 44px;
 
     & p {
-        font-size: 30px;
+        line-height: 30px;
+        height: 100%;
+        font-size: 28px;
         padding: 0;
         margin: 0;
     }

@@ -23,15 +23,17 @@ function ProductCard({ productData }) {
                     <img src={images[0]} alt="" />
                     {imgHover &&
                         <div className={styles.layout}>
-                            <i className="bi bi-suit-heart-fill"></i>
+                            <div>
+                                <i className="fa-regular fa-heart"></i>
+                            </div>
                         </div>}
                 </div>
                 <div className={styles.downSideContainer}>
-                    <div className={styles.titleContainer}>
-                        <p>{title}</p>
-                    </div>
                     <div className={styles.categoryNameContainer}>
                         <p>{categoryName}</p>
+                    </div>
+                    <div className={styles.titleContainer}>
+                        <p>{title}</p>
                     </div>
                     <div className={styles.priceContainer}>
                         <p>$ {priceFormat}</p>

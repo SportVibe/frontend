@@ -56,7 +56,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    /* gap: 10px; */
     padding-top: 10px;
 
     & .img {
@@ -91,6 +91,12 @@
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    & .priceAfter{
+        padding: 0;
+        margin: 0;
+        font-size: 15px;
     }
 }
 
