@@ -1,0 +1,90 @@
+:root {
+    --padding-left-tableParamns: 7px;
+    --height-params-table: 35px;
+    --minWidth-counterParam: 50px;
+    --fontSize-params: 14px;
+}
+
+.mainView {
+    width: 100%;
+    height: 100%;
+    color: black;
+    padding: 25px;
+}
+
+.tableContainer {
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+
+    & p {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 0 var(--padding-left-tableParamns);
+        margin: 0;
+        font-size: var(--fontSize-params);
+    }
+}
+
+.paramsContainer {
+    width: 100%;
+    min-height: var(--height-params-table);
+    display: flex;
+    background-color: gray;
+
+    & .counterParam {
+        flex: 0;
+        min-width: var(--minWidth-counterParam);
+        height: 100%;
+    }
+
+    & p {
+        font-weight: 600;
+        font-size: var(--fontSize-params);
+        color: white;
+        min-height: 100%;
+    }
+}
+
+.recordsContainer {
+    background-color: blue;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.records {
+    width: 100%;
+    min-height: var(--height-params-table);
+    display: flex;
+    border-top: 1px solid rgb(212, 212, 212);
+    
+
+    & .counterValue {
+        flex: 0;
+        min-width: var(--minWidth-counterParam);
+        height: 100%;
+        font-weight: 600;
+        font-size: var(--fontSize-params);
+    }
+
+    & p {
+        min-height: 100%;
+        width: 100px;
+        overflow: scroll;
+    }
+}
+
+.records:nth-child(even){
+    background-color: var(--bg-color-gray);
+}
+
+.records:nth-child(odd){
+    background-color: white;
+}

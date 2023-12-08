@@ -1,5 +1,5 @@
 import styles from './ColorBox.module.css';
-import Button from 'react-bootstrap/Button';
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
 
 function ColorBox() {
     return (
@@ -27,8 +27,8 @@ function ColorBox() {
                 <li></li>
                 <li></li>
             </ul>
-            <div className={styles.button}>
-                <Button variant="primary">Agregar filtro</Button>{' '}
+            <div className={styles.buttonContainer}>
+                <ButtonComponent text='Agregar filtro' />
             </div>
         </div>
     );

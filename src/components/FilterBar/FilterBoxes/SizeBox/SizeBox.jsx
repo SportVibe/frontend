@@ -1,5 +1,5 @@
 import styles from './SizeBox.module.css';
-import Button from 'react-bootstrap/Button';
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
 
 function SizeBox() {
     return (
@@ -22,8 +22,8 @@ function SizeBox() {
                     <input type="text" placeholder='Máximo' />
                 </div>
             </div>
-            <div className={styles.button}>
-                <Button variant="primary">Agregar filtro</Button>{' '}
+            <div className={styles.buttonContainer}>
+                <ButtonComponent text='Agregar filtro' />
             </div>
         </div>
     );
