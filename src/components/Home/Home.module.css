@@ -1,17 +1,36 @@
+:root {
+  --categoryBar-height: 40px;
+}
+
 .mainView {
   position: relative;
   width: 100%;
   display: flex;
+  flex-direction: column;
   background-color: var(--bg-color-body);
+}
+
+.subMainView {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+.categoryBarContainer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: var(--categoryBar-height);
+  width: 100%;
+  z-index: 100;
 }
 
 .FilterBarContainer {
   position: sticky;
-  top: 0;
+  top: var(--categoryBar-height);
   left: 0;
   max-width: 260px;
   height: 100vh;
-  z-index: 100;
 }
 
 @media only screen and (max-width: 500px) {
@@ -27,7 +46,7 @@
 }
 
 .conteinerHome {
-  background-color: rgb(99, 99, 99);
+  /* background-color: rgb(99, 99, 99); */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -39,7 +58,7 @@
   align-self: center;
 }
 
-.conteinerCards{
+.conteinerCards {
   padding: 10px;
   display: flex;
   align-items: center;
@@ -48,7 +67,7 @@
   gap: 20px;
 }
 
-.cardComponentContainer{
-  width: 250px;
+.cardComponentContainer {
+  width: 230px;
   height: 370px;
 }

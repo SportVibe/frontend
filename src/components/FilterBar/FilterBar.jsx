@@ -10,15 +10,19 @@ function FilterBar() {
                     <div className={styles.filterBox}>
                         <Sort />
                     </div>
+                    <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
                         <PriceBox />
                     </div>
+                    <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
                         <SizeBox />
                     </div>
+                    <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
                         <ColorBox />
                     </div>
+                    <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
                         <GenreBox />
                     </div>

@@ -20,12 +20,15 @@ function Carousel2() {
             <div className={styles.subMainView}>
                 <ul className={styles.ul}>
                     {productArray?.length ? count.map((item, i) => {
+                        const price = productArray[i].price;
+                        let priceFormat = (price / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                         return (
                             <div key={i} className={styles.imgContainer}>
                                 <div className={styles.img}>
                                     <img src={productArray[i].images[0]} alt="" />
                                 </div>
                                 <p className={styles.nameAfter}>Mas vendido</p>
+                                <p className={styles.priceAfter}>$ {priceFormat}</p>
                             </div>
                         )
                     }) :
