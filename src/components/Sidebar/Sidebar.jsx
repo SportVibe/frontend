@@ -15,6 +15,8 @@ function Sidebar(props) {
         setActive(3);
         props.setSidebarRender(e.target.attributes.name.nodeValue)
     }
+
+    
     const [active,setActive] = useState();
     return (
          <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3 vh-100'>
@@ -31,15 +33,15 @@ function Sidebar(props) {
                         <span className="fs-4">Dasboard</span>
                     </a>
                     </li>
-                    <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} onClick={products}>
-                    <a href="" className="p-1 text-white">
+                    <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(2)}>
+                    <a href="" className="p-1 text-white" onClick={products}>
                         <i className="bi bi-columns-gap me-3 fs-4"></i>
                         <span className="fs-4" name="productos">Productos</span>
                         
                     </a>
                     </li>
-                    <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={nuevoProd}>
-                    <a href="" className="p-1 text-white">
+                    <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={e => setActive(3)}>
+                    <a href="" className="p-1 text-white" onClick={nuevoProd}>
                         <i className="bi bi-bag-plus me-3 fs-4"></i>
                         <span className="fs-4" name="nuevo">Nuevo</span>
                     </a>

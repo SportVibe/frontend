@@ -2,29 +2,18 @@ import React, { useState } from "react";
 import style from "./Form.module.css";
 //import validation from "../../../../api/src/helpers/validation";
 
-import { useNavigate }  from "react-router-dom";
-import axios from "axios";
 
 export default function ProductForm() {
-  const navigate = useNavigate();
 
-  // let type =[];
-  // const handleTypes =(e) => {
-  //   type.push(Number(e.target.value));
-  //   setPokeData({...pokeData, types:type })
-  //   console.log(type);
-  //   console.log(pokeData.types)
-  // }  
-
-  const [pokeData, setPokeData] = useState({
+  const [product, setProduct] = useState({
     nombre: "",
-    vida: "",
-    ataque: "",
-    defensa: "",
-    velocidad: "",
-    altura: "",
-    peso: "",
-    types:[],
+    talle: "",
+    categoria: "",
+    color: "",
+    material: "",
+    otroDato: "",
+    otroDato1: "",
+    descripcion:"",
     imagen: "",
   });
 
@@ -43,7 +32,7 @@ export default function ProductForm() {
    };
 
    const handleChange = (event) => {
-//     setPokeData({ ...pokeData, [event.target.name]: event.target.value });
+    setProduct({ ...product, [event.target.name]: event.target.value });
 //     setErrors(
 //       validation({ ...pokeData, [event.target.name]: event.target.value })
 //     );
@@ -69,7 +58,7 @@ export default function ProductForm() {
                 <label className={style.labels}>Nombre Producto</label>
                 <input
                   name="nombre"
-                  value={pokeData.nombre}
+                  value={product.nombre}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -81,33 +70,33 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Talle</label>
                 <input
-                  name="vida"
-                  value={pokeData.vida}
+                  name="talle"
+                  value={product.talle}
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
               </div>
-              <p id={style.errorVida}>{errors.vida}</p>
+              <p id={style.errorVida}>{errors.talle}</p>
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label className={style.labels}>Categoria</label>
                 <input
-                  name="ataque"
-                  value={pokeData.ataque}
+                  name="categoria"
+                  value={product.categoria}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
               </div>
-              <p id={style.errorAtaque}>{errors.ataque}</p>
+              <p id={style.errorAtaque}>{errors.categoria}</p>
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label className={style.labels}>Color</label>
                 <input
-                  name="defensa"
-                  value={pokeData.defensa}
+                  name="color"
+                  value={product.color}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -119,7 +108,7 @@ export default function ProductForm() {
                 <label className={style.labels}>Material</label>
                 <input
                   name="velocidad"
-                  value={pokeData.velocidad}
+                  value={product.velocidad}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -128,10 +117,10 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>Altura</label>
+                <label className={style.labels}>otroDato</label>
                 <input
-                  name="altura"
-                  value={pokeData.altura}
+                  name="otroDato"
+                  value={product.otroDato}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -140,10 +129,10 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>Peso</label>
+                <label className={style.labels}>otroDato1</label>
                 <input
-                  name="peso"
-                  value={pokeData.peso}
+                  name="otroDato1"
+                  value={product.otraDato1}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -153,16 +142,13 @@ export default function ProductForm() {
             <div id={style.tipoPadre} >
               <div id={style.tipoContainer} >
                 <label className={style.labels}>Descripcion</label>
-                <select
-                  name="types"
-                  size="6"
-                  value={pokeData.types}
+                <textarea
+                  name="descripcion"
+                  value={product.descripcion}
                   className={style.tipos}
                   onChange={handleChange}
-                  type="text-area"
-                >
-        
-                </select>
+                  >
+                </textarea>
               </div>
             </div>
             <div className={style.divLabels}>
@@ -170,7 +156,7 @@ export default function ProductForm() {
                 <label className={style.labels}>Imagen</label>
                 <input
                   name="imagen"
-                  value={pokeData.imagen}
+                  value={product.imagen}
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
