@@ -3,6 +3,7 @@ import { GET_PRODUCTS_FAILURE, GET_PRODUCTS_SUCCESS, GET_PRODUCTS} from "./actio
 const initialState = {
     productsBackup: [],
     products: [],
+    mostSoldProducts: [],
     error: null,
   };
   
@@ -20,6 +21,7 @@ const initialState = {
           ...state,
           products: action.payload, 
           productsBackup: action.payload,
+          mostSoldProducts: action.payload,
           error: null,
         };
       case GET_PRODUCTS_FAILURE:

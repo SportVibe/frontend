@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function Carousel2() {
     const count = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    const productRender = useSelector((state) => state.products);
+    const productRender = useSelector((state) => state.mostSoldProducts);
 
     return (
         <div className={styles.mainView}>
