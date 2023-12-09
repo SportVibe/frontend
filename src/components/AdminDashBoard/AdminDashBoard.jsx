@@ -12,7 +12,7 @@ import UserForm from "../UserForm/UserForm";
 function AdminDashBoard() {
 
   const [productArray, setProductArray] = useState(null);
-  const [sidebarRender, setSidebarRender] = useState(null);
+  const [sidebarRender, setSidebarRender] = useState("productos");
   //const [crearProducto,setCrearProducto] = useState(false)
 
 

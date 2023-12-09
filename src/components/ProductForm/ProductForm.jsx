@@ -1,36 +1,44 @@
 import React, { useState } from "react";
 import style from "./Form.module.css";
 import UploadFile from "../UploadFile/UploadFile";
+import axios from "axios";
 //import validation from "../../../../api/src/helpers/validation";
 
 
 export default function ProductForm() {
 
-  const [product, setProduct] = useState({
-    nombre: "",
-    talle: "",
-    categoria: "",
+  const [images, setImages] = useState("");
+
+  let [product, setProduct] = useState({
+    title: "",
+    sizes: "",
+    mark:"",
+    category: "",
+    subCategory:"",
     color: "",
-    material: "",
-    otroDato: "",
-    otroDato1: "",
-    descripcion:"",
-    imagen: "",
+    discount: "",
+    price: "",
+    gender: "",
+    description:"",
+    images:"", 
   });
+
+  
 
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     if(Object.keys(errors).length !== 0){
-//       setErrors({general:"Faltan Campos obligatorios"});
-//     }else{
-//       const endpoint = "http://localhost:3001/pokemons/create";
-//       axios.post(endpoint,pokeData)
-//       .then(({data}) => {window.alert(data.message +" => "+ data.data),navigate("/home")})
-//       .catch(error => window.alert(error.response.data.message))
-//     }
-   };
+    event.preventDefault();
+    // if(Object.keys(errors).length !== 0){
+    //   setErrors({general:"Faltan Campos obligatorios"});
+    // }else{
+      const endpoint = "http://localhost:3001/product";
+      setProduct({...product,images:images});
+      axios.post(endpoint,product)
+      .then(({data}) => {window.alert(data.message +" => "+ data.data)}) ///QUE data llega del back?
+      .catch(error => window.alert(error.response.data.message)) //Que formato tiene el error??
+    };
+   
 
    const handleChange = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
@@ -58,39 +66,64 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Nombre Producto</label>
                 <input
-                  name="nombre"
-                  value={product.nombre}
+                  name="title"
+                  value={product.title}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
               </div>
-              <p className={style.errors}>{errors.nombre}</p>
-            </div>
-            <div className={style.divLabels}>
-              <div className={style.inputBox}>
-                <label className={style.labels}>Talle</label>
-                <input
-                  name="talle"
-                  value={product.talle}
-                  className={style.inputs}
-                  onChange={handleChange}
-                ></input>
-              </div>
-              <p id={style.errorVida}>{errors.talle}</p>
+              {/* <p className={style.errors}>{errors.title}</p> */}
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label className={style.labels}>Categoria</label>
                 <input
-                  name="categoria"
-                  value={product.categoria}
+                  name="category"
+                  value={product.category}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
               </div>
-              <p id={style.errorAtaque}>{errors.categoria}</p>
+              {/* <p id={style.errorAtaque}>{errors.category}</p> */}
+            </div>           
+            <div className={style.divLabels}>
+              <div className={style.inputBox}>
+                <label className={style.labels}>Sub-Categoria</label>
+                <input
+                  name="subCategory"
+                  value={product.subCategory}
+                  type="text"
+                  className={style.inputs}
+                  onChange={handleChange}
+                ></input>
+              </div>
+              {/* <p id={style.errorAtaque}>{errors.subCategory}</p> */}
+            </div>
+            <div className={style.divLabels}>
+              <div className={style.inputBox}>
+                <label className={style.labels}>Marca</label>
+                <input
+                  name="mark"
+                  value={product.mark}
+                  className={style.inputs}
+                  onChange={handleChange}
+                ></input>
+              </div>
+              {/* <p id={style.errorVida}>{errors.mark}</p> */}
+            </div>
+            <div className={style.divLabels}>
+              <div className={style.inputBox}>
+                <label className={style.labels}>Talle</label>
+                <input
+                  name="sizes"
+                  value={product.sizes}
+                  className={style.inputs}
+                  onChange={handleChange}
+                ></input>
+              </div>
+              {/* <p id={style.errorVida}>{errors.sizes}</p> */}
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
@@ -106,10 +139,10 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>Material</label>
+                <label className={style.labels}>Descuento</label>
                 <input
-                  name="velocidad"
-                  value={product.velocidad}
+                  name="discount"
+                  value={product.discount}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -118,10 +151,10 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>otroDato</label>
+                <label className={style.labels}>Precio</label>
                 <input
-                  name="otroDato"
-                  value={product.otroDato}
+                  name="price"
+                  value={product.price}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -130,10 +163,10 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>otroDato1</label>
+                <label className={style.labels}>Genero</label>
                 <input
-                  name="otroDato1"
-                  value={product.otraDato1}
+                  name="gender"
+                  value={product.gender}
                   type="text"
                   className={style.inputs}
                   onChange={handleChange}
@@ -144,8 +177,8 @@ export default function ProductForm() {
               <div id={style.tipoContainer} >
                 <label className={style.labels}>Descripcion</label>
                 <textarea
-                  name="descripcion"
-                  value={product.descripcion}
+                  name="description"
+                  value={product.description}
                   className={style.tipos}
                   onChange={handleChange}
                   >
@@ -156,7 +189,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Imagen</label>
                 <div className={style.inputImage}>
-                <UploadFile />
+                <UploadFile setImages={setImages}/>
                 </div>
               </div>
             </div>
@@ -164,30 +197,9 @@ export default function ProductForm() {
               Crear
             </button>
           </form>
-            <p id={style.campos}>{errors.general}</p>
+            {/* <p id={style.campos}>{errors.general}</p> */}
         </div>
       </div>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// function ProductForm() {
-//     return (
-//         <div>
-//             <h1>PRUEBA FORMULARIO CREACION</h1>
-//         </div>
-//     );
-// }
-
-// export default ProductForm;
