@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 function ShoppingCart() {
-  // Datos de ejemplo de productos seleccionados
+  
   const product1 = {
     data: {
       id: 3,
@@ -64,15 +64,15 @@ function ShoppingCart() {
         <div>
           <p className="text-success">Disponible para envío</p>
           <div className="mb-2">
-            {/* Espacio para agregar cupones de descuento */}
+           
             <input type="text" className="form-control" placeholder="Cupón de descuento" />
           </div>
           <div className="d-flex gap-2">
-            {/* Botón para ir a pagar */}
+           
             <button type="button" className="btn btn-primary">
               Ir a Pagar
             </button>
-            {/* Botón para agregar más productos (redirección al home) */}
+            
             <Link to="/" className="btn btn-secondary">
               Agregar más productos
             </Link>
