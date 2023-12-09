@@ -6,16 +6,14 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import FalseCard from "../../components/FalseCard/FalseCard";
 import FilterBar from "../FilterBar/FilterBar";
 import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const [productArray, setProductArray] = useState(null);
   const holi = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 4, 5, 4, 5, 4, 5, 4, 5, 4];
+  const productRender = useSelector((state)=>state.products);
 
-  useEffect(() => {
-    axios('https://api.escuelajs.co/api/v1/products').then(({ data }) => {
-      setProductArray(data)
-    })
-  }, []);
+ console.log(productRender);
+
   return (
     <div className={styles.mainView}>
       <div className={styles.categoryBarContainer}>
@@ -29,7 +27,8 @@ function Home() {
           <h2 className={styles.title}>Productos Recomendados</h2>
           <Carousel />
           <div className={styles.conteinerCards}>
-            {productArray?.length > 0 ? productArray.map((product, i) => {
+            {productRender?.length > 0 ? productRender.map((product, i) => {
+              console.log(product);
               return (
                 <div key={i} className={styles.cardComponentContainer}>
                   <ProductCard productData={product} />

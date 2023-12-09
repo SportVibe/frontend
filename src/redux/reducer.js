@@ -1,6 +1,7 @@
-import { GET_PRODUCTS_FAILURE, GET_PRODUCTS_SUCCESS } from "./actions";
+import { GET_PRODUCTS_FAILURE, GET_PRODUCTS_SUCCESS, GET_PRODUCTS} from "./actions";
 
 const initialState = {
+    productsBackup: [],
     products: [],
     error: null,
   };
@@ -10,7 +11,16 @@ const initialState = {
       case GET_PRODUCTS_SUCCESS:
         return {
           ...state,
-          products: action.payload,
+          products: action.payload, 
+          productsBackup: action.payload,
+          error: null,
+        };
+      case GET_PRODUCTS:
+        console.log(state);
+        return {
+          ...state,
+          products: action.payload, 
+          productsBackup: action.payload,
           error: null,
         };
       case GET_PRODUCTS_FAILURE:

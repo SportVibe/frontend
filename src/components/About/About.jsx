@@ -50,7 +50,7 @@ function About() {
           </Col>
           <Col md={8}>
             <Card.Body>
-              <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
+              <Card.Title>¡SportVibe: Siente la energía, viste la pasión!n</Card.Title>
               <Card.Text>
                 La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
                 Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
