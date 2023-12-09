@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 function ShoppingCart() {
-  
+
   const product1 = {
     data: {
       id: 3,
@@ -21,7 +21,7 @@ function ShoppingCart() {
     },
   };
 
- 
+
   const calculateSubtotal = (cartItems) => {
     if (!cartItems || cartItems.length === 0) {
       return 0;
@@ -30,10 +30,10 @@ function ShoppingCart() {
     return cartItems.reduce((total, item) => total + item.data.price, 0);
   };
 
- 
+
   const cartItems = [product1, product2];
 
- 
+
   const subtotal = calculateSubtotal(cartItems);
 
   return (
@@ -64,15 +64,15 @@ function ShoppingCart() {
         <div>
           <p className="text-success">Disponible para envío</p>
           <div className="mb-2">
-           
+
             <input type="text" className="form-control" placeholder="Cupón de descuento" />
           </div>
           <div className="d-flex gap-2">
-           
+
             <button type="button" className="btn btn-primary">
               Ir a Pagar
             </button>
-            
+
             <Link to="/" className="btn btn-secondary">
               Agregar más productos
             </Link>
