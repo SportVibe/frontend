@@ -7,7 +7,8 @@ import image5 from "../../Images/river202.webp";
 import { useState } from 'react';
 
 
-function CarouselComponent() {
+function CarouselComponent(props) {
+    const text = props.text?.length ? props.text : ['', ''];
     const [imgHover, setImgHover] = useState(false);
 
     function handleMouseEnter() {
@@ -40,9 +41,14 @@ function CarouselComponent() {
                 </div>
             </div>
             <div className={styles.discounts}>
-                <p className={styles.frase}>Descuentos de hasta 50%</p>
-                <p className={styles.fraseSeparador}>|</p>
-                <p className={styles.frase}>No te pierdas estas ofertas!</p>
+                {props.text.length > 1 ?
+                    <div>
+                        <p className={styles.frase}>{text[0]}</p>
+                        <p className={styles.fraseSeparador}>|</p>
+                        <p className={styles.frase}>{text[1]}</p>
+                    </div> :
+                    <p className={styles.frase}>{text[0]}</p>
+                }
             </div>
             <div className={imgHover ? styles.leftArrow : styles.hiddenArrow}>
                 ←

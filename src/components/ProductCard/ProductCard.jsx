@@ -4,9 +4,20 @@ import { useState } from 'react';
 
 function ProductCard({ productData }) {
     const [imgHover, setImgHover] = useState(false);
-    const { id, title, price, description, category, images } = productData;
-    const categoryName = category.name;
-    let priceFormat = (price / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const id = productData.id ? productData.id : '';
+    const Colors = productData?.Colors.length ? productData.Colors : [''];
+    const Images = productData?.Images.length ? productData.Images : [''];
+    const Stocks = productData?.Stocks.length ? productData.Stocks : [''];
+    const available = productData.available ? productData.available : '';
+    const category = productData?.category ? productData.category : '';
+    const description = productData.description ? productData.description : '';
+    const discount = productData.discount ? productData.discount : '';
+    const gender = productData.gender ? productData.gender : '';
+    const mark = productData.mark ? productData.mark : '';
+    const subCategory = productData.subCategory ? productData.subCategory : '';
+    const title = productData.title ? productData.title : '';
+    const price = productData.price ? productData.price : '';
+    const priceFormat = (price / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function handleMouseEnter() {
         setImgHover(true);
@@ -20,7 +31,7 @@ function ProductCard({ productData }) {
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
                 <div className={styles.imgContainer} id={imgHover && styles.imgHover} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <img src={images[0]} alt="" />
+                    <img src={Images[0]} alt="" />
                     {imgHover &&
                         <div className={styles.layout}>
                             <div>
@@ -30,7 +41,7 @@ function ProductCard({ productData }) {
                 </div>
                 <div className={styles.downSideContainer}>
                     <div className={styles.categoryNameContainer}>
-                        <p>{categoryName}</p>
+                        <p>{category}</p>
                     </div>
                     <div className={styles.titleContainer}>
                         <p>{title}</p>

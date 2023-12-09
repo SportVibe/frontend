@@ -24,11 +24,12 @@
     min-height: 70%;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.412);
+    box-shadow: 0 0 3px 1px rgb(204, 204, 204);
+    transition: .3s ease;
     cursor: pointer;
 
     &:hover {
-        box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.714);
+        box-shadow: 0 0 8px 2px rgb(180, 180, 180);
     }
 
     & img {
@@ -84,15 +85,16 @@
     padding-top: 10px;
 }
 
-.titleContainer {
-    width: 100%;
-    height: 30px;
+.categoryNameContainer {
     cursor: pointer;
+    height: 22px;
 
     & p {
         height: 100%;
-        font-size: 18px;
-        font-weight: 500;
+        width: auto;
+        font-size: 12px;
+        font-weight: 300;
+        color: gray;
         padding: 0;
         margin: 0;
 
@@ -102,16 +104,15 @@
     }
 }
 
-.categoryNameContainer {
+.titleContainer {
+    width: 100%;
+    height: 25px;
     cursor: pointer;
-    height: 22px;
 
     & p {
         height: 100%;
-        width: auto;
-        font-size: 14px;
-        font-weight: 500;
-        color: gray;
+        font-size: 16px;
+        font-weight: 400;
         padding: 0;
         margin: 0;
 
@@ -128,7 +129,8 @@
     & p {
         line-height: 30px;
         height: 100%;
-        font-size: 28px;
+        font-size: 26px;
+        font-weight: 600;
         padding: 0;
         margin: 0;
     }

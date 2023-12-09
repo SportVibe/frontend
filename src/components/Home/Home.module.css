@@ -47,9 +47,22 @@
 
 .conteinerHome {
   /* background-color: rgb(99, 99, 99); */
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
+
+  & h2 {
+    position: absolute;
+    top: 0;
+    z-index: 30;
+    background-color: red;
+    width: 100%;
+  }
+
+  & .carouselHomeContainer {
+    background-color: green;
+  }
 }
 
 .title {
