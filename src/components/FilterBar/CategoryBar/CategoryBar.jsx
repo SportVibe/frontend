@@ -33,12 +33,45 @@ function CategoryBar() {
                     </div>
                 </div>
             </div>
-            <div className={imgHover ? styles.dropDown : styles.dropDownHidden}  onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                <p>tukis</p>
-                <p>tukis</p>
-                <p>tukis</p>
-                <p>tukis</p>
-                <p>tukis</p>
+            <div className={imgHover ? styles.dropDown : styles.dropDownHidden} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div className={styles.divisionsContainer}>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                    <div className={styles.filterDivision}>
+                        <p>tukis</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

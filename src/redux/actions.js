@@ -16,7 +16,7 @@ export const getProducts = (searchTerm) => async (dispatch) => {
 export const getAllProducts = () => async (dispatch) => {
   try {
     const {data}= await axios.get(`http://localhost:3005/product`);
-    return dispatch({ type: 'GET_PRODUCTS', payload: data.data });
+    return dispatch({ type: 'GET_PRODUCTS', payload: data });
   } catch (error) {
     return dispatch({ type: 'GET_PRODUCTS_FAILURE', payload: error.message });
   }

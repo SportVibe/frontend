@@ -16,7 +16,6 @@ const initialState = {
           error: null,
         };
       case GET_PRODUCTS:
-        console.log(state);
         return {
           ...state,
           products: action.payload, 

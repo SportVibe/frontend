@@ -10,15 +10,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
     height: 40px;
     background-color: rgba(0, 0, 0, 0.501);
     backdrop-filter: blur(5px);
     color: white;
     z-index: 80;
+
+    & div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 .frase {
@@ -49,6 +54,7 @@
     height: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
+
     &::-webkit-scrollbar {
         height: 0;
     }
@@ -89,7 +95,7 @@
     }
 }
 
-.hiddenArrow{
+.hiddenArrow {
     display: none;
 }
 
