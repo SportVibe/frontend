@@ -15,7 +15,7 @@ function PriceBox() {
                 </div>
             </div>
             <div className={styles.buttonContainer}>
-                <ButtonComponent text='Agregar filtro'/>
+                <ButtonComponent text='Aplicar filtro'/>
             </div>
         </div>
     );

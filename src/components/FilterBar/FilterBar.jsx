@@ -8,7 +8,16 @@ function FilterBar() {
             <div className={styles.subMainView}>
                 <div className={styles.sliderContainer}>
                     <div className={styles.filterBox}>
-                        <Sort />
+                        {/* <Sort /> */}
+                        <select className="form-select" aria-label="Default select example">
+                            <option selected>Ordenar por</option>
+                            <option value="1">Mas vendidos</option>
+                            <option value="2">Menos vendidos</option>
+                            <option value="1">Mas reciente</option>
+                            <option value="2">Menos reciente</option>
+                            <option value="1">Mas visitas</option>
+                            <option value="2">Menos visitas</option>
+                        </select>
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.filterBox}>

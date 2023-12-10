@@ -1,15 +1,24 @@
 .teamCard {
-    width: 18rem;
-    margin-bottom: 20px;
-  }
-  
-  .imageContainer {
-    border-radius: 50%; 
-    overflow: hidden; 
-  }
-  
-  .memberImage {
-    width: 100%;
-    height: auto; 
-  }
+  width: 18rem;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageContainer {
+  border-radius: 50%;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.memberImage {
+  width: 100%;
+  height: auto;
+}
+
+.listGroupItem {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
   

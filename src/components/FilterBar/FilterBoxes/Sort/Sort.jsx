@@ -18,7 +18,7 @@ function Sort() {
                 </div>
                 <div className={styles.sortBox}>
                     <p className={styles.option}>Mas visitas</p>
-                    <p className={styles.option}>Menos vendidos</p>
+                    <p className={styles.option}>Menos visitas</p>
                     <p className={styles.slideLeft}></p>
                 </div>
                 <div className={styles.sortBox}>

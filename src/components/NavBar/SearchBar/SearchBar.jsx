@@ -7,7 +7,9 @@ function SearchBar() {
   const dispatch = useDispatch();
 
   const handleSearch = () => {
-    dispatch(getProducts(searchTerm));
+    if (searchTerm.length) {
+      dispatch(getProducts(searchTerm));
+    }
   };
 
   return (
