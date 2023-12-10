@@ -7,8 +7,6 @@ function CategoryBar() {
         'Category',
         'Category',
         'Category',
-        'Category',
-        'Category',
     ]
 
 

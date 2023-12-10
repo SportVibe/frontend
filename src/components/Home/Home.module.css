@@ -71,6 +71,23 @@
   align-self: center;
 }
 
+.resultsContainer{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  & p {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 300;
+    color: black;
+  }
+}
+
 .conteinerCards {
   padding: 10px;
   display: flex;
