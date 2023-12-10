@@ -3,23 +3,28 @@ margin-bottom: auto;
 
 }
 
-.titleBox {
-  
+.Box {
+  background-color: bisque;
   color: black;
   position: absolute;
   top: 50%;
-  left:60%;
+  left:55%;
   transform: translate(-50%, -50%);
 }
 
-.img {
-  
-}
 
 .img img {
   width: 650px;
   height: 450px;
   border-radius: 8px;
   margin-left: 20px;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+}
+
+.boxTitle{
+  background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
 }

@@ -1,32 +1,40 @@
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetail.module.css";
 import { useEffect, useState } from "react";
-// import { allDetail } from "../../utils/endpoints";
 import axios from "axios";
 
 const ProductDetail = () => {
-  const { id } = useParams(null);
 
-  const [data, setData] = useState({});
+  const { id } = useParams();
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(allDetail)
+  const [data, setData] = useState(null);
 
-  //       .then(({ data }) => {
-  //         setData(data);
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error fetching product details:", error);
-  //       });
-  //   }, []);
+
+  
+  const Colors = data?.Colors.length ? data.Colors : [''];
+  const Images = data?.Images.length ? data.Images : [''];
+  const Stocks = data?.Stocks.length ? data.Stocks : [''];
+  const available = data?.available ? data.available : '';
+  const category = data?.category ? data.category : '';
+  const description = data?.description ? data.description : '';
+  const discount = data?.discount ? data.discount : '';
+  const gender = data?.gender ? data.gender : '';
+  const mark = data?.mark ? data.mark : '';
+  const subCategory = data?.subCategory ? data.subCategory : '';
+  const title = data?.title ? data.title : '';
+  let price = data?.price ? data.price : '';
+  price = (price / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+
+
 
   useEffect(() => {
     axios
       .get(`http://localhost:3005/detail/${id}`)
 
       .then(({ data }) => {
-        setData(data);
+        setData(data.data);
+    
       })
       .catch((error) => {
         console.log("Error fetching product details:", error);
@@ -34,24 +42,34 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+  // console.log(data);
+
+
   return (
     <div className={styles.conteinerDetail}>
+       <div className={styles.boxTitle}>
+          <h3>{title}</h3>
+        </div>
       <div className={styles.img}>
-        <img src={data.Image} />
+      <img src={Images} />
+        {Images &&
+          Images.map((image) => <img key={id} src={image} alt="" />)}
       </div>
-      <div className={styles.titleBox}>
-        <h3> title: {data.title}</h3>
-        <h3>description: {data.description}</h3>
-        <h3>price: {data.price}</h3>
-        <h3>discount: {data.discount}</h3>
-        <h3>mark: {data.mark}</h3>
-        <h3>gender: {data.gender}</h3>
-        <h3>category: {data.category}</h3>
-        <h3>subCategory: {data.subCategory}</h3>
-        <h3>available: {data.available}</h3>
-        <h3>createdAt: {data.createdAt}</h3>
-        <h3>updateAt: {data.updateAt}</h3>
-        <h3>size: {data.size}</h3>
+      <div className={styles.Box}>
+       
+        <div className={styles.boxDescription}>
+          <h3>description: {description}</h3>
+        </div>
+        <div className={styles.boxMark}>
+          <h3>mark: {mark}</h3>
+        </div>
+        <div className={styles.boxPrice}>
+          <h3>price: {price}</h3>
+        </div>
+        <div>
+        <h3>Colors: {Colors?.join(", ")}</h3>
+        </div>
       </div>
     </div>
   );
