@@ -29,31 +29,6 @@ function ProductCard({ productData }) {
     setImgHover(true);
   }
 
-<<<<<<< HEAD
-    return (
-        <div className={styles.mainView}>
-            <div className={styles.subMainView}>
-            <div className={styles.imgContainer} id={imgHover ? styles.imgHover : undefined} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <img src={Images[0]} alt="" />
-                    {imgHover &&
-                        <div className={styles.layout}>
-                            <div>
-                                <i className="fa-regular fa-heart"></i>
-                            </div>
-                        </div>}
-                </div>
-                <div className={styles.downSideContainer}>
-                    <div className={styles.categoryNameContainer}>
-                        <p>{category}</p>
-                    </div>
-                    <div className={styles.titleContainer}>
-                        <p>{title}</p>
-                    </div>
-                    <div className={styles.priceContainer}>
-                        <p>$USD {price}</p>
-                    </div>
-                </div>
-=======
   function handleMouseLeave() {
     setImgHover(false);
   }
@@ -77,7 +52,6 @@ function ProductCard({ productData }) {
               <div>
                 <i className="fa-regular fa-heart"></i>
               </div>
->>>>>>> 2ea10eaae2d79cfb814770c01edc1d81738eb8fc
             </div>
           )}
         </div>
