@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductPage } from '../redux/actions'; // Importa la nueva acción
+import { getProductPage } from '../../redux/actions'; 
 
 const Paginado = () => {
   const dispatch = useDispatch();
