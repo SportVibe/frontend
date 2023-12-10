@@ -4,20 +4,20 @@ import { useState } from 'react';
 
 function ProductCard({ productData }) {
     const [imgHover, setImgHover] = useState(false);
-    const id = productData.id ? productData.id : '';
+    const id = productData?.id ? productData.id : '';
     const Colors = productData?.Colors.length ? productData.Colors : [''];
     const Images = productData?.Images.length ? productData.Images : [''];
     const Stocks = productData?.Stocks.length ? productData.Stocks : [''];
-    const available = productData.available ? productData.available : '';
+    const available = productData?.available ? productData.available : '';
     const category = productData?.category ? productData.category : '';
-    const description = productData.description ? productData.description : '';
-    const discount = productData.discount ? productData.discount : '';
-    const gender = productData.gender ? productData.gender : '';
-    const mark = productData.mark ? productData.mark : '';
-    const subCategory = productData.subCategory ? productData.subCategory : '';
-    const title = productData.title ? productData.title : '';
-    const price = productData.price ? productData.price : '';
-    const priceFormat = (price / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const description = productData?.description ? productData.description : '';
+    const discount = productData?.discount ? productData.discount : '';
+    const gender = productData?.gender ? productData.gender : '';
+    const mark = productData?.mark ? productData.mark : '';
+    const subCategory = productData?.subCategory ? productData.subCategory : '';
+    const title = productData?.title ? productData.title : '';
+    let price = productData?.price ? productData.price : '';
+    price = (price / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function handleMouseEnter() {
         setImgHover(true);
@@ -47,7 +47,7 @@ function ProductCard({ productData }) {
                         <p>{title}</p>
                     </div>
                     <div className={styles.priceContainer}>
-                        <p>$ {priceFormat}</p>
+                        <p>$USD {price}</p>
                     </div>
                 </div>
             </div>
