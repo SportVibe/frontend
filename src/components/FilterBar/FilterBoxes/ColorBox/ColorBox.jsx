@@ -28,7 +28,7 @@ function ColorBox() {
                 <li></li>
             </ul>
             <div className={styles.buttonContainer}>
-                <ButtonComponent text='Agregar filtro' />
+                <ButtonComponent text='Aplicar filtro' />
             </div>
         </div>
     );

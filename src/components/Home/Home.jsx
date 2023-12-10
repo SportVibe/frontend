@@ -23,24 +23,20 @@ function Home() {
         <div className={styles.conteinerHome}>
           {/* <h2 className={styles.title}>Productos Recomendados</h2> */}
           <div className={styles.carouselHomeContainer}>
-          <CarouselComponent text={['Productos Recomendados']}/>
+            <CarouselComponent text={['Productos Recomendados']} />
             {/* <Carousel /> */}
           </div>
+          <div className={styles.resultsContainer}>
+            <p>Resultados: {productRender?.totalCount}</p>
+          </div>
           <div className={styles.conteinerCards}>
-            {productRender.data?.length > 0 ? productRender.data.map((product, i) => {
+            {productRender.data?.length > 0 && productRender.data.map((product, i) => {
               return (
                 <div key={i} className={styles.cardComponentContainer}>
                   <ProductCard productData={product} />
                 </div>
               )
-            }) :
-              falseCards.map((product, i) => {
-                return (
-                  <div key={i} className={styles.cardComponentContainer}>
-                    <FalseCard />
-                  </div>
-                )
-              })}
+            })}
           </div>
         </div>
       </div>
