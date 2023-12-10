@@ -11,7 +11,7 @@ function CardTeam({ name, image, description, linkedin, github }) {
         <Card.Title>{name}</Card.Title>
         <Card.Text>{description}</Card.Text>
       </Card.Body>
-      <ul className="list-group list-group-flush">
+      <ul className={`list-group ${styles.listGroupItem}`}>
         <li className="list-group-item">
           <a href={linkedin} className="card-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </li>

@@ -38,6 +38,38 @@ function About() {
       linkedin: 'https://www.linkedin.com/in/luca-bruzzone-6152b6278/',
       github: 'https://github.com/lucabruzzone',
     },
+    {
+      id: 5,
+      name: 'Brian Hernan Rojas',
+      image: 'https://web.whatsapp.com/cf99e8c8-2f3a-4366-bbba-2dc6201d0bc1',
+      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/brian-rojas-74a174278/',
+      github: 'https://github.com/BrianHerR',
+    },
+    {
+      id: 6,
+      name: 'Mariano Antonio Vijarra',
+      image: 'https://media.licdn.com/dms/image/D4D03AQF4sTw0IMe9kA/profile-displayphoto-shrink_800_800/0/1681867838912?e=1707955200&v=beta&t=WkaQ1JDU37mOqJPBIAUT1wLwiXmegrgc0fe_D_6wb-A',
+      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/mariano-vijarra/',
+      github: 'https://github.com/VijarraM',
+    },
+    {
+      id: 7,
+      name: 'Kerly Yohana Gomez Giraldo',
+      image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
+      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-139229287/',
+      github: 'https://github.com/KyohanaGomez',
+    },
+    {
+      id: 8,
+      name: 'Daniel Enoc Amaya Amaya',
+      image: 'https://media.licdn.com/dms/image/D4E35AQFROy33DDjPvA/profile-framedphoto-shrink_800_800/0/1699231376636?e=1702774800&v=beta&t=xwmskntNYkxWiqgFEO2af-Aj2rMJFDUfGwkV8ClpeO8',
+      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/daniel-enoc-amaya-amaya/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      github: 'https://github.com/danielamaya1908',
+    },
   ];
 
   return (
