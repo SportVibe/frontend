@@ -1,5 +1,5 @@
 .containerForm {
-    height: 600px;
+    height: 700px;
     width: 500px;
     margin: 0 auto;
     margin-top: 4px;
@@ -89,6 +89,7 @@
 .tipos{
     width: 300px;
     border-radius: 4px;
+    height: 100%;
 }
 
 .titulo{
