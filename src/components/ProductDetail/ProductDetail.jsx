@@ -4,29 +4,26 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const ProductDetail = () => {
-
   const { id } = useParams();
 
   const [data, setData] = useState(null);
 
-
-  
-  const Colors = data?.Colors.length ? data.Colors : [''];
-  const Images = data?.Images.length ? data.Images : [''];
-  const Stocks = data?.Stocks.length ? data.Stocks : [''];
-  const available = data?.available ? data.available : '';
-  const category = data?.category ? data.category : '';
-  const description = data?.description ? data.description : '';
-  const discount = data?.discount ? data.discount : '';
-  const gender = data?.gender ? data.gender : '';
-  const mark = data?.mark ? data.mark : '';
-  const subCategory = data?.subCategory ? data.subCategory : '';
-  const title = data?.title ? data.title : '';
-  let price = data?.price ? data.price : '';
-  price = (price / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-
-
+  const Colors = data?.Colors.length ? data.Colors : [""];
+  const Images = data?.Images.length ? data.Images : [""];
+  const Stocks = data?.Stocks.length ? data.Stocks : [""];
+  const available = data?.available ? data.available : "";
+  const category = data?.category ? data.category : "";
+  const description = data?.description ? data.description : "";
+  const discount = data?.discount ? data.discount : "";
+  // const gender = data?.gender ? data.gender : "";
+  const mark = data?.mark ? data.mark : "";
+  const subCategory = data?.subCategory ? data.subCategory : "";
+  const title = data?.title ? data.title : "";
+  let price = data?.price ? data.price : "";
+  price = (price / 1).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   useEffect(() => {
     axios
@@ -34,7 +31,6 @@ const ProductDetail = () => {
 
       .then(({ data }) => {
         setData(data.data);
-    
       })
       .catch((error) => {
         console.log("Error fetching product details:", error);
@@ -42,34 +38,22 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   // console.log(data);
-
 
   return (
     <div className={styles.conteinerDetail}>
-       <div className={styles.boxTitle}>
-          <h3>{title}</h3>
-        </div>
-      <div className={styles.img}>
-      <img src={Images} />
-        {Images &&
-          Images.map((image) => <img key={id} src={image} alt="" />)}
+      <div className={styles.boxTitle}>
+        <h3>{title}</h3>
       </div>
+      <div className={styles.img}>
+        {Images && Images.map((image) => <img key={id} src={image} alt="" />)}
+      </div>
+        <br />
       <div className={styles.Box}>
-       
-        <div className={styles.boxDescription}>
-          <h3>description: {description}</h3>
-        </div>
-        <div className={styles.boxMark}>
-          <h3>mark: {mark}</h3>
-        </div>
-        <div className={styles.boxPrice}>
-          <h3>price: {price}</h3>
-        </div>
-        <div>
-        <h3>Colors: {Colors?.join(", ")}</h3>
-        </div>
+        <h3> {description}</h3>
+        <h3>{mark}</h3>
+        <h3>{price}</h3>
+        <h3>{Colors?.join(", ")}</h3>
       </div>
     </div>
   );
