@@ -7,7 +7,10 @@ import axios from "axios";
 
 export default function ProductForm() {
 
-  const [images, setImages] = useState("");
+  const [images, setImages] = useState([]);
+  const [arrayImages, setArrayImages] = useState([]);
+  
+
 
   let [product, setProduct] = useState({
     title: "",
@@ -20,7 +23,7 @@ export default function ProductForm() {
     price: "",
     gender: "",
     description:"",
-    images:"", 
+    images:[], 
   });
 
   
@@ -28,22 +31,22 @@ export default function ProductForm() {
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
+    setProduct({...product,images:[...images,arrayImages]});
     event.preventDefault();
     // if(Object.keys(errors).length !== 0){
     //   setErrors({general:"Faltan Campos obligatorios"});
     // }else{
-      const endpoint = "http://localhost:3001/product";
-      setProduct({...product,images:images});
+      const endpoint = "http://localhost:3005/product";
       axios.post(endpoint,product)
-      .then(({data}) => {window.alert(data.message +" => "+ data.data)}) ///QUE data llega del back?
-      .catch(error => window.alert(error.response.data.message)) //Que formato tiene el error??
+      .then((res) => {console.log(res)}) ///QUE data llega del back?
+      .catch(error => window.alert(error.message)) //Que formato tiene el error??
     };
    
 
    const handleChange = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
 //     setErrors(
-//       validation({ ...pokeData, [event.target.name]: event.target.value })
+//       validation({ ...product, [event.target.name]: event.target.value })
 //     );
    };
 
@@ -127,6 +130,18 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
+                <label className={style.labels}>Cantidad</label>
+                <input
+                  name="cantidad"
+                  value={product.cantidad}
+                  className={style.inputs}
+                  onChange={handleChange}
+                ></input>
+              </div>
+              {/* <p id={style.errorVida}>{errors.sizes}</p> */}
+            </div>
+            <div className={style.divLabels}>
+              <div className={style.inputBox}>
                 <label className={style.labels}>Color</label>
                 <input
                   name="color"
@@ -189,7 +204,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Imagen</label>
                 <div className={style.inputImage}>
-                <UploadFile setImages={setImages}/>
+                <UploadFile setArrayImages={setArrayImages} setImages={setImages}/>
                 </div>
               </div>
             </div>
