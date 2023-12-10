@@ -7,31 +7,23 @@ import { useState, useEffect } from "react";
 import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
-
+import { useSelector } from "react-redux";
 
 function AdminDashBoard() {
-
+  const productRender = useSelector((state) => state.products);
   const [productArray, setProductArray] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
   //const [crearProducto,setCrearProducto] = useState(false)
-
-
-  useEffect(() => {
-    axios("https://api.escuelajs.co/api/v1/products").then(({ data }) => {
-      setProductArray(data);
-    });
-  }, []);
-
-
+  
 
   const renderProducts = () => {
-    return productArray?.length > 0 && productArray.map((product, i) => {
+    return (productRender.data?.length > 0 && productRender.data.map((product, i) => {
       return (
         <div key={i} className={styles.cardComponentContainer}>
           <ProductCard productData={product} />
         </div>
       );
-    })
+    }))
   }
 
 
