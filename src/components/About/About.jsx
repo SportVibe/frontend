@@ -59,7 +59,7 @@ function About() {
       name: 'Kerly Yohana Gomez Giraldo',
       image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
-      linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-139229287/',
+      linkedin: 'www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276',
       github: 'https://github.com/KyohanaGomez',
     },
     {

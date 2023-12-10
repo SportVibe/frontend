@@ -21,9 +21,6 @@ function Home() {
           <div className={styles.carouselHomeContainer}>
             <CarouselComponent text={['Productos Recomendados']} />
           </div>
-          <div className={styles.resultsContainer}>
-            <p>Resultados: {productRender?.totalCount}</p>
-          </div>
           <div className={styles.conteinerCards}>
             {productRender.data?.length > 0 && productRender.data.map((product, i) => {
               return (
