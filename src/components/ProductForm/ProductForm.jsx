@@ -7,9 +7,11 @@ import axios from "axios";
 
 export default function ProductForm() {
 
-  const [images, setImages] = useState([]);
+  //const [images, setImages] = useState([]);
   const [arrayImages, setArrayImages] = useState([]);
-  
+  const [errors, setErrors] = useState({});
+  const [sizeStock , setSizeStock] = useState([]);
+  console.log(sizeStock)
 
 
   let [product, setProduct] = useState({
@@ -27,9 +29,6 @@ export default function ProductForm() {
   });
 
   
-
-  const [errors, setErrors] = useState({});
-
   const handleSubmit = (event) => {
     setProduct({...product,images:[...images,arrayImages]});
     event.preventDefault();
@@ -49,6 +48,13 @@ export default function ProductForm() {
 //       validation({ ...product, [event.target.name]: event.target.value })
 //     );
    };
+
+   const handleSizes = (e) => {
+    let arraySizes=[];
+    //setSizeStock([{...sizeStock,[e.target.name] : e.target.value}])
+    arraySizes.push({[e.target.name] : e.target.value})
+    console.log(arraySizes)
+   }
 
   return (
     <div>
@@ -119,24 +125,42 @@ export default function ProductForm() {
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label className={style.labels}>Talle</label>
-                <input
-                  name="sizes"
-                  value={product.sizes}
-                  className={style.inputs}
-                  onChange={handleChange}
-                ></input>
+                  <select name="size" onChange={handleSizes} className={style.tipos} >
+                  <option value="" disabled selected>Seleccione Talle</option>
+                  <option value="XS">XS</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                  <option value="XXL">XXL</option>
+                  <option value="XXXL">XXXL</option>
+                  <option value="otro">Otro</option>
+                  <option value="noAplica">No Aplica</option>
+                 </select>
               </div>
               {/* <p id={style.errorVida}>{errors.sizes}</p> */}
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>Cantidad</label>
-                <input
-                  name="cantidad"
-                  value={product.cantidad}
+                <label name="stock"className={style.labels}>Cantidad</label>
+                <select name="stock" onChange={handleSizes} className={style.tipos} >
+                <option value="" disabled selected>Cantidad</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                </select>
+                {/* <input
+                  name="stock"
                   className={style.inputs}
-                  onChange={handleChange}
-                ></input>
+                  onChange={handleSizes}
+                ></input> */}
               </div>
               {/* <p id={style.errorVida}>{errors.sizes}</p> */}
             </div>
@@ -204,7 +228,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Imagen</label>
                 <div className={style.inputImage}>
-                <UploadFile setArrayImages={setArrayImages} setImages={setImages}/>
+                <UploadFile setArrayImages={setArrayImages}/>
                 </div>
               </div>
             </div>
