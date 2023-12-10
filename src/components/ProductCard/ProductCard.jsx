@@ -30,7 +30,7 @@ function ProductCard({ productData }) {
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
-                <div className={styles.imgContainer} id={imgHover && styles.imgHover} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className={styles.imgContainer} id={imgHover ? styles.imgHover : undefined} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <img src={Images[0]} alt="" />
                     {imgHover &&
                         <div className={styles.layout}>
