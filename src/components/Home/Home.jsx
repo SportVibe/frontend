@@ -2,6 +2,7 @@ import styles from "./Home.module.css";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
+import Paginado from "../Paginado/Paginado";
 import { CarouselComponent } from "../../helpers/indexComponents";
 import { useSelector } from "react-redux";
 
@@ -20,6 +21,10 @@ function Home() {
         <div className={styles.conteinerHome}>
           <div className={styles.carouselHomeContainer}>
             <CarouselComponent text={['Productos Recomendados']} />
+          </div>
+          <div className={styles.resultsContainer}>
+            <p>Resultados: {productRender?.totalCount}</p>
+            {/* <Paginado/> */}
           </div>
           <div className={styles.conteinerCards}>
             {productRender.data?.length > 0 && productRender.data.map((product, i) => {
