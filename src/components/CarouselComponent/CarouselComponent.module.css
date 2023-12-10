@@ -91,7 +91,7 @@
         overflow: hidden;
         min-width: 100%;
         height: 100%;
-        animation: scale .5s ease-in-out forwards;
+        animation: sideAppear .5s ease-in-out forwards;
         cursor: pointer;
 
         & img {
@@ -190,5 +190,15 @@
 
     to {
         scale: 1;
+    }
+}
+
+@keyframes sideAppear {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
     }
 }
