@@ -41,6 +41,9 @@ function Home() {
               )
             })}
           </div>
+          <div className={styles.paginado}>
+            <Paginado />
+          </div>
         </div>
       </div>
     </div>

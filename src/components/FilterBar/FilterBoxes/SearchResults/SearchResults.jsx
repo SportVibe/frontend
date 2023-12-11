@@ -4,8 +4,8 @@ function SearchResults(props) {
     const {search, totalCount} = props;
     return (
         <div className={styles.mainView}>
-            <p>Buscando:</p>
-            <p className={styles.searchText}>{`"${search}"`}</p>
+            {search && <p>Buscando:</p>}
+            {search && <p className={styles.searchText}>{`"${search}"`}</p>}
             <p>Resultados: {totalCount}</p>
         </div>
     );
