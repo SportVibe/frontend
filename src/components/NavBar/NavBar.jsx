@@ -29,7 +29,7 @@ function NavBar() {
           <Nav.Link as={Link} to="/shoppingcart">
             🛒
           </Nav.Link>
-          <Nav.Link as={Link} to="/dashboard">
+          <Nav.Link as={Link} to="/login">
             👤
           </Nav.Link>
         </Nav>

@@ -11,9 +11,7 @@ import { useSelector } from "react-redux";
 
 function AdminDashBoard() {
   const productRender = useSelector((state) => state.products);
-  const [productArray, setProductArray] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  //const [crearProducto,setCrearProducto] = useState(false)
   
 
   const renderProducts = () => {
