@@ -1,5 +1,6 @@
 :root {
     --button-color: #0d6efd;
+    --button-color-hover: #0060f1;
     --bg-color-body2: rgba(33,37,41);
     --bg-color-body: white;
     --bg-color-gray: #ebebeb;
@@ -35,7 +36,7 @@
 
 /* CAROUSEL 2 CONTAINER */
 .carousel2Container {
-    height: 200px;
+    /* height: 200px; */
     width: 100%;
 }
 

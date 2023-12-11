@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getProducts } from '../../../redux/actions';
+import { getProducts, searchActivity } from '../../../redux/actions';
 
 function SearchBar() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
 
@@ -10,6 +12,8 @@ function SearchBar() {
     if (searchTerm.length) {
       const propertiesArray = [{search: searchTerm}]
       dispatch(getProducts(propertiesArray));
+      dispatch(searchActivity(searchTerm));
+      navigate('/search');
     }
   };
 

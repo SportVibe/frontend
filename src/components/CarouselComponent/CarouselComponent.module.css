@@ -1,9 +1,78 @@
-.mainView {
+#imagesBigContainer {
+    width: 100%;
+    height: 400px;
+}
+
+#imgContainer {
+    position: relative;
     width: 100%;
     height: 100%;
-    position: relative;
-    background-color: transparent;
-    overflow-x: hidden;
+    cursor: pointer;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+#hiddenArrow {
+    display: none;
+}
+
+#leftArrow {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 25px;
+    font-weight: 700;
+    z-index: 50;
+
+    &:hover {
+        background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#rightArrow {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 25px;
+    font-weight: 700;
+    z-index: 50;
+
+    &:hover {
+        background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
 }
 
 .discounts {
@@ -54,151 +123,4 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.carouselBox {
-    width: 100%;
-    height: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
-
-    &::-webkit-scrollbar {
-        height: 0;
-    }
-}
-
-.imgBox {
-    height: 100%;
-    /* width: 100%; */
-    object-fit: contain;
-    cursor: pointer;
-
-    & img {
-        width: 100%;
-        /* object-fit: contain; */
-        object-fit: cover;
-    }
-}
-
-.divImages {
-    list-style: none;
-    display: flex;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-
-    & div {
-        overflow: hidden;
-        min-width: 100%;
-        height: 100%;
-        animation: sideAppear .5s ease-in-out forwards;
-        cursor: pointer;
-
-        & img {
-            object-fit: cover;
-            object-position: center;
-            width: 100%;
-            height: 100%;
-        }
-    }
-}
-
-.hiddenArrow {
-    display: none;
-}
-
-.leftArrow {
-    position: absolute;
-    left: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 80px;
-    width: 80px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 20px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: var(--bg-color-gray);
-    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
-    z-index: 50;
-
-    &:hover {
-        background-color: white;
-        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-    }
-}
-
-.rightArrow {
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 80px;
-    width: 80px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 20px;
-    font-size: 20px;
-    cursor: pointer;
-    background-color: var(--bg-color-gray);
-    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
-    z-index: 50;
-
-    &:hover {
-        background-color: white;
-        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-    }
-}
-
-.miniPagination {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    & button {
-        height: 12px;
-        width: 12px;
-        border: none;
-        border-radius: 100%;
-        background-color: rgba(0, 0, 0, 0.545);
-        margin: 0 5px;
-        scale: .9;
-        cursor: pointer;
-        transition: .2s ease-out;
-
-        &:hover {
-            background-color: white;
-            scale: 1.2;
-        }
-    }
-}
-
-@keyframes scale {
-    from {
-        scale: 0;
-    }
-
-    to {
-        scale: 1;
-    }
-}
-
-@keyframes sideAppear {
-    from {
-        transform: translateX(-100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
 }

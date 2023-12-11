@@ -1,23 +1,24 @@
 import styles from './FilterBar.module.css';
-import { PriceBox, SizeBox, ColorBox, GenreBox, Sort } from '../../helpers/filterComponents.jsx';
+import { useSelector } from 'react-redux';
+import { PriceBox, SizeBox, ColorBox, GenreBox, Sort, SearchResults } from '../../helpers/filterComponents.jsx';
 
 
 function FilterBar() {
+    const search_Activity = useSelector((state => state.search));
+    const {totalFilteredCount} = useSelector((state) => state.products);
+
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
                 <div className={styles.sliderContainer}>
+                    {search_Activity &&
+                        <div className={styles.filterBox}>
+                            <SearchResults search={search_Activity} totalCount={totalFilteredCount} />
+                            <div className={styles.divider}></div>
+                        </div>
+                    }
                     <div className={styles.filterBox}>
-                        {/* <Sort /> */}
-                        <select className="form-select" aria-label="Default select example">
-                            <option selected>Ordenar por</option>
-                            <option value="1">Mas vendidos</option>
-                            <option value="2">Menos vendidos</option>
-                            <option value="1">Mas reciente</option>
-                            <option value="2">Menos reciente</option>
-                            <option value="1">Mas visitas</option>
-                            <option value="2">Menos visitas</option>
-                        </select>
+                        <Sort />
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.filterBox}>

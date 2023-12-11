@@ -1,32 +1,17 @@
 import styles from './Sort.module.css';
-import { useState } from 'react';
 
 function Sort() {
-    const [sorts, setSorts] = useState({
-        porVentas: '',
-        porVisitas: '',
-        porRelevancias: '',
-    })
-
     return (
-        <div className={styles.mainView}>
-            <div className={styles.sortContainer}>
-                <div className={styles.sortBox}>
-                    <p className={styles.option}>Mas vendidos</p>
-                    <p className={styles.option}>Menos vendidos</p>
-                    <p className={styles.slideLeft}></p>
-                </div>
-                <div className={styles.sortBox}>
-                    <p className={styles.option}>Mas visitas</p>
-                    <p className={styles.option}>Menos visitas</p>
-                    <p className={styles.slideLeft}></p>
-                </div>
-                <div className={styles.sortBox}>
-                    <p className={styles.option}>Mas reciente</p>
-                    <p className={styles.option}>Menos reciente</p>
-                    <p className={styles.slideLeft}></p>
-                </div>
-            </div>
+        <div className={styles.sortBox}>
+            <p>Ordenar por:</p>
+            <select className={styles.selectSort}>
+                <option value="1">Mas vendidos</option>
+                <option value="2">Menos vendidos</option>
+                <option value="1">Mas reciente</option>
+                <option value="2">Menos reciente</option>
+                <option value="1">Mas visitas</option>
+                <option value="2">Menos visitas</option>
+            </select>
         </div>
     );
 }

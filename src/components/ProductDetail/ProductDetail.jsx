@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const description = data?.description ? data.description : "";
   const discount = data?.discount ? data.discount : "";
   // const gender = data?.gender ? data.gender : "";
-  const mark = data?.mark ? data.mark : "";
+  const brand = data?.mark ? data.mark : "";
   const subCategory = data?.subCategory ? data.subCategory : "";
   const title = data?.title ? data.title : "";
   let price = data?.price ? data.price : "";
