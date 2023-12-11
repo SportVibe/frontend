@@ -7,6 +7,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+    animation: sideAppear .4s ease-in-out forwards;
     cursor: pointer;
 
     & img {
@@ -123,4 +124,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@keyframes sideAppear {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
 }
