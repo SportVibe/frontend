@@ -76,6 +76,19 @@
 .paginado{
   width: 100%;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results{
+  text-align: center;
+
+  & p {
+    font-size: 20px;
+    padding: 0;
+    margin: 5px 0;
+  }
 }
 
 .conteinerCards {
