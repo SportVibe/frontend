@@ -9,18 +9,6 @@
     flex-direction: column;
 }
 
-.subMainView {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: scroll;
-
-    &::-webkit-scrollbar {
-        height: 0;
-    }
-}
-
 .mostSold{
     background-color: var(--gb-color-body);
     height: 50px;
@@ -37,9 +25,21 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 40%;
+    height: 50%;
     background-color: var(--bg-color2);
     width: 100%;
+}
+
+.subMainView {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0 0 0;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+        height: 0;
+    }
 }
 
 .layoutLeft {
