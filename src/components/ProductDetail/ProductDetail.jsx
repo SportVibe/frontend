@@ -10,7 +10,7 @@ const ProductDetail = () => {
   const [data, setData] = useState(null);
 
 
-  
+
   const Colors = data?.Colors.length ? data.Colors : [''];
   const Images = data?.Images.length ? data.Images : [''];
   const Stocks = data?.Stocks.length ? data.Stocks : [''];
@@ -19,7 +19,7 @@ const ProductDetail = () => {
   const description = data?.description ? data.description : '';
   const discount = data?.discount ? data.discount : '';
   const gender = data?.gender ? data.gender : '';
-  const mark = data?.mark ? data.mark : '';
+  const brand = data?.brand ? data.brand : '';
   const subCategory = data?.subCategory ? data.subCategory : '';
   const title = data?.title ? data.title : '';
   let price = data?.price ? data.price : '';
@@ -34,7 +34,7 @@ const ProductDetail = () => {
 
       .then(({ data }) => {
         setData(data.data);
-    
+
       })
       .catch((error) => {
         console.log("Error fetching product details:", error);
@@ -48,27 +48,27 @@ const ProductDetail = () => {
 
   return (
     <div className={styles.conteinerDetail}>
-       <div className={styles.boxTitle}>
-          <h3>{title}</h3>
-        </div>
+      <div className={styles.boxTitle}>
+        <h3>{title}</h3>
+      </div>
       <div className={styles.img}>
-      <img src={Images} />
+        <img src={Images} />
         {Images &&
           Images.map((image) => <img key={id} src={image} alt="" />)}
       </div>
       <div className={styles.Box}>
-       
+
         <div className={styles.boxDescription}>
           <h3>description: {description}</h3>
         </div>
         <div className={styles.boxMark}>
-          <h3>mark: {mark}</h3>
+          <h3>mark: {brand}</h3>
         </div>
         <div className={styles.boxPrice}>
           <h3>price: {price}</h3>
         </div>
         <div>
-        <h3>Colors: {Colors?.join(", ")}</h3>
+          <h3>Colors: {Colors?.join(", ")}</h3>
         </div>
       </div>
     </div>

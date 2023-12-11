@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 
 function Home() {
   const productRender = useSelector((state) => state.products);
+  // console.log(productRender);
 
   return (
     <div className={styles.mainView}>
@@ -23,7 +24,7 @@ function Home() {
             <CarouselComponent text={['Productos Recomendados']} />
           </div>
           <div className={styles.resultsContainer}>
-            <p>Resultados: {productRender?.totalCount}</p>
+            <p>Resultados: {productRender?.totalFilteredCount}</p>
             {/* <Paginado/> */}
           </div>
           <div className={styles.conteinerCards}>

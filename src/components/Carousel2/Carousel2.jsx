@@ -1,11 +1,18 @@
 import styles from './Carousel2.module.css';
 import logoImage from '../../Images/Logo.jpg';
 import CarouselCard from './CarouselCar/CarouselCard';
-import { useSelector } from "react-redux";
+import { getCarousel2Products } from '../../redux/actions';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
 
 function Carousel2() {
+    const dispatch = useDispatch();
     const count = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    const productRender = useSelector((state) => state.mostSoldProducts);
+    const productRender = useSelector((state) => state.carousel2Render);
+
+    useEffect(() => {
+        dispatch(getCarousel2Products());
+    }, []);
 
     return (
         <div className={styles.mainView}>
