@@ -3,13 +3,24 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
 import Paginado from "../Paginado/Paginado";
+
 import { CarouselComponent } from "../../helpers/indexComponents";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+import { getProducts, searchActivity} from "../../redux/actions";
+
+
 function Home() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const productRender = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(searchActivity(""));
+  }, []);
 
   return (
     <div className={styles.mainView}>

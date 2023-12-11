@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-      {(location.pathname === '/' || location.pathname === '/search') &&
+      {(location.pathname !== '/' || location.pathname !== '/search') &&
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>

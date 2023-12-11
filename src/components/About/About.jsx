@@ -95,7 +95,7 @@ function About() {
         </Row>
       </Card>
 
-      <Row xs={1} md={2} lg={3} className={styles.teamCardsContainer}>
+      <Row xs={1} md={2} lg={3} className='d-flex'>
         {teamMembers.map((member) => (
           <Col key={member.id}>
             <CardTeam {...member} />
