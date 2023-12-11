@@ -8,7 +8,8 @@ function SearchBar() {
 
   const handleSearch = () => {
     if (searchTerm.length) {
-      dispatch(getProducts(searchTerm));
+      const propertiesArray = [{search: searchTerm}]
+      dispatch(getProducts(propertiesArray));
     }
   };
 

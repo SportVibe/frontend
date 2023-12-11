@@ -4,12 +4,13 @@ import {
   GET_PRODUCTS,
   GET_PRODUCT_PAGE_FAILURE,
   GET_PRODUCT_PAGE_SUCCESS,
+  GET_CAROUSEL2_PRODUCTS,
 } from "./actions";
 
 const initialState = {
   productsBackup: [],
   products: [],
-  mostSoldProducts: [],
+  carousel2Render: [],
   error: null,
   currentPage: 1,
   limitPage: 20,
@@ -29,7 +30,12 @@ const productReducer = (state = initialState, action) => {
         ...state,
         products: action.payload,
         productsBackup: action.payload,
-        mostSoldProducts: action.payload,
+        error: null,
+      };
+    case GET_CAROUSEL2_PRODUCTS:
+      return {
+        ...state,
+        carousel2Render: action.payload,
         error: null,
       };
     case GET_PRODUCTS_FAILURE:
