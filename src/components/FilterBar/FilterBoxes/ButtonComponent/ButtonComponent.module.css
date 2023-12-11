@@ -9,13 +9,14 @@
         border-radius: 5px;
         background-color: var(--button-color);
 
+        &:hover {
+            background-color: var(--button-color-hover);
+            transition: .2s ease;
+        }
+
         &:focus {
             animation: focus .15s ease-in both;
         }
-    }
-
-    &:hover {
-        opacity: var(--opacity-soft-solid);
     }
 }
 

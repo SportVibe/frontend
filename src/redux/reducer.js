@@ -5,9 +5,11 @@ import {
   GET_PRODUCT_PAGE_FAILURE,
   GET_PRODUCT_PAGE_SUCCESS,
   GET_CAROUSEL2_PRODUCTS,
+  SEARCH_ACTIVITY
 } from "./actions";
 
 const initialState = {
+  search: '',
   productsBackup: [],
   products: [],
   carousel2Render: [],
@@ -36,6 +38,12 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         carousel2Render: action.payload,
+        error: null,
+      };
+    case SEARCH_ACTIVITY:
+      return {
+        ...state,
+        search: action.payload,
         error: null,
       };
     case GET_PRODUCTS_FAILURE:

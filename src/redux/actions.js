@@ -8,6 +8,7 @@ export const GET_PRODUCT_PAGE_SUCCESS = "GET_PRODUCT_PAGE_SUCCESS";
 export const GET_PRODUCT_PAGE_FAILURE = "GET_PRODUCT_PAGE_FAILURE";
 export const GET_PRODUCT_PAGE = "GET_PRODUCT_PAGE";
 export const GET_CAROUSEL2_PRODUCTS = "GET_CAROUSEL2_PRODUCTS";
+export const SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -25,6 +26,14 @@ export const getCarousel2Products = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`http://localhost:3005/product`);
     return dispatch({ type: GET_CAROUSEL2_PRODUCTS, payload: data });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const searchActivity = (activity) => async (dispatch) => {
+  try {
+    return dispatch({ type: SEARCH_ACTIVITY, payload: activity });
   } catch (error) {
     console.error(error.message);
   }

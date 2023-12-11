@@ -14,7 +14,7 @@ const Paginado = () => {
   };
 
   return (
-    <div className="mainView">
+    <div className="mainView d-flex justify-content-center w-100">
       <div id="arrows" className="leftArrow" onClick={() => handlePageChange(pageNumber - 1)}>
         &laquo;
       </div>
