@@ -5,7 +5,6 @@ import axios from "axios";
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const [data, setData] = useState(null);
 
   const Colors = data?.Colors.length ? data.Colors : [""];
@@ -51,7 +50,7 @@ const ProductDetail = () => {
         <br />
       <div className={styles.Box}>
         <h3> {description}</h3>
-        <h3>{mark}</h3>
+        <h3>{brand}</h3>
         <h3>{price}</h3>
         <h3>{Colors?.join(", ")}</h3>
       </div>

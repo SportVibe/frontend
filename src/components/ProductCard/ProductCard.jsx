@@ -16,7 +16,7 @@ function ProductCard({ productData }) {
     const description = productData?.description ? productData.description : "";
     const discount = productData?.discount ? productData.discount : "";
     const gender = productData?.gender ? productData.gender : "";
-    const mark = productData?.mark ? productData.mark : "";
+    const brand = productData?.brand ? productData.brand : "";
     const subCategory = productData?.subCategory ? productData.subCategory : "";
     const title = productData?.title ? productData.title : "";
     let price = productData?.price ? productData.price : "";
@@ -47,7 +47,7 @@ function ProductCard({ productData }) {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <img src={Images[0]} alt="" />
+                    <img src={Images[0]} alt="imagen"/>
                     {imgHover && (
                         <div className={styles.layout}>
                             <div>

@@ -4,7 +4,7 @@ import styles from './App.module.css';
 import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2 } from "./helpers/indexComponents";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import {getAllProducts} from "./redux/actions";
+import {getProducts} from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -13,7 +13,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(getAllProducts());    
+    dispatch(getProducts());    
   }, []);
 
 
