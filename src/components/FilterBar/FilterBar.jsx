@@ -5,18 +5,16 @@ import { PriceBox, SizeBox, ColorBox, GenreBox, Sort, SearchResults } from '../.
 
 function FilterBar() {
     const search_Activity = useSelector((state => state.search));
-    const {totalFilteredCount} = useSelector((state) => state.products);
+    const { totalFilteredCount } = useSelector((state) => state.products);
 
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
                 <div className={styles.sliderContainer}>
-                    {search_Activity &&
-                        <div className={styles.filterBox}>
-                            <SearchResults search={search_Activity} totalCount={totalFilteredCount} />
-                            <div className={styles.divider}></div>
-                        </div>
-                    }
+                    <div className={styles.filterBox}>
+                        <SearchResults search={search_Activity} totalCount={totalFilteredCount} />
+                        <div className={styles.divider}></div>
+                    </div>
                     <div className={styles.filterBox}>
                         <Sort />
                     </div>
