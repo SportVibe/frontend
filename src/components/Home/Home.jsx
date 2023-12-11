@@ -10,7 +10,6 @@ import { useLocation } from "react-router-dom";
 function Home() {
   const location = useLocation();
   const productRender = useSelector((state) => state.products);
-  // console.log(productRender);
 
   return (
     <div className={styles.mainView}>
@@ -29,6 +28,9 @@ function Home() {
           }
           <div className={styles.paginado}>
             <Paginado />
+          </div>
+          <div className={styles.results}>
+            <p>Resultados: {productRender?.totalFilteredCount}</p>
           </div>
           <div className={styles.conteinerCards}>
             {productRender.data?.length > 0 && productRender.data.map((product, i) => {
