@@ -51,9 +51,10 @@
 }
 
 #cantidadSelect{
-    width: 50%;
-    margin-left: 67px;
+    width: 110px;
+    margin-left: 85px;
 }
+
 .inputBox{
     width: 100%;
     height: 80%;
@@ -63,8 +64,12 @@
 }
 
 #buttonOk{
-    margin-right: 10px;
-}
+    display: flex;
+    border-radius: 15px;
+    &:hover{
+        background-color: rgb(211, 231, 224);
+    }
+} 
 
 #nameContainer{
     width: 100%;
@@ -72,6 +77,18 @@
     height: 85px;
     display:flex;
     align-items: center;
+}
+
+.active{
+    background-color: rgb(236, 243, 236);
+    border: 3px solid green;
+    border-color: green;
+}
+
+.inactive{
+    border: 3px solid rgb(194, 218, 214);
+    border-color: red;
+    background-color: rgb(240, 232, 232);
 }
 
 
@@ -136,7 +153,7 @@
 }
 
 #tipoContainer{
-    height: 100%;
+    height: 80%;
     display: flex;
     justify-content: space-between;
     width: 100%;

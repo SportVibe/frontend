@@ -11,7 +11,7 @@ export default function ProductForm() {
   const [errors, setErrors] = useState({});
   const [sizeStock , setSizeStock] = useState({}); // voy guardando pares key:value de talle y cantidad
   const [sizeArray , setSizeArray] = useState([]); // armo el array de objetos para enviar al back de size y stock
-  console.log(arrayImages)
+  
 
   let [product, setProduct] = useState({
     title: "",
@@ -179,10 +179,8 @@ export default function ProductForm() {
                 <option value="9">9</option>
                 <option value="10">10</option>
                 </select>
-                <div >
-                  <button id={style.buttonOk} className="bi bi-calendar2-check bg-green" value="button" onClick={handleSizes}></button>
-                </div>
-              </div>
+                <button id={style.buttonOk} className={sizeArray.length>=1? style.active : style.inactive} value="button" onClick={handleSizes}>Agregar talle y cantidad</button>
+               </div>
               {/* <p id={style.errorVida}>{errors.sizes}</p> */}
             </div>
             <div className={style.divLabels}>
