@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-      {(location.pathname !== '/dashboard' && location.pathname !== '/login' && location.pathname !== '/userForm') &&
+      {(location.pathname !== '/dashboard') &&
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
@@ -45,9 +45,7 @@ function App() {
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {location.pathname !== '/login' &&
-        <Footer />
-      }
+      {(location.pathname !== '/login' && location.pathname !== '/dashboard') && <Footer />}
     </div>
   );
 }
