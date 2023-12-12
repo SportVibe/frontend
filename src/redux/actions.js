@@ -1,5 +1,6 @@
 import axios from 'axios';
 import buildQueryString from '../utils/queryAlgorithm';
+import { API_URL } from '../helpers/config';
 
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
@@ -19,7 +20,7 @@ export const getProducts = (filters) => async (dispatch) => {
   try {
     // primero unificamos todas las quieries que se entreguen, si esque las hay
     const queryString = buildQueryString(filters);
-    const { data } = await axios.get(`http://localhost:3005/product?${queryString}`);
+    const { data } = await axios.get(`${API_URL}/product?${queryString}`);
     return dispatch({ type: GET_PRODUCTS, payload: data });
   } catch (error) {
     console.error(error.message);
@@ -29,7 +30,7 @@ export const getProducts = (filters) => async (dispatch) => {
 
 export const getCarousel2Products = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`http://localhost:3005/product`);
+    const { data } = await axios.get(`${API_URL}/product`);
     return dispatch({ type: GET_CAROUSEL2_PRODUCTS, payload: data });
   } catch (error) {
     console.error(error.message);
@@ -86,7 +87,7 @@ export const genreFilterAction = (genre) => async (dispatch) => {
 
 export const getProductPage = ({ page, limit }) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`http://localhost:3005/product?limit=${limit}&page=${page}`);
+    const { data } = await axios.get(`${API_URL}/product?limit=${limit}&page=${page}`);
     return dispatch({ type: GET_PRODUCT_PAGE_SUCCESS, payload: data });
   } catch (error) {
     console.error(error.message);

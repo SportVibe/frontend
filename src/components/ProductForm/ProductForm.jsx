@@ -3,6 +3,7 @@ import style from "./Form.module.css";
 import UploadFile from "../UploadFile/UploadFile";
 import axios from "axios";
 import Swal from 'sweetalert2'
+import { API_URL } from "../../helpers/config";
 //import validation from "../../../../api/src/helpers/validation";
 
 
@@ -48,7 +49,7 @@ export default function ProductForm() {
     // if(Object.keys(errors).length !== 0){
     //   setErrors({general:"Faltan Campos obligatorios"});
     // }else{
-      const endpoint = "http://localhost:3005/product";
+      const endpoint = `${API_URL}/product`;
       axios.post(endpoint,product)
       .then((res) => {
         // window.alert(res.data)

@@ -1,38 +1,113 @@
 .conteinerDetail {
-  background-color: #85ffbd;
-  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%);
+  /* background-color: #85ffbd;
+  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%); */
+  background-color: white;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
+  color: black;
+  overflow: hidden;
+
+  & p {
+    padding: 0;
+    margin: 0;
+  }
 }
 
-.img {
+.subContainerDetail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Carousel2Container {
+  width: 100%;
+}
+
+.boxTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  font-size: 30px;
+}
+
+.imgContainer {
   width: 100%;
   min-height: 70%;
   transition: 0.3s ease;
   display: flex;
   flex-wrap: wrap;
-  margin-left: 150px;
+  gap: 10px;
+  padding: 15px;
+
+  & div {
+    background-color: var(--bg-color-gray);
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: .3s ease-in-out;
+    }
+
+    &:hover {
+      opacity: .8;
+
+      & img {
+        scale: 1.1;
+        transition: .3s ease-in-out;
+      }
+    }
+  }
 }
 
-.img img {
-  width: 250px;
-  height: auto;
+.buttonContainer {
+  width: 300px;
+  height: 50px;
+  margin: 15px;
   border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--button-color);
+
+  & button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+  }
+
+  &:hover{
+    opacity: .8;
+  }
 }
-
-
 
 .Box {
-  margin-left: 50px;
-  align-items: center;
-  max-width: 100px;
-  font-size: 5px;
-}
-
-.boxTitle {
-  color: black;
+  width: 100%;
+  min-height: 600px;
+  padding: 15px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 15px;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & p {
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--bg-color2);
+  }
 }
