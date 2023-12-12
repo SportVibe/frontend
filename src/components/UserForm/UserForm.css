@@ -1,0 +1,142 @@
+.form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.contenedorUF{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 30rem;
+    box-shadow: 0rem 0rem 1rem;
+    height: 33rem;
+    
+    border-radius: 1rem;
+}
+
+.contenedor1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.6rem;
+    background-color: rgba(170, 170, 170, 0.397);
+    width: 26rem;
+    height: 20rem;
+    border-radius: 0.5rem;
+}
+
+.contenedor2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 23rem;
+}
+
+.contenedorAgregar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 26rem;
+    margin-bottom: 0.5rem;
+
+    gap: 1rem;
+}
+
+.agregarFoto{
+    width: 9.5rem;
+    display: none;
+}
+
+.agregarImagen{
+    border: 0.1rem solid;
+    width: 7rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0rem 0.2rem 0.2rem 0.2rem;
+    border-radius: 0.5rem;
+    background-color: rgb(193, 228, 255);
+}
+
+.cuadro{
+    background-color: white;
+    width: 8rem;
+    height: 6rem;
+    border: 0.2rem solid;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.contLogo{
+    display: flex;
+    justify-content: end;
+    
+    width: 28rem;
+}
+
+.logoUF{
+    width: 12rem;
+    border-radius: 0rem 2rem 0rem 2rem;
+    border: 1px solid;
+}
+
+.input{
+    font-size: 0.8rem;
+    width: 11rem;
+}
+
+.label{
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+
+.contBotonUF{
+    display: flex;
+    width: 26rem;
+    justify-content: center;
+    margin-top: 0.8rem;
+}
+
+.botonUF{
+    width: 27rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    background-color: #0091fb;
+    font-weight: 700;
+    border: none;
+    padding: 0.2rem;
+}
+
+.botonUF:hover{
+    transition: 500ms;
+    background-color: #035c9c;
+    color: white;
+}
+
+.messError{
+    color: red;
+    width: 23rem;
+    text-align: end;
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-top: -0.6rem;
+    margin-bottom: -0.4rem;
+}
+
+.puntos{
+    color: rgba(255, 0, 0, 0);
+    width: 23rem;
+    text-align: end;
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-top: -0.6rem;
+    margin-bottom: -0.4rem;
+}

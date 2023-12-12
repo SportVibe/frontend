@@ -1,3 +1,10 @@
+.contenedorLogin{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
 .box {
     display: flex;
     justify-content: center;
@@ -32,7 +39,7 @@
   .label .text-wrapper2 {
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 400;
     width: 268px;
     margin-bottom: 2rem;
@@ -41,7 +48,7 @@
   .label .text-wrapper3 {
     color: #000000;
     font-family: "Inter-Regular", Helvetica;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 400;
     width: 268px;
   }
@@ -124,5 +131,12 @@
     width: 12rem;
     border-radius: 2rem 0rem 2rem 0rem;
     border: 1px solid;
+  }
+
+  .error{
+    color: red;
+    font-size: 12px;
+    margin-top: -0.8rem;
+    font-weight: 600;
   }
   

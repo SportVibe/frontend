@@ -1,6 +1,7 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import styles from './App.module.css';
-import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer } from "./helpers/indexComponents";
+import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { getProducts } from "./redux/actions";
@@ -17,11 +18,12 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-      {(location.pathname !== '/dashboard' || location.pathname === '/search') &&
+      {(location.pathname !== '/dashboard' && location.pathname !== '/login' && location.pathname !== '/userForm') &&
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
       }
+
       {location.pathname === '/' &&
         <div className={styles.carouselContainer}>
           <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
@@ -40,9 +42,12 @@ function App() {
         <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<ProductDetail />} />
+        <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
+      {location.pathname !== '/login' &&
+        <Footer />
+      }
     </div>
   );
 }
