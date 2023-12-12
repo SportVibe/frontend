@@ -16,7 +16,7 @@ function CarouselCard({ productData }) {
     return (
         <div onClick={handleNavigate} className={styles.imgContainer}>
             <div className={styles.img}>
-                <img src={Images[0]}  alt="imagen"/>
+                <img src={Images[0]}  alt=""/>
             </div>
             <p className={styles.nameAfter}>{title}</p>
             <p className={styles.priceAfter}>$USD {price}</p>

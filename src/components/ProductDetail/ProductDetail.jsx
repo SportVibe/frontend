@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetail.module.css";
 import { useEffect, useState } from "react";
+import { API_URL } from '../../helpers/config';
+import Carousel2 from '../Carousel2/Carousel2';
+import Loading from "../loading/Loading";
+import ButtonComponent from "../FilterBar/FilterBoxes/ButtonComponent/ButtonComponent";
 import axios from "axios";
 
 const ProductDetail = () => {
@@ -26,7 +30,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3005/detail/${id}`)
+      .get(`${API_URL}/detail/${id}`)
 
       .then(({ data }) => {
         setData(data.data);
@@ -41,19 +45,40 @@ const ProductDetail = () => {
 
   return (
     <div className={styles.conteinerDetail}>
-      <div className={styles.boxTitle}>
-        <h3>{title}</h3>
-      </div>
-      <div className={styles.img}>
-        {Images && Images.map((image) => <img key={id} src={image} alt="" />)}
-      </div>
-        <br />
-      <div className={styles.Box}>
-        <h3> {description}</h3>
-        <h3>{brand}</h3>
-        <h3>{price}</h3>
-        <h3>{Colors?.join(", ")}</h3>
-      </div>
+      {data ?
+        <div className={styles.subContainerDetail}>
+          <div className={styles.boxTitle}>
+            <p>{title}</p>
+          </div>
+          <hr />
+          <div className={styles.imgContainer}>
+            {Images.length && Images.map((image, i) => {
+              return (
+                <div key={i}>
+                  <img key={id} src={image} alt="" />
+                </div>
+              )
+            })}
+          </div>
+          <div className={styles.buttonContainer}>
+            <button>
+              Agregar al carrito
+              <i className="bi bi-cart-plus"/>
+            </button>
+          </div>
+          <hr />
+          <div className={styles.Box}>
+            <p> {description}</p>
+            <p>{brand}</p>
+            <p>{price}</p>
+            <p>{Colors?.join(", ")}</p>
+          </div>
+          <div className={styles.Carousel2Container}>
+            <Carousel2 />
+          </div>
+        </div> :
+        <Loading />
+      }
     </div>
   );
 };
