@@ -6,5 +6,6 @@ import Home from "../components/Home/Home";
 import ProductCard from "../components/ProductCard/ProductCard";
 import Carousel2 from "../components/Carousel2/Carousel2";
 import CarouselComponent from "../components/CarouselComponent/CarouselComponent";
+import UserForm from "../components/UserForm/UserForm";
 
-export {About, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard}
+export {About, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, UserForm}
