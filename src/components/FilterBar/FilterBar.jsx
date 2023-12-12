@@ -6,7 +6,6 @@ import { PriceBox, SizeBox, ColorBox, GenreBox, Sort, SearchResults } from '../.
 function FilterBar() {
     const search_Activity = useSelector((state => state.search));
     const { totalFilteredCount } = useSelector((state) => state.products);
-
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
@@ -22,7 +21,7 @@ function FilterBar() {
                     <div className={styles.filterBox}>
                         <PriceBox />
                     </div>
-                    <div className={styles.divider}></div>
+                    {/* <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
                         <SizeBox />
                     </div>
@@ -30,7 +29,7 @@ function FilterBar() {
                     <div className={styles.filterBox}>
                         <ColorBox />
                     </div>
-                    <div className={styles.divider}></div>
+                    <div className={styles.divider}></div> */}
                     <div className={styles.filterBox}>
                         <GenreBox />
                     </div>

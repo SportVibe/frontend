@@ -1,4 +1,5 @@
 import styles from "./Home.module.css";
+import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
@@ -6,8 +7,8 @@ import Paginado from "../Paginado/Paginado";
 
 import { CarouselComponent } from "../../helpers/indexComponents";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { getProducts, searchActivity, responsiveNavBar } from "../../redux/actions";
 
 import { getProducts, searchActivity} from "../../redux/actions";
 
@@ -19,7 +20,8 @@ function Home() {
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(searchActivity(""));
+    dispatch(searchActivity(''));
+    dispatch(responsiveNavBar(false));
   }, []);
 
   return (

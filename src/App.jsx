@@ -15,10 +15,9 @@ function App() {
     dispatch(getProducts());
   }, []);
 
-
   return (
     <div className={styles.mainView}>
-      {(location.pathname !== '/dashboard' && location.pathname !== '/search') &&
+      {(location.pathname !== '/dashboard' || location.pathname === '/search') &&
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
