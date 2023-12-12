@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { responsiveNavBar, searchActivity } from '../../redux/actions';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
+
 
 function NavBar() {
   const location = useLocation();
@@ -89,35 +90,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
-{/* <Navbar className="w-100" expand="lg" bg="transparent" variant="light">
-      <Navbar.Brand as={Link} to="/">
-        <img
-          src={Logo}
-          alt="Logo"
-          width="200"
-          height="40"
-          className="d-inline-block align-text-top"
-        />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav" className={styles.navBarContainer}>
-        <div className={styles.searchbarContainer}>
-        <SearchBar />
-        </div>
-        <div className={styles.linksContainer}>
-          <div  id='/' onClick={handleNavigate}>
-            Home
-          </div>
-          <div  id='about' onClick={handleNavigate}>
-            About us
-          </div>
-          <div id='shoppingcart' onClick={handleNavigate}>
-            Shopping car 🛒
-          </div>
-          <div id='dashboard' onClick={handleNavigate}>
-            Sign in👤
-          </div>
-        </div>
-      </Navbar.Collapse>
-    </Navbar> */}

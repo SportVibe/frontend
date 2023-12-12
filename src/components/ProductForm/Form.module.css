@@ -50,6 +50,11 @@
     
 }
 
+#cantidadSelect{
+    width: 110px;
+    margin-left: 85px;
+}
+
 .inputBox{
     width: 100%;
     height: 80%;
@@ -57,6 +62,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+#buttonOk{
+    display: flex;
+    border-radius: 15px;
+    &:hover{
+        background-color: rgba(137, 161, 153, 0.993);
+    }
+} 
 
 #nameContainer{
     width: 100%;
@@ -66,6 +79,24 @@
     align-items: center;
 }
 
+.active{
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inactive{
+  padding: 5px 10px;
+  background-color: #df8d5e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 
 .labels{
     height: 100%;
@@ -73,7 +104,7 @@
     display:flex;
     align-items: center;
     font-size: 20px;
-    //margin-left: 40px;
+    /* //margin-left: 40px; */
 }
 
 
@@ -90,6 +121,7 @@
     width: 300px;
     border-radius: 4px;
     height: 100%;
+    
 }
 
 .titulo{
@@ -127,7 +159,7 @@
 }
 
 #tipoContainer{
-    height: 100%;
+    height: 80%;
     display: flex;
     justify-content: space-between;
     width: 100%;

@@ -1,16 +1,17 @@
 .aboutContainer {
     padding: 20px;
-  }
+    }
   
   .companyCard {
     margin-top: 20px;
   }
-  
+    
   .teamCardsContainer {
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: flex-start;
   }
   
   .teamCard {

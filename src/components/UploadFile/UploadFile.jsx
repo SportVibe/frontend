@@ -18,16 +18,18 @@ const svgBad = <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fi
  
  const handleFile = (event) => {
     let arrayImage=[];
-    console.log(event.target.files)
+    //console.log(event.target.files)
     const imagen = event.target.files[0]; //La imagen subida se guarda en esta propiedad
     const data = new FormData(); //Instanciamos FormData, permite crear pares key:value con el metodo append
     data.append("file",imagen);
     data.append("upload_preset", preset); //Nombre de la carpeta en cloudinary donde subimos las imagenes
     axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, data)  //peticion post , link y form
-    .then((res) => {setResponseOk(res.status)
-        arrayImage.push(res.data.secure_url.toString())
-        props.setArrayImages(arrayImage)
-        //props.setImages(res.data.secure_url);
+    .then((res) => {
+        setResponseOk(res.status)
+       
+        //arrayImage.push(res.data.secure_url);
+        props.setArrayImages(res.data.secure_url)
+        props.completeProduct();
         })
     .catch(err=> window.alert(err.message))
  }

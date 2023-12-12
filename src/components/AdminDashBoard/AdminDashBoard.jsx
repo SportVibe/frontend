@@ -2,7 +2,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "../Sidebar/Sidebar";
 import ProductCard from "../ProductCard/ProductCard";
-// import axios from "axios";
 import { useState } from "react";
 import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
@@ -58,9 +57,7 @@ function AdminDashBoard() {
             <ProductForm />
           </div>}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
-
       </div>
-
     </div>
   );
 }

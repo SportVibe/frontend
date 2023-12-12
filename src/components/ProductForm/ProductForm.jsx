@@ -1,62 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./Form.module.css";
 import UploadFile from "../UploadFile/UploadFile";
 import axios from "axios";
+import Swal from 'sweetalert2'
 //import validation from "../../../../api/src/helpers/validation";
 
 
 export default function ProductForm() {
 
-  //const [images, setImages] = useState([]);
-  const [arrayImages, setArrayImages] = useState([]);
+  const [arrayImages, setArrayImages] = useState("");
   const [errors, setErrors] = useState({});
-  const [sizeStock , setSizeStock] = useState([]);
-  console.log(sizeStock)
-
+  const [sizeStock , setSizeStock] = useState({}); // voy guardando pares key:value de talle y cantidad
+  const [sizeArray , setSizeArray] = useState([]); // armo el array de objetos para enviar al back de size y stock
+  
 
   let [product, setProduct] = useState({
     title: "",
-    sizes: "",
+    sizes: [],
     mark:"",
     category: "",
-    subCategory:"",
-    color: "",
+    subCategory:"", 
+    color:[],
     discount: "",
     price: "",
     gender: "",
     description:"",
-    images:[], 
+    //images:[], 
   });
-
   
-  const handleSubmit = (event) => {
-    setProduct({...product,images:[...images,arrayImages]});
+  const completeProduct = () => {
+    let arr=[]
+    arr.push(arrayImages)
+    console.log(arr)
+    setProduct({
+    ...product,
+    sizes:[...sizeArray],
+    images:[...arr]})
+    setProduct({...product,sizes:[...sizeArray],images:[...arr]})
+  }
+
+  useEffect(()=>{
+    completeProduct();
+  },[arrayImages])
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // if(Object.keys(errors).length !== 0){
     //   setErrors({general:"Faltan Campos obligatorios"});
     // }else{
       const endpoint = "http://localhost:3005/product";
       axios.post(endpoint,product)
-      .then((res) => {console.log(res)}) ///QUE data llega del back?
-      .catch(error => window.alert(error.message)) //Que formato tiene el error??
+      .then((res) => {
+        // window.alert(res.data)
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Producto creado Correctamente",
+          showConfirmButton: false,
+          timer: 1500
+        });}) 
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: error.response.data.error,
+          showConfirmButton: true,
+          })
+      }) 
     };
    
 
    const handleChange = (event) => {
+    event.preventDefault();
     setProduct({ ...product, [event.target.name]: event.target.value });
 //     setErrors(
 //       validation({ ...product, [event.target.name]: event.target.value })
 //     );
+
    };
-
+   
    const handleSizes = (e) => {
-    let arraySizes=[];
-    //setSizeStock([{...sizeStock,[e.target.name] : e.target.value}])
-    arraySizes.push({[e.target.name] : e.target.value})
-    console.log(arraySizes)
-   }
+     e.preventDefault();
+    if (e.target.value !== "button"){
+      setSizeStock({...sizeStock,[e.target.name]:e.target.value}) //Objeto formateado {size:"m",stock:"5"} en estado local sizeStock
+    }else {
+      setSizeArray([...sizeArray,sizeStock]) // guardo key:value {size:"m",stock:"5"} en array estado local
+    }    
+      }
 
-  return (
+    const handleColor = (e) => {
+      let arr=[];
+      arr.push(e.target.value.toString())
+      setProduct({...product,color:arr})
+    }
+  
+   
+    return (
     <div>
       <p className={style.titulo}>
       <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-person-walking" viewBox="0 0 16 16">
@@ -142,8 +181,8 @@ export default function ProductForm() {
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label name="stock"className={style.labels}>Cantidad</label>
-                <select name="stock" onChange={handleSizes} className={style.tipos} >
+                <label  name="stock" className={style.labels}>Cantidad</label>
+                <select id={style.cantidadSelect} name="stock" onChange={handleSizes} className={style.tipos} >
                 <option value="" disabled selected>Cantidad</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -156,12 +195,8 @@ export default function ProductForm() {
                 <option value="9">9</option>
                 <option value="10">10</option>
                 </select>
-                {/* <input
-                  name="stock"
-                  className={style.inputs}
-                  onChange={handleSizes}
-                ></input> */}
-              </div>
+                <button id={style.buttonOk} className={sizeArray.length>=1? style.active : style.inactive} value="button" onClick={handleSizes}>Agregar talle y cantidad</button>
+               </div>
               {/* <p id={style.errorVida}>{errors.sizes}</p> */}
             </div>
             <div className={style.divLabels}>
@@ -169,10 +204,10 @@ export default function ProductForm() {
                 <label className={style.labels}>Color</label>
                 <input
                   name="color"
-                  value={product.color}
+                  //value={product.color}
                   type="text"
                   className={style.inputs}
-                  onChange={handleChange}
+                  onChange={handleColor}
                 ></input>
               </div>
             </div>
@@ -228,11 +263,11 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Imagen</label>
                 <div className={style.inputImage}>
-                <UploadFile setArrayImages={setArrayImages}/>
+                <UploadFile completeProduct={completeProduct} setArrayImages={setArrayImages}/>
                 </div>
               </div>
             </div>
-            <button className={style.buttonForm}>
+            <button form className={style.buttonForm}>
               Crear
             </button>
           </form>
