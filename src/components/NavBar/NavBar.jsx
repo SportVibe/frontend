@@ -37,7 +37,7 @@ function NavBar() {
   }, []);
 
   return (
-    <div className={responsiveGlobalNavBar ? styles.mainView : styles.mainViewResponsive}>
+    <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
       <div className={styles.subMainView}>
         <div className={styles.logoContainer}>
           <img src={Logo} alt="" id='/' onClick={handleNavigate} />
