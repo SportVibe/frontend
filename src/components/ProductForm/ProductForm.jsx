@@ -17,7 +17,7 @@ export default function ProductForm() {
   let [product, setProduct] = useState({
     title: "",
     sizes: [],
-    mark:"",
+    brand:"",
     category: "",
     subCategory:"", 
     color:[],
@@ -153,8 +153,8 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Marca</label>
                 <input
-                  name="mark"
-                  value={product.mark}
+                  name="brand"
+                  value={product.brand}
                   className={style.inputs}
                   onChange={handleChange}
                 ></input>
