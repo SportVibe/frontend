@@ -1,6 +1,6 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import styles from './App.module.css';
-import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2 } from "./helpers/indexComponents";
+import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound } from "./helpers/indexComponents";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { getProducts } from "./redux/actions";
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-      {(location.pathname !== '/' || location.pathname !== '/search') &&
+      {(location.pathname !== '/dashboard' && location.pathname !== '/search') &&
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
@@ -41,7 +41,7 @@ function App() {
         <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<ProductDetail />} />
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
