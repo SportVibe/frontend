@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./Form.module.css";
 import UploadFile from "../UploadFile/UploadFile";
 import axios from "axios";
+import Swal from 'sweetalert2'
 //import validation from "../../../../api/src/helpers/validation";
 
 
@@ -49,8 +50,23 @@ export default function ProductForm() {
     // }else{
       const endpoint = "http://localhost:3005/product";
       axios.post(endpoint,product)
-      .then((res) => window.alert(res.data)) 
-      .catch(error => window.alert(error.response.data.error)) 
+      .then((res) => {
+        // window.alert(res.data)
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Producto creado Correctamente",
+          showConfirmButton: false,
+          timer: 1500
+        });}) 
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: error.response.data.error,
+          showConfirmButton: true,
+          })
+      }) 
     };
    
 
