@@ -1,0 +1,205 @@
+.containerForm {
+    height: 700px;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 4px;
+    background-color: rgba(255, 255, 255, 0.281);
+    backdrop-filter: blur(5px);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 15px;
+    border-radius: 25px;
+}
+
+.divForm{
+    height: 100%;
+    width: 100%;   
+   } 
+
+.form{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    }
+
+.buttonForm{
+    padding: 10px;
+    width: 250px;
+    margin-top: 10px;
+    background-color: rgb(178, 161, 202);
+    font-size: 25px;
+    align-self: center;
+    cursor:pointer;
+    border-radius: 10px;
+    margin-left: 120px;
+}
+
+
+
+.divLabels{
+    width: 100%;
+    height: 55px;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+#cantidadSelect{
+    width: 110px;
+    margin-left: 85px;
+}
+
+.inputBox{
+    width: 100%;
+    height: 80%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#buttonOk{
+    display: flex;
+    border-radius: 15px;
+    &:hover{
+        background-color: rgba(137, 161, 153, 0.993);
+    }
+} 
+
+#nameContainer{
+    width: 100%;
+    position: relative;
+    height: 85px;
+    display:flex;
+    align-items: center;
+}
+
+.active{
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inactive{
+  padding: 5px 10px;
+  background-color: #df8d5e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.labels{
+    height: 100%;
+    width: auto;
+    display:flex;
+    align-items: center;
+    font-size: 20px;
+    /* //margin-left: 40px; */
+}
+
+
+
+.inputs{
+    border-radius: 10px;
+    height: 30px;
+    font-size: 20px;
+    width: 300px;
+    padding-left: 15px;
+}
+
+.tipos{
+    width: 300px;
+    border-radius: 4px;
+    height: 100%;
+    
+}
+
+.titulo{
+    font-size: 30px;
+    /* font-family: "pokemon-solid"; */
+    padding: 20px;
+    background-color:  #dcddd4;
+    margin-top: 1px;
+    border-top: 4px solid rgb(68, 12, 12);
+    border-bottom: 4px solid rgb(68, 12, 12);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.errors{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    position: absolute;
+    bottom:-15px;
+    right:131px;
+    width: 190px;
+    z-index: 100;
+    color:red;
+    
+}
+
+#tipoPadre{
+    height: 150px;
+    display:flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+}
+
+#tipoContainer{
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-start;
+
+}
+#tipoContainer label {
+    height: auto;
+}
+
+#errorAtaque{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    position: absolute;
+    bottom:412px;
+    right:175px;
+    margin-left: 5px;
+    z-index: 100;
+    color:red;
+}
+
+#errorVida{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    position: absolute;
+    bottom:460px;
+    right:175px;
+    margin-left: 5px;
+    z-index: 100;
+    color:red;
+}
+
+#campos{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:red;
+    font-size: larger;
+    background-color: #dddf66;
+    border-radius: 10px;
+}
+
+.inputImage{
+    margin-left: 110px;
+}

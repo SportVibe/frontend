@@ -1,0 +1,136 @@
+#imagesBigContainer {
+    width: 100%;
+    height: 400px;
+}
+
+#imgContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: sideAppear .4s ease-in-out forwards;
+    cursor: pointer;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+}
+
+#hiddenArrow {
+    display: none;
+}
+
+#leftArrow {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 25px;
+    font-weight: 700;
+    z-index: 50;
+
+    &:hover {
+        background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
+}
+
+#rightArrow {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 4px 3px rgba(0, 0, 0, 0.2);
+    color: black;
+    font-size: 25px;
+    font-weight: 700;
+    z-index: 50;
+
+    &:hover {
+        background-color: white;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.discounts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.501);
+    backdrop-filter: blur(5px);
+    color: white;
+    z-index: 80;
+
+    & div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.frase {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+    .frase {
+        font-size: 15px;
+    }
+}
+
+.fraseSeparador {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes sideAppear {
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+}

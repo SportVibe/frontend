@@ -1,0 +1,20 @@
+.sortBox {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & p {
+        align-self: center;
+        padding: 0;
+        margin: 0;
+        padding-bottom: 5px;
+    }
+
+    .selectSort {
+        width: 100%;
+        height: var(--height-button);
+        border: 1px solid gray;
+        border-radius: 5px;
+    }
+}

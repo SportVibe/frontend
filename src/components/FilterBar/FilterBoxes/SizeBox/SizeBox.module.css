@@ -1,0 +1,77 @@
+.mainView {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap--elements-filterBox);
+
+    & p {
+        margin: 0;
+        padding: 0;
+        width: auto;
+        font-weight: var(--font-weight);
+        opacity: var(--opacity-soft-solid);
+    }
+}
+
+.ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    & li {
+        width: 100%;
+        height: 25px;
+        color: gray;
+        font-size: 15px;
+        padding-left: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    & li:hover{
+        background-color: #ebebeb;
+    }
+}
+
+.rangeBox {
+    display: flex;
+    height: var(--input-height);
+    width: 100%;
+
+    & p {
+        width: 20px;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.inputBox {
+    height: 100%;
+    flex: 1;
+
+    & input {
+        width: 100%;
+        height: 100%;
+        border: 1px solid gray;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
+.buttonContainer{
+    text-align: center;
+    margin-top: 10px;
+    height: var(--height-button);
+
+    & button {
+        color: white;
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--button-color);
+    }
+}

@@ -1,0 +1,19 @@
+.text{
+    width:300px;
+  }
+  
+  .text ul li:hover {
+    background-color:rebeccapurple;
+    border-radius: 10px;
+    cursor:pointer;
+  }
+
+.text a{ 
+    text-decoration:none;
+}
+
+.active{
+    background-color:rgb(156, 116, 196);
+    border-radius: 10px;
+}
+
