@@ -67,7 +67,7 @@
     display: flex;
     border-radius: 15px;
     &:hover{
-        background-color: rgb(211, 231, 224);
+        background-color: rgba(137, 161, 153, 0.993);
     }
 } 
 
@@ -80,15 +80,21 @@
 }
 
 .active{
-    background-color: rgb(236, 243, 236);
-    border: 3px solid green;
-    border-color: green;
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .inactive{
-    border: 1px solid rgb(194, 218, 214);
-    border-color: red;
-    background-color: rgb(240, 232, 232);
+  padding: 5px 10px;
+  background-color: #df8d5e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 
