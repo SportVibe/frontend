@@ -5,7 +5,6 @@ import axios from "axios";
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const [data, setData] = useState(null);
 
   const Colors = data?.Colors.length ? data.Colors : [""];
@@ -16,7 +15,7 @@ const ProductDetail = () => {
   const description = data?.description ? data.description : "";
   const discount = data?.discount ? data.discount : "";
   // const gender = data?.gender ? data.gender : "";
-  const mark = data?.mark ? data.mark : "";
+  const brand = data?.mark ? data.mark : "";
   const subCategory = data?.subCategory ? data.subCategory : "";
   const title = data?.title ? data.title : "";
   let price = data?.price ? data.price : "";
@@ -51,7 +50,7 @@ const ProductDetail = () => {
         <br />
       <div className={styles.Box}>
         <h3> {description}</h3>
-        <h3>{mark}</h3>
+        <h3>{brand}</h3>
         <h3>{price}</h3>
         <h3>{Colors?.join(", ")}</h3>
       </div>

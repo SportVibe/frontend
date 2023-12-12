@@ -1,11 +1,18 @@
 :root {
     --button-color: #0d6efd;
+    --button-color-hover: #0060f1;
     --bg-color-body2: rgba(33,37,41);
     --bg-color-body: white;
     --bg-color-gray: #ebebeb;
-    --bg-color2: #9d75c4;
+    /* --bg-color2: #ebebeb; */
+    /* --bg-color2: rgb(6, 63, 92); */
+    --bg-color2: rgb(4, 26, 37);
+    /* --bg-color2: rgb(24, 24, 24); */
+    /* --bg-color2: rgb(255,0,0); */
+    /* --bg-color2: #9d75c4; */
     --bg-color1: rgb(0, 136, 255);
-    --bg-gradient1: linear-gradient(117deg, rgba(0, 136, 255, 1) 0%, rgba(0, 214, 255, 1) 26%, rgba(0, 187, 255, 1) 77%);
+    /* --bg-gradient1: linear-gradient(117deg, rgba(0, 136, 255, 1) 0%, rgba(0, 214, 255, 1) 26%, rgba(0, 187, 255, 1) 77%); */
+    --bg-gradient1: linear-gradient(180deg, rgba(255,0,0,1) 5%, rgba(0,0,0,1) 83%);
 }
 
 /* MAIN DIV */
@@ -20,7 +27,7 @@
 /* NAV BAR */
 .navBarContainer {
     width: 100%;
-    /* height: 65px; */
+    /* height: 60px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,11 +38,12 @@
 .carouselContainer {
     height: 400px;
     width: 100%;
+    overflow-x: hidden;
 }
 
 /* CAROUSEL 2 CONTAINER */
 .carousel2Container {
-    height: 200px;
+    /* height: 200px; */
     width: 100%;
 }
 

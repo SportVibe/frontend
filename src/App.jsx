@@ -1,10 +1,10 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
-// import { PATHROUTES } from './helpers/pathroutes';
 import styles from './App.module.css';
-import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, UserForm } from "./helpers/indexComponents";
+import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
-import {getAllProducts} from "./redux/actions";
+import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -13,9 +13,8 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    dispatch(getAllProducts());    
+    dispatch(getProducts());
   }, []);
-
 
   return (
     <div className={styles.mainView}>
@@ -27,24 +26,28 @@ function App() {
 
       {location.pathname === '/' &&
         <div className={styles.carouselContainer}>
-          <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']}/>
+          <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
         </div>
       }
-      {location.pathname === '/' &&
+      {(location.pathname === '/' || location.pathname === '/search') &&
         <div className={styles.carousel2Container}>
           <Carousel2 />
         </div>
       }
       <Routes className={styles.routesContainer}>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/search" element={<Home />}></Route>
         <Route path="/dashboard" element={<AdminDashBoard />}></Route>
         <Route path="/about" element={<About />} />
         <Route path="/shoppingcart" element={<ShoppingCart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
-
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      {location.pathname !== '/login' &&
+        <Footer />
+      }
     </div>
   );
 }

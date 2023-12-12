@@ -1,13 +1,27 @@
 import styles from "./Home.module.css";
+import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
 import Paginado from "../Paginado/Paginado";
+
 import { CarouselComponent } from "../../helpers/indexComponents";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { getProducts, searchActivity, responsiveNavBar } from "../../redux/actions";
+
+
 
 function Home() {
+  const dispatch = useDispatch();
+  const location = useLocation();
   const productRender = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(searchActivity(''));
+    dispatch(responsiveNavBar(false));
+  }, []);
 
   return (
     <div className={styles.mainView}>
@@ -19,12 +33,16 @@ function Home() {
           <FilterBar />
         </div>
         <div className={styles.conteinerHome}>
-          <div className={styles.carouselHomeContainer}>
-            <CarouselComponent text={['Productos Recomendados']} />
+          {location.pathname !== '/search' &&
+            <div className={styles.carouselHomeContainer}>
+              <CarouselComponent text={['Productos Recomendados']} />
+            </div>
+          }
+          <div className={styles.paginado}>
+            <Paginado />
           </div>
-          <div className={styles.resultsContainer}>
-            <p>Resultados: {productRender?.totalCount}</p>
-            {/* <Paginado/> */}
+          <div className={styles.results}>
+            <p>Resultados: {productRender?.totalFilteredCount}</p>
           </div>
           <div className={styles.conteinerCards}>
             {productRender.data?.length > 0 && productRender.data.map((product, i) => {
@@ -34,6 +52,9 @@ function Home() {
                 </div>
               )
             })}
+          </div>
+          <div className={styles.paginado}>
+            <Paginado />
           </div>
         </div>
       </div>
