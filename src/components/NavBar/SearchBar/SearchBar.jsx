@@ -1,3 +1,4 @@
+import styles from './SearchBar.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -18,7 +19,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className={styles.mainView}>
       <input
         type="text"
         placeholder="Product..."

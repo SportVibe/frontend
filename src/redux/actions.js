@@ -9,6 +9,11 @@ export const GET_PRODUCT_PAGE_FAILURE = "GET_PRODUCT_PAGE_FAILURE";
 export const GET_PRODUCT_PAGE = "GET_PRODUCT_PAGE";
 export const GET_CAROUSEL2_PRODUCTS = "GET_CAROUSEL2_PRODUCTS";
 export const SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
+export const RESPONSIVE_NAVBAR = "RESPONSIVE_NAVBAR";
+export const TOTAL_FILTERS = "TOTAL_FILTERS";
+export const SORT = "SORT";
+export const PRICE_FILTER = "PRICE_FILTER";
+export const GENRES_FILTER = "GENRES_FILTER";
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -34,6 +39,46 @@ export const getCarousel2Products = () => async (dispatch) => {
 export const searchActivity = (activity) => async (dispatch) => {
   try {
     return dispatch({ type: SEARCH_ACTIVITY, payload: activity });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const responsiveNavBar = (value) => async (dispatch) => {
+  try {
+    return dispatch({ type: RESPONSIVE_NAVBAR, payload: value });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const totalFiltersAction = (value) => async (dispatch) => {
+  try {
+    return dispatch({ type: TOTAL_FILTERS, payload: value });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const sortAction = (sort) => async (dispatch) => {
+  try {
+    return dispatch({ type: SORT, payload: sort });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const priceFilterAction = (price) => async (dispatch) => {
+  try {
+    return dispatch({ type: PRICE_FILTER, payload: price });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const genreFilterAction = (genre) => async (dispatch) => {
+  try {
+    return dispatch({ type: GENRES_FILTER, payload: genre });
   } catch (error) {
     console.error(error.message);
   }
