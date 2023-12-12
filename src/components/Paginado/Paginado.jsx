@@ -7,6 +7,7 @@ import styles from './Paginado.module.css';
 const Paginado = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const search_Activity = useSelector((state => state.search));
   const totalFilters = useSelector((state => state.totalFilters));
   const sort = useSelector((state => state.sort));
   const genre = useSelector((state => state.genre));
@@ -21,7 +22,7 @@ const Paginado = () => {
 
   const handlePageChange = (newPage) => {
     setPageNumber(newPage);
-    const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { page: newPage }, { limit: limitPage }]
+    const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
     dispatch(getProducts(sumFilters));
     navigate('/search');
   };

@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getProducts, searchActivity, responsiveNavBar } from "../../redux/actions";
 
-import { getProducts, searchActivity} from "../../redux/actions";
 
 
 function Home() {

@@ -17,7 +17,7 @@ const initialState = {
   responsiveNavBar: false,
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   priceFilter: ['', ''],
-  genre: ['', ''],
+  genre: [{gender: ''}],
   totalFilters: [],
   search: '',
   productsBackup: [],

@@ -1,4 +1,4 @@
-import { Link, useLocation} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
@@ -6,7 +6,7 @@ import SearchBar from './SearchBar/SearchBar';
 import Logo from '../../Images/Logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { responsiveNavBar, searchActivity } from '../../redux/actions';
+import { responsiveNavBar, searchActivity, getProducts, genreFilterAction, sortAction, priceFilterAction } from '../../redux/actions';
 import { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,12 @@ function NavBar() {
 
   function handleNavigate(event) {
     const id = event.target.id;
+    // reseteamos todos los filtrso y ordenamientos
     dispatch(searchActivity(''));
+    dispatch(getProducts());
+    dispatch(genreFilterAction([{gender: ''}]));
+    dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+    dispatch(priceFilterAction(['', '']));
     navigate(`${id}`);
   }
 
@@ -37,12 +42,9 @@ function NavBar() {
         <div className={styles.logoContainer}>
           <img src={Logo} alt="" id='/' onClick={handleNavigate} />
         </div>
-        <div className={styles.menuContainer} onClick={handlerResponsive}>
-          <i className="fa-solid fa-bars"></i>
-        </div>
         <div className={styles.navBarContainer}>
           {(location.pathname === '/' || location.pathname === '/search') &&
-            <div className={styles.searchbarContainer}>
+            <div id={styles.searchbarContainer}>
               <SearchBar />
             </div>
           }
@@ -62,11 +64,14 @@ function NavBar() {
               <p id='/login' onClick={handleNavigate}>👤</p>
             </div>
           </div>
+          <div className={styles.menuContainer} onClick={handlerResponsive}>
+            <i className="fa-solid fa-bars"></i>
+          </div>
         </div>
       </div>
       <div className={styles.responsiveContainer}>
         {(location.pathname === '/' || location.pathname === '/search') &&
-          <div className={styles.searchbarResponsiveContainer}>
+          <div id={styles.searchbarResponsiveContainer}>
             <SearchBar />
           </div>
         }

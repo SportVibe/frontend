@@ -1,7 +1,9 @@
+import styles from './Footer.module.css';
+
 function Footer() {
     return (
-        <div>
-            
+        <div className={styles.mainView}>
+            <p>2023</p>
         </div>
     );
 }

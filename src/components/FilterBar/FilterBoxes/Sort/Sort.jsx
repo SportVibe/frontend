@@ -4,6 +4,7 @@ import { getProducts, sortAction } from '../../../../redux/actions';
 
 function Sort() {
     const dispatch = useDispatch();
+    const search_Activity = useSelector((state => state.search));
     const totalFilters = useSelector((state => state.totalFilters));
     const priceFilter = useSelector((state => state.priceFilter));
     const genre = useSelector((state => state.genre));
@@ -11,7 +12,7 @@ function Sort() {
     function sortHandler(event) {
         const value = event.target.value;
         const sliceString = value.split('_');
-        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], genre[0], { sort: sliceString[0] }, { typeSort: sliceString[1] }]
+        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], genre[0], { search: search_Activity }, { sort: sliceString[0] }, { typeSort: sliceString[1] }]
         dispatch(sortAction([{ sort: sliceString[0] }, { typeSort: sliceString[1] }]));
         dispatch(getProducts(newFiltersArray));
     }

@@ -8,6 +8,7 @@ function PriceBox() {
     const dispatch = useDispatch();
     const [minimumValue, setMinimumValue] = useState('');
     const [maximumValue, setMaximumValue] = useState('');
+    const search_Activity = useSelector((state => state.search));
     const sort = useSelector((state => state.sort));
     const genre = useSelector((state => state.genre));
     const totalFilters = useSelector((state) => state.totalFilters);
@@ -23,7 +24,7 @@ function PriceBox() {
 
     function submit() {
         if (minimumValue <= maximumValue) {
-            const newFiltersArray = [...totalFilters, sort[0], sort[1], genre[0], { minPrice: minimumValue }, { maxPrice: maximumValue }];
+            const newFiltersArray = [...totalFilters, sort[0], sort[1], genre[0], { search: search_Activity }, { minPrice: minimumValue }, { maxPrice: maximumValue }];
             dispatch(priceFilterAction([{ minPrice: minimumValue }, { maxPrice: maximumValue }]));
             dispatch(getProducts(newFiltersArray));
         }

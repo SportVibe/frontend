@@ -21,7 +21,7 @@
 .imgContainer {
     position: relative;
     width: 100%;
-    min-height: 270px;
+    height: 270px;
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 0 3px 1px rgb(204, 204, 204);
@@ -35,7 +35,7 @@
     & img {
         width: 100%;
         min-height: 100%;
-        min-height: 270px;
+        min-height: 100%;
         object-fit: cover;
         object-position: center;
         transition: .4s ease-in-out;

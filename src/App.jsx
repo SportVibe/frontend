@@ -1,6 +1,6 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import styles from './App.module.css';
-import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound } from "./helpers/indexComponents";
+import { Home, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer } from "./helpers/indexComponents";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { getProducts } from "./redux/actions";
@@ -42,6 +42,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
