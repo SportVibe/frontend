@@ -40,6 +40,8 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(typeof Stocks);
+
   return (
     <div className={styles.conteinerDetail}>
       {data ? (
@@ -70,9 +72,15 @@ const ProductDetail = () => {
             <p>{brand}</p>
             <p>{price}</p>
             <p>{Colors?.join(", ")}</p>
-            <hr />
             <div className={styles.talleBox}>
-              <p>TALLE: </p>
+              {Stocks.length &&
+                Stocks.map((stock, i) => {
+                  return (
+                    <div key={i}>
+                      <p>Talle: {stock}</p>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
