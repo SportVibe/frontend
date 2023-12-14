@@ -1,4 +1,5 @@
 import { Card, Col, Row } from 'react-bootstrap';
+import { useEffect } from 'react';
 import styles from './About.module.css'; 
 import CardTeam from './CardTeam/CardTeam';
 import Logo from'../../Images/Logo.jpg';
@@ -71,6 +72,10 @@ function About() {
       github: 'https://github.com/danielamaya1908',
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className={styles.aboutContainer}>

@@ -1,13 +1,14 @@
 #imagesBigContainer {
     width: 100%;
     height: 400px;
+    background-color: white;
 }
 
 #imgContainer {
     position: relative;
     width: 100%;
     height: 100%;
-    animation: sideAppear .4s ease-in-out forwards;
+    background-color: inherit;
     cursor: pointer;
 
     & img {
