@@ -7,6 +7,9 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+//import { useAuth0 } from "@auth0/auth0-react";
+// import { LoginButton } from './components/Login/Login'
+// import { useState } from 'react'
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +18,8 @@ function App() {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
+  
 
   return (
     <div className={styles.mainView}>
@@ -40,7 +45,7 @@ function App() {
         <Route path="/dashboard" element={<AdminDashBoard />}></Route>
         <Route path="/about" element={<About />} />
         <Route path="/shoppingcart" element={<ShoppingCart />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login/>} />
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
