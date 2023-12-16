@@ -40,7 +40,7 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(typeof Stocks);
+
 
   return (
     <div className={styles.conteinerDetail}>
@@ -72,16 +72,7 @@ const ProductDetail = () => {
             <p>{brand}</p>
             <p>{price}</p>
             <p>{Colors?.join(", ")}</p>
-            <div className={styles.talleBox}>
-              {Stocks.length &&
-                Stocks.map((stock, i) => {
-                  return (
-                    <div key={i}>
-                      <p>Talle: {stock}</p>
-                    </div>
-                  );
-                })}
-            </div>
+       //no se cargan los talles desde el back todavia. 
           </div>
         </div>
       ) : (
