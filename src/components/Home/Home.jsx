@@ -23,21 +23,27 @@ function Home() {
     dispatch(responsiveNavBar(false));
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
+
   return (
     <div className={styles.mainView}>
-      <div className={styles.categoryBarContainer}>
+      {/* <div className={styles.categoryBarContainer}>
         <CategoryBar />
-      </div>
+      </div> */}
       <div className={styles.subMainView}>
-        <div className={styles.FilterBarContainer}>
-          <FilterBar />
-        </div>
+        {location.pathname === '/search' &&
+          <div className={styles.FilterBarContainer}>
+            <FilterBar />
+          </div>
+        }
         <div className={styles.conteinerHome}>
-          {location.pathname !== '/search' &&
+          {/* {location.pathname !== '/search' &&
             <div className={styles.carouselHomeContainer}>
               <CarouselComponent text={['Productos Recomendados']} />
             </div>
-          }
+          } */}
           <div className={styles.paginado}>
             <Paginado />
           </div>

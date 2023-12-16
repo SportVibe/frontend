@@ -1,7 +1,7 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validation from "./Validation";
 
 
@@ -87,6 +87,10 @@ function UserForm() {
       } else
       window.alert("Registro exitoso!")
     }
+
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []); 
 
     return (
         <form onSubmit={handleSubmt} className="form">
