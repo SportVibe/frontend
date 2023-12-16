@@ -2,6 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import styles from './About.module.css'; 
 import CardTeam from './CardTeam/CardTeam';
 import Logo from'../../Images/Logo.jpg';
+import { useEffect } from 'react';
 
 function About() {
    // Datos de ejemplo para los miembros del equipo
@@ -71,6 +72,10 @@ function About() {
       github: 'https://github.com/danielamaya1908',
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className={styles.aboutContainer}>

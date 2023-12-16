@@ -2,7 +2,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "../Sidebar/Sidebar";
 import ProductCard from "../ProductCard/ProductCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
@@ -23,6 +23,9 @@ function AdminDashBoard() {
     }))
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className="d-flex">

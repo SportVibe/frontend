@@ -17,7 +17,7 @@ function Carousel2() {
     return (
         <div className={styles.mainView}>
             <div className={styles.mostSold}>
-                Productos más vendidos
+                Descuentos
             </div>
             <div className={styles.backgroundMidle}>
             </div>
