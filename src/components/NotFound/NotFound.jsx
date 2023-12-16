@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { useEffect } from 'react';
->>>>>>> 8dec77adfdf281e13ed3118ae818ed73a43ac152
 import image from "../../Images/404.jpg"
 
 function NotFound() {
