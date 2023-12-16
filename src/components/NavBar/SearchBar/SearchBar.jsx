@@ -1,12 +1,13 @@
 import styles from './SearchBar.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction } from '../../../redux/actions';
 
 function SearchBar() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  const search_Activity = useSelector((state => state.search));
+  const [searchTerm, setSearchTerm] = useState(search_Activity);
   const dispatch = useDispatch();
 
   const handleSearch = () => {

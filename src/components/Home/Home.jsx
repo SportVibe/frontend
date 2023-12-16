@@ -2,25 +2,31 @@ import styles from "./Home.module.css";
 import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
-import CategoryBar from "../FilterBar/CategoryBar/CategoryBar";
 import Paginado from "../Paginado/Paginado";
-
-import { CarouselComponent } from "../../helpers/indexComponents";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { getProducts, searchActivity, responsiveNavBar } from "../../redux/actions";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getProducts, responsiveNavBar } from "../../redux/actions";
 
 
 
 function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const productRender = useSelector((state) => state.products);
+  const search_Activity = useSelector((state => state.search));
+  const totalFilters = useSelector((state => state.totalFilters));
+  const sort = useSelector((state => state.sort));
+  const genre = useSelector((state => state.genre));
+  const priceFilter = useSelector((state => state.priceFilter));
 
   useEffect(() => {
-    dispatch(getProducts());
-    dispatch(searchActivity(''));
+    const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }]
+    dispatch(getProducts(sumFilters));
     dispatch(responsiveNavBar(false));
+    if (!search_Activity) {
+      navigate('/')
+    }
   }, []);
 
   useEffect(() => {
@@ -29,21 +35,16 @@ function Home() {
 
   return (
     <div className={styles.mainView}>
-      {/* <div className={styles.categoryBarContainer}>
-        <CategoryBar />
-      </div> */}
       <div className={styles.subMainView}>
-        {location.pathname === '/search' &&
+        {/* {location.pathname === '/search' &&
           <div className={styles.FilterBarContainer}>
             <FilterBar />
           </div>
-        }
+        } */}
+        <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
+            <FilterBar />
+          </div>
         <div className={styles.conteinerHome}>
-          {/* {location.pathname !== '/search' &&
-            <div className={styles.carouselHomeContainer}>
-              <CarouselComponent text={['Productos Recomendados']} />
-            </div>
-          } */}
           <div className={styles.paginado}>
             <Paginado />
           </div>
