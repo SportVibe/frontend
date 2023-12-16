@@ -2,6 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import styles from './About.module.css'; 
 import CardTeam from './CardTeam/CardTeam';
 import Logo from'../../Images/Logo.jpg';
+import { useEffect } from 'react';
 
 function About() {
    // Datos de ejemplo para los miembros del equipo
@@ -34,7 +35,7 @@ function About() {
       id: 4,
       name: 'Luca Vincenzo Bruzzone Castillo',
       image: 'https://avatars.githubusercontent.com/u/133311620?v=4',
-      description: 'Full Stack Developer/ Front-End Developer at SportVibe',
+      description: 'Full Stack Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/luca-bruzzone-6152b6278/',
       github: 'https://github.com/lucabruzzone',
     },
@@ -58,8 +59,8 @@ function About() {
       id: 7,
       name: 'Kerly Yohana Gomez Giraldo',
       image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
-      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
-      linkedin: 'www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276',
+      description: 'Full Stack Developer/ Front-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276/',
       github: 'https://github.com/KyohanaGomez',
     },
     {
@@ -71,6 +72,10 @@ function About() {
       github: 'https://github.com/danielamaya1908',
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className={styles.aboutContainer}>
@@ -85,21 +90,21 @@ function About() {
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
                 El Dashboard Admin facilita la gestión de productos y estadísticas. Desde categorías y ofertas hasta tallas disponibles,
                 SportVibe fusiona estilo y funcionalidad. Experimenta la emoción deportiva con una interfaz intuitiva y procesamiento de pagos eficiente.
-              </Card.Text>
-            </Card.Body>
-          </Col>
-        </Row>
-      </Card>
-
-      <Row xs={1} md={2} lg={3} className='d-flex'>
-        {teamMembers.map((member) => (
-          <Col key={member.id}>
-            <CardTeam {...member} />
-          </Col>
-        ))}
-      </Row>
-    </div>
-  );
-}
-
-export default About;
+                </Card.Text>
+                </Card.Body>
+              </Col>
+            </Row>
+          </Card>
+    
+          <Row xs={1} md={2} lg={3} className='d-flex'>
+            {teamMembers.map((member) => (
+              <Col key={member.id}>
+                <CardTeam {...member} />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      );
+    }
+    
+    export default About;

@@ -191,7 +191,7 @@
     }
 
     &:hover {
-      border: 2px solid var(--bg-color2);
+      /* border: 2px solid var(--bg-color2); */
       color: black;
     }
   }

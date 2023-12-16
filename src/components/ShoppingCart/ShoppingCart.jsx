@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 function ShoppingCart() {
 
   const product1 = {
@@ -35,6 +36,10 @@ function ShoppingCart() {
 
 
   const subtotal = calculateSubtotal(cartItems);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">

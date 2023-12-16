@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Login.css"
 import {useNavigate} from 'react-router-dom';
 import logo from "../../Images/Logo.jpg"
@@ -40,6 +40,10 @@ function Login() {
 
   }
   let arr = [{user:'sportvibe07@gmail.com', password:'Henry2023'}]
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
     return (
       <div className="contenedorLogin"> 

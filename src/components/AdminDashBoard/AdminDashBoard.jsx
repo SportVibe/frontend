@@ -2,11 +2,12 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sidebar from "../Sidebar/Sidebar";
 import ProductCard from "../ProductCard/ProductCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
 import { useSelector } from "react-redux";
+import ProductPrueba from "../ProductForm/ProductPrueba";
 
 function AdminDashBoard() {
   const productRender = useSelector((state) => state.products);
@@ -23,6 +24,9 @@ function AdminDashBoard() {
     }))
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <div className="d-flex">
@@ -50,7 +54,7 @@ function AdminDashBoard() {
           </form>
         </nav>
         {sidebarRender === "productos" ? <div className={styles.conteinerCards}>
-          {renderProducts()}
+          {<ProductPrueba />}
         </div> : null}
         {sidebarRender === "nuevo" &&
           <div>
