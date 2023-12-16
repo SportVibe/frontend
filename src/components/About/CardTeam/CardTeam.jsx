@@ -1,22 +1,43 @@
-import { Card } from 'react-bootstrap';
-import styles from './CardTeam.module.css';
+import { Card } from "react-bootstrap";
+import styles from "./CardTeam.module.css";
 
 function CardTeam({ name, image, description, linkedin, github }) {
   return (
-    <Card className={styles.teamCard}>
+    <Card
+      style={{
+        width: "22rem",
+        height: "100%",
+        margin: "30px",
+        overflow: "hidden",
+      }}
+    >
       <div className={styles.imageContainer}>
-        <Card.Img variant="top" src={image} alt={`Foto de ${name}`} className={styles.memberImage} />
+        <Card.Img src={image} alt={`Foto de ${name}`} />
       </div>
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>{description}</Card.Text>
       </Card.Body>
-      <ul className={styles.listGroupItem}>
-        <li className={styles.listGroupItem}>
-          <a href={linkedin} className="card-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <ul className={`list-group ${styles.listGroupItem}`}>
+        <li className="list-group-item">
+          <a
+            href={linkedin}
+            className="card-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
         </li>
-        <li >
-          <a href={github} className="card-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <li className="list-group-item">
+          <a
+            href={github}
+            className="card-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
         </li>
       </ul>
     </Card>

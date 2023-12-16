@@ -24,15 +24,13 @@
   height: 100px;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: auto;
-  border-radius: 20px;
-  overflow: hidden;
 
   & img {
     width: 50%;
     height: 50%;
-    object-fit: cover;
-    object-position: center;
+    border-radius: 20px;
   }
 }
 
