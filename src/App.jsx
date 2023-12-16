@@ -14,9 +14,9 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, []); */
 
   return (
     <div className={styles.mainView}>
@@ -25,11 +25,11 @@ function App() {
           <NavBar />
         </div>
       }
-      {(location.pathname === '/' || location.pathname === '/search') &&
+      {/* {(location.pathname === '/' || location.pathname === '/search') &&
         <div className={styles.categoryBarContainer}>
           <CategoryBar />
         </div>
-      }
+      } */}
       {location.pathname === '/' &&
         <div className={styles.carouselContainer}>
           <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
