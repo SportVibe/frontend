@@ -72,7 +72,16 @@ const ProductDetail = () => {
             <p>{brand}</p>
             <p>{price}</p>
             <p>{Colors?.join(", ")}</p>
-       //no se cargan los talles desde el back todavia. 
+            <div className={styles.talleBox}>
+              {Stocks.length &&
+                Stocks.map((stock, i) => {
+                  return (
+                    <div key={i}>
+                      <p>Talle: {stock}</p>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       ) : (

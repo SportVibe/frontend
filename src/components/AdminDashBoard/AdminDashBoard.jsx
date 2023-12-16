@@ -7,7 +7,6 @@ import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
 import { useSelector } from "react-redux";
-import ProductPrueba from "../ProductForm/ProductPrueba";
 
 function AdminDashBoard() {
   const productRender = useSelector((state) => state.products);
@@ -54,7 +53,7 @@ function AdminDashBoard() {
           </form>
         </nav>
         {sidebarRender === "productos" ? <div className={styles.conteinerCards}>
-          {<ProductPrueba />}
+          {renderProducts()}
         </div> : null}
         {sidebarRender === "nuevo" &&
           <div>
