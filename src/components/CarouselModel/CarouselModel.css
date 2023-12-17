@@ -1,0 +1,75 @@
+.mainView {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+    color: black;
+
+    &::-webkit-scrollbar-track {
+        width: 2px;
+    }
+}
+
+.DeportesTitle{
+    width: 200px;
+    padding: 0 50px;
+    font-size: 27px;
+    color: var(--font-color-hard);
+    cursor: pointer;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.carouselContainer {
+    width: 100%;
+    height: 100%;
+    padding: 20px 50px 150px 50px;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 30px;
+}
+
+.carouselItem {
+    position: relative;
+    min-width: 180px;
+    height: 100%;
+    transition: .4s ease-in-out;
+
+    & p {
+        position: absolute;
+        bottom: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    & div {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        overflow: hidden;
+        /* box-shadow: 0 1px 3px 1px rgb(173, 173, 173); */
+        cursor: pointer;
+
+        & img {
+            background-color: inherit;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: .4s ease;
+        }
+
+        &:hover {
+            opacity: .9;
+
+            & img {
+                scale: 1.06;
+                transition: .4s ease;
+            }
+        }
+    }
+}

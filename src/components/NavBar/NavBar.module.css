@@ -134,7 +134,7 @@
 }
 
 .logoContainer {
-  max-width: 200px;
+  max-width: 150px;
   height: 100%;
   overflow: hidden;
   cursor: pointer;
@@ -191,7 +191,7 @@
     }
 
     &:hover {
-      border: 2px solid var(--bg-color2);
+      /* border: 2px solid var(--bg-color2); */
       color: black;
     }
   }

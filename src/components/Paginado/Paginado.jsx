@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductPage, getProducts } from '../../redux/actions';
+import { getProducts } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import styles from './Paginado.module.css';
 
