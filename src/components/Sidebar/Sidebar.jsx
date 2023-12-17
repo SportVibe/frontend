@@ -1,4 +1,4 @@
-import { useState }from "react";
+import React , { useState }from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles.css"
 

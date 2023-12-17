@@ -1,24 +1,14 @@
 .aboutContainer {
-  margin: 30px;
-}
-
-.textConteiner {
-  justify-content: center;
-  text-align: center;
-  margin-left: 25%;
-  width: 100%;
+  padding: 20px;
 }
 
 .companyCard {
-  width: 100%;
+  margin-top: 20px;
 }
 
 .teamCardsContainer {
-  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  justify-content: flex-start;
 }
 
 .logo {
@@ -29,5 +19,5 @@
   display: block;
   border-radius: 20px;
   object-position: center;
+  
 }
-

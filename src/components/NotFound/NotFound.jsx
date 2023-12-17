@@ -1,3 +1,4 @@
+
 import image from "../../Images/404.jpg"
 
 function NotFound() {

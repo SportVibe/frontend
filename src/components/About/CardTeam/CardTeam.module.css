@@ -20,11 +20,8 @@
 .imageContainer {
   border-radius: 50%;
   overflow: hidden;
-  transition: 0.3s ease;
-  flex-wrap: wrap;
-  gap: 10px;
-  cursor: pointer;
-  object-fit: cover;
+  flex-grow: 1;
+}
 
   &:hover {
     opacity: 0.8;
@@ -36,6 +33,7 @@
   }
 }
   
+
 .memberImage {
   width: 100%;
   height: 100%;
@@ -46,7 +44,6 @@
   display: flex;
   justify-content: space-around;
   list-style: none;
-  margin-bottom: 20px;
   margin: 0; 
   padding: 0; 
   background-color: #fcfbfd;
