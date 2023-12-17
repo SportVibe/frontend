@@ -1,6 +1,21 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
+
+
+import {
+  Home,
+  CarouselComponent,
+  About,
+  ShoppingCart,
+  Login,
+  NavBar,
+  Carousel2,
+  NotFound,
+  Footer,
+  UserForm,
+} from "./helpers/indexComponents";
+
 import styles from './App.module.css';
-import { Home, CategoryBar, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
+import { CategoryBar } from "./helpers/indexComponents";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
@@ -20,6 +35,19 @@ function App() {
 
   return (
     <div className={styles.mainView}>
+
+      {(location.pathname !== "/dashboard") && (
+        <div className={styles.navBarContainer}>
+          <NavBar />
+        </div>
+  )}
+      {(location.pathname === '/' || location.pathname === '/search') &&
+        <div className={styles.categoryBarContainer}>
+          <CategoryBar />
+        </div>
+      }
+      {(location.pathname === '/' &&
+
       {(location.pathname !== '/dashboard') &&
         <div className={styles.navBarContainer}>
           <NavBar />
@@ -31,10 +59,15 @@ function App() {
         </div>
       } */}
       {location.pathname === '/' &&
+
         <div className={styles.carouselContainer}>
           <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
         </div>
+
+      )}
+
       }
+
       {(location.pathname === '/') &&
         <div className={styles.carousel2Container}>
           <Carousel2 />
