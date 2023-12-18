@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import Paginado from "../Paginado/Paginado";
+import SearchResults from "../SearchResults/SearchResults";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getProducts, responsiveNavBar } from "../../redux/actions";
@@ -31,7 +32,7 @@ function Home() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
 
   return (
     <div className={styles.mainView}>
@@ -42,28 +43,33 @@ function Home() {
           </div>
         } */}
         <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
-            <FilterBar />
-          </div>
-        <div className={styles.conteinerHome}>
-          <div className={styles.paginado}>
-            <Paginado />
-          </div>
-          <div className={styles.results}>
-            <p>Resultados: {productRender?.totalFilteredCount}</p>
-          </div>
-          <div className={styles.conteinerCards}>
-            {productRender.data?.length > 0 && productRender.data.map((product, i) => {
-              return (
-                <div key={i} className={styles.cardComponentContainer}>
-                  <ProductCard productData={product} />
-                </div>
-              )
-            })}
-          </div>
-          <div className={styles.paginado}>
-            <Paginado />
-          </div>
+          <FilterBar />
         </div>
+        {productRender.data?.length > 0 ?
+          <div className={styles.conteinerHome}>
+            <div className={styles.paginado}>
+              <Paginado />
+            </div>
+            <div className={styles.results}>
+              <p>Resultados: {productRender?.totalFilteredCount}</p>
+            </div>
+            <div className={styles.conteinerCards}>
+              {productRender.data?.length > 0 && productRender.data.map((product, i) => {
+                return (
+                  <div key={i} className={styles.cardComponentContainer}>
+                    <ProductCard productData={product} />
+                  </div>
+                )
+              })}
+            </div>
+            <div className={styles.paginado}>
+              <Paginado />
+            </div>
+          </div> :
+          <div className={styles.searchNoResultsContainer}>
+            <SearchResults />
+          </div>
+        }
       </div>
     </div>
   );

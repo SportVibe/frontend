@@ -32,7 +32,7 @@ export default function ProductForm() {
   const completeProduct = () => {
     let arr=[]
     arr.push(arrayImages)
-    console.log(arr)
+    //console.log(arr)
     setProduct({
     ...product,
     sizes:[...sizeArray],

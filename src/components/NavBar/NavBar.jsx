@@ -16,16 +16,22 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
+  const userData = useSelector((state) => state.userData);
 
   function handleNavigate(event) {
     const id = event.target.id;
-    // reseteamos todos los filtrso y ordenamientos
-    dispatch(searchActivity(''));
-    dispatch(getProducts());
-    dispatch(genreFilterAction([{gender: ''}]));
-    dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
-    dispatch(priceFilterAction(['', '']));
-    navigate(`${id}`);
+    if (id === 'profile' && userData) {
+      navigate(`/user-profile/${userData.data.user.id}`);
+    }
+    else {
+      // reseteamos todos los filtrso y ordenamientos
+      dispatch(searchActivity(''));
+      dispatch(getProducts());
+      dispatch(genreFilterAction([{ gender: '' }]));
+      dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+      dispatch(priceFilterAction(['', '']));
+      navigate(`${id}`);
+    }
   }
 
   function handlerResponsive() {
@@ -59,10 +65,21 @@ function NavBar() {
               <p id='/shoppingcart' onClick={handleNavigate}>Shopping car</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
             </div>
-            <div id='/login' onClick={handleNavigate}>
-              <p id='/login' onClick={handleNavigate}>Sign in</p>
-              <p id='/login' onClick={handleNavigate}>👤</p>
-            </div>
+            {userData ?
+              <div id='profile' className={styles.userLogContainer} onClick={handleNavigate}>
+                <p id='profile' onClick={handleNavigate}>Mi perfil</p>
+                <div id='profile' onClick={handleNavigate}>
+                  {userData.data.user.image ?
+                    <img id='profile' src={userData.data.user.image} alt="" onClick={handleNavigate} /> :
+                    <p id='profile' onClick={handleNavigate}>LB</p>
+                  }
+                </div>
+              </div> :
+              <div id='/login' onClick={handleNavigate}>
+                <p id='/login' onClick={handleNavigate}>Sign in</p>
+                <p id='/login' onClick={handleNavigate}>👤</p>
+              </div>
+            }
           </div>
           <div className={styles.menuContainer} onClick={handlerResponsive}>
             <i className="fa-solid fa-bars"></i>
