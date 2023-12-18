@@ -21,6 +21,10 @@
   z-index: 200;
 }
 
+.FilterBarHidden{
+  display: none;
+}
+
 .FilterBarContainer {
   position: sticky;
   top: var(--categoryBar-height);
@@ -96,10 +100,18 @@
   flex-wrap: wrap;
   gap: 20px;
   width: 100%;
+  min-height: 600px;
   padding: 50px 10px;
 }
 
+.searchNoResultsContainer{
+  width: 100%;
+  min-height: 100vh;
+  padding: 10px;
+}
+
 .cardComponentContainer {
+  margin-bottom: 30px;
   width: 230px;
   /* min-height: 390px; */
 }

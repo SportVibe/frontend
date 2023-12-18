@@ -1,7 +1,19 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
+import {
+  Home,
+  UserProfile,
+  CategoryBar,
+  CarouselComponent,
+  About,
+  ShoppingCart,
+  Login,
+  NavBar,
+  Carousel2,
+  NotFound,
+  Footer,
+  UserForm,
+} from "./helpers/indexComponents";
 import styles from './App.module.css';
-import { Home, CategoryBar, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
-
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
@@ -15,22 +27,22 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, []); */
 
   return (
     <div className={styles.mainView}>
-      {(location.pathname !== '/dashboard') &&
+      {location.pathname !== "/dashboard" && 
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
-      }
-      {(location.pathname === '/' || location.pathname === '/search') &&
+  }
+      {/* {(location.pathname === '/' || location.pathname === '/search') &&
         <div className={styles.categoryBarContainer}>
           <CategoryBar />
         </div>
-      }
+      } */}
       {location.pathname === '/' &&
         <div className={styles.carouselContainer}>
           <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
@@ -61,7 +73,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/productUpdate" element={ProductUpdate}/>
+        <Route path="/user-profile/:id" element={<UserProfile />} />
       </Routes>
       {(location.pathname === '/search') &&
         <div className={styles.carousel2Container}>

@@ -5,6 +5,7 @@ const CarouselModel = () => {
 
     return (
         <div className="mainView" >
+            <p className="DeportesTitle">Deportes</p>
             <div className="carouselContainer">
                 <div className="carouselItem">
                     <div>

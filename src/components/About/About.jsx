@@ -1,12 +1,12 @@
 import { Card, Col, Row } from 'react-bootstrap';
-import styles from './About.module.css'; 
+import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
-import Logo from'../../Images/Logo.jpg';
+import Logo from '../../Images/Logo.jpg';
 import { useEffect } from 'react';
 
 function About() {
-   // Datos de ejemplo para los miembros del equipo
-   const teamMembers = [
+  // Datos de ejemplo para los miembros del equipo
+  const teamMembers = [
     {
       id: 1,
       name: 'Maria Angelica Palomino Jaramillo',
@@ -75,40 +75,40 @@ function About() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
 
   return (
     <div className={styles.aboutContainer}>
-      
+
       <Card className={styles.companyCard}>
         <Row className="g-0">
           <Col md={4}>
-            <Card.Img variant="top" src={Logo}  alt="Logo" className={`${styles.logo} img-fluid rounded-start`} />
+            <Card.Img variant="top" src={Logo} alt="Logo" className={`${styles.logo} img-fluid rounded-start`} />
           </Col>
           <Col md={8}>
             <Card.Body>
               <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
               <Card.Text>
-                La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
+                La e-commerce SportVibe, es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
                 Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
                 El Dashboard Admin facilita la gestión de productos y estadísticas. Desde categorías y ofertas hasta tallas disponibles,
                 SportVibe fusiona estilo y funcionalidad. Experimenta la emoción deportiva con una interfaz intuitiva y procesamiento de pagos eficiente.
-                </Card.Text>
-                </Card.Body>
-              </Col>
-            </Row>
-          </Card>
-    
-          <Row xs={1} md={2} lg={3} className='d-flex'>
-            {teamMembers.map((member) => (
-              <Col key={member.id}>
-                <CardTeam {...member} />
-              </Col>
-            ))}
-          </Row>
-        </div>
-      );
-    }
-    
-    export default About;
+              </Card.Text>
+            </Card.Body>
+          </Col>
+        </Row>
+      </Card>
+
+      <Row xs={1} md={2} lg={3} className='d-flex'>
+        {teamMembers.map((member) => (
+          <Col key={member.id}>
+            <CardTeam {...member} />
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+}
+
+export default About;

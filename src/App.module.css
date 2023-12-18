@@ -61,12 +61,13 @@
 
 /* CAROUSEL MODEL */
 .CarouselModelContainer{
-    margin-top: 60px;
+    margin-top: 50px;
     height: 400px;
 }
 
 /* CAROUSEL PRODUCTS */
 .CarouselProductsContainer {
+    margin-top: 50px;
     height: 500px;
 }
 
