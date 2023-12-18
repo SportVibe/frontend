@@ -107,6 +107,10 @@ function UserForm() {
       window.alert("Registro exitoso!")
     }
 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []); 
+
     return (
         <form onSubmit={handleSubmt} className="form">
             <div className="contenedorUF">

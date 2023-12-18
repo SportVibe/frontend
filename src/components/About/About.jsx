@@ -1,11 +1,12 @@
 import { Card, Col, Row } from 'react-bootstrap';
-import styles from './About.module.css'; 
+import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
-import Logo from'../../Images/Logo.jpg';
+import Logo from '../../Images/Logo.jpg';
+import { useEffect } from 'react';
 
 function About() {
-   // Datos de ejemplo para los miembros del equipo
-   const teamMembers = [
+  // Datos de ejemplo para los miembros del equipo
+  const teamMembers = [
     {
       id: 1,
       name: 'Maria Angelica Palomino Jaramillo',
@@ -17,7 +18,7 @@ function About() {
     {
       id: 2,
       name: 'María Sol Escobares',
-      image: 'https://media.licdn.com/dms/image/D4D35AQHjOlIOL12xtg/profile-framedphoto-shrink_400_400/0/1691017357387?e=1702580400&v=beta&t=RZh79CljXweAH3lesTUDjmRcUCoHT8QKSRcYVMTriDA',
+      image: 'https://media.licdn.com/dms/image/D4D35AQHjOlIOL12xtg/profile-framedphoto-shrink_800_800/0/1691017357387?e=1703296800&v=beta&t=qaPMs2SBh8_sH1FTUqzXMpy7m8-uhQUrbiyRNRzHEWo',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/escobares-maria-sol-14b588216/',
       github: 'https://github.com/Sunny1606',
@@ -34,7 +35,7 @@ function About() {
       id: 4,
       name: 'Luca Vincenzo Bruzzone Castillo',
       image: 'https://avatars.githubusercontent.com/u/133311620?v=4',
-      description: 'Full Stack Developer/ Front-End Developer at SportVibe',
+      description: 'Full Stack Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/luca-bruzzone-6152b6278/',
       github: 'https://github.com/lucabruzzone',
     },
@@ -58,8 +59,8 @@ function About() {
       id: 7,
       name: 'Kerly Yohana Gomez Giraldo',
       image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
-      description: 'Full Stack Developer/ Back-End Developer at SportVibe',
-      linkedin: 'www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276',
+      description: 'Full Stack Developer/ Front-End Developer at SportVibe',
+      linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276/',
       github: 'https://github.com/KyohanaGomez',
     },
     {
@@ -72,19 +73,23 @@ function About() {
     },
   ];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className={styles.aboutContainer}>
-      
+
       <Card className={styles.companyCard}>
         <Row className="g-0">
           <Col md={4}>
-            <Card.Img variant="top" src={Logo}  alt="Logo" className={`${styles.logo} img-fluid rounded-start`} />
+            <Card.Img variant="top" src={Logo} alt="Logo" className={`${styles.logo} img-fluid rounded-start`} />
           </Col>
           <Col md={8}>
             <Card.Body>
               <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
               <Card.Text>
-                La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
+                La e-commerce SportVibe, es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
                 Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
                 El Dashboard Admin facilita la gestión de productos y estadísticas. Desde categorías y ofertas hasta tallas disponibles,

@@ -106,12 +106,15 @@ const login = () => {
   };
  // let arr = [{ user: "sportvibe07@gmail.com", password: "Henry2023" }];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="contenedorLogin">
       <div className="box">
         <div className="boxlogo">
-          <NavLink to="/">
+          <NavLink to='/'>
             <img className="logo" src={logo} alt="" />
           </NavLink>
         </div>
@@ -178,10 +181,9 @@ const login = () => {
           <p className="o">O</p>
         </div>
         <button className="googleButton" onClick={callLoginGoogle}> <img className="googleImag" src={google} alt="" /></button>
-       
         <div className="crear">
           <p className="text-wrapper4">¿Aún no tienes cuenta SportVibe? ¡Regístrate aquí!!</p>
-          <NavLink to="/userForm">
+          <NavLink to='/userForm'>
             <button className="botton2">CREAR UNA CUENTA</button>
           </NavLink>
         </div>
@@ -195,11 +197,11 @@ export default login;
 const validacion = ({ email, password }) => {
   let error = {};
 
-  if (!email) error.email = "Por favor ingrese un usuario";
-  else error.email = "✔";
+  if (!email) error.email = 'Por favor ingrese un email'
+  else error.email = '✔'
 
-  if (!password) error.password = "Por favor ingrese una clave";
-  else error.password = "✔";
+  if (!password) error.password = 'Por favor ingrese una clave'
+  else error.password = '✔'
 
-  return error;
-};
+  return error
+}
