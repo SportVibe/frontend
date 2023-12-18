@@ -1,8 +1,8 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
-
-
 import {
   Home,
+  UserProfile,
+  CategoryBar,
   CarouselComponent,
   About,
   ShoppingCart,
@@ -13,10 +13,7 @@ import {
   Footer,
   UserForm,
 } from "./helpers/indexComponents";
-
 import styles from './App.module.css';
-import { CategoryBar } from "./helpers/indexComponents";
-
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
@@ -35,39 +32,21 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-
-      {(location.pathname !== "/dashboard") && (
+      {location.pathname !== "/dashboard" && 
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
-  )}
-      {(location.pathname === '/' || location.pathname === '/search') &&
-        <div className={styles.categoryBarContainer}>
-          <CategoryBar />
-        </div>
-      }
-      {(location.pathname === '/' &&
-
-      {(location.pathname !== '/dashboard') &&
-        <div className={styles.navBarContainer}>
-          <NavBar />
-        </div>
-      }
+  }
       {/* {(location.pathname === '/' || location.pathname === '/search') &&
         <div className={styles.categoryBarContainer}>
           <CategoryBar />
         </div>
       } */}
       {location.pathname === '/' &&
-
         <div className={styles.carouselContainer}>
           <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
         </div>
-
-      )}
-
       }
-
       {(location.pathname === '/') &&
         <div className={styles.carousel2Container}>
           <Carousel2 />
@@ -93,6 +72,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
       {(location.pathname === '/search') &&
         <div className={styles.carousel2Container}>
