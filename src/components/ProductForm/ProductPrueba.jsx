@@ -9,6 +9,8 @@ import { object } from "prop-types";
 const ProductPrueba = () => {
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
+  const [selectedRow, setSelectedRow] = useState({});
+
 
 
   useEffect(() => {
@@ -26,17 +28,16 @@ const ProductPrueba = () => {
       name: "ID",
       selector: (row) => row.id,
       sortable: true,
-      width: "70px",
-      justify: "center",
+      width: "120px",
+      center:"true"  
     },
     {
       name: "TITULO",
       selector: (row) => row.title,
       sortable: true,
-      fontSize: "30px",
       allowOverflow: false,
       style: { fontSize: 20 },
-      width: "500px",
+      width: "600px",
     },
     {
       name: "STOCK",
@@ -74,6 +75,7 @@ const ProductPrueba = () => {
       sortable: true,
       center: "true",
       style: { fontSize: 20 },
+      //width:"200px"
     },
     {
       name: "DISPONIBLE",
@@ -81,6 +83,7 @@ const ProductPrueba = () => {
       sortable: true,
       center: "true",
       style: { fontSize: 20 },
+      //width:"200px"
     },
     {
       name: "COLORES",
@@ -88,8 +91,16 @@ const ProductPrueba = () => {
       sortable: true,
       center: "true",
       style: { fontSize: 20 },
-      width: "200px",
+      //width: "400px",
     },
+    {
+        name: "PRECIO",
+        selector: (row) => row.precio,
+        sortable: true,
+        center: "true",
+        style: { fontSize: 20 },
+        //width:"150px"
+      },
   ];
 
   const formatProductTable = (data) => {
@@ -116,6 +127,7 @@ const ProductPrueba = () => {
           stocks: cont,
           colors: colores,
           available: inStock,
+          precio:data[i].price
         };
         dataObject.push(obj);
       }
@@ -130,12 +142,13 @@ const ProductPrueba = () => {
 
   const handleChange = (data) => {
     console.log(data);
+    setSelectedRow(data)
   };
 
   const customStyles = {
     rows: {
       style: {
-        fontSize: "25px",
+        fontSize: "23px",
       },
     },
     cells: {
@@ -144,6 +157,9 @@ const ProductPrueba = () => {
         paddingLeft: "8px", // override the cell padding for data cells
         paddingRight: "8px",
         backgroundColor: "#99A990",
+        '&:hover': {
+            backgroundColor: '#b2c2a9',
+          },
       },
     },
     headCells: {
@@ -153,6 +169,11 @@ const ProductPrueba = () => {
         justify: "center",
         justifyContent: "center",
         fontSize: "18px",
+        '&:hover': {
+            backgroundColor: '#b2c2a9',
+            color:"black",
+            fontSize:"21px"
+          },
       },
     },
   };
@@ -168,7 +189,6 @@ const ProductPrueba = () => {
                 className="form-control"
                 type="search"
                 placeholder="Producto..."
-                aria-label="Search"
                 onChange={handleFilter}
               />
             </div>
@@ -179,39 +199,23 @@ const ProductPrueba = () => {
         columns={columns}
         data={productRender}
         fixedHeader
-        highlightOnHover
         pointerOnHover
         customStyles={customStyles}
         theme="dark"
-        maxWidth="800px"
         onRowClicked={handleChange}
       ></DataTable>
+      {/* <div>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+        <h1>{selectedRow.id}</h1>
+      </div> */}
     </>
   );
 };
 
 export default ProductPrueba;
 
-// import React from 'react';
-// import { Button, ModalHeader,Modal, ModalBody } from "react-bootstrap"
-// //import "/bootstrap/dist/css/bootstrap.css.min"
-
-// const ProductPrueba = () => {
-//     return (
-//         <div>
-//             <Button color="succes">Mostrar</Button>
-//             <Modal>
-//                 <ModalHeader>
-//                     <ModalBody>
-//                     <h1>HOLA</h1>
-//                     </ModalBody>
-//                 </ModalHeader>
-//             </Modal>
-//         </div>
-//     );
-// };
-
-// export default ProductPrueba;
-{
-  /* <button style={{color:"",borderRadius:"10px",backgroundColor:"white"}} onClick={handleDetail}>Modificar</button> */
-}
