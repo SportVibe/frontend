@@ -75,36 +75,41 @@ const login = () => {
     password: "",
   });
   const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
+    email: '',
+    password: ''
+  })
+  let arr = [{ user: 'sportvibe07@gmail.com', password: 'Henry2023' }];
 
-  const handleChangeUser = (event) => {
-    let { value } = event.target;
-    let { name } = event.target;
-    let minus = value.toLowerCase()
-    setErrors(validacion({ ...user, [name]: minus }));
-    setUser({ ...user, [name]: minus });
-  };
+  const handleChange = (event) => {
+    let { name } = event.target
+    let { value } = event.target
+    setErrors(validacion({ ...user, [name]: value }))
+    setUser({ ...user, [name]: value })
+  }
 
-  const handleChangePassword = (event) => {
-    let { value } = event.target;
-    let { name } = event.target;
-    setErrors(validacion({ ...user, [name]: value }));
-    setUser({ ...user, [name]: value });
-  };
+  const handleLoginU = () => {
+    if (user.email === '') setAux(true);
+    else setUserCorrect(true);
+    /* else if (arr[0].user === user.email) setUserCorrect(true)
+    else window.alert('El email no existe') */
 
-  const handleLoginU = () => {//Esta función se ejecuta cuando el usuario intenta ingresar su correo
-    if (emailDb.includes(user.email)) {setUserCorrect(true), setAux(true) }
-    else window.alert("El usuario no existe");
-  };
-
-  const handleLoginP = () => {
-    if (user.password === "") setAux(true);
-    //else if (userCorrect && arr[0].password === user.password) navigate("/dashboard");
-    else window.alert("La contraseña es incorrecta");
-  };
- // let arr = [{ user: "sportvibe07@gmail.com", password: "Henry2023" }];
+  }
+  const handleLoginP = async () => {
+    if (user.password === '') setAux(true);
+    else {
+      try {
+        const { data } = await axios.post(`${API_URL}/login`, user);
+        if (data) {
+          (dispatch(userLoginAction(data)));
+          navigate('/');
+        }
+      } catch (error) {
+        console.error({ error: error.message });
+      }
+    }
+    /* else if (userCorrect && arr[0].password === user.password) navigate('/dashboard')
+    else window.alert('La contrasena es incorrecta') */
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);

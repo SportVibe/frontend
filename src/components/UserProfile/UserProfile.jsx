@@ -36,16 +36,16 @@ function UserProfile() {
                     <div className={styles.footerSideSection}>
                         <div className={styles.div}>
                             <i className="fa-solid fa-cart-shopping"></i>
-                            <p>Mi historial de compra</p>
+                            <p>Historial de compra</p>
                         </div>
                         <div className={styles.div}>
                             <i className="fa-regular fa-heart"></i>
                             <p>Mis favoritos</p>
                         </div>
-                        <div className={styles.div}>
+                        {/* <div className={styles.div}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                             <p>Mis búsquedas</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className={styles.tableContainer}>
