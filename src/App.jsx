@@ -1,7 +1,6 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import styles from './App.module.css';
-import { Home, CategoryBar, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
-
+import { Home, UserProfile, CategoryBar, CarouselComponent, About, ShoppingCart, Login, NavBar, Carousel2, NotFound, Footer, UserForm } from "./helpers/indexComponents";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
@@ -60,6 +59,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
       {(location.pathname === '/search') &&
         <div className={styles.carousel2Container}>
