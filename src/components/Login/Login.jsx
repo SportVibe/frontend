@@ -42,7 +42,6 @@ function Login() {
     if (user.password === '') setAux(true);
     else {
       try {
-        /* console.log(user); */
         const { data } = await axios.post(`${API_URL}/login`, user);
         if (data) {
           (dispatch(userLoginAction(data)));

@@ -67,7 +67,7 @@ function NavBar() {
             </div>
             {userData ?
               <div id='profile' className={styles.userLogContainer} onClick={handleNavigate}>
-                <p id='profile' onClick={handleNavigate}>Perfil</p>
+                <p id='profile' onClick={handleNavigate}>Mi perfil</p>
                 <div id='profile' onClick={handleNavigate}>
                   {userData.data.user.image ?
                     <img id='profile' src={userData.data.user.image} alt="" onClick={handleNavigate} /> :
