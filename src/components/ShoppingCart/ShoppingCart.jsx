@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
-  // Estado local para almacenar los elementos del carrito
   const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate();
 
-  // Función para calcular el subtotal
   const calculateSubtotal = (items) => {
     if (!items || items.length === 0) {
       return 0;
@@ -13,7 +12,6 @@ const ShoppingCart = () => {
     return items.reduce((total, item) => total + item.data.price, 0);
   };
 
-  // Función para guardar el carrito en una cookie
   const saveCartToCookie = (items) => {
     const cartData = JSON.stringify(items);
     document.cookie = `cart=${encodeURIComponent(cartData)}; expires=${new Date(
@@ -21,7 +19,6 @@ const ShoppingCart = () => {
     ).toUTCString()}; path=/`;
   };
 
-  // Función para obtener el carrito desde la cookie
   const getCartFromCookie = () => {
     const cookieValue = document.cookie.replace(
       /(?:(?:^|.*;\s*)cart\s*=\s*([^;]*).*$)|^.*$/,
@@ -30,25 +27,25 @@ const ShoppingCart = () => {
     return cookieValue ? JSON.parse(decodeURIComponent(cookieValue)) : [];
   };
 
-  // Efecto para cargar el carrito desde la cookie al montar el componente
   useEffect(() => {
     const storedCart = getCartFromCookie();
     setCartItems(storedCart);
   }, []);
 
-  // Efecto para guardar el carrito en la cookie cuando cambia
   useEffect(() => {
     saveCartToCookie(cartItems);
   }, [cartItems]);
 
-  // Función para manejar la eliminación de un elemento del carrito
   const handleRemoveFromCart = (productId) => {
     const newCartItems = cartItems.filter((item) => item.data.id !== productId);
     setCartItems(newCartItems);
   };
 
-  // Subtotal calculado
   const subtotal = calculateSubtotal(cartItems);
+
+  const handleGoToPayment = () => {
+    navigate("/payment");
+  };
 
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
@@ -101,7 +98,7 @@ const ShoppingCart = () => {
             />
           </div>
           <div className="d-flex gap-2">
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-primary" onClick={handleGoToPayment}>
               Ir a Pagar
             </button>
             <Link to="/" className="btn btn-secondary">

@@ -12,5 +12,5 @@ import Footer from "../components/Footer/Footer";
 import Table from '../components/Table/Table';
 import UserProfile from "../components/UserProfile/UserProfile";
 import CategoryBar from "../components/FilterBar/CategoryBar/CategoryBar";
-
-export {About, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm}
+import PaymentForm from "../components/PaymentForm/PaymentForm";
+export {About, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm, PaymentForm}
