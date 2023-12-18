@@ -1,163 +1,205 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-//import google from "../../imagenes/google.png";
+import { useEffect, useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import "./Login.css";
+import logo from "../../Images/Logo.jpg";
+import google  from "../../Images/google-signin-button.png"
+import { initializeApp } from "firebase/app";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import axios from "axios";
-//import { URL } from "../../config.js";
-import { GoogleAuthProvider, signInWithPopup, auth } from "../../firebase.js";
-import { LoginUser } from "../../redux/actions/actions.js";
-import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const dispatch = useDispatch();
+const provider = new GoogleAuthProvider();
 
-  const [loading, setLoading] = useState(false);
-  const [userRegistered, setUserRegistered] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider(userData);
+const login = () => {
+  const firebaseConfig = {//esta función se utiliza para inicializar la aplicación de Firebase antes de utilizar el servicio de autenticación
+    apiKey: "AIzaSyCgXPvmDHMD8CXkdu6X2H_hVy0ugo43_5s",
+    authDomain: "sportvibe-83aba.firebaseapp.com",
+    projectId: "sportvibe-83aba",
+    storageBucket: "sportvibe-83aba.appspot.com",
+    messagingSenderId: "1056600771864",
+    appId: "1:1056600771864:web:b038f160957b99e806226d",
+    measurementId: "G-74CJSX0GX1",
+  };
+
+  const [users ,setUsers]= useState();//Se utiliza el hook useState para declarar un estado.
+
+  useEffect(()=>{
+    axios.get('http://localhost:3005/users')//Se utiliza el hook useEffect para realizar efectos secundarios en el componente. En este caso, se ejecutará una vez después de que el componente se monte en el DOM debido al array de dependencias vacío ([])
+    .then(({ data }) => {
+    setUsers(data);
+    })
+  },[])
+
+  const emailDb = users?.Users.map((ema)=>ema.email)
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth();
+
+  const URL = "http://localhost:3005/";
+
+  const callLoginGoogle = async () => {
 
     try {
-      setLoading(true);
-
       const result = await signInWithPopup(auth, provider);
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+
+      // The signed-in user info.
       const user = result.user;
 
-      const response = await axios.post(`${URL}Google`, {
+      const response = await axios.post(`${URL}google`, {
         firstName: user.displayName,
         email: user.email,
-        roll: "Client",
+        image: user.photoURL,
+        rol: "CLIENT",
       });
-      console.log("response", response);
+      console.log("respuesta: ", response);
 
-      const receivedToken = response.data.token;
-      const id = response.data.id;
-      localStorage.setItem("token", receivedToken);
-
-      // Actualizar el estado si el usuario ya está registrado
-      setUserRegistered(true);
-      dispatch(
-        LoginUser({
-          firstName: user.displayName,
-          email: user.email,
-          roll: "Client",
-        })
-      );
-
-      console.log("LoginUser", LoginUser);
-
-      const userDataFromResponse = {
-        firstName: user.displayName,
-        email: user.email,
-        roll: "Client",
-        userId: id, // Use the userId from the response
-      };
-
-      if (id) {
-        createCart(userDataFromResponse.userId);
-      }
-
-      setUserData(userDataFromResponse);
-      window.location.href = "/Profile";
+      navigate("/userForm");
+      alert(response.data.message);
+      
     } catch (error) {
       console.error("Error al autenticar con Google:", error.message);
       console.error("Detalles del error:", error.response);
-    } finally {
-      setLoading(false);
     }
   };
 
-  const createCart = async (userId) => {
-    try {
-      const { data } = await axios.post(`${URL}shoppingCart`, {
-        userId,
-      });
-      // console.log(data);
-    } catch (error) {
-      alert(error.message);
-    }
+  const navigate = useNavigate();
+  const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
+  const [aux, setAux] = useState(false);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChangeUser = (event) => {
+    let { value } = event.target;
+    let { name } = event.target;
+    let minus = value.toLowerCase()
+    setErrors(validacion({ ...user, [name]: minus }));
+    setUser({ ...user, [name]: minus });
   };
+
+  const handleChangePassword = (event) => {
+    let { value } = event.target;
+    let { name } = event.target;
+    setErrors(validacion({ ...user, [name]: value }));
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleLoginU = () => {//Esta función se ejecuta cuando el usuario intenta ingresar su correo
+    if (emailDb.includes(user.email)) {setUserCorrect(true), setAux(true) }
+    else window.alert("El usuario no existe");
+  };
+
+  const handleLoginP = () => {
+    if (user.password === "") setAux(true);
+    //else if (userCorrect && arr[0].password === user.password) navigate("/dashboard");
+    else window.alert("La contraseña es incorrecta");
+  };
+ // let arr = [{ user: "sportvibe07@gmail.com", password: "Henry2023" }];
+
 
   return (
-    <div className="container w-100 my-4">
-      <div className="row text-center">
-        <div className="col-12">Iniciar Sesión</div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <button
-            type="button"
-            className="btn btn-outline-danger w-100 my-1"
-            onClick={handleGoogleSignIn}
-            disabled={userRegistered}
-          >
-            <div className="row align-items-center">
-              <div className="col-2">
-                <img src={google} alt="Google" width="32" className="" />
-              </div>
-              <div className="col-10 text-center">Google</div>
-            </div>
-          </button>
+    <div className="contenedorLogin">
+      <div className="box">
+        <div className="boxlogo">
+          <NavLink to="/">
+            <img className="logo" src={logo} alt="" />
+          </NavLink>
+        </div>
+        <div className="label">
+          {/* <p className="text-wrapper">SportVibe</p> */}
+          <p className="text-wrapper2">¡Siente la energía, viste la pasión!</p>
+
+          {!userCorrect ? (
+            <div className="text-wrapper3">Correo electrónico</div>
+          ) : (
+            <div className="text-wrapper3">Contraseña</div>
+          )}
+        </div>
+        <div className="boxInput">
+          {!userCorrect ? (
+            <input value={user.email} className="input" name="email" onChange={handleChangeUser} />
+          ) : (
+            <input
+              value={user.password}
+              className="input"
+              name="password"
+              type="password"
+              autoComplete="off"
+              onChange={handleChangePassword}
+            />
+          )}
+
+          {!userCorrect ? (
+            aux && !errors.email ? (
+              <p className="error">Por favor ingrese un usuario</p>
+            ) : (
+              <p className="error">{errors.email}</p>
+            )
+          ) : (
+            ""
+          )}
+
+          {userCorrect ? (
+            !passwordCorrect ? (
+              aux && !errors.password ? (
+                <p className="error">Por favor ingrese una clave</p>
+              ) : (
+                <p className="error">{errors.password}</p>
+              )
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )}
+
+          {!userCorrect ? (
+            <button onClick={() => handleLoginU()} className="button">
+              SIGUIENTE
+            </button>
+          ) : (
+            <button onClick={() => handleLoginP()} className="button">
+              SIGUIENTE
+            </button>
+          )}
+        </div>
+        <hr />
+        <div className="boxlin">
+          <p className="o">O</p>
+        </div>
+        <button className="googleButton" onClick={callLoginGoogle}> <img className="googleImag" src={google} alt="" /></button>
+       
+        <div className="crear">
+          <p className="text-wrapper4">¿Aún no tienes cuenta SportVibe? ¡Regístrate aquí!!</p>
+          <NavLink to="/userForm">
+            <button className="botton2">CREAR UNA CUENTA</button>
+          </NavLink>
         </div>
       </div>
-      {loading && (
-        <div className="row text-center mt-2">
-          <div className="col-12">Cargando...</div>
-        </div>
-      )}
-      {userRegistered && userData && (
-        <div className="row text-center mt-2">
-          <div className="col-12"></div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default Login;
+export default login;
 
+const validacion = ({ email, password }) => {
+  let error = {};
 
-// import React from "react";
-// import { useAuth0 } from "@auth0/auth0-react";
-// import LogoutButton from "../Logout/Logout";
-// import Profile from "../Profile/Profile";
+  if (!email) error.email = "Por favor ingrese un usuario";
+  else error.email = "✔";
 
-// const LoginButton = () => {
-//   const { loginWithRedirect } = useAuth0();
+  if (!password) error.password = "Por favor ingrese una clave";
+  else error.password = "✔";
 
-//   return <button onClick={() => loginWithRedirect()}>Log In</button>;
-// };
-
-// export default LoginButton;
-
-// function Login() {
-//   const {isAuthenticated} =useAuth0();
-
-//   const LoginButton = () => {
-//     const { loginWithRedirect } = useAuth0();
-//     return <button onClick={()=>loginWithRedirect()}>Login</button>
-  
-//   }
-
-//     return (
-
-//       <div>
-//         {isAuthenticated ? (<> <Profile/>
-//        <LogoutButton/></>):<LoginButton/>}
-       
-//       </div>
-      
-//     );
-//   }
-//   export default Login;
-
-//   const validacion = ({usuario, password}) =>{
-//     let error = {};
-
-//   if(!usuario) error.usuario = 'Por favor ingrese un usuario'
-//   else error.usuario = '✔'
-
-//   if(!password) error.password = 'Por favor ingrese una clave'
-//   else error.password = '✔'
-
-//     return error
- // }
+  return error;
+};
