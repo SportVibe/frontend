@@ -1,6 +1,5 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 
-
 import {
   Home,
   CarouselComponent,
@@ -14,13 +13,13 @@ import {
   UserForm,
 } from "./helpers/indexComponents";
 
-import styles from './App.module.css';
+import styles from "./App.module.css";
 import { CategoryBar } from "./helpers/indexComponents";
 
 import { Route, Routes, useLocation } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
-import CarouselProducts from './components/CarouselProducts/CarouselProducts';
+import CarouselProducts from "./components/CarouselProducts/CarouselProducts";
 import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -35,54 +34,50 @@ function App() {
 
   return (
     <div className={styles.mainView}>
-
-      {(location.pathname !== "/dashboard") && (
+      {location.pathname !== "/dashboard" && (
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
-  )}
-      {(location.pathname === '/' || location.pathname === '/search') &&
+      )}
+      {(location.pathname === "/" || location.pathname === "/search") && (
         <div className={styles.categoryBarContainer}>
           <CategoryBar />
         </div>
-      }
-      {(location.pathname === '/' &&
+      )}
 
-      {(location.pathname !== '/dashboard') &&
+      {location.pathname !== "/dashboard" && (
         <div className={styles.navBarContainer}>
           <NavBar />
         </div>
-      }
+      )}
       {/* {(location.pathname === '/' || location.pathname === '/search') &&
         <div className={styles.categoryBarContainer}>
           <CategoryBar />
         </div>
       } */}
-      {location.pathname === '/' &&
-
+      {location.pathname === "/" && (
         <div className={styles.carouselContainer}>
-          <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
+          <CarouselComponent
+            text={["Descuentos de hasta 50%", "No te pierdas estas ofertas!"]}
+          />
         </div>
-
       )}
 
-      }
-
-      {(location.pathname === '/') &&
+      {location.pathname === "/" && (
         <div className={styles.carousel2Container}>
           <Carousel2 />
         </div>
-      }
-      {location.pathname === '/' &&
+      )}
+      {location.pathname === "/" && (
         <div className={styles.CarouselModelContainer}>
           <CarouselModel />
         </div>
-      }
-      {location.pathname === '/' &&
+      )}
+      {location.pathname === "/" && (
         <div className={styles.CarouselProductsContainer}>
           <CarouselProducts />
         </div>
-      }
+      )}
       <Routes className={styles.routesContainer}>
         <Route path="/" element={<Home />}></Route>
         <Route path="/search" element={<Home />}></Route>
@@ -94,17 +89,16 @@ function App() {
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {(location.pathname === '/search') &&
+      {location.pathname === "/search" && (
         <div className={styles.carousel2Container}>
           <Carousel2 />
         </div>
-      }
-      {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
+      )}
+      {location.pathname !== "/login" && location.pathname !== "/dashboard" && (
         <Footer />
-      }
+      )}
     </div>
   );
 }
 
 export default App;
-
