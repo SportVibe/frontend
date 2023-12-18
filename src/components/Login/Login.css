@@ -99,7 +99,7 @@
     align-items: start;
     flex-direction: column;
     justify-content: start;
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
   
   .crear .text-wrapper4 {
@@ -110,6 +110,7 @@
     letter-spacing: 0;
     line-height: normal;
     width: 261px;
+    
   }
 
   .crear .botton2 {
@@ -138,5 +139,14 @@
     font-size: 12px;
     margin-top: -0.8rem;
     font-weight: 600;
+  }
+  .googleButton{
+    border: none;
+    background-color: white;
+  }
+  .googleImag{
+    width: 13rem;
+    padding: 3rem;
+    margin: -3rem;
   }
   

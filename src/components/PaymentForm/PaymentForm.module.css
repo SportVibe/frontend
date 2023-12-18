@@ -1,0 +1,93 @@
+.container {
+    margin-top: 4rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .is-invalid {
+    border-color: #050755;
+  }
+  
+  .form-check {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  
+  .form-page {
+    max-width: 600px;
+    margin: auto;
+    padding: 10px 50px 20px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.121);
+    color: white;
+    height: 130vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background: rgba(237, 230, 230, 0.5);
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fffffff7;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  span {
+    color: rgba(243, 140, 140, 0.797);
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .custom-teams {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .custom-teams span {
+    background: rgba(237, 230, 230, 0.5);
+    color: rgb(31, 28, 28);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  
+  :root {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
