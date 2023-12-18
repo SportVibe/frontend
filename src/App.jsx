@@ -22,7 +22,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
-import CarouselProducts from './components/CarouselProducts/CarouselProducts';
+import CarouselProducts from "./components/CarouselProducts/CarouselProducts";
 import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -38,8 +38,7 @@ function App() {
   /* useEffect(() => {
     dispatch(getProducts());
   }, []); */
-
-
+  
   return (
     <Elements stripe={stripePromise}>
       <div className={styles.mainView}>
@@ -101,4 +100,3 @@ function App() {
 }
 
 export default App;
-
