@@ -26,6 +26,7 @@ import CarouselProducts from './components/CarouselProducts/CarouselProducts';
 import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import ProductUpdate from "./components/ProductUpdate/ProductUpdate";
 
 const stripePromise = loadStripe('Henry2023?');
 
