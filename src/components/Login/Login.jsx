@@ -135,7 +135,7 @@ const login = () => {
         </div>
         <div className="boxInput">
           {!userCorrect ? (
-            <input value={user.email} className="input" name="email" onChange={handleChangeUser} />
+            <input value={user.email} className="input" name="email" onChange={handleChange} />
           ) : (
             <input
               value={user.password}
@@ -143,7 +143,7 @@ const login = () => {
               name="password"
               type="password"
               autoComplete="off"
-              onChange={handleChangePassword}
+              onChange={handleChange}
             />
           )}
 
