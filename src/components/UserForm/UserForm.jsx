@@ -1,11 +1,20 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import validation from "./Validation";
-
+import axios from "axios";
 
 function UserForm() {
+
+  const [users ,setUsers]= useState();
+
+  useEffect(()=>{
+    axios.get('http://localhost:3005/users')
+    .then(({ data }) => {
+    setUsers(data);
+    })
+  },[])
 
     const [ foto, setFoto ] = useState('')
 
@@ -28,12 +37,22 @@ function UserForm() {
         email: '',
         password: '',
         image: '',
-    })
+    }) 
+    
+  const userLogin = users?.Users.pop()
+  const nombre = userLogin?.firstName.split(' ')
+  const hhh = userLogin?.firstName?.split(' ');
+  const firstname =  nombre?.slice(0, 2).join(' ');
+  const lastname = hhh?.splice(0, 2);
+  newUsers.firstName = firstname
+  newUsers.lastName = hhh?.join(' ');
+
+  //console.log(lastname);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setNewUsers({ ...newUsers, [name]: value });
-        setNewErrors(validation({ ...newUsers, [name]: value }));   
+        setNewErrors(validation({ ...newUsers, [name]: value })); 
     }
 
     const vistaPrevia = (event) => {
@@ -109,7 +128,9 @@ function UserForm() {
                 <div className="contenedor1">
                     <div className="contenedor2">
                         <label className="label" htmlFor="">Primer nombre </label>
-                        <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />
+                        {nombre?.length > 0 ? <input className="input" type="text" disabled value={newUsers.firstName}/> :
+                        <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />}
+                        
                     </div>
                        {newErrors.firstName ? <p className="messError"> {newErrors.firstName}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
