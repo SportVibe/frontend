@@ -15,6 +15,7 @@ export const TOTAL_FILTERS = "TOTAL_FILTERS";
 export const SORT = "SORT";
 export const PRICE_FILTER = "PRICE_FILTER";
 export const GENRES_FILTER = "GENRES_FILTER";
+export const USER_LOGIN = "USER_LOGIN";
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -32,6 +33,14 @@ export const getCarousel2Products = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`${API_URL}/product`);
     return dispatch({ type: GET_CAROUSEL2_PRODUCTS, payload: data });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const userLoginAction = (userData) => async (dispatch) => {
+  try {
+    return dispatch({ type: USER_LOGIN, payload: userData });
   } catch (error) {
     console.error(error.message);
   }

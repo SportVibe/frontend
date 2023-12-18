@@ -30,7 +30,7 @@ const Paginado = () => {
   const handlePageChangeLeft = (newPage) => {
     if (currentPage !== 1) {
       setPageNumber(newPage);
-      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { page: newPage }, { limit: limitPage }]
+      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
       dispatch(getProducts(sumFilters));
       navigate('/search');
     }
@@ -39,7 +39,7 @@ const Paginado = () => {
   const handlePageChangeRight = (newPage) => {
     if (currentPage !== arrayPages.length) {
       setPageNumber(newPage);
-      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { page: newPage }, { limit: limitPage }]
+      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
       dispatch(getProducts(sumFilters));
       navigate('/search');
     }

@@ -72,7 +72,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/user-profile/:id" element={<UserProfile />} />
       </Routes>
       {(location.pathname === '/search') &&
         <div className={styles.carousel2Container}>
