@@ -9,6 +9,7 @@ import CarouselProducts from './components/CarouselProducts/CarouselProducts';
 import { getProducts } from "./redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import ProductUpdate from "./components/ProductUpdate/ProductUpdate";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ function App() {
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/userForm" element={<UserForm />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/productUpdate" element={ProductUpdate}/>
       </Routes>
       {(location.pathname === '/search') &&
         <div className={styles.carousel2Container}>
