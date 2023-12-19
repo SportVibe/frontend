@@ -92,9 +92,11 @@ const ProductDetail = () => {
             <div className={styles.talleBox}>
               {Stocks.length &&
                 Stocks.map((stock, i) => {
+                  const key = Object.keys(stock)[0]; 
+                  const value = stock[key]; 
                   return (
                     <div key={i}>
-                      
+                      <p>Talle: {key} = {value} unidades</p>
                     </div>
                   );
                 })}

@@ -9,26 +9,38 @@ import ProductPrueba from "../ProductForm/ProductPrueba";
 import Spinner from 'react-bootstrap/Spinner';
 
 function AdminDashBoard() {
-
+  const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  
+  console.log(selectedRow);
+
+  function handleClose() {
+    setSelectedRow(null);
+  }
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
 
   return (
     <div className="d-flex">
       <Sidebar setSidebarRender={setSidebarRender} />
       <div className="bg-transparent w-100">
         {sidebarRender === "productos" ? (
-          <div className={styles.conteinerCards}>{<ProductPrueba />}</div>
+          <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>{<ProductPrueba setSelectedRow={setSelectedRow} />}</div>
         ) : null}
         {sidebarRender === "nuevo" && (
           <div>
             <ProductForm />
           </div>
         )}
+        {selectedRow &&
+          <div className={styles.holiRender}>
+            <p>{selectedRow?.id}</p>
+            <p>{selectedRow?.title}</p>
+            <p>{selectedRow?.descripcion}</p>
+            <p onClick={handleClose}>✕</p>
+          </div>}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
       </div>
     </div>

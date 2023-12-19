@@ -1,6 +1,8 @@
 import styles from './UserProfile.module.css';
 /* import img1 from '../../Images/imagesVidal.jpeg'; */
 import { Table } from '../../helpers/indexComponents';
+import DataTable from 'react-data-table-component';
+import { useState } from 'react';
 
 function UserProfile() {
     const imgUser = null;
