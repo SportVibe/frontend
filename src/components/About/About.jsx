@@ -1,7 +1,7 @@
 import { Card, Col, Row } from 'react-bootstrap';
 import styles from './About.module.css'; 
 import CardTeam from './CardTeam/CardTeam';
-import Logo from'../../Images/Logo.jpg';
+import Brian from'../../Images/Brian.jpg';
 
 function About() {
    // Datos de ejemplo para los miembros del equipo
@@ -41,7 +41,7 @@ function About() {
     {
       id: 5,
       name: 'Brian Hernan Rojas',
-      image: 'https://fotografias.larazon.es/clipping/cmsimages01/2022/01/24/A3C3A40A-D921-482D-806A-2F0EFE04EC29/98.jpg?crop=3413,1920,x0,y173&width=1900&height=1069&optimize=low&format=webply',
+      image: Brian,
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/brian-rojas-74a174278/',
       github: 'https://github.com/BrianHerR',
@@ -77,7 +77,7 @@ function About() {
       <Card className={styles.companyCard}>
         <Row className="g-0">
           <Col md={8}>
-            <Card.Body className={styles.textConteiner}>
+           <Card.Body className={styles.textContainer}>
               <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
               <Card.Text>
                 La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
@@ -92,10 +92,10 @@ function About() {
       </Card>
 
       <Row xs={1} md={2} lg={3} className='d-flex'>
-        {teamMembers.map((member) => (
-          <Col key={member.id}>
-            <CardTeam {...member} />
-          </Col>
+      {teamMembers.map((member) => (
+        <Col key={member.id} xs={12} md={6} lg={4}>
+          <CardTeam {...member} />
+        </Col>
         ))}
       </Row>
     </div>

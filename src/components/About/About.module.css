@@ -2,11 +2,9 @@
   margin: 30px;
 }
 
-.textConteiner {
-  justify-content: center;
-  text-align: center;
-  margin-left: 25%;
-  width: 100%;
+.textContainer {
+ text-align: center;
+  
 }
 
 .companyCard {
