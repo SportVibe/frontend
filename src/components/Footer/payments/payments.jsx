@@ -3,14 +3,14 @@ import styles from "../payments/payments.module.css";
 
 function Payments() {
   return (
-    <div>
+    <div className={styles.mainView}>
       <h1 className={styles.title}>Pagos y Promociones</h1>
       <hr />
       <h4 className={styles.p}>
         En SportVibe podés usar los siguientes métodos de pago:
       </h4>
       <h2 className={styles.card}>Tarjetas de Crédito</h2>
-      <div>
+      <div id={styles.cardsBox}>
         <div className={styles.imgConteiner}>
           <img
             src="https://th.bing.com/th/id/R.3232ed3084533dfee74f98a2241f088c?rik=TkI%2b4YHzecPHgA&riu=http%3a%2f%2fandroidheadlines.com%2fwp-content%2fuploads%2f2013%2f02%2fVISA-Logo.jpg&ehk=nxv1u%2bbxt45JMmNsLiFioJUpYDxoPYOXZCRzh5J%2ffds%3d&risl=&pid=ImgRaw&r=0"
@@ -43,7 +43,7 @@ function Payments() {
         </div>
       </div>
       <h2 className={styles.card}>Tarjetas de Débito</h2>
-      <div>
+      <div id={styles.cardsBox}>
         <div className={styles.imgConteiner}>
           <img
             src="https://th.bing.com/th/id/R.3232ed3084533dfee74f98a2241f088c?rik=TkI%2b4YHzecPHgA&riu=http%3a%2f%2fandroidheadlines.com%2fwp-content%2fuploads%2f2013%2f02%2fVISA-Logo.jpg&ehk=nxv1u%2bbxt45JMmNsLiFioJUpYDxoPYOXZCRzh5J%2ffds%3d&risl=&pid=ImgRaw&r=0"
@@ -64,7 +64,7 @@ function Payments() {
         </div>
       </div>
       <h2 className={styles.card}>Mercado pago</h2>
-      <div className={styles.imgConteiner}>
+      <div id={styles.cardsBox} className={styles.imgConteiner}>
         <img
           src="https://revistauy.files.wordpress.com/2018/04/logo-mercado-pago.png?w=1024"
           alt=""

@@ -1,14 +1,14 @@
 .mainView {
   width: 100%;
-  height: 250px;
+  /* height: 250px; */
   overflow: hidden;
-  color: white;
+  color: black;
   /* background-color: var(--bg-color2); */
   background-color: rgba(136, 136, 136, 0.164);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px;
+  padding: 50px 20px;
 
   & p {
     text-align: center;
@@ -16,6 +16,15 @@
     margin: 5;
     font-size: 14px;
     font-weight: 400;
+  }
+}
+
+#subMainView {
+  display: flex;
+  justify-content: space-between;
+
+  & div {
+    width: auto;
   }
 }
 
@@ -40,4 +49,16 @@
     border-radius: 5px;
     padding-bottom: 5px;
   }
+}
+
+#lastBox {
+  padding: 20px;
+  background-color: var(--bg-color2);
+  color: white;
+}
+
+.derechosReservados {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
 }
