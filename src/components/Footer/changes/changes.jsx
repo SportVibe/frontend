@@ -7,7 +7,7 @@ function Changes() {
       <h1 className={styles.title}>Cambios</h1>
       <hr />
       <div>
-        <h3 className={styles.titleH3} >¿Puedo cambiar mi producto por otro?</h3>
+        <h3 className={styles.titleH3}>¿Puedo cambiar mi producto por otro?</h3>
         <p className={styles.p}>
           ¡Sí, podés elegir cualquier otro producto! Tené en cuenta que, para
           realizar el cambio por otro producto, siempre el nuevo que selecciones
@@ -32,20 +32,22 @@ function Changes() {
         <h3 className={styles.titleH3}> ¿Cómo se realiza un cambio? </h3>
         <p className={styles.p}>
           Te brindamos dos opciones: 1. Podés acercarte con el producto que
-          recibiste a cualquiera de nuestras sucursales Dexter, junto con la
+          recibiste a cualquiera de nuestras sucursales SportVibe, junto con la
           factura de compra y el packaging original, y realizar el cambio en
           forma presencial. Te dejamos a continuación el link de acceso directo
           para que puedas visualizar dónde se encuentran ubicadas nuestras
-          tiendas físicas, según código postal: www.dexter.com.ar/sucursales
+          tiendas físicas, según código postal: www.SportVibe.com.ar/sucursales
           y/o; 2. Podés solicitar que retiremos el producto por tu domicilio, lo
           que se realizará con alguno de nuestros correos contratados. Una vez
           retirado el producto, cuando llegue a nuestro depósito, se gestionará
           el cambio y se despachará el nuevo producto que elegiste. ¡Tené en
           cuenta que el primer cambio es siempre sin cargo! Si elegís esta
           opción, mandanos un email con los datos de tu orden a
-          ecommerce@dexter.com.ar o contactanos a través del 0810-888-3398.
+          sportvibe07@gmail.com o contactanos a través del 0810-888-1234.
         </p>
-        <h3 className={styles.titleH3}>¿Cuánto tiempo tengo para hacer un cambio?</h3>
+        <h3 className={styles.titleH3}>
+          ¿Cuánto tiempo tengo para hacer un cambio?
+        </h3>
         <p className={styles.p}>
           Tenés hasta 30 (treinta) días corridos contados desde que recibiste el
           producto para realizar el cambio. El producto, al momento de
@@ -67,7 +69,10 @@ function Changes() {
           gratis! Si el motivo del cambio es porque recibiste un producto
           distinto al que compraste, el mismo no tendrá un costo asociado.
         </p>
-        <h3 className={styles.titleH3} > ¿Cómo puedo ver el estado de mi cambio? </h3>
+        <h3 className={styles.titleH3}>
+          {" "}
+          ¿Cómo puedo ver el estado de mi cambio?{" "}
+        </h3>
         <p className={styles.p}>
           Una vez que hayas realizado la reserva del nuevo producto para tu
           cambio, podrás visualizar el estado del pedido desde tu perfil en
@@ -81,29 +86,30 @@ function Changes() {
           seguir el estado de tu cambio en todo momento y estar al tanto del
           proceso de cambio.
         </p>
-        <h3 className={styles.titleH3} > ¡Importante para considerar! </h3> 
-        <p className={styles.p}> • DABRA S.A. se reserva el
-        derecho a tener diferentes precios de productos, distintas promociones
-        y/o descuentos tanto en sus tiendas de e-commerce como en sus tiendas
-        físicas. • Si el motivo del cambio es sobre un producto con alguna falla
-        o un producto distinto al que adquiriste, deberás enviar un correo con
-        fotos en las cuales se pueda visualizar la falla, la etiqueta y/o caja
-        del producto a ecommerce@dexter.com.ar Una vez enviado el correo, nos
-        pondremos en contacto y te estaremos informando cuáles son los pasos por
-        seguir para la gestión correspondiente. • Al realizar tu cambio por este
-        medio, si el producto es de mayor valor, podrás abonar la diferencia a
-        través de Mercado Pago (utilizando tu tarjeta de débito, crédito o Pago
-        Fácil). Y si la diferencia es a favor, el reintegro se generará al medio
-        de pago elegido en el momento que realizaste tu compra. Tener en cuenta
-        que la devolución de dinero a favor al medio de pago elegido es
-        únicamente para cambios realizados a través de las tiendas e-commerce.
-        Si abonaste utilizando Mercado Pago, el reintegro se realizará en tu
-        cuenta personal y si utilizaste una tarjeta de débito o crédito, el
-        reintegro lo podrás ver reflejado en tu próximo resumen (es importante
-        en este caso que tengas en cuenta la fecha del cierre de la tarjeta).
-        ¿Cuáles son los productos que no se pueden cambiar ni devolver? Los
-        productos personalizados, medias, mallas, protectores bucales y ropa
-        interior no tienen cambio ni devolución. </p>
+        <h3 className={styles.titleH3}> ¡Importante para considerar! </h3>
+        <p className={styles.p}>
+          {" "}
+          • SportVibe se reserva el derecho a tener diferentes precios de
+          productos, distintas promociones y/o descuentos tanto en sus tiendas
+          de e-commerce como en sus tiendas físicas. • Si el motivo del cambio
+          es sobre un producto con alguna falla o un producto distinto al que
+          adquiriste, deberás enviar un correo con fotos en las cuales se pueda
+          visualizar la falla, la etiqueta y/o caja del producto a
+          sportvibe07@gmail.com Una vez enviado el correo, nos pondremos en
+          contacto y te estaremos informando cuáles son los pasos por seguir
+          para la gestión correspondiente. • Al realizar tu cambio por este
+          medio, si el producto es de mayor valor, podrás abonar la diferencia a
+          través de Mercado Pago (utilizando tu tarjeta de débito, crédito o
+          Pago Fácil). Y si la diferencia es a favor, el reintegro se generará
+          al medio de pago elegido en el momento que realizaste tu compra. Tener
+          en cuenta que la devolución de dinero a favor al medio de pago elegido
+          es únicamente para cambios realizados a través de las tiendas
+          e-commerce. Si abonaste utilizando Mercado Pago, el reintegro se
+          realizará en tu cuenta personal y si utilizaste una tarjeta de débito
+          o crédito, el reintegro lo podrás ver reflejado en tu próximo resumen
+          (es importante en este caso que tengas en cuenta la fecha del cierre
+          de la tarjeta).
+        </p>
       </div>
     </div>
   );
