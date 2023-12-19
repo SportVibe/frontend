@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductDetail.module.css";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../helpers/config";
@@ -8,7 +8,12 @@ import axios from "axios";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
+
+  
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const title = data?.title ? data.title : "";
   const Colors = data?.Colors.length ? data.Colors : [""];
@@ -37,6 +42,18 @@ const ProductDetail = () => {
         console.log("Error fetching product details:", error);
       });
   }, []);
+
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      // Agrega lógica para agregar el producto al carrito
+      // y luego redirige al usuario al carrito de compras, debe tener el login 
+      // Puedes usar la función `setCartItems` del estado del carrito en `ShoppingCart`.
+      // Aquí se asume que hay una función `addToCart` para agregar al carrito.
+      // Ajusta según tu implementación real.
+      addToCart(selectedProduct);
+      navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito.
+    }
+  };
   
     useEffect(() => {
       window.scrollTo(0, 0);
@@ -61,7 +78,7 @@ const ProductDetail = () => {
               })}
           </div>
           <div className={styles.buttonContainer}>
-            <button>
+              <button onClick={handleAddToCart}>
               Agregar al carrito
               <i className="bi bi-cart-plus" />
             </button>
@@ -77,7 +94,7 @@ const ProductDetail = () => {
                 Stocks.map((stock, i) => {
                   return (
                     <div key={i}>
-                      <p>Talle: {stock}</p>
+                      
                     </div>
                   );
                 })}

@@ -92,6 +92,7 @@ function App() {
         <Route path="/conditions" element={<Conditions />} />
         <Route path="/deliveries" element={<Deliveries />} />
         <Route path="/changes" element={<Changes />} />
+        <Route path="/payment" element={<PaymentForm />} />
         <Route path="/payments" element={<Payments />} />
       </Routes>
         {(location.pathname === '/search') &&
