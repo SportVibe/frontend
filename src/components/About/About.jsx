@@ -1,11 +1,11 @@
 import { Card, Col, Row } from 'react-bootstrap';
-import styles from './About.module.css'; 
+import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
-import Brian from'../../Images/Brian.jpg';
+import Brian from '../../Images/Brian.jpg';
 
 function About() {
-   // Datos de ejemplo para los miembros del equipo
-   const teamMembers = [
+  // Datos de ejemplo para los miembros del equipo
+  const teamMembers = [
     {
       id: 1,
       name: 'Maria Angelica Palomino Jaramillo',
@@ -75,11 +75,11 @@ function About() {
   return (
     <div className={styles.aboutContainer}>
       <Card className={styles.companyCard}>
-        <Row className="g-0">
+        <Row id={styles.row} className="g-0">
           <Col md={8}>
-           <Card.Body className={styles.textContainer}>
-              <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
-              <Card.Text>
+            <Card.Body className={styles.textContainer}>
+              <Card.Title className={styles.text}>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
+              <Card.Text className={styles.text}>
                 La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
                 Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
@@ -92,10 +92,10 @@ function About() {
       </Card>
 
       <Row xs={1} md={2} lg={3} className='d-flex'>
-      {teamMembers.map((member) => (
-        <Col key={member.id} xs={12} md={6} lg={4}>
-          <CardTeam {...member} />
-        </Col>
+        {teamMembers.map((member) => (
+          <Col key={member.id} xs={12} md={6} lg={4}>
+            <CardTeam {...member} />
+          </Col>
         ))}
       </Row>
     </div>
