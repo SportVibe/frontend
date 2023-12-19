@@ -1,6 +1,7 @@
 import styles from './FilterBar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { PriceBox, SizeBox, ColorBox, GenreBox, Sort, SearchResults } from '../../helpers/filterComponents.jsx';
+import SearchBar from '../NavBar/SearchBar/SearchBar';
 import { useEffect } from 'react';
 import { getProducts, responsiveNavBar } from '../../redux/actions';
 
