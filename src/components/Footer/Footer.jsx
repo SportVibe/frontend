@@ -24,9 +24,6 @@ const Footer = () => (
           <h5 className="text-uppercase">Ayuda</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="#!">¿Cómo comprar?</a>
-            </li>
-            <li>
               <a href="/payments">Pagos y Promociones</a>
             </li>
             <li>
@@ -51,7 +48,7 @@ const Footer = () => (
               <a href="/conditions">Terminos y Condiciones</a>
             </li>
             <li>
-              <a href="https://defensadelconsumidor.cba.gov.ar/home">
+              <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/icpen">
                 Defensa al Consumidor
               </a>
             </li>
@@ -76,10 +73,10 @@ const Footer = () => (
       © 2023 Copyright:
       <p>
         TODOS LOS DERECHOS RESERVADOS. Las fotos contenidas en este site, el
-        logotipo y las marcas son propiedad de SportVibe y/o de sus
-        respectivos titulares. Está prohibida la reproducción total o parcial,
-        sin la expresa autorización de la administradora de la tienda virtual.
-        SportVibe - Córdoba Argentina.
+        logotipo y las marcas son propiedad de SportVibe y/o de sus respectivos
+        titulares. Está prohibida la reproducción total o parcial, sin la
+        expresa autorización de la administradora de la tienda virtual.
+        SportVibe - Latinoamérica.
       </p>
     </div>
   </footer>

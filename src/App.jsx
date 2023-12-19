@@ -15,6 +15,11 @@ import {
   PaymentForm,
 } from "./helpers/indexComponents";
 import styles from './App.module.css';
+import PrivacyPolitic from "./components/Footer/privacyPolitic/privacyPolitic";
+import Conditions from "./components/Footer/conditions/conditions";
+import Changes from "./components/Footer/changes/changes";
+import Deliveries from "./components/Footer/deliveries/deliveries";
+import Payments from "./components/Footer/payments/payments";
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -74,18 +79,21 @@ function App() {
           </div>
         }
         <Routes className={styles.routesContainer}>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/search" element={<Home />}></Route>
-          <Route path="/dashboard" element={<AdminDashBoard />}></Route>
-          <Route path="/about" element={<About />} />
-          <Route path="/shoppingcart" element={<ShoppingCart />} />
-          <Route path="/payment" element={<PaymentForm />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/detail/:id" element={<ProductDetail />} />
-          <Route path="/userForm" element={<UserForm />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/user-profile/:id" element={<UserProfile />} />
-        </Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/search" element={<Home />}></Route>
+        <Route path="/dashboard" element={<AdminDashBoard />}></Route>
+        <Route path="/about" element={<About />} />
+        <Route path="/shoppingcart" element={<ShoppingCart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/detail/:id" element={<ProductDetail />} />
+        <Route path="/userForm" element={<UserForm />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/privacy" element={<PrivacyPolitic />} />
+        <Route path="/conditions" element={<Conditions />} />
+        <Route path="/deliveries" element={<Deliveries />} />
+        <Route path="/changes" element={<Changes />} />
+        <Route path="/payments" element={<Payments />} />
+      </Routes>
         {(location.pathname === '/search') &&
           <div className={styles.carousel2Container}>
             <Carousel2 />
