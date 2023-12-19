@@ -22,6 +22,9 @@ import Deliveries from "./components/Footer/deliveries/deliveries";
 import Payments from "./components/Footer/payments/payments";
 import { Route, Routes, useLocation } from "react-router-dom";
 
+import { I18nextProvider } from 'react-i18next';
+import i18n from './components/Translate/i18n';
+
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -45,7 +48,8 @@ function App() {
   }, []); */
   
   return (
-    <Elements stripe={stripePromise}>
+    <I18nextProvider i18n={i18n}>
+      <Elements stripe={stripePromise}>
       <div className={styles.mainView}>
 
         {location.pathname !== "/dashboard" &&
@@ -105,6 +109,7 @@ function App() {
         }
       </div>
     </Elements>
+    </I18nextProvider>
   );
 }
 
