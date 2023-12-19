@@ -1,14 +1,15 @@
 import React from "react";
 import styles from "../payments/payments.module.css";
 
-
 function Payments() {
   return (
     <div>
-      <h1>Pagos y Promociones</h1>
+      <h1 className={styles.title}>Pagos y Promociones</h1>
       <hr />
-      <p>En SportVibe podés usar los siguientes métodos de pago:</p>
-      <h2>Tarjetas de Crédito</h2>
+      <h4 className={styles.p}>
+        En SportVibe podés usar los siguientes métodos de pago:
+      </h4>
+      <h2 className={styles.card}>Tarjetas de Crédito</h2>
       <div>
         <div className={styles.imgConteiner}>
           <img
@@ -21,7 +22,7 @@ function Payments() {
             src="https://cdn0.erstegroup.com/content/sites/rs/ebs/www_erstebank_rs/en/Stanovnistvo/Kartice/Mastercard/_jcr_content/configuration/pageTeasers/default/image.fitIn.w1200.png/15385696194461486473327516.png"
             alt=""
           />
-        </div >
+        </div>
         <div className={styles.imgConteiner}>
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_(2018).svg/1200px-American_Express_logo_(2018).svg.png"
@@ -35,13 +36,13 @@ function Payments() {
           />
         </div>
         <div className={styles.imgConteiner}>
-        <img
-          src="https://th.bing.com/th/id/OIP.jR8JzRaBk7ikjbO7mbPsAgHaFj?rs=1&pid=ImgDetMain"
-          alt=""
-        />
+          <img
+            src="https://th.bing.com/th/id/OIP.jR8JzRaBk7ikjbO7mbPsAgHaFj?rs=1&pid=ImgDetMain"
+            alt=""
+          />
+        </div>
       </div>
-      </div>
-      <h2>Tarjetas de Débito</h2>
+      <h2 className={styles.card}>Tarjetas de Débito</h2>
       <div>
         <div className={styles.imgConteiner}>
           <img
@@ -61,14 +62,13 @@ function Payments() {
             alt=""
           />
         </div>
-      
       </div>
-      <h2>Mercado pago</h2>
+      <h2 className={styles.card}>Mercado pago</h2>
       <div className={styles.imgConteiner}>
-      <img
-      src="https://revistauy.files.wordpress.com/2018/04/logo-mercado-pago.png?w=1024"
-      alt=""
-    />
+        <img
+          src="https://revistauy.files.wordpress.com/2018/04/logo-mercado-pago.png?w=1024"
+          alt=""
+        />
       </div>
     </div>
   );
