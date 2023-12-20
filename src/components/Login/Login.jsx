@@ -59,7 +59,7 @@ const login = () => {
       });
       console.log("respuesta: ", response);
 
-      navigate("/userForm");
+      navigate("/");
       alert(response.data.message);
 
     } catch (error) {
