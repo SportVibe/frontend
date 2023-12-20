@@ -11,7 +11,7 @@ import ProductUpdate from "../ProductUpdate/ProductUpdate";
 function AdminDashBoard() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  const [selectedRow, setSelectedRow] = useState(null);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,8 +31,6 @@ function AdminDashBoard() {
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
           {<ProductPrueba setSelectedRow={setSelectedRow} />}
           </div>
-          <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
-            {<ProductPrueba setSelectedRow={setSelectedRow} />}</div>
         ) : null}
         {selectedRow &&
           <div className={styles.render}>

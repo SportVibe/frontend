@@ -191,7 +191,6 @@ const ProductPrueba = ({setSelectedRow}) => {
         </nav>
         <DataTable
         title="LISTA DE PRODUCTOS"
-        pagination
         responsive
         columns={columns}
         data={productRender}
