@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
 import SearchBar from './SearchBar/SearchBar';
 import Logo from '../../Images/Logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   responsiveNavBar,
   searchActivity,
@@ -14,8 +14,7 @@ import {
   sortAction,
   priceFilterAction
 } from '../../redux/actions';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 function NavBar() {
   const location = useLocation();
@@ -29,8 +28,7 @@ function NavBar() {
     const id = event.target.id;
     if (id === 'profile' && userData) {
       navigate(`/user-profile/${userData.data.user.id}`);
-    }
-    else {
+    } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
       dispatch(getProducts());
@@ -60,73 +58,81 @@ function NavBar() {
           <img src={Logo} alt="" id='/' onClick={handleNavigate} />
         </div>
         <div className={styles.navBarContainer}>
-          {(location.pathname === '/' || location.pathname === '/search') &&
+          {(location.pathname === '/' || location.pathname === '/search') && (
             <div id={styles.searchbarContainer}>
               <SearchBar />
             </div>
-          }
+          )}
+
           <div className={styles.linksContainer}>
-            <div id='/' onClick={handleNavigate}>
-              <p id='/' onClick={handleNavigate}>Home</p>
+            <div id='/home' onClick={handleNavigate}>
+              <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
             </div>
-            
+
             <div className={styles.linksContainer}>
-              <select onChange={(e) => changeLanguage(e.target.value)}/*  value={i18n.language} */>
+              <select onChange={(e) => changeLanguage(e.target.value)}>
                 <option value="en">English</option>
-                <option value="sp">Español</option>
-                <option value="ger">Deutsch</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
               </select>
             </div>
 
-
             <div id='/about' onClick={handleNavigate}>
-              <p id='/about' onClick={handleNavigate}>About us</p>
+              <p id='/about' onClick={handleNavigate}>{t('translation.about')}</p>
             </div>
-            
-        
+
             <div id='/shoppingcart' onClick={handleNavigate}>
-              <p id='/shoppingcart' onClick={handleNavigate}>Cart</p>
+              <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
             </div>
-            {userData ?
+
+            {userData ? (
               <div id='profile' className={styles.userLogContainer} onClick={handleNavigate}>
-                <p id='profile' onClick={handleNavigate}>Mi perfil</p>
+                <p id='profile' onClick={handleNavigate}>{t('translation.profile')}</p>
                 <div id='profile' onClick={handleNavigate}>
-                  {userData.data.user.image ?
-                    <img id='profile' src={userData.data.user.image} alt="" onClick={handleNavigate} /> :
+                  {userData.data.user.image ? (
+                    <img id='profile' src={userData.data.user.image} alt="" onClick={handleNavigate} />
+                  ) : (
                     <p id='profile' onClick={handleNavigate}>LB</p>
-                  }
+                  )}
                 </div>
-              </div> :
+              </div>
+            ) : (
               <div id='/login' onClick={handleNavigate}>
-                <p id='/login' onClick={handleNavigate}>Sign in</p>
+                <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
                 <p id='/login' onClick={handleNavigate}>👤</p>
               </div>
-            }
+            )}
           </div>
+
           <div className={styles.menuContainer} onClick={handlerResponsive}>
             <i className="fa-solid fa-bars"></i>
           </div>
         </div>
       </div>
+
       <div className={styles.responsiveContainer}>
-        {(location.pathname === '/' || location.pathname === '/search') &&
+        {(location.pathname === '/' || location.pathname === '/search') && (
           <div id={styles.searchbarResponsiveContainer}>
             <SearchBar />
           </div>
-        }
-        <div className={styles.linksResponsive} id='/' onClick={handleNavigate}>
-          <p id='/' onClick={handleNavigate}>Home</p>
+        )}
+
+        <div className={styles.linksResponsive} id='/home' onClick={handleNavigate}>
+          <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
         </div>
+
         <div className={styles.linksResponsive} id='/about' onClick={handleNavigate}>
-          <p id='/about' onClick={handleNavigate}>About us</p>
+          <p id='/about' onClick={handleNavigate}>{t('translation.about')}</p>
         </div>
+
         <div className={styles.linksResponsive} id='/shoppingcart' onClick={handleNavigate}>
-          <p id='/shoppingcart' onClick={handleNavigate}>Shopping cart</p>
+          <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
         </div>
+
         <div className={styles.linksResponsive} id='/login' onClick={handleNavigate}>
-          <p id='/login' onClick={handleNavigate}>Sign in</p>
+          <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
           <p id='/login' onClick={handleNavigate}>👤</p>
         </div>
       </div>
