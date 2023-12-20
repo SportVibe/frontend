@@ -1,29 +1,33 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import validation from "./Validation";
-import axios from "axios";
+import axios from "axios"
 
 function UserForm() {
 
-  const [users ,setUsers]= useState();
-
-  useEffect(()=>{
-    axios.get('http://localhost:3005/users')
-    .then(({ data }) => {
-    setUsers(data);
-    })
-  },[])
+  const [inputFirstName, setInputFirstName] = useState(false);
+  const [inputLastName, setInputLastName] = useState(false);
+  const [inputPhone, setInputPhone] = useState(false);
+  const [inputAddress, setInputAddress] = useState(false);
+  const [inputCity, setInputCity] = useState(false);
+  const [inputCountry, setInputCountry] = useState(false);
+  const [inputZipCode, setInputZipCode] = useState(false);
+  const [inputEmail, setInputEmail] = useState(false);
+  const [inputPassword, setInputPassword] = useState(false);
+  const [inputImage, setInputImage] = useState(false);
+  
 
     const [ foto, setFoto ] = useState('')
-
     const [newUsers, setNewUsers] = useState({
         firstName: '',
         lastName: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         address: '',
-        zipCode: '',
+        city:'',
+        country:'',
+        zipCode: 0,
         email: '',
         password: '',
         image: "https://img.freepik.com/vector-premium/hombre-volante-avatar-conductor-caracter-chofer_176411-3059.jpg?w=740",
@@ -31,26 +35,37 @@ function UserForm() {
     const [newErrors, setNewErrors] = useState({
         firstName: '',
         lastName: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         address: '',
-        zipCode: '',
+        city:'',
+        country:'',
+        zipCode: 0,
         email: '',
         password: '',
         image: '',
     }) 
-    
-  const userLogin = users?.Users.pop()
-  const nombre = userLogin?.firstName.split(' ')
-  const hhh = userLogin?.firstName?.split(' ');
-  const firstname =  nombre?.slice(0, 2).join(' ');
-  const lastname = hhh?.splice(0, 2);
-  newUsers.firstName = firstname
-  newUsers.lastName = hhh?.join(' ');
-
-  //console.log(lastname);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        if(name === "firstName") setInputFirstName(true)
+        else setInputFirstName(false)
+        if(name === "lastName") setInputLastName(true)
+        else setInputLastName(false)
+        if(name === "phoneNumber") setInputPhone(true), Number(value)
+        else setInputPhone(false)
+        if(name === "address") setInputAddress(true)
+        else setInputAddress(false)
+        if(name === "zipCode") setInputZipCode(true), Number(value)
+        else setInputZipCode(false)
+        if(name === "email") setInputEmail(true)
+        else setInputEmail(false)
+        if(name === "password") setInputPassword(true)
+        else setInputPassword(false)
+        if(name === "city") setInputCity(true)
+        else setInputCity(false)
+        if(name === "country") setInputCountry(true)
+        else setInputCountry(false)
+
         setNewUsers({ ...newUsers, [name]: value });
         setNewErrors(validation({ ...newUsers, [name]: value })); 
     }
@@ -63,8 +78,9 @@ function UserForm() {
 
     }
 
-    const handleSubmt = (event) => {
+    const handleSubmt = async (event) => {
 
+      try {
         event.preventDefault()
 
         if (newUsers.firstName === '' &&
@@ -73,7 +89,9 @@ function UserForm() {
         newUsers.password === '' &&
         newUsers.email === '' &&
         newUsers.zipCode === '' &&
-        newUsers.address === '') {
+        newUsers.address === '' &&
+        newUsers.city === '' &&
+        newUsers.country) {
         alert("Por Favor llena los campos");
       } else if (newUsers.firstName === '') {
         alert("Falta el primer nombre. Por favor, completa el campo correspondiente.");
@@ -89,6 +107,10 @@ function UserForm() {
         alert("Falta el email. Por favor, completa el campo correspondiente.");
       } else if (newUsers.password  === '') {
         alert("Falta la contraseña, completa el campo correspondiente.");
+      } else if (newUsers.city === '') {
+        alert("Falta ciudad. Por favor, completa el campo correspondiente.");
+      } else if (newUsers.country  === '') {
+        alert("Falta pais, completa el campo correspondiente.");
       } else if (newErrors.firstName !== 'Se requiere al menos un nombre' && newErrors.firstName !== '') {
         alert('Primer nombre erroneo, por favor corrige el campo correspondiente')
       } else if (newErrors.lastName !== 'Se requiere al menos un apellido' && newErrors.lastName !== '') {
@@ -103,10 +125,23 @@ function UserForm() {
         alert('Direccion erronea, por favor corrige el campo correspondiente')
       } else if (newErrors.password !== 'Se requiere un correo' && newErrors.password !== '') {
         alert('Contraseña erronea, por favor corrige el campo correspondiente')
-      } else
-      window.alert("Registro exitoso!")
-    }
+      } else if (newErrors.city !== 'Se requiere una ciudad' && newErrors.city !== '') {
+        alert('Ciudad erronea, por favor corrige el campo correspondiente')
+      } else if (newErrors.country!== 'Se requiere un País' && newErrors.country !== '') {
+        alert('País erroneo, por favor corrige el campo correspondiente')
+      } else{
 
+        const {data} = await axios.post("http://localhost:3005/userRegister", newUsers)
+
+        alert(data.message)
+      }
+     
+      } catch (error) {
+        console.log(error);
+        //alert(error.response.data.error);
+      }
+        
+    }
     return (
         <form onSubmit={handleSubmt} className="form">
             <div className="contenedorUF">
@@ -124,43 +159,55 @@ function UserForm() {
                 <div className="contenedor1">
                     <div className="contenedor2">
                         <label className="label" htmlFor="">Primer nombre </label>
-                        {nombre?.length > 0 ? <input className="input" type="text" disabled value={newUsers.firstName}/> :
-                        <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />}
-                        
+                        <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />
                     </div>
-                       {newErrors.firstName ? <p className="messError"> {newErrors.firstName}</p> : <p className="puntos">...</p>}
+                       {inputFirstName && newErrors.firstName ? <p className="messError"> {newErrors.firstName}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"  htmlFor="">Apellido </label>
                         <input className="input" type="text" name="lastName" onChange={handleChange} value={newUsers.lastName} />
                     </div>
-                    {newErrors.lastName ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
+                    {inputLastName && newErrors.lastName  ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"  htmlFor="">Número de teléfono </label>
                         <input className="input" type="text" name="phoneNumber"  value={newUsers.phoneNumber} onChange={handleChange}/>
                     </div>
-                    {newErrors.phoneNumber ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
+                    {inputPhone && newErrors.phoneNumber  ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"  htmlFor="">Dirección </label>
                         <input className="input"  type="text" name="address" value={newUsers.address} onChange={handleChange} />
                     </div>
-                    {newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
+                    {inputAddress && newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"  htmlFor="">Código postal </label>
                         <input className="input" type="text" name="zipCode"  value={newUsers.zipCode} onChange={handleChange}/>
                     </div>
-                    {newErrors.zipCode ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
+                    {inputZipCode && newErrors.zipCode  ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"  htmlFor="">Correo electrónico </label>
                         <input className="input" type="text" name="email" value={newUsers.email} onChange={handleChange} />
                     </div>
-                    {newErrors.email ? <p className="messError"> {newErrors.email}</p> : <p className="puntos">...</p>}
+                    {inputEmail && newErrors.email  ? <p className="messError"> {newErrors.email}</p> : <p className="puntos">...</p>}
                     <div className="contenedor2">
                         <label className="label"   htmlFor="">Contraseña </label>
                         <input className="input"  type="password" name="password" value={newUsers.password} onChange={handleChange} />
                     </div>
-                    {newErrors.password ? <p className="messError"> {newErrors.password}</p> : <p className="puntos">...</p>}
-                    
+                    {inputPassword && newErrors.password ? <p className="messError"> {newErrors.password}</p> : <p className="puntos">...</p>}
+
+                    <div className="contenedor2">
+                        <label className="label" htmlFor="">Ciudad </label>
+                        
+                        <input className="input" type="text" name="city" onChange={handleChange} value={newUsers.city} />
+                    </div>
+                       {inputCity && newErrors.city ? <p className="messError"> {newErrors.city}</p> : <p className="puntos">...</p>}
+                
+                       <div className="contenedor2">
+                        <label className="label" htmlFor="">Pais </label>
+                       
+                        <input className="input" type="text" name="country" onChange={handleChange} value={newUsers.country} />
+                    </div>
+                       {inputCountry && newErrors.country ? <p className="messError"> {newErrors.country}</p> : <p className="puntos">...</p>}
                 </div>
+
                 <div className="contBotonUF">
                     <button className="botonUF" type="submit" value="submit">Submit</button>
                 </div>  
@@ -169,5 +216,4 @@ function UserForm() {
         
     );
 }
-
 export default UserForm;

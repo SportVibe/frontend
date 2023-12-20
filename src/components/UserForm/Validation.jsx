@@ -71,6 +71,22 @@ const validation = (newUsers) =>{
         else newErrors.password = '';
     }   else newErrors.password = 'Se requiere una contraseña'
 
+    if (newUsers.city) {
+        if (!regex.test(newUsers.city)) newErrors.city = 'No debe contener símbolos ni números';
+        else if (!regex1.test(newUsers.city)) newErrors.city = 'Debe ser una palabra o frase válida';
+        else if (!regex2.test(newUsers.city)) newErrors.city = 'La primer letra debe ser mayuscula';
+        else if (regex4.test(newUsers.city)) newErrors.city = 'Palabra repetida';
+        else newErrors.city = '';
+    }   else newErrors.city = 'Se requiere una ciudad';
+
+    if (newUsers.country) {
+        if (!regex.test(newUsers.country)) newErrors.country = 'No debe contener símbolos ni números';
+        else if (!regex1.test(newUsers.country)) newErrors.country = 'Debe ser una palabra o frase válida';
+        else if (!regex2.test(newUsers.country)) newErrors.country = 'La primer letra debe ser mayuscula';
+        else if (regex4.test(newUsers.country)) newErrors.country = 'Palabra repetida';
+        else newErrors.country = '';
+    }   else newErrors.country = 'Se requiere un País';
+
     
     if (imagen.imag) {
         newErrors.image = '';
