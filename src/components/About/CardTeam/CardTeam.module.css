@@ -1,25 +1,49 @@
 .teamCard {
   width: 18rem;
-  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-right: 10px; 
+  margin-bottom: 10px; 
   display: flex;
   flex-direction: column;
-  
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #091641;
+  transition: margin-bottom 0.2s ease; 
+}
+
+.teamCard:hover {
+  margin-bottom: 0; 
 }
 
 .imageContainer {
   border-radius: 50%;
   overflow: hidden;
   flex-grow: 1;
+
+  &:hover {
+    opacity: 0.8;
+    
+    & img {
+      scale: 1.1;
+      transition: 0.3s ease-in-out;
+    }
+  }
 }
+  
 
 .memberImage {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; 
 }
 
 .listGroupItem {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   list-style: none;
+  margin: 0; 
+  padding: 0; 
+  background-color: #fcfbfd;
 }
-  
