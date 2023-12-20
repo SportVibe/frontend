@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
-import ProductUpdate from "../ProductUpdate/ProductUpdate";
-import { object } from "prop-types";
 
 
-const ProductPrueba = () => {
+
+
+const ProductPrueba = ({setSelectedRow}) => {
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
-  const [selectedRow, setSelectedRow] = useState({});
+  
 
 
 
   useEffect(() => {
     axios(`${API_URL}/admin`)
       .then(({ data }) => {
+        console.log(data.modifiedProducts);
             let prod = formatProductTable(data.modifiedProducts);
             setProductSearch(prod);
       })
@@ -154,7 +155,7 @@ const ProductPrueba = () => {
     cells: {
       style: {
         width: "200px",
-        paddingLeft: "8px", // override the cell padding for data cells
+        paddingLeft: "8px",
         paddingRight: "8px",
         backgroundColor: "#99A990",
         '&:hover': {
@@ -164,7 +165,7 @@ const ProductPrueba = () => {
     },
     headCells: {
       style: {
-        paddingLeft: "8px", // override the cell padding for head cells
+        paddingLeft: "8px", 
         paddingRight: "8px",
         justify: "center",
         justifyContent: "center",
@@ -193,7 +194,7 @@ const ProductPrueba = () => {
               />
             </div>
         </nav>
-      <DataTable
+        <DataTable
         title="LISTA DE PRODUCTOS"
         responsive
         columns={columns}
@@ -203,16 +204,7 @@ const ProductPrueba = () => {
         customStyles={customStyles}
         theme="dark"
         onRowClicked={handleChange}
-      ></DataTable>
-      {/* <div>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-        <h1>{selectedRow.id}</h1>
-      </div> */}
+      ></DataTable> 
     </>
   );
 };

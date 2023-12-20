@@ -19,3 +19,24 @@
       transform: rotate(360deg);
     }
   }
+
+  .conteinerCardsHidden {
+    display: none;
+  }
+
+  .holiRender {
+    background-color: red;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .conteinerCards {
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }

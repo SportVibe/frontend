@@ -6,24 +6,35 @@ import styles from "./AdminDashBoard.module.css";
 import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
 import ProductPrueba from "../ProductForm/ProductPrueba";
-import Spinner from 'react-bootstrap/Spinner';
+import ProductUpdate from "../ProductUpdate/ProductUpdate";
 
 function AdminDashBoard() {
 
   const [sidebarRender, setSidebarRender] = useState("productos");
-  
+  const [selectedRow, setSelectedRow] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
+
+  function handleClose() {
+    setSelectedRow(null);
+  }
 
   return (
     <div className="d-flex">
       <Sidebar setSidebarRender={setSidebarRender} />
       <div className="bg-transparent w-100">
         {sidebarRender === "productos" ? (
-          <div className={styles.conteinerCards}>{<ProductPrueba />}</div>
+          <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
+          {<ProductPrueba setSelectedRow={setSelectedRow} />}
+          </div>
         ) : null}
+        {selectedRow &&
+          <div className={styles.render}>
+            <ProductUpdate data={selectedRow}/>
+            {/* <p onClick={handleClose}>✕</p> */}
+          </div>}
         {sidebarRender === "nuevo" && (
           <div>
             <ProductForm />

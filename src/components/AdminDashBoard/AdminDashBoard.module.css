@@ -2,10 +2,10 @@
     color:white;
 }
 
-.cardComponentContainer{
+/* .cardComponentContainer{
     width: 200px;
     height: 400px;
-  }
+  } */
 
   .conteinerCards{
     /* background-color: aqua; */
@@ -15,3 +15,17 @@
     flex-wrap: wrap;
     gap: 10px;
   }
+
+  .conteinerCardsHidden {
+    display:none;
+  }
+
+  .render {
+    /* background-color: rgb(179, 102, 102); */
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
