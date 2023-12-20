@@ -9,6 +9,12 @@
     top:50%;
     z-index: 10000;
   }
+
+  .hiddenTable {
+    display: none;
+    width: 100%;
+
+  }
   
   @keyframes spin {
     0% {

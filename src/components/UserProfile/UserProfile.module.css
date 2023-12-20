@@ -114,6 +114,18 @@
                     color: black;
                 }
             }
+
+            & .selectedProfile {
+                border: 2px solid var(--button-color);
+                color: black;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 3px 6px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         }
 
         & .divider {
@@ -140,6 +152,18 @@
                     color: var(--button-color);
                 }
             }
+
+            & .divSelected {
+                width: 100%;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 6px;
+                border-radius: 5px;
+                color: var(--button-color);
+                cursor: pointer;
+            }
         }
     }
 }
@@ -156,12 +180,12 @@
 
 /* TABLE CONTAINER */
 
-.tableContainer {
+.mainComponentsContainer {
     background-color: transparent;
     width: 100%;
     min-height: 500px;
 
-    & .tableContainer {
+    & .componentContainer {
         padding: var(--padding-full) 0;
     }
 }

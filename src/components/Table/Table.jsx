@@ -2,7 +2,7 @@ import styles from './Table.module.css';
 
 function Table(props) {
     const porpsRecords = props.records;
-    const recordArray = (porpsRecords && porpsRecords.length && Object.keys(porpsRecords).length) ? props.records : [{first: 'text', second: 'text', third: 'text'}];
+    const recordArray = (porpsRecords && porpsRecords.length && Object.keys(porpsRecords).length) ? props.records : [{first: 'text', second: 'textcbdhsjcbhjbjbjhbjhbjhbhjbhjbjhbhjbhjbhjbhjbhjbjhbj', third: 'text'}, {first: 'text', second: 'textcbdhsjcbhjbjbjhbjhbjhbhjbhjbjhbhjbhjbhjbhjbhjbjhbj', third: 'text'}];
     const paramsArray = Object.entries(recordArray[0]).map(([key, value]) => {
         return key
     });

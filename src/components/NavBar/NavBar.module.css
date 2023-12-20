@@ -134,7 +134,7 @@
 }
 
 .logoContainer {
-  max-width: 150px;
+  max-width: 200px;
   height: 100%;
   overflow: hidden;
   cursor: pointer;
@@ -168,17 +168,17 @@
   flex: 0;
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin: 10px 0;
+  gap: 25px;
+  margin: 10px;
+  color: gray;
 
   & div {
-    padding: 5px 0;
+    /* padding: 5px 0; */
     margin: 0;
-    width: 150px;
+    max-width: 120px;
     border: 2px solid transparent;
     border-radius: 5px;
     font-size: 14px;
-    color: gray;
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -188,6 +188,24 @@
     & p {
       padding: 0;
       margin: 0;
+    }
+
+    & select {
+      color: gray;
+      height: 100%;
+      padding: 5px 0;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+      border: 1px solid gray;
+      color: var(--font-color-hard);
+      }
     }
 
     &:hover {

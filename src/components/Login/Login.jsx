@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import "./Login.css";
 import logo from "../../Images/Logo.jpg";
-import google  from "../../Images/google-signin-button.png"
+import google from "../../Images/google-signin-button.png"
 import { initializeApp } from "firebase/app";
+import { userLoginAction } from "../../redux/actions";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import axios from "axios";
+import { API_URL } from '../../helpers/config';
+import { useDispatch } from "react-redux";
 
 const provider = new GoogleAuthProvider();
 
 const login = () => {
+  const dispatch = useDispatch();
   const firebaseConfig = {//esta función se utiliza para inicializar la aplicación de Firebase antes de utilizar el servicio de autenticación
     apiKey: "AIzaSyCgXPvmDHMD8CXkdu6X2H_hVy0ugo43_5s",
     authDomain: "sportvibe-83aba.firebaseapp.com",
@@ -20,22 +24,20 @@ const login = () => {
     measurementId: "G-74CJSX0GX1",
   };
 
-  const [users ,setUsers]= useState();//Se utiliza el hook useState para declarar un estado.
+  const [users, setUsers] = useState();//Se utiliza el hook useState para declarar un estado.
 
-  useEffect(()=>{
+  useEffect(() => {
     axios.get('http://localhost:3005/users')//Se utiliza el hook useEffect para realizar efectos secundarios en el componente. En este caso, se ejecutará una vez después de que el componente se monte en el DOM debido al array de dependencias vacío ([])
-    .then(({ data }) => {
-    setUsers(data);
-    })
-  },[])
+      .then(({ data }) => {
+        setUsers(data);
+      })
+  }, [])
 
-  const emailDb = users?.Users.map((ema)=>ema.email)
+  const emailDb = users?.Users.map((ema) => ema.email)
 
   const app = initializeApp(firebaseConfig);
 
   const auth = getAuth();
-
-  const URL = "http://localhost:3005/";
 
   const callLoginGoogle = async () => {
 
@@ -49,7 +51,7 @@ const login = () => {
       // The signed-in user info.
       const user = result.user;
 
-      const response = await axios.post(`${URL}google`, {
+      const response = await axios.post(`${API_URL}/google`, {
         firstName: user.displayName,
         email: user.email,
         image: user.photoURL,
@@ -57,9 +59,9 @@ const login = () => {
       });
       console.log("respuesta: ", response);
 
-      navigate("/userForm");
+      navigate("/");
       alert(response.data.message);
-      
+
     } catch (error) {
       console.error("Error al autenticar con Google:", error.message);
       console.error("Detalles del error:", error.response);
@@ -83,7 +85,7 @@ const login = () => {
   const handleChange = (event) => {
     let { name } = event.target
     let { value } = event.target
-    setErrors(validacion({ ...user, [name]: value }))
+    /* setErrors(validacion({ ...user, [name]: value })) */
     setUser({ ...user, [name]: value })
   }
 
@@ -99,6 +101,7 @@ const login = () => {
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, user);
+        console.log(data);
         if (data) {
           (dispatch(userLoginAction(data)));
           navigate('/');

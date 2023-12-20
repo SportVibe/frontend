@@ -1,11 +1,11 @@
 import { Card, Col, Row } from 'react-bootstrap';
-import styles from './About.module.css'; 
+import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
-import Logo from'../../Images/Logo.jpg';
+import Brian from '../../Images/Brian.jpg';
 
 function About() {
-   // Datos de ejemplo para los miembros del equipo
-   const teamMembers = [
+  // Datos de ejemplo para los miembros del equipo
+  const teamMembers = [
     {
       id: 1,
       name: 'Maria Angelica Palomino Jaramillo',
@@ -41,7 +41,7 @@ function About() {
     {
       id: 5,
       name: 'Brian Hernan Rojas',
-      image: 'https://fotografias.larazon.es/clipping/cmsimages01/2022/01/24/A3C3A40A-D921-482D-806A-2F0EFE04EC29/98.jpg?crop=3413,1920,x0,y173&width=1900&height=1069&optimize=low&format=webply',
+      image: Brian,
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/brian-rojas-74a174278/',
       github: 'https://github.com/BrianHerR',
@@ -59,13 +59,13 @@ function About() {
       name: 'Kerly Yohana Gomez Giraldo',
       image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
-      linkedin: 'www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276',
+      linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276/',
       github: 'https://github.com/KyohanaGomez',
     },
     {
       id: 8,
       name: 'Daniel Enoc Amaya Amaya',
-      image: 'https://media.licdn.com/dms/image/D4E35AQFROy33DDjPvA/profile-framedphoto-shrink_800_800/0/1699231376636?e=1702774800&v=beta&t=xwmskntNYkxWiqgFEO2af-Aj2rMJFDUfGwkV8ClpeO8',
+      image: 'https://media.licdn.com/dms/image/D4E35AQFROy33DDjPvA/profile-framedphoto-shrink_800_800/0/1699231376636?e=1703620800&v=beta&t=q37o_MkerE_j8DX_JHv_iU_ZY_R0_45wPC-pLUQoiio',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/daniel-enoc-amaya-amaya/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       github: 'https://github.com/danielamaya1908',
@@ -75,11 +75,11 @@ function About() {
   return (
     <div className={styles.aboutContainer}>
       <Card className={styles.companyCard}>
-        <Row className="g-0">
+        <Row id={styles.row} className="g-0">
           <Col md={8}>
-            <Card.Body className={styles.textConteiner}>
-              <Card.Title>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
-              <Card.Text>
+            <Card.Body className={styles.textContainer}>
+              <Card.Title className={styles.text}>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
+              <Card.Text className={styles.text}>
                 La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
                 Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
@@ -93,7 +93,7 @@ function About() {
 
       <Row xs={1} md={2} lg={3} className='d-flex'>
         {teamMembers.map((member) => (
-          <Col key={member.id}>
+          <Col key={member.id} xs={12} md={6} lg={4}>
             <CardTeam {...member} />
           </Col>
         ))}

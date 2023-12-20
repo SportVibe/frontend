@@ -5,17 +5,15 @@ import logoSportVibe from "../../Images/Logo.jpg";
 const Footer = () => (
   <footer className="page-footer font-small blue pt-4">
     <div className={styles.mainView}>
-      <div className="row">
-        <hr className="clearfix w-100 d-md-none pb-0" />
-
+      <div id={styles.subMainView} className="row">
         <div className="col-md-3 mb-md-0 mb-3">
           <h5 className="text-uppercase">Redes Sociales</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="https://www.facebook.com/sportvibe07">Facebook</a>
+              <a href="https://www.facebook.com/sportvibe07" target="_blank" rel="noreferrer">Facebook</a>
             </li>
             <li>
-              <a href="https://www.instagram.com/sportvibe07/">Instagram</a>
+              <a href="https://www.instagram.com/sportvibe07/" target="_blank" rel="noreferrer">Instagram</a>
             </li>
           </ul>
         </div>
@@ -23,9 +21,6 @@ const Footer = () => (
         <div className="col-md-3 mb-md-0 mb-3">
           <h5 className="text-uppercase">Ayuda</h5>
           <ul className="list-unstyled">
-            <li>
-              <a href="#!">¿Cómo comprar?</a>
-            </li>
             <li>
               <a href="/payments">Pagos y Promociones</a>
             </li>
@@ -51,7 +46,7 @@ const Footer = () => (
               <a href="/conditions">Terminos y Condiciones</a>
             </li>
             <li>
-              <a href="https://defensadelconsumidor.cba.gov.ar/home">
+              <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/icpen" target="_blank" rel="noreferrer">
                 Defensa al Consumidor
               </a>
             </li>
@@ -64,22 +59,25 @@ const Footer = () => (
             <li>
               <a>Lunes a Viernes de 9 a 20 hs / Sábado de 9 a 17 hs</a>
             </li>
+            <li>
+              <a>Teléfono: 0810-888-1234</a>
+            </li>
           </ul>
         </div>
-        <div className={styles.logoContainer}>
-          <img src={logoSportVibe} alt="" />
-        </div>
+      </div>
+      <div className={styles.logoContainer}>
+        <img src={logoSportVibe} alt="" />
       </div>
     </div>
 
-    <div className="footer-copyright text-center py-3">
+    <div id={styles.lastBox} className="footer-copyright text-center py-3">
       © 2023 Copyright:
-      <p>
+      <p className={styles.derechosReservados}>
         TODOS LOS DERECHOS RESERVADOS. Las fotos contenidas en este site, el
-        logotipo y las marcas son propiedad de SportVibe y/o de sus
-        respectivos titulares. Está prohibida la reproducción total o parcial,
-        sin la expresa autorización de la administradora de la tienda virtual.
-        SportVibe - Córdoba Argentina.
+        logotipo y las marcas son propiedad de SportVibe y/o de sus respectivos
+        titulares. Está prohibida la reproducción total o parcial, sin la
+        expresa autorización de la administradora de la tienda virtual.
+        SportVibe - Latinoamérica.
       </p>
     </div>
   </footer>

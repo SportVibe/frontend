@@ -1,12 +1,46 @@
+.mainView {
+  padding: 10px 20px;
+}
+
 .imgConteiner {
-  background-color: aqua;
- 
+  /* background-color: red; */
 
   & img {
-    width: 15%;
+    width: 150px;
     height: 90%;
     display: flex;
-    justify-content:space-between; /* Ajusta según tu necesidad: 'flex-start', 'flex-end', 'space-between', etc. */
-    align-items:end;
+    align-content: center;
+    margin: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
+}
+
+.title {
+  padding: 30px;
+}
+
+.p {
+  margin: 30px;
+}
+
+.card {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cardsBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin: 20px 0 100px 0;
 }

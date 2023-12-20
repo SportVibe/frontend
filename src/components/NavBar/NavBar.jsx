@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
@@ -6,10 +6,16 @@ import SearchBar from './SearchBar/SearchBar';
 import Logo from '../../Images/Logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { responsiveNavBar, searchActivity, getProducts, genreFilterAction, sortAction, priceFilterAction } from '../../redux/actions';
+import {
+  responsiveNavBar,
+  searchActivity,
+  getProducts,
+  genreFilterAction,
+  sortAction,
+  priceFilterAction
+} from '../../redux/actions';
 import { useEffect } from 'react';
-import { useSelector } from "react-redux";
-
+import { useSelector } from 'react-redux';
 
 function NavBar() {
   const location = useLocation();
@@ -17,6 +23,7 @@ function NavBar() {
   const navigate = useNavigate();
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
   const userData = useSelector((state) => state.userData);
+  const { t, i18n } = useTranslation();
 
   function handleNavigate(event) {
     const id = event.target.id;
@@ -24,7 +31,7 @@ function NavBar() {
       navigate(`/user-profile/${userData.data.user.id}`);
     }
     else {
-      // reseteamos todos los filtrso y ordenamientos
+      // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
       dispatch(getProducts());
       dispatch(genreFilterAction([{ gender: '' }]));
@@ -37,6 +44,10 @@ function NavBar() {
   function handlerResponsive() {
     dispatch(responsiveNavBar(!responsiveGlobalNavBar));
   }
+
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
 
   useEffect(() => {
     dispatch(responsiveNavBar(false));
@@ -58,11 +69,23 @@ function NavBar() {
             <div id='/' onClick={handleNavigate}>
               <p id='/' onClick={handleNavigate}>Home</p>
             </div>
+            
+            <div className={styles.linksContainer}>
+              <select onChange={(e) => changeLanguage(e.target.value)}/*  value={i18n.language} */>
+                <option value="en">English</option>
+                <option value="sp">Español</option>
+                <option value="ger">Deutsch</option>
+              </select>
+            </div>
+
+
             <div id='/about' onClick={handleNavigate}>
               <p id='/about' onClick={handleNavigate}>About us</p>
             </div>
+            
+        
             <div id='/shoppingcart' onClick={handleNavigate}>
-              <p id='/shoppingcart' onClick={handleNavigate}>Shopping car</p>
+              <p id='/shoppingcart' onClick={handleNavigate}>Cart</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
             </div>
             {userData ?
