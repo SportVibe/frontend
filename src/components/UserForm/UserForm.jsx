@@ -1,23 +1,21 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { API_URL } from '../../helpers/config';
 import validation from "./Validation";
 import axios from "axios"
 
 function UserForm() {
 
-  const [inputFirstName, setInputFirstName] = useState(false);
-  const [inputLastName, setInputLastName] = useState(false);
-  const [inputPhone, setInputPhone] = useState(false);
-  const [inputAddress, setInputAddress] = useState(false);
-  const [inputCity, setInputCity] = useState(false);
-  const [inputCountry, setInputCountry] = useState(false);
-  const [inputZipCode, setInputZipCode] = useState(false);
-  const [inputEmail, setInputEmail] = useState(false);
-  const [inputPassword, setInputPassword] = useState(false);
-  const [inputImage, setInputImage] = useState(false);
-  
+  const [users ,setUsers]= useState();
+
+  useEffect(()=>{
+    axios.get(`${API_URL}/users`)
+    .then(({ data }) => {
+    setUsers(data);
+    })
+  },[])
 
     const [ foto, setFoto ] = useState('')
     const [newUsers, setNewUsers] = useState({

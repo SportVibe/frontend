@@ -5,6 +5,7 @@ import styles from './NavBar.module.css';
 import SearchBar from './SearchBar/SearchBar';
 import Logo from '../../Images/Logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { UserAuth } from '../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   responsiveNavBar,
@@ -21,8 +22,10 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
-  const userData = useSelector((state) => state.userData);
+  // const userData = useSelector((state) => state.userData);
+  const userData = false;
   const { t, i18n } = useTranslation();
+  const { user, logOut } = UserAuth();
 
   function handleNavigate(event) {
     const id = event.target.id;

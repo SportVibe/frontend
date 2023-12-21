@@ -38,9 +38,9 @@ export const getCarousel2Products = () => async (dispatch) => {
   }
 };
 
-export const userLoginAction = (userData) => async (dispatch) => {
+export const userLoginAction = (logInData) => async (dispatch) => {
   try {
-    return dispatch({ type: USER_LOGIN, payload: userData });
+    return dispatch({ type: USER_LOGIN, payload: logInData });
   } catch (error) {
     console.error(error.message);
   }
