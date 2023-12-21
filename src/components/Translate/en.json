@@ -1,18 +1,11 @@
 {
-  "translation": {
-    "home": "Home",
-    "about": "About",
-    "dashboard": "Dashboard",
-    "shoppingcart": "Shopping Cart",
-    "login": "Login",
-    "¡Siente la energía, viste la pasión!": "Feel the energy, wear the passion!",
-    "Correo electrónico": "Email",
-    "at": "at",
-    "CALZADO": "FOOTWEAR",
-    "deporte": "Sport",
-    "CAMISETA": "T-SHIRT",
-    "Developer": "Developer",
-    "Disponible para envío": "Available for Shipping",
-    "ir a pagar": "Go to checkout"
+    "translation": {
+      "home": "Home",
+      "about": "About",
+      "dashboard": "Dashboard",
+      "shoppingcart": "Shopping Cart",
+      "login": "Login",
+      "¡Siente la energía, viste la pasión!": "Feel the energy, wear the passion!",
+      "Correo electrónico": "Email"
+    }
   }
-}

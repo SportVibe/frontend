@@ -11,16 +11,18 @@ import {
 } from "firebase/auth";
 import { auth } from '../helpers/firebase';
 import { userLoginAction } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({});
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
         // signInWithPopup(auth, provider);
-        signInWithRedirect(auth, provider)
+        signInWithRedirect(auth, provider);
     };
 
     const logOut = () => {

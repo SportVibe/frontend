@@ -43,16 +43,11 @@ const ProductDetail = () => {
       });
   }, []);
 
-  const handleAddToCart = () => {
-    if (selectedProduct) {
-      // Agrega lógica para agregar el producto al carrito
-      // y luego redirige al usuario al carrito de compras, debe tener el login 
-      // Puedes usar la función `setCartItems` del estado del carrito en `ShoppingCart`.
-      // Aquí se asume que hay una función `addToCart` para agregar al carrito.
-      // Ajusta según tu implementación real.
-      addToCart(selectedProduct);
-      navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito.
-    }
+  const handleAddToCart = async () => {
+
+// const product = await axios.post(´${API_URL}/´)     esperando la ruta del back. se agregara el producto por su id. 
+
+    navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito.
   };
   
     useEffect(() => {
