@@ -12,11 +12,11 @@ import { UserAuth } from "../../context/AuthContext";
 const login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { googleSignIn } = UserAuth();
+  const { googleSignIn, user } = UserAuth();
   const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
   const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [aux, setAux] = useState(false);
-  const [user, setUser] = useState({
+  const [username, setUser] = useState({
     email: "",
     password: "",
   });
@@ -36,19 +36,19 @@ const login = () => {
   const handleChange = (event) => {
     let { name } = event.target
     let { value } = event.target
-    setUser({ ...user, [name]: value })
+    setUser({ ...username, [name]: value })
   }
 
   const handleLoginU = () => {
-    if (user.email === '') setAux(true);
+    if (username.email === '') setAux(true);
     else setUserCorrect(true);
   }
 
   const handleLoginP = async () => {
-    if (user.password === '') setAux(true);
+    if (username.password === '') setAux(true);
     else {
       try {
-        const { data } = await axios.post(`${API_URL}/login`, user);
+        const { data } = await axios.post(`${API_URL}/login`, username);
         if (data) {
           // (dispatch(userLoginAction(data)));
           dispatch(userLoginAction({
@@ -62,6 +62,12 @@ const login = () => {
       }
     }
   }
+
+  useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
+    if (user != null) {
+      navigate('/');
+    }
+  }, [user]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,10 +92,10 @@ const login = () => {
         </div>
         <div className="boxInput">
           {!userCorrect ? (
-            <input value={user.email} className="input" name="email" onChange={handleChange} />
+            <input value={username.email} className="input" name="email" onChange={handleChange} />
           ) : (
             <input
-              value={user.password}
+              value={username.password}
               className="input"
               name="password"
               type="password"
@@ -147,14 +153,11 @@ const login = () => {
 
 export default login;
 
-const validacion = ({ email, password }) => {
-  let error = {};
-
-  if (!email) error.email = 'Por favor ingrese un email'
-  else error.email = '✔'
-
-  if (!password) error.password = 'Por favor ingrese una clave'
-  else error.password = '✔'
-
-  return error
-}
+// const validacion = ({ email, password }) => {
+//   let error = {};
+//   if (!email) error.email = 'Por favor ingrese un email'
+//   else error.email = '✔'
+//   if (!password) error.password = 'Por favor ingrese una clave'
+//   else error.password = '✔'
+//   return error
+// }

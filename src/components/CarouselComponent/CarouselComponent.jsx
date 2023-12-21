@@ -20,44 +20,44 @@ function CarouselComponent(props) {
     }
 
     return (
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <div class="carousel-indicators">
+        <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
             </div>
-            <div id={styles.imagesBigContainer} class="carousel-inner">
-                <div id={styles.imgContainer} class="carousel-item active">
+            <div id={styles.imagesBigContainer} className="carousel-inner">
+                <div id={styles.imgContainer} className="carousel-item active">
                     <img src={image1} alt="..." />
                     {/* <div id={styles.textBelow} class="carousel-caption d-md-block">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div> */}
                 </div>
-                <div id={styles.imgContainer} class="carousel-item">
+                <div id={styles.imgContainer} className="carousel-item">
                     <img src={image2} alt="..." />
                     {/* <div id={styles.textBelow} class="carousel-caption d-md-block">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div> */}
                 </div>
-                <div id={styles.imgContainer} class="carousel-item">
+                <div id={styles.imgContainer} className="carousel-item">
                     <img src={image3} alt="..." />
                     {/* <div id={styles.textBelow} class="carousel-caption d-md-block">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div> */}
                 </div>
-                <div id={styles.imgContainer} class="carousel-item">
+                <div id={styles.imgContainer} className="carousel-item">
                     <img src={image4} alt="..." />
                     {/* <div id={styles.textBelow} class="carousel-caption d-md-block">
                         <h5>Second slide label</h5>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div> */}
                 </div>
-                <div id={styles.imgContainer} class="carousel-item">
+                <div id={styles.imgContainer} className="carousel-item">
                     <img src={image5} alt="..." />
                     {/* <div id={styles.textBelow} class="carousel-caption d-md-block">
                         <h5>Second slide label</h5>
@@ -75,11 +75,11 @@ function CarouselComponent(props) {
                     <p className={styles.frase}>{text[0]}</p>
                 }
             </div>
-            <button id={imgHover ? styles.leftArrow : styles.hiddenArrow} class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                <i class="bi bi-chevron-left"></i>
+            <button id={imgHover ? styles.leftArrow : styles.hiddenArrow} className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <i className="bi bi-chevron-left"></i>
             </button>
-            <button id={imgHover ? styles.rightArrow : styles.hiddenArrow} class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                <i class="bi bi-chevron-right"></i>
+            <button id={imgHover ? styles.rightArrow : styles.hiddenArrow} className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <i className="bi bi-chevron-right"></i>
             </button>
         </div>
     );
