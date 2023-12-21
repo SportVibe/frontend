@@ -16,72 +16,83 @@ function UserForm() {
     setUsers(data);
     })
   },[])
+  const [inputFirstName, setInputFirstName] = useState(false);
+  const [inputLastName, setInputLastName] = useState(false);
+  const [inputPhone, setInputPhone] = useState(false);
+  const [inputAddress, setInputAddress] = useState(false);
+  const [inputCity, setInputCity] = useState(false);
+  const [inputCountry, setInputCountry] = useState(false);
+  const [inputZipCode, setInputZipCode] = useState(false);
+  const [inputEmail, setInputEmail] = useState(false);
+  const [inputPassword, setInputPassword] = useState(false);
+  const [inputImage, setInputImage] = useState(false);
 
-    const [ foto, setFoto ] = useState('')
-    const [newUsers, setNewUsers] = useState({
-        firstName: '',
-        lastName: '',
-        phoneNumber: 0,
-        address: '',
-        city:'',
-        country:'',
-        zipCode: 0,
-        email: '',
-        password: '',
-        image: "https://img.freepik.com/vector-premium/hombre-volante-avatar-conductor-caracter-chofer_176411-3059.jpg?w=740",
-    })
-    const [newErrors, setNewErrors] = useState({
-        firstName: '',
-        lastName: '',
-        phoneNumber: 0,
-        address: '',
-        city:'',
-        country:'',
-        zipCode: 0,
-        email: '',
-        password: '',
-        image: '',
-    }) 
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        if(name === "firstName") setInputFirstName(true)
-        else setInputFirstName(false)
-        if(name === "lastName") setInputLastName(true)
-        else setInputLastName(false)
-        if(name === "phoneNumber") setInputPhone(true), Number(value)
-        else setInputPhone(false)
-        if(name === "address") setInputAddress(true)
-        else setInputAddress(false)
-        if(name === "zipCode") setInputZipCode(true), Number(value)
-        else setInputZipCode(false)
-        if(name === "email") setInputEmail(true)
-        else setInputEmail(false)
-        if(name === "password") setInputPassword(true)
-        else setInputPassword(false)
-        if(name === "city") setInputCity(true)
-        else setInputCity(false)
-        if(name === "country") setInputCountry(true)
-        else setInputCountry(false)
+  const [foto, setFoto] = useState('')
+  const [newUsers, setNewUsers] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: 0,
+    address: '',
+    city: '',
+    country: '',
+    zipCode: 0,
+    email: '',
+    password: '',
+    image: "https://img.freepik.com/vector-premium/hombre-volante-avatar-conductor-caracter-chofer_176411-3059.jpg?w=740",
+  })
+  const [newErrors, setNewErrors] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: 0,
+    address: '',
+    city: '',
+    country: '',
+    zipCode: 0,
+    email: '',
+    password: '',
+    image: '',
+  })
 
-        setNewUsers({ ...newUsers, [name]: value });
-        setNewErrors(validation({ ...newUsers, [name]: value })); 
-    }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "firstName") setInputFirstName(true)
+    else setInputFirstName(false)
+    if (name === "lastName") setInputLastName(true)
+    else setInputLastName(false)
+    if (name === "phoneNumber") setInputPhone(true), Number(value)
+    else setInputPhone(false)
+    if (name === "address") setInputAddress(true)
+    else setInputAddress(false)
+    if (name === "zipCode") setInputZipCode(true), Number(value)
+    else setInputZipCode(false)
+    if (name === "email") setInputEmail(true)
+    else setInputEmail(false)
+    if (name === "password") setInputPassword(true)
+    else setInputPassword(false)
+    if (name === "city") setInputCity(true)
+    else setInputCity(false)
+    if (name === "country") setInputCountry(true)
+    else setInputCountry(false)
 
-    const vistaPrevia = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader()
-        reader.onload = () => setFoto(reader.result)
-        if(file) reader.readAsDataURL(file)
+    setNewUsers({ ...newUsers, [name]: value });
+    setNewErrors(validation({ ...newUsers, [name]: value }));
+  }
 
-    }
+  const vistaPrevia = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader()
+    reader.onload = () => setFoto(reader.result)
+    if (file) reader.readAsDataURL(file)
 
-    const handleSubmt = async (event) => {
+  }
 
-      try {
-        event.preventDefault()
+  const handleSubmt = async (event) => {
 
-        if (newUsers.firstName === '' &&
+    try {
+      event.preventDefault()
+
+      if (newUsers.firstName === '' &&
         newUsers.lastName === '' &&
         newUsers.phoneNumber === '' &&
         newUsers.password === '' &&
@@ -99,15 +110,15 @@ function UserForm() {
         alert("Falta el numero de telefono. Por favor, completa el campo correspondiente.");
       } else if (newUsers.address === '') {
         alert("Falta la direccion. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.zipCode=== '') {
+      } else if (newUsers.zipCode === '') {
         alert("Falta el codigo postal. Por favor, completa el campo correspondiente.");
       } else if (newUsers.email === '') {
         alert("Falta el email. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.password  === '') {
+      } else if (newUsers.password === '') {
         alert("Falta la contraseña, completa el campo correspondiente.");
       } else if (newUsers.city === '') {
         alert("Falta ciudad. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.country  === '') {
+      } else if (newUsers.country === '') {
         alert("Falta pais, completa el campo correspondiente.");
       } else if (newErrors.firstName !== 'Se requiere al menos un nombre' && newErrors.firstName !== '') {
         alert('Primer nombre erroneo, por favor corrige el campo correspondiente')
@@ -125,97 +136,97 @@ function UserForm() {
         alert('Contraseña erronea, por favor corrige el campo correspondiente')
       } else if (newErrors.city !== 'Se requiere una ciudad' && newErrors.city !== '') {
         alert('Ciudad erronea, por favor corrige el campo correspondiente')
-      } else if (newErrors.country!== 'Se requiere un País' && newErrors.country !== '') {
+      } else if (newErrors.country !== 'Se requiere un País' && newErrors.country !== '') {
         alert('País erroneo, por favor corrige el campo correspondiente')
-      } else{
+      } else {
 
-        const {data} = await axios.post("http://localhost:3005/userRegister", newUsers)
+        const { data } = await axios.post("http://localhost:3005/userRegister", newUsers)
 
         alert(data.message)
       }
-     
-      } catch (error) {
-        console.log(error);
-        //alert(error.response.data.error);
-      }
-        
+
+    } catch (error) {
+      console.log(error);
+      //alert(error.response.data.error);
     }
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []); 
 
-    return (
-        <form onSubmit={handleSubmt} className="form">
-            <div className="contenedorUF">
-                <div className="contLogo">
-                    <NavLink to={"/"}>
-                        <img className="logoUF" src={logo} alt="" />
-                    </NavLink>
-                    
-                </div>
-                <div className="contenedorAgregar">
-                    {foto ? (<img src={foto} alt="Not Found" className="cuadro" />) : <label className="cuadro" htmlFor="imagen"></label>}   
-                    <input className="agregarFoto" type="file" id="imagen" name="image" accept="image/*" onChange={vistaPrevia}/>
-                    <label htmlFor="imagen" className="agregarImagen" > agregar foto</label> 
-                </div>
-                <div className="contenedor1">
-                    <div className="contenedor2">
-                        <label className="label" htmlFor="">Primer nombre </label>
-                        <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />
-                    </div>
-                       {inputFirstName && newErrors.firstName ? <p className="messError"> {newErrors.firstName}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"  htmlFor="">Apellido </label>
-                        <input className="input" type="text" name="lastName" onChange={handleChange} value={newUsers.lastName} />
-                    </div>
-                    {inputLastName && newErrors.lastName  ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"  htmlFor="">Número de teléfono </label>
-                        <input className="input" type="text" name="phoneNumber"  value={newUsers.phoneNumber} onChange={handleChange}/>
-                    </div>
-                    {inputPhone && newErrors.phoneNumber  ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"  htmlFor="">Dirección </label>
-                        <input className="input"  type="text" name="address" value={newUsers.address} onChange={handleChange} />
-                    </div>
-                    {inputAddress && newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"  htmlFor="">Código postal </label>
-                        <input className="input" type="text" name="zipCode"  value={newUsers.zipCode} onChange={handleChange}/>
-                    </div>
-                    {inputZipCode && newErrors.zipCode  ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"  htmlFor="">Correo electrónico </label>
-                        <input className="input" type="text" name="email" value={newUsers.email} onChange={handleChange} />
-                    </div>
-                    {inputEmail && newErrors.email  ? <p className="messError"> {newErrors.email}</p> : <p className="puntos">...</p>}
-                    <div className="contenedor2">
-                        <label className="label"   htmlFor="">Contraseña </label>
-                        <input className="input"  type="password" name="password" value={newUsers.password} onChange={handleChange} />
-                    </div>
-                    {inputPassword && newErrors.password ? <p className="messError"> {newErrors.password}</p> : <p className="puntos">...</p>}
+  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-                    <div className="contenedor2">
-                        <label className="label" htmlFor="">Ciudad </label>
-                        
-                        <input className="input" type="text" name="city" onChange={handleChange} value={newUsers.city} />
-                    </div>
-                       {inputCity && newErrors.city ? <p className="messError"> {newErrors.city}</p> : <p className="puntos">...</p>}
-                
-                       <div className="contenedor2">
-                        <label className="label" htmlFor="">Pais </label>
-                       
-                        <input className="input" type="text" name="country" onChange={handleChange} value={newUsers.country} />
-                    </div>
-                       {inputCountry && newErrors.country ? <p className="messError"> {newErrors.country}</p> : <p className="puntos">...</p>}
-                </div>
+  return (
+    <form onSubmit={handleSubmt} className="form">
+      <div className="contenedorUF">
+        <div className="contLogo">
+          <NavLink to={"/"}>
+            <img className="logoUF" src={logo} alt="" />
+          </NavLink>
 
-                <div className="contBotonUF">
-                    <button className="botonUF" type="submit" value="submit">Submit</button>
-                </div>  
         </div>
-     </form>
-        
-    );
+        <div className="contenedorAgregar">
+          {foto ? (<img src={foto} alt="Not Found" className="cuadro" />) : <label className="cuadro" htmlFor="imagen"></label>}
+          <input className="agregarFoto" type="file" id="imagen" name="image" accept="image/*" onChange={vistaPrevia} />
+          <label htmlFor="imagen" className="agregarImagen" > agregar foto</label>
+        </div>
+        <div className="contenedor1">
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Primer nombre </label>
+            <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />
+          </div>
+          {inputFirstName && newErrors.firstName ? <p className="messError"> {newErrors.firstName}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Apellido </label>
+            <input className="input" type="text" name="lastName" onChange={handleChange} value={newUsers.lastName} />
+          </div>
+          {inputLastName && newErrors.lastName ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Número de teléfono </label>
+            <input className="input" type="text" name="phoneNumber" value={newUsers.phoneNumber} onChange={handleChange} />
+          </div>
+          {inputPhone && newErrors.phoneNumber ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Dirección </label>
+            <input className="input" type="text" name="address" value={newUsers.address} onChange={handleChange} />
+          </div>
+          {inputAddress && newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Código postal </label>
+            <input className="input" type="text" name="zipCode" value={newUsers.zipCode} onChange={handleChange} />
+          </div>
+          {inputZipCode && newErrors.zipCode ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Correo electrónico </label>
+            <input className="input" type="text" name="email" value={newUsers.email} onChange={handleChange} />
+          </div>
+          {inputEmail && newErrors.email ? <p className="messError"> {newErrors.email}</p> : <p className="puntos">...</p>}
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Contraseña </label>
+            <input className="input" type="password" name="password" value={newUsers.password} onChange={handleChange} />
+          </div>
+          {inputPassword && newErrors.password ? <p className="messError"> {newErrors.password}</p> : <p className="puntos">...</p>}
+
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Ciudad </label>
+
+            <input className="input" type="text" name="city" onChange={handleChange} value={newUsers.city} />
+          </div>
+          {inputCity && newErrors.city ? <p className="messError"> {newErrors.city}</p> : <p className="puntos">...</p>}
+
+          <div className="contenedor2">
+            <label className="label" htmlFor="">Pais </label>
+
+            <input className="input" type="text" name="country" onChange={handleChange} value={newUsers.country} />
+          </div>
+          {inputCountry && newErrors.country ? <p className="messError"> {newErrors.country}</p> : <p className="puntos">...</p>}
+        </div>
+
+        <div className="contBotonUF">
+          <button className="botonUF" type="submit" value="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+
+  );
 }
 export default UserForm;
