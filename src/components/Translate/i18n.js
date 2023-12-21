@@ -1,21 +1,23 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from './en.json';
-import es from './es.json';
-import de from './de.json';
+import sp from './sp.json';
+import ger  from './ger.json';
+
 
 const resources = {
   en: { translation: en },
-  es: { translation: es },
-  de: { translation: de },
+  sp: { translation: sp },
+  ger: { translation: ger },
+  
 };
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'es',
-    fallbackLng: 'es',
+    lng: 'sp', 
+    fallbackLng: 'en', 
     interpolation: {
       escapeValue: false,
     },
