@@ -11,6 +11,60 @@ import { UserAuth } from "../../context/AuthContext";
 
 const login = () => {
   const dispatch = useDispatch();
+  const firebaseConfig = {//esta función se utiliza para inicializar la aplicación de Firebase antes de utilizar el servicio de autenticación
+    apiKey: "AIzaSyCgXPvmDHMD8CXkdu6X2H_hVy0ugo43_5s",
+    authDomain: "sportvibe-83aba.firebaseapp.com",
+    projectId: "sportvibe-83aba",
+    storageBucket: "sportvibe-83aba.appspot.com",
+    messagingSenderId: "1056600771864",
+    appId: "1:1056600771864:web:b038f160957b99e806226d",
+    measurementId: "G-74CJSX0GX1",
+  };
+
+  const [users, setUsers] = useState();//Se utiliza el hook useState para declarar un estado.
+
+  useEffect(() => {
+    axios.get('http://localhost:3005/users')//Se utiliza el hook useEffect para realizar efectos secundarios en el componente. En este caso, se ejecutará una vez después de que el componente se monte en el DOM debido al array de dependencias vacío ([])
+      .then(({ data }) => {
+        setUsers(data);
+      })
+  }, [])
+
+  const emailDb = users?.Users.map((ema) => ema.email)
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth();
+
+  const callLoginGoogle = async () => {
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+
+      // The signed-in user info.
+      const user = result.user;
+
+      const response = await axios.post(`${API_URL}/google`, {
+        firstName: user.displayName,
+        email: user.email,
+        image: user.photoURL,
+        rol: "CLIENT",
+      });
+      console.log("respuesta: ", response);
+
+      navigate("/");
+      alert(response.data.message);
+
+    } catch (error) {
+      console.error("Error al autenticar con Google:", error.message);
+      console.error("Detalles del error:", error.response);
+    }
+  };
+  
   const navigate = useNavigate();
   const { googleSignIn } = UserAuth();
   const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
