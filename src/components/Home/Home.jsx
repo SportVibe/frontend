@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styles from "./Home.module.css";
 import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";

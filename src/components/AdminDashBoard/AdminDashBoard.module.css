@@ -2,31 +2,29 @@
   color: white;
 }
 
-/* .cardComponentContainer{
-    width: 200px;
-    height: 400px;
-  } */
+.cardComponentContainer {
+  width: 200px;
+  height: 400px;
+}
 
-  .conteinerCards{
-    /* background-color: aqua; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+.conteinerCardsHidden {
+  display: none;
+}
 
-  .conteinerCardsHidden {
-    display:none;
-  }
+.conteinerCards {
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  .render {
-    /* background-color: rgb(179, 102, 102); */
-    min-height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
- 
-
+.holiRender {
+  background-color: red;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
