@@ -34,7 +34,7 @@ function AdminDashBoard() {
         ) : null}
         {selectedRow &&
           <div className={styles.render}>
-            <ProductUpdate data={selectedRow}/>
+            <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
             {/* <p onClick={handleClose}>✕</p> */}
           </div>}
         {sidebarRender === "nuevo" && (

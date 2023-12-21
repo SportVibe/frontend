@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../helpers/config";
 import axios from "axios";
 
-function ProductUpdate({ data }) {
+function ProductUpdate({ data, setSelectedRow }) {
   const [dataProductUpdate, setDataProductUpdate] = useState(null);
   const [product, setProduct] = useState("");
   const [isEditing, setEditing] = useState(false);
@@ -26,17 +26,33 @@ function ProductUpdate({ data }) {
     console.log(product,"PRODUCT MODIFICACIONES");
     console.log(newProduct,"OBJ A ENVIAR");
   };
+  const handleClose = () => {
+    setEditing(false);
+    setNewProduct({});
+    setSelectedRow("")
+  }
+
+  const handleImage = (image,event) => {
+    event.preventDefault();
+    console.log(dataProductUpdate.Images)
+    let img = [];
+    img = dataProductUpdate.Images.filter(img => img !== image)
+    setNewProduct({...product,images:img})
+    setDataProductUpdate({...dataProductUpdate,Images:img})
+  }
   return (
-    <div>
+    <div className="d-flex">
+    <div className="d-flex">
       <form>
         <div className="form-group">
           <label for="formGroupExampleInput">
             ID : {dataProductUpdate?.id}
           </label>
         </div>
-        <div className="form-group">
+        <div className="form-group w-100">
           <label for="formGroupExampleInput">TITULO</label>
-          {dataProductUpdate?.title}
+          {/* <br></br>
+          NEW VALUE = {newProduct.title} */}
           <input
             type="text"
             onChange={handleChange}
@@ -48,6 +64,8 @@ function ProductUpdate({ data }) {
         </div>
         <div className="form-group">
           <label for="formGroupExampleInput">CATEGORIA</label>
+           <br></br>
+           {/* NEW VALUE = {newProduct.category} */}
           <input
             type="text"
             name="category"
@@ -59,6 +77,8 @@ function ProductUpdate({ data }) {
         </div>
         <div className="form-group">
           <label for="formGroupExampleInput">SUB-CATEGORIA</label>
+          {/* <br></br>
+           NEW VALUE =  {newProduct.subCategory} */}
           <input
             type="text"
             name="subCategory"
@@ -70,6 +90,8 @@ function ProductUpdate({ data }) {
         </div>
         <div className="form-group">
           <label for="formGroupExampleInput2">DESCRIPCION</label>
+          {/* <br></br>
+          NEW VALUE = {newProduct.description} */}
           <textarea
             type="text"
             name="description"
@@ -83,24 +105,44 @@ function ProductUpdate({ data }) {
           <label for="formGroupExampleInput"></label>
           {/* <input type="text" name="subCategory" onChange={handleChange} className="form-control" id="formGroupExampleInput" value={product.images || dataProductUpdate?.Images} /> */}
           {dataProductUpdate?.Images.map((image) => {
-            return <div className="d-flex justify-content-center">
-                  <img width="100px" src={image}/>
+            return <div className="">
+                  <button onClick={()=>{handleImage(image,event)}} name={image.toString()}>X</button>
+                  <img width="100px" src={image}></img>
                   </div>
           })}
         </div>
-      </form>
-      <div className="btn-group">
+        <div className="btn-group">
         <button
           type="button"
-          className="btn todo-cancel"
-          onClick={() => setEditing(false)}
+          className="btn todo-cancel bg-primary p-10 rounded-25"
+          onClick={handleClose}
         >
-          Cancel
+          Cancelar
         </button>
-        <button onClick={handleSubmit} className="btn btn__primary todo-edit">
-          Save
+        <button onClick={handleSubmit} className="btn btn__primary todo-edit bg-primary p-10 rounded-25">
+          Guardar
         </button>
       </div>
+      </form>
+     
+    </div>
+    <div>
+      <br></br>
+          {newProduct.title ? ` ==> ${newProduct.title}` : ""}
+          <br></br>
+          <br></br>
+          <br></br>
+          {newProduct.category ? `==> ${newProduct.category}` : ""}
+          <br></br>
+          <br></br>
+          <br></br>
+          {newProduct.subCategory ? `==> ${newProduct.subCategory}` : ""}
+          <br></br>
+          <br></br>
+          <br></br>
+          {newProduct.description ? `==> ${newProduct.description}` : ""}
+
+    </div>
     </div>
   );
 }
