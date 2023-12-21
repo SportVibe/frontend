@@ -2,6 +2,7 @@ import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from '../../helpers/config';
 import validation from "./Validation";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ function UserForm() {
   const [users ,setUsers]= useState();
 
   useEffect(()=>{
-    axios.get('http://localhost:3005/users')
+    axios.get(`${API_URL}/users`)
     .then(({ data }) => {
     setUsers(data);
     })

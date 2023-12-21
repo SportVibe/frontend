@@ -1,7 +1,7 @@
 :root {
     --padding-left-tableParamns: 7px;
     --height-params-table: 35px;
-    --minWidth-counterParam: 50px;
+    --minWidth-counterParam: 30px;
     --fontSize-params: 14px;
 }
 
@@ -10,6 +10,8 @@
     height: 100%;
     color: black;
     border: 1px solid rgba(128, 128, 128, 0.761);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .tableContainer {
@@ -21,9 +23,6 @@
 
     & p {
         flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
         margin: 0;
         font-size: var(--fontSize-params);
     }
@@ -35,6 +34,10 @@
     display: flex;
     background-color: gray;
 
+    & .param:nth-child(2) {
+        min-width: 120px;
+    }
+
     & .counterParam {
         flex: 0;
         padding: 0 0 0 var(--padding-left-tableParamns);
@@ -42,6 +45,9 @@
     }
 
     & p {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         font-weight: 600;
         font-size: var(--fontSize-params);
         color: white;
@@ -51,11 +57,9 @@
 
 .recordsContainer {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
-    overflow: scroll;
-    background-color: red;
 }
 
 .records {
@@ -64,6 +68,9 @@
     display: flex;
     border-top: 1px solid rgb(212, 212, 212);
     
+    & .value:nth-child(2) {
+        min-width: 120px;
+    }
 
     & .counterValue {
         flex: 0;
@@ -73,10 +80,12 @@
         font-size: var(--fontSize-params);
     }
 
-    & p {
-        min-height: 100%;
+    & #p {
+        /* min-height: 100%; */
         width: 100px;
-        overflow: hidden;
+        padding: 0 5px;
+        word-wrap: break-word;
+        /* overflow: hidden; */
     }
 }
 
