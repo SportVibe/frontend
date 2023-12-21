@@ -22,7 +22,6 @@ function AdminDashBoard() {
     setSelectedRow(null);
   }
 
-
   return (
     <div className="d-flex">
       <Sidebar setSidebarRender={setSidebarRender} />
@@ -32,12 +31,13 @@ function AdminDashBoard() {
           {<ProductPrueba setSelectedRow={setSelectedRow} />}
           </div>
         ) : null}
-        {selectedRow &&
-          <div className={styles.render}>
+        {selectedRow && 
+          <div className={sidebarRender === "nuevo" ? styles.conteinerCardsHidden : styles.render}>
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
             {/* <p onClick={handleClose}>✕</p> */}
           </div>}
-        {sidebarRender === "nuevo" && (
+        {sidebarRender === "nuevo" &&
+        (
           <div>
             <ProductForm />
           </div>
