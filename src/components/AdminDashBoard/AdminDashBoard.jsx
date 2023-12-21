@@ -17,11 +17,9 @@ function AdminDashBoard() {
     setSelectedRow(null);
   }
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   return (
     <div className="d-flex">
       <Sidebar setSidebarRender={setSidebarRender} />
@@ -29,7 +27,13 @@ function AdminDashBoard() {
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>{<ProductPrueba setSelectedRow={setSelectedRow} />}</div>
         ) : null}
-        {sidebarRender === "nuevo" && (
+        {selectedRow && 
+          <div className={sidebarRender === "nuevo" ? styles.conteinerCardsHidden : styles.render}>
+            <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
+            {/* <p onClick={handleClose}>✕</p> */}
+          </div>}
+        {sidebarRender === "nuevo" &&
+        (
           <div>
             <ProductForm />
           </div>

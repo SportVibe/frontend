@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from "./Home.module.css";
+import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import Paginado from "../Paginado/Paginado";
@@ -9,8 +9,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getProducts, responsiveNavBar } from "../../redux/actions";
 
+
+
 function Home() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -37,6 +38,11 @@ function Home() {
   return (
     <div className={styles.mainView}>
       <div className={styles.subMainView}>
+        {/* {location.pathname === '/search' &&
+          <div className={styles.FilterBarContainer}>
+            <FilterBar />
+          </div>
+        } */}
         <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
           <FilterBar />
         </div>
@@ -46,7 +52,7 @@ function Home() {
               <Paginado />
             </div>
             <div className={styles.results}>
-              <p>{t('translation.results')}: {productRender?.totalFilteredCount}</p>
+              <p>Resultados: {productRender?.totalFilteredCount}</p>
             </div>
             <div className={styles.conteinerCards}>
               {productRender.data?.length > 0 && productRender.data.map((product, i) => {
@@ -71,3 +77,4 @@ function Home() {
 }
 
 export default Home;
+
