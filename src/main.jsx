@@ -16,5 +16,5 @@ createRoot(document.getElementById('root')).render(
         </BrowserRouter>
       </I18nextProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
