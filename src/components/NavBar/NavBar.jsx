@@ -76,8 +76,8 @@ function NavBar() {
             <div className={styles.linksContainer}>
               <select onChange={(e) => changeLanguage(e.target.value)}/*  value={i18n.language} */>
                 <option value="en">English</option>
-                <option value="sp">Español</option>
-                <option value="ger">Deutsch</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
               </select>
             </div>
 
