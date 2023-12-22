@@ -11,9 +11,10 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
 
-  
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [selectColor, setSelectColor] = useState();
+  const [selectSize, setSelectSize] = useState();
 
   const title = data?.title ? data.title : "";
   const Colors = data?.Colors.length ? data.Colors : [""];
@@ -43,17 +44,34 @@ const ProductDetail = () => {
       });
   }, []);
 
-  const handleAddToCart = async () => {
+  const handleColorSelection = (color) => {
+    setSelectColor(color);
+  };
+  const handleSizeSelection = (size) => {
+    setSelectSize(size);
+  };
 
-// const product = await axios.post(´${API_URL}/´)     esperando la ruta del back. se agregara el producto por su id. 
+  const generateDescriptionText = () => {
+    let descriptionText = "Seleccionaste: ";
+    if (selectColor) {
+      descriptionText += `Color: ${selectColor}`;
+    }
+    if (selectSize) {
+      descriptionText += ` | Talle: ${selectSize}`;
+    }
+    return descriptionText;
+  };
+
+  const handleAddToCart = async () => {
+    // const product = await axios.post(´${API_URL}/´)     esperando la ruta del back. se agregara el producto por su id.
 
     navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito.
   };
-  
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []); 
-  
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className={styles.conteinerDetail}>
       {data ? (
@@ -72,29 +90,52 @@ const ProductDetail = () => {
                 );
               })}
           </div>
-          <div className={styles.buttonContainer}>
-              <button onClick={handleAddToCart}>
-              Agregar al carrito
-              <i className="bi bi-cart-plus" />
-            </button>
-          </div>
+
           <hr />
           <div className={styles.Box}>
             <p> {description}</p>
             <p>{brand}</p>
-            <p>{price}</p>
-            <p>{Colors?.join(", ")}</p>
+            <p className={styles.price}>{price}</p>
+
+            <p>Colores:</p>
+            <div className={styles.buttonBoxColor}>
+              {Colors &&
+                Colors.length > 0 &&
+                Colors.map((color, i) => (
+                  <button
+                    key={i}
+                    className={selectColor === color ? styles.selected : ""}
+                    onClick={() => handleColorSelection(color)}
+                  >
+                    {color}
+                  </button>
+                ))}
+            </div>
+
+            <p>Talla:</p>
             <div className={styles.talleBox}>
               {Stocks.length &&
                 Stocks.map((stock, i) => {
-                  const key = Object.keys(stock)[0]; 
-                  const value = stock[key]; 
+                  const key = Object.keys(stock)[0];
                   return (
-                    <div key={i}>
-                      <p>Talle: {key} = {value} unidades</p>
-                    </div>
+                    <button
+                      key={i}
+                      className={selectSize === key ? styles.selected : ""}
+                      onClick={() => handleSizeSelection(key)}
+                    >
+                      {key}
+                    </button>
                   );
                 })}
+            </div>
+            <div className={styles.descriptionText}>
+              <p>{generateDescriptionText()}</p>
+            </div>
+            <div className={styles.buttonContainer}>
+              <button onClick={handleAddToCart}>
+                Agregar al carrito
+                <i className="bi bi-cart-plus" />
+              </button>
             </div>
           </div>
         </div>
