@@ -16,6 +16,7 @@ export const SORT = "SORT";
 export const PRICE_FILTER = "PRICE_FILTER";
 export const GENRES_FILTER = "GENRES_FILTER";
 export const USER_LOGIN = "USER_LOGIN";
+export const GET_CURRENT_USER = "GET_CURRENT_USER";
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -26,6 +27,14 @@ export const getProducts = (filters) => async (dispatch) => {
   } catch (error) {
     console.error(error.message);
     return dispatch({ type: GET_PRODUCTS_FAILURE, payload: error.message });
+  }
+};
+
+export const getCurrentUserAction = (user) => async (dispatch) => {
+  try {
+    return dispatch({ type: GET_CURRENT_USER, payload: user });
+  } catch (error) {
+    console.error(error.message);
   }
 };
 

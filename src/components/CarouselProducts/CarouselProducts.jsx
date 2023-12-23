@@ -14,8 +14,12 @@ const CrouselProducts = (prop) => {
 
 
     async function getProductsWithDiscount() {
-        const { data } = await axios(`${API_URL}/product/discount`);
-        setProductArray(data);
+        try {
+            const { data } = await axios(`${API_URL}/product/discount`);
+            if (data && data.length) setProductArray(data);
+        } catch (error) {
+            console.error({ error: error.message });
+        }
     }
 
     useEffect(() => {
