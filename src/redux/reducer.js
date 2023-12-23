@@ -12,10 +12,12 @@ import {
   PRICE_FILTER,
   GENRES_FILTER,
   USER_LOGIN,
+  GET_CURRENT_USER
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
+  currentUserData: null,
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   priceFilter: ['', ''],
   genre: [{gender: ''}],
@@ -32,6 +34,11 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        currentUserData: action.payload
+      };
     case PRICE_FILTER:
       return {
         ...state,

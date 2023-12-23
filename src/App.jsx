@@ -94,7 +94,7 @@ function App() {
               <Route path="/detail/:id" element={<ProductDetail />} />
               <Route path="/userForm" element={<UserForm />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/user-profile/:id" element={<UserProfile />} />
+              <Route path="/profile" element={<UserProfile />} />
               <Route path="/privacy" element={<PrivacyPolitic />} />
               <Route path="/conditions" element={<Conditions />} />
               <Route path="/deliveries" element={<Deliveries />} />
