@@ -1,21 +1,12 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { API_URL } from '../../helpers/config';
+import { useState } from "react";
 import validation from "./Validation";
 import axios from "axios"
 
 function UserForm() {
 
-  const [users ,setUsers]= useState();
-
-  useEffect(()=>{
-    axios.get(`${API_URL}/users`)
-    .then(({ data }) => {
-    setUsers(data);
-    })
-  },[])
   const [inputFirstName, setInputFirstName] = useState(false);
   const [inputLastName, setInputLastName] = useState(false);
   const [inputPhone, setInputPhone] = useState(false);
@@ -32,26 +23,25 @@ function UserForm() {
   const [newUsers, setNewUsers] = useState({
     firstName: '',
     lastName: '',
-    phoneNumber: 0,
+    phoneNumber: '',
     address: '',
     city: '',
     country: '',
-    zipCode: 0,
+    zipCode: '',
     email: '',
     password: '',
-    image: "https://img.freepik.com/vector-premium/hombre-volante-avatar-conductor-caracter-chofer_176411-3059.jpg?w=740",
+    image: '',
   })
   const [newErrors, setNewErrors] = useState({
     firstName: '',
     lastName: '',
-    phoneNumber: 0,
+    phoneNumber: '',
     address: '',
     city: '',
     country: '',
-    zipCode: 0,
+    zipCode: '',
     email: '',
     password: '',
-    image: '',
   })
 
   const handleChange = (event) => {
@@ -89,8 +79,8 @@ function UserForm() {
 
   const handleSubmt = async (event) => {
 
+    event.preventDefault()
     try {
-      event.preventDefault()
 
       if (newUsers.firstName === '' &&
         newUsers.lastName === '' &&
@@ -143,17 +133,30 @@ function UserForm() {
         const { data } = await axios.post("http://localhost:3005/userRegister", newUsers)
 
         alert(data.message)
+        setNewUsers({
+          firstName: '',
+          lastName: '',
+          phoneNumber: '',
+          address: '',
+          city: '',
+          country: '',
+          zipCode: '',
+          email: '',
+          password: '',
+          image: '',
+        })
+
       }
 
     } catch (error) {
-      console.log(error);
-      //alert(error.response.data.error);
+      //console.log(error);
+      alert(error.response.data.error);
     }
 
   }
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []); 
 
   return (
     <form onSubmit={handleSubmt} className="form">

@@ -9,7 +9,7 @@ const ShoppingCart = () => {
     if (!items || items.length === 0) {
       return 0;
     }
-    return items.reduce((total, item) => total + item.data.price, 0);
+    return items.reduce((total, item) => total + item.data.price * item.quantity, 0);
   };
 
   const saveCartToCookie = (items) => {
@@ -41,6 +41,16 @@ const ShoppingCart = () => {
     setCartItems(newCartItems);
   };
 
+  const handleQuantityChange = (productId, newQuantity) => {
+    const updatedCart = cartItems.map((item) => {
+      if (item.data.id === productId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    setCartItems(updatedCart);
+  };
+
   const subtotal = calculateSubtotal(cartItems);
 
   const handleGoToPayment = () => {
@@ -65,9 +75,18 @@ const ShoppingCart = () => {
               <div className="card-body">
                 <h5 className="card-title">{item.data.title}</h5>
                 <p className="card-text">Price: ${item.data.price}</p>
+                <div className="input-group">
+                  <span className="input-group-text">Quantity:</span>
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={item.quantity}
+                    onChange={(e) => handleQuantityChange(item.data.id, e.target.value)}
+                  />
+                </div>
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger mt-2"
                   onClick={() => handleRemoveFromCart(item.data.id)}
                 >
                   Remove

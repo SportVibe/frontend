@@ -68,8 +68,8 @@ function NavBar() {
           )}
 
           <div className={styles.linksContainer}>
-            <div id='/home' onClick={handleNavigate}>
-              <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
+            <div id='/' onClick={handleNavigate}>
+              <p id='/' onClick={handleNavigate}>{t('translation.home')}</p>
             </div>
 
             <div className={styles.linksContainer}>
@@ -121,8 +121,8 @@ function NavBar() {
           </div>
         )}
 
-        <div className={styles.linksResponsive} id='/home' onClick={handleNavigate}>
-          <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
+        <div className={styles.linksResponsive} id='/' onClick={handleNavigate}>
+          <p id='/' onClick={handleNavigate}>{t('translation.home')}</p>
         </div>
 
         <div className={styles.linksResponsive} id='/about' onClick={handleNavigate}>
