@@ -21,7 +21,7 @@
   }
 
   .render {
-    /* background-color: rgb(179, 102, 102); */
+    /* background-color: rgba(17, 16, 16, 0.63); */
     min-height: 100%;
     width: 100%;
     display: flex;
