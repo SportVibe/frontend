@@ -1,15 +1,15 @@
-import './CarouselModel.css';
-import img from '../../Images/logo-Adidas.jpeg'
+import './CarouselModel2.css';
+import img from '../../Images/Running-Pons-Trainingok.webp'
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../helpers/config';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const CarouselModel = (prop) => {
+const CarouselModel2 = (prop) => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const property = prop.property || ['brand'];
+    const property = prop.property || ['sport'];
     const [sportArray, setSportArray] = useState(property);
 
     async function getSports() {
@@ -27,7 +27,7 @@ const CarouselModel = (prop) => {
 
     return (
         <div className="mainView" >
-            <p className="DeportesTitle">Selecciona por {t('translation.Brand')}</p>
+            <p className="DeportesTitle">Selecciona por {t(`translation.Sport`)}</p>
             <div className="carouselContainer">
                 {sportArray?.length ? sportArray.map((property, i) => {
                     const key = Object.keys(property)[0];
@@ -54,6 +54,6 @@ const CarouselModel = (prop) => {
     );
 };
 
-export default CarouselModel;
+export default CarouselModel2;
 
 

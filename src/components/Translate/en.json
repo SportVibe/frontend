@@ -3,9 +3,11 @@
       "home": "Home",
       "about": "About",
       "dashboard": "Dashboard",
-      "shoppingcart": "Shopping Cart",
+      "shoppingcart": "Cart",
       "login": "Login",
       "¡Siente la energía, viste la pasión!": "Feel the energy, wear the passion!",
-      "Correo electrónico": "Email"
+      "Correo electrónico": "Email",
+      "Brand": "Brand",
+      "Sport": "Sport"
     }
   }

@@ -10,6 +10,7 @@ import {
   Login,
   NavBar,
   Carousel2,
+  CarouselModel2,
   NotFound,
   Footer,
   UserForm,
@@ -41,12 +42,7 @@ const stripePromise = loadStripe('Henry2023?');
 
 
 function App() {
-  const dispatch = useDispatch();
   const location = useLocation();
-
-  /* useEffect(() => {
-    dispatch(getProducts());
-  }, []); */
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -76,6 +72,11 @@ function App() {
             {location.pathname === '/' &&
               <div className={styles.CarouselModelContainer}>
                 <CarouselModel />
+              </div>
+            }
+            {location.pathname === '/' &&
+              <div className={styles.CarouselModelContainer}>
+                <CarouselModel2 />
               </div>
             }
             {location.pathname === '/' &&

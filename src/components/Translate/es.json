@@ -1,11 +1,12 @@
 {
     "translation": {
       "home": "Inicio",
-      "about": "Acerca de",
+      "about": "Nosotros",
       "dashboard": "Tablero",
-      "shoppingcart": "Carrito de Compra",
+      "shoppingcart": "Carrito",
       "login": "Acceso",
       "¡Siente la energía, viste la pasión!": "¡Siente la energía, viste la pasión!",
-      "Correo electrónico": "Correo"
+      "Brand": "Marca",
+      "Sport": "Deporte"
     }
   }
