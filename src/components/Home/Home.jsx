@@ -24,7 +24,7 @@ function Home() {
   const genre = useSelector((state => state.genre));
   const priceFilter = useSelector((state => state.priceFilter));
 
-  const getLocalStorageData = async () => {
+  const getLocalStorageData = async () => { // la llamada al local storage lo hacemos con promesa para poder usar el await y esperar a que se cargue el local storage.
     return new Promise((resolve, reject) => {
       try {
         const data = localStorage.getItem('currentUser');
@@ -36,7 +36,7 @@ function Home() {
   };
   
   async function handleUserData() {
-    try {
+    try { // necesitamos usar el local storage de manera asíncrona para poder guardarlo en redux y poder renderizarlo en el nav bar u otras partes.
       const storageData = await getLocalStorageData();
       const userData = storageData ? JSON.parse(storageData) : null;
       if (userData) {
