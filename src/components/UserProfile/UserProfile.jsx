@@ -58,9 +58,10 @@ function UserProfile() {
     }
 
     async function handleUserData() {
-        try {
+        try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
             if (userData) {
-                const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+                /* const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`); */
+                const { data } = await axios(`${API_URL}/user/${id}`);
                 dispatch(getCurrentUserAction(data));
             }
         } catch (error) {

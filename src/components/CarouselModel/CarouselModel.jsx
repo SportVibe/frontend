@@ -5,9 +5,12 @@ import { API_URL } from '../../helpers/config';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction } from '../../redux/actions';
 
 const CarouselModel = (prop) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const property = prop.property || ['brand'];
     const [sportArray, setSportArray] = useState(property);
@@ -17,12 +20,21 @@ const CarouselModel = (prop) => {
         setSportArray(data);
     }
 
-    function handleFilter() {
+    const handleFilter = (e) => {
+        const id = e.target.id;
+        const propertiesArray = [{ search: id }]
+        // reseteamos todos los filtrso y ordenamientos
+        dispatch(genreFilterAction([{ gender: '' }]));
+        dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+        dispatch(priceFilterAction(['', '']));
+        dispatch(searchActivity(id));
+
+        dispatch(getProducts(propertiesArray));
         navigate('/search');
-    }
+    };
 
     useEffect(() => {
-        getSports();
+        getSports(); // recuperamos los deportes que existen en nuestra base de datos.
     }, []);
 
     return (
@@ -34,11 +46,11 @@ const CarouselModel = (prop) => {
                     let value = property[key];
                     value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
                     return (
-                        <div onClick={handleFilter} key={i} className="carouselItem">
-                            <div>
-                                <img src={img} />
+                        <div id={value} onClick={handleFilter} key={i} className="carouselItem">
+                            <div id={value}>
+                                <img id={value} src={img} />
                             </div>
-                            <p>{value}</p>
+                            <p id={value}>{value}</p>
                         </div>
                     )
                 }) :
