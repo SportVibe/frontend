@@ -14,4 +14,5 @@ import UserProfile from "../components/UserProfile/UserProfile";
 import CategoryBar from "../components/FilterBar/CategoryBar/CategoryBar";
 import PaymentForm from "../components/PaymentForm/PaymentForm";
 import CarouselModel2 from "../components/CarouselModel2/CarouselModel2";
-export {About, CarouselModel2, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm, PaymentForm}
+import Loading from "../components/loading/Loading";
+export {About, Loading, CarouselModel2, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm, PaymentForm}

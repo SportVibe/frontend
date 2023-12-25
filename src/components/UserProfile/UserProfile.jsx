@@ -17,7 +17,9 @@ function UserProfile() {
     const imgUser = null;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user, logOut } = UserAuth();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
     const storageData = window.localStorage.getItem('currentUser');
     const userData = storageData ? JSON.parse(storageData) : null;
@@ -37,6 +39,26 @@ function UserProfile() {
             lastName = splitFirstName[0].charAt(1).toUpperCase();
         }
     }
+    const [editUserData, setEditUserData] = useState(userDataRender);
+
+    async function handleSubmit() {
+        try {
+            if (!editUserData.firstName.trim().length) alert('FirstName no puede estar vacío');
+            else {
+                if (emailRegex.test(editUserData.email)) {
+                    const { data } = await axios.put(`${API_URL}/user/${id}`, editUserData);
+                    setIsValidEmail(true);
+                    console.log(data);
+                }
+                else {
+                    setIsValidEmail(false);
+                }
+            }
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+    console.log(userDataRender);
 
     function handlerComponent(e) {
         const id = e.target.id;
@@ -63,10 +85,12 @@ function UserProfile() {
                 if (userData.user.externalSignIn) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                     const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
                     dispatch(getCurrentUserAction(data));
+                    setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
                 }
                 else { // si el usuario es local, no podemos hacer peticiones con su email ya que podría editar y cambiarlo por otro y generaría un conflicto importante.
                     const { data } = await axios(`${API_URL}/user/${id}`);
                     dispatch(getCurrentUserAction(data));
+                    setEditUserData(data);
                 }
             }
         } catch (error) {
@@ -75,6 +99,7 @@ function UserProfile() {
     }
 
     useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
+        window.scrollTo(0, 0);
         if (!storageData) {
             navigate('/');
         }
@@ -83,7 +108,6 @@ function UserProfile() {
 
     return (
         <div className={styles.mainView}>
-            {storageData ?
                 <div className={styles.subMainView}>
                     <div className={styles.sideBarContainer}>
                         <div className={styles.headerSection}>
@@ -131,12 +155,10 @@ function UserProfile() {
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
-                                <EditUser />
+                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={handleSubmit} />
                             </div>}
                     </div>
-                </div> :
-                <Loading />
-            }
+                </div> 
         </div>
     );
 }
