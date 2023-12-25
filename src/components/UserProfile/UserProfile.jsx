@@ -58,7 +58,6 @@ function UserProfile() {
             console.error(error.message);
         }
     }
-    console.log(userDataRender);
 
     function handlerComponent(e) {
         const id = e.target.id;
@@ -81,17 +80,10 @@ function UserProfile() {
 
     async function handleUserData() {
         try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
-            if (userData) {
-                if (userData.user.externalSignIn) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
-                    const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
-                    dispatch(getCurrentUserAction(data));
-                    setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
-                }
-                else { // si el usuario es local, no podemos hacer peticiones con su email ya que podría editar y cambiarlo por otro y generaría un conflicto importante.
-                    const { data } = await axios(`${API_URL}/user/${id}`);
-                    dispatch(getCurrentUserAction(data));
-                    setEditUserData(data);
-                }
+            if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
+                const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+                dispatch(getCurrentUserAction(data));
+                setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
             }
         } catch (error) {
             console.error(error.message);
@@ -108,6 +100,8 @@ function UserProfile() {
 
     return (
         <div className={styles.mainView}>
+            {!userDataRender ?
+                <Loading /> :
                 <div className={styles.subMainView}>
                     <div className={styles.sideBarContainer}>
                         <div className={styles.headerSection}>
@@ -158,7 +152,8 @@ function UserProfile() {
                                 <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={handleSubmit} />
                             </div>}
                     </div>
-                </div> 
+                </div>
+            }
         </div>
     );
 }
