@@ -37,18 +37,25 @@ import CarouselProducts from "./components/CarouselProducts/CarouselProducts";
 import { useEffect, useState } from "react";
 import getLocalStorageData from './utils/getLocalStorage';
 import ProductUpdate from "./components/ProductUpdate/ProductUpdate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { API_URL } from "./helpers/config";
+import { getCurrentUserAction } from "./redux/actions";
 
 const stripePromise = loadStripe('Henry2023?');
 
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para esperar la respuesta antes de setear el loading en false y mostrar la página recargada.
-      await getLocalStorageData(); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
+      const userDataLocalStorage = await getLocalStorageData(); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
+      const userData = JSON.parse(userDataLocalStorage);
+      const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+      dispatch(getCurrentUserAction(data));
       setLoading(false);
     } catch (error) {
       console.error(error.message);
@@ -57,7 +64,7 @@ function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    handleUserData(); // para saber si hay algún usuario logueado en este compu.
+    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
   }, []);
 
   if (loading) {

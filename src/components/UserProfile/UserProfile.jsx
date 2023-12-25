@@ -58,7 +58,6 @@ function UserProfile() {
             console.error(error.message);
         }
     }
-    console.log(userDataRender);
 
     function handlerComponent(e) {
         const id = e.target.id;
@@ -81,17 +80,10 @@ function UserProfile() {
 
     async function handleUserData() {
         try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
-            if (userData) {
-                if (userData.user.externalSignIn) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
-                    const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
-                    dispatch(getCurrentUserAction(data));
-                    setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
-                }
-                else { // si el usuario es local, no podemos hacer peticiones con su email ya que podría editar y cambiarlo por otro y generaría un conflicto importante.
-                    const { data } = await axios(`${API_URL}/user/${id}`);
-                    dispatch(getCurrentUserAction(data));
-                    setEditUserData(data);
-                }
+            if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
+                const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+                dispatch(getCurrentUserAction(data));
+                setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
             }
         } catch (error) {
             console.error(error.message);
@@ -108,57 +100,57 @@ function UserProfile() {
 
     return (
         <div className={styles.mainView}>
-                <div className={styles.subMainView}>
-                    <div className={styles.sideBarContainer}>
-                        <div className={styles.headerSection}>
-                            <div className={styles.userDataPreview}>
-                                <div className={styles.imgContainer}>
-                                    <div>
-                                        {imgUser ?
-                                            <img src={imgUser} alt="" /> :
-                                            <p>{firstName}{lastName}</p>
-                                        }
-                                    </div>
-                                </div>
-                                <p className={styles.name}>{upperLowerCase(firstNameFull)} {upperLowerCase(lastNameFull)}</p>
-                                <p className={styles.userCode}>Código de usuario: {id}</p>
-                            </div>
-                            <div className={styles.buttonsContainer}>
-                                <div className={mainComponent === 'editUser' ? styles.selectedProfile : styles.editProfile} id='editUser' onClick={handlerComponent}>
-                                    <i className="fa-regular fa-pen-to-square" id='editUser' onClick={handlerComponent}></i>
-                                    <p id='editUser' onClick={handlerComponent}>Editar</p>
-                                </div>
-                                <div onClick={handleSignOut} className={styles.editProfile}>
-                                    <p onClick={handleSignOut}>Cerrar sesión</p>
+            <div className={styles.subMainView}>
+                <div className={styles.sideBarContainer}>
+                    <div className={styles.headerSection}>
+                        <div className={styles.userDataPreview}>
+                            <div className={styles.imgContainer}>
+                                <div>
+                                    {imgUser ?
+                                        <img src={imgUser} alt="" /> :
+                                        <p>{firstName}{lastName}</p>
+                                    }
                                 </div>
                             </div>
+                            <p className={styles.name}>{upperLowerCase(firstNameFull)} {upperLowerCase(lastNameFull)}</p>
+                            <p className={styles.userCode}>Código de usuario: {id}</p>
                         </div>
-                        <div className={styles.footerSideSection}>
-                            <div className={mainComponent === 'purchasesTable' ? styles.divSelected : styles.div} id='purchasesTable' onClick={handlerComponent}>
-                                <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
-                                <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
+                        <div className={styles.buttonsContainer}>
+                            <div className={mainComponent === 'editUser' ? styles.selectedProfile : styles.editProfile} id='editUser' onClick={handlerComponent}>
+                                <i className="fa-regular fa-pen-to-square" id='editUser' onClick={handlerComponent}></i>
+                                <p id='editUser' onClick={handlerComponent}>Editar</p>
                             </div>
-                            <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
-                                <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
-                                <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
-                            </div>
-                            <div className={mainComponent === 'searchHistory' ? styles.divSelected : styles.div}>
-                                <i className="fa-solid fa-magnifying-glass" id='searchHistory' onClick={handlerComponent}></i>
-                                <p id='searchHistory' onClick={handlerComponent}>Historial de búsqueda</p>
+                            <div onClick={handleSignOut} className={styles.editProfile}>
+                                <p onClick={handleSignOut}>Cerrar sesión</p>
                             </div>
                         </div>
                     </div>
-                    <div className={styles.mainComponentsContainer}>
-                        {mainComponent === 'purchasesTable' &&
-                            <div className={styles.componentContainer}>
-                                <Table records={null} />
-                            </div>}
-                        {mainComponent === 'editUser' &&
-                            <div className={styles.componentContainer}>
-                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={handleSubmit} />
-                            </div>}
+                    <div className={styles.footerSideSection}>
+                        <div className={mainComponent === 'purchasesTable' ? styles.divSelected : styles.div} id='purchasesTable' onClick={handlerComponent}>
+                            <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
+                            <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
+                        </div>
+                        <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
+                            <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
+                            <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
+                        </div>
+                        <div className={mainComponent === 'searchHistory' ? styles.divSelected : styles.div}>
+                            <i className="fa-solid fa-magnifying-glass" id='searchHistory' onClick={handlerComponent}></i>
+                            <p id='searchHistory' onClick={handlerComponent}>Historial de búsqueda</p>
+                        </div>
                     </div>
-                </div> 
+                </div>
+                <div className={styles.mainComponentsContainer}>
+                    {mainComponent === 'purchasesTable' &&
+                        <div className={styles.componentContainer}>
+                            <Table records={null} />
+                        </div>}
+                    {mainComponent === 'editUser' &&
+                        <div className={styles.componentContainer}>
+                            <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={handleSubmit} />
+                        </div>}
+                </div>
+            </div>
         </div>
     );
 }
