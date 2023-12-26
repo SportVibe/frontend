@@ -24,6 +24,7 @@
     align-items: center;
 
     & .inputContainer {
+        position: relative;
         background-color: transparent;
         margin: 10px 0;
         width: 100%;
@@ -39,29 +40,46 @@
         max-width: 500px;
         padding: 0 10px;
         border: none;
-        border-radius: 15px;
+        border-radius: 5px;
+    }
+
+    & .inputContainerInvalid {
+        border: 1px solid red;
+        position: relative;
+    }
+
+    .invalidEmail {
+        position: absolute;
+        bottom: -22px;
+        font-size: 13px;
+        font-weight: 300;
+        color: red;
+        padding: 0;
+        margin: 0;
     }
 }
 
 .changePasswordHidden {
     padding: 0 10px;
+    margin: 20px 0;
     height: 40px;
     width: 100%;
     max-width: 500px;
     border: 1px solid gray;
-    border-radius: 15px;
+    border-radius: 5px;
     overflow: hidden;
     transition: .3s ease-in-out;
 }
 
 .changePasswordContainer {
     padding: 0 10px;
+    margin: 20px 0;
     height: 280px;
     width: 100%;
     max-width: 500px;
     color: var(--button-color);
     border: 1px solid gray;
-    border-radius: 15px;
+    border-radius: 5px;
     overflow: hidden;
     transition: .3s ease-in-out;
 }
@@ -73,10 +91,16 @@
     font-size: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
 
     &:hover {
         color: var(--button-color);
+    }
+
+    &::after {
+        content: '▿';
+        font-size: 25px;
     }
 }
 
@@ -84,4 +108,11 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.submitButtoncontainer {
+    height: 40px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
 }

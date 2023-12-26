@@ -23,7 +23,7 @@ function Sidebar(props) {
                     <li className={active === 1 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(1)}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-speedometer2 me-3 fs-4"></i>
-                        <span className="fs-4">Dasboard</span>
+                        <span className="fs-4" name="dashboard">Dasboard</span>
                     </a>
                     </li>
                     <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} value="productos" name="productos" onClick={(e) =>setActive(2)}>

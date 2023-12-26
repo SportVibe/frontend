@@ -8,7 +8,7 @@ function SearchResults() {
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div className={styles.listContainer}>
-                    <p className={styles.title}>No hay productos que coincidad con la búsqueda</p>
+                    <p className={styles.title}>No hay productos que coincidan con la búsqueda</p>
                     <ul>
                         <li>Lo que buscaste podría tener errores ortográficos</li>
                         <li>Prueba escribiendo palabras más precisas</li>

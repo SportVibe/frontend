@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
 import SearchBar from './SearchBar/SearchBar';
 import Logo from '../../Images/Logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { UserAuth } from '../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   responsiveNavBar,
@@ -12,7 +13,7 @@ import {
   getProducts,
   genreFilterAction,
   sortAction,
-  priceFilterAction
+  priceFilterAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 
@@ -21,13 +22,28 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
-  const userData = useSelector((state) => state.userData);
+  // const storageData = window.localStorage.getItem('currentUser');
+  // const userData = storageData ? JSON.parse(storageData) : null;
+  const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
+  // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
+  const firstNameFull = userDataRender ? userDataRender.firstName : '';
+  let firstName = userDataRender ? userDataRender.firstName?.charAt(0).toUpperCase() : '';
+  let lastName = userDataRender ? userDataRender.lastName?.charAt(0).toUpperCase() : '';
+  if (!lastName && firstNameFull) { // extraemos las iniciales del usuario en mayúscula, si el usuario no rellenó el campo lastName, usamos la segunda letra de su firstName.
+    const splitFirstName = firstNameFull.split(' ');
+    if (splitFirstName.length > 1) {
+      lastName = splitFirstName[1].charAt(0).toUpperCase();
+    }
+    else {
+      lastName = splitFirstName[0].charAt(1).toUpperCase();
+    }
+  }
   const { t, i18n } = useTranslation();
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (id === 'profile' && userData) {
-      navigate(`/user-profile/${userData.data.user.id}`);
+    if (id === 'profile' && userDataRender) {
+      navigate(`/profile`);
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
@@ -65,14 +81,14 @@ function NavBar() {
           )}
 
           <div className={styles.linksContainer}>
-            <div id='/home' onClick={handleNavigate}>
-              <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
+            <div id='/' onClick={handleNavigate}>
+              <p id='/' onClick={handleNavigate}>{t('translation.home')}</p>
             </div>
 
             <div className={styles.linksContainer}>
               <select onChange={(e) => changeLanguage(e.target.value)}>
-                <option value="en">English</option>
                 <option value="es">Español</option>
+                <option value="en">English</option>
                 <option value="de">Deutsch</option>
               </select>
             </div>
@@ -84,16 +100,18 @@ function NavBar() {
             <div id='/shoppingcart' onClick={handleNavigate}>
               <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
+              <div className={styles.cartNumber}>
+                <p>77</p>
+              </div>
             </div>
 
-            {userData ? (
+            {userDataRender ? (
               <div id='profile' className={styles.userLogContainer} onClick={handleNavigate}>
-                <p id='profile' onClick={handleNavigate}>{t('translation.profile')}</p>
                 <div id='profile' onClick={handleNavigate}>
-                  {userData.data.user.image ? (
-                    <img id='profile' src={userData.data.user.image} alt="" onClick={handleNavigate} />
+                  {userDataRender?.image ? (
+                    <img id='profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                   ) : (
-                    <p id='profile' onClick={handleNavigate}>LB</p>
+                    <p id='profile' onClick={handleNavigate}>{firstName}{lastName}</p>
                   )}
                 </div>
               </div>
@@ -118,8 +136,8 @@ function NavBar() {
           </div>
         )}
 
-        <div className={styles.linksResponsive} id='/home' onClick={handleNavigate}>
-          <p id='/home' onClick={handleNavigate}>{t('translation.home')}</p>
+        <div className={styles.linksResponsive} id='/' onClick={handleNavigate}>
+          <p id='/' onClick={handleNavigate}>{t('translation.home')}</p>
         </div>
 
         <div className={styles.linksResponsive} id='/about' onClick={handleNavigate}>
@@ -129,11 +147,13 @@ function NavBar() {
         <div className={styles.linksResponsive} id='/shoppingcart' onClick={handleNavigate}>
           <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
+
         </div>
 
         <div className={styles.linksResponsive} id='/login' onClick={handleNavigate}>
           <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
           <p id='/login' onClick={handleNavigate}>👤</p>
+
         </div>
       </div>
     </div>

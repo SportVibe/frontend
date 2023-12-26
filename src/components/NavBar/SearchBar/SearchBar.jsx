@@ -6,9 +6,9 @@ import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilter
 
 function SearchBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const search_Activity = useSelector((state => state.search));
   const [searchTerm, setSearchTerm] = useState(search_Activity);
-  const dispatch = useDispatch();
 
   const handleSearch = () => {
     if (searchTerm.length) {

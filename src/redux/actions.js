@@ -2,6 +2,8 @@ import axios from 'axios';
 import buildQueryString from '../utils/queryAlgorithm';
 import { API_URL } from '../helpers/config';
 
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
 export const GET_PRODUCTS = "GET_PRODUCTS";
@@ -16,6 +18,7 @@ export const SORT = "SORT";
 export const PRICE_FILTER = "PRICE_FILTER";
 export const GENRES_FILTER = "GENRES_FILTER";
 export const USER_LOGIN = "USER_LOGIN";
+export const GET_CURRENT_USER = "GET_CURRENT_USER";
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -29,6 +32,14 @@ export const getProducts = (filters) => async (dispatch) => {
   }
 };
 
+export const getCurrentUserAction = (user) => async (dispatch) => {
+  try {
+    return dispatch({ type: GET_CURRENT_USER, payload: user });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 export const getCarousel2Products = () => async (dispatch) => {
   try {
     const { data } = await axios.get(`${API_URL}/product`);
@@ -38,9 +49,9 @@ export const getCarousel2Products = () => async (dispatch) => {
   }
 };
 
-export const userLoginAction = (userData) => async (dispatch) => {
+export const userLoginAction = (logInData) => async (dispatch) => {
   try {
-    return dispatch({ type: USER_LOGIN, payload: userData });
+    return dispatch({ type: USER_LOGIN, payload: logInData });
   } catch (error) {
     console.error(error.message);
   }
@@ -102,4 +113,18 @@ export const getProductPage = ({ page, limit }) => async (dispatch) => {
     console.error(error.message);
     return dispatch({ type: GET_PRODUCT_PAGE_FAILURE, payload: error.message });
   }
+};
+
+export const addToCart = (item) => {
+  return {
+    type: "ADD_TO_CART",
+    payload: item,
+  };
+};
+
+export const removeFromCart = (itemId) => {
+  return {
+    type: "REMOVE_FROM_CART",
+    payload: itemId,
+  };
 };

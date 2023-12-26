@@ -9,7 +9,7 @@ const ShoppingCart = () => {
     if (!items || items.length === 0) {
       return 0;
     }
-    return items.reduce((total, item) => total + item.data.price, 0);
+    return items.reduce((total, item) => total + item.data.price * item.quantity, 0);
   };
 
   const saveCartToCookie = (items) => {
@@ -41,6 +41,13 @@ const ShoppingCart = () => {
     setCartItems(newCartItems);
   };
 
+  const handleQuantityChange = (productId, newQuantity) => {
+    const updatedCart = cartItems.map((item) =>
+      item.data.id === productId ? { ...item, quantity: parseInt(newQuantity, 10) || 1 } : item
+    );
+    setCartItems(updatedCart);
+  };
+
   const subtotal = calculateSubtotal(cartItems);
 
   const handleGoToPayment = () => {
@@ -65,9 +72,18 @@ const ShoppingCart = () => {
               <div className="card-body">
                 <h5 className="card-title">{item.data.title}</h5>
                 <p className="card-text">Price: ${item.data.price}</p>
+                <div className="input-group">
+                  <span className="input-group-text">Quantity:</span>
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={item.quantity}
+                    onChange={(e) => handleQuantityChange(item.data.id, e.target.value)}
+                  />
+                </div>
                 <button
                   type="button"
-                  className="btn btn-danger"
+                  className="btn btn-danger mt-2"
                   onClick={() => handleRemoveFromCart(item.data.id)}
                 >
                   Remove
@@ -83,8 +99,7 @@ const ShoppingCart = () => {
           <p>Subtotal: ${subtotal}</p>
           {subtotal >= 130 && (
             <p className="text-success">
-              ¡Ya casi! Para envío gratis a ciudades principales, agrega ${130 -
-                subtotal} más.
+              ¡Ya casi! Para envío gratis a ciudades principales, agrega ${130 - subtotal} más.
             </p>
           )}
         </div>

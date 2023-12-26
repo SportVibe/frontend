@@ -34,10 +34,6 @@
 }
 
 .carouselItem {
-    background-color: transparent;
-    border: 2px solid transparent;
-    border-radius: 20px;
-    padding: 2px;
     position: relative;
     min-width: 180px;
     height: 100%;
@@ -56,8 +52,8 @@
     }
 
     & div {
-        max-width: 200px;
         width: 100%;
+        max-width: 200px;
         height: 100%;
         border-radius: 15px;
         overflow: hidden;
