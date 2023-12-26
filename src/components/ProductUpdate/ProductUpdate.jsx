@@ -284,6 +284,7 @@ function ProductUpdate({ data, setSelectedRow }) {
   );
 }
 
-
-
 export default ProductUpdate;
+
+
+

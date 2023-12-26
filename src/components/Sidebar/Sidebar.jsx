@@ -20,7 +20,7 @@ function Sidebar(props) {
                 </a>
                 <hr className="text-secondary mt-3" />
                 <ul className="nav nav-pills flex-column mt-2">
-                    <li className={active === 1 ? "active nav-item p-3" : "nav-item p-3"} onClick={() => setActive(1)}>
+                    <li className={active === 1 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(1)}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-speedometer2 me-3 fs-4"></i>
                         <span className="fs-4" name="dashboard">Dasboard</span>
