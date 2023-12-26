@@ -39,7 +39,7 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                     <input id='lastName' onChange={handleChangeInput} value={lastName} type="text" placeholder='lastName' />
                 </div>
                 <div className={styles.inputContainer}>
-                    <input id='phoneNumber' onChange={handleChangeInput} value={phoneNumber} type="number" placeholder='phoneNumber' />
+                    <input id='phoneNumber' onChange={handleChangeInput} value={phoneNumber} type="number" min={8} max={11} placeholder='phoneNumber' />
                 </div>
                 <div className={styles.inputContainer}>
                     <input id='address' onChange={handleChangeInput} value={address} type="text" placeholder='address' />
@@ -51,7 +51,7 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                     <input id='country' onChange={handleChangeInput} value={country} type="text" placeholder='country' />
                 </div>
                 <div className={styles.inputContainer}>
-                    <input id='zipCode' onChange={handleChangeInput} value={zipCode} type="number" placeholder='zipCode' />
+                    <input id='zipCode' onChange={handleChangeInput} value={zipCode} type="number" min={5} max={10} placeholder='zipCode' />
                 </div>
                 {!externalSignIn &&
                     <div className={styles.inputContainer}>
@@ -64,13 +64,13 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                         <p className={styles.p} onClick={handleContainerHidden}>Cambiar contraseña</p>
                         <div className={styles.inputPasswordContainer}>
                             <div className={styles.inputContainer}>
-                                <input type="text" placeholder='Contraseña actual' />
+                                <input type="password" autoComplete='off' placeholder='Contraseña actual' />
                             </div>
                             <div className={styles.inputContainer}>
-                                <input type="text" placeholder='Nueva contraseña' />
+                                <input type="password" autoComplete='off' placeholder='Nueva contraseña' />
                             </div>
                             <div className={styles.inputContainer}>
-                                <input type="text" placeholder='Repita su nueva contraseña' />
+                                <input type="password" autoComplete='off' placeholder='Repita su nueva contraseña' />
                             </div>
                         </div>
                     </div>
