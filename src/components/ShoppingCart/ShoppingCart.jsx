@@ -42,12 +42,9 @@ const ShoppingCart = () => {
   };
 
   const handleQuantityChange = (productId, newQuantity) => {
-    const updatedCart = cartItems.map((item) => {
-      if (item.data.id === productId) {
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
+    const updatedCart = cartItems.map((item) =>
+      item.data.id === productId ? { ...item, quantity: parseInt(newQuantity, 10) || 1 } : item
+    );
     setCartItems(updatedCart);
   };
 
@@ -102,8 +99,7 @@ const ShoppingCart = () => {
           <p>Subtotal: ${subtotal}</p>
           {subtotal >= 130 && (
             <p className="text-success">
-              ¡Ya casi! Para envío gratis a ciudades principales, agrega ${130 -
-                subtotal} más.
+              ¡Ya casi! Para envío gratis a ciudades principales, agrega ${130 - subtotal} más.
             </p>
           )}
         </div>

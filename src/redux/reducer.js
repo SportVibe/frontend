@@ -1,9 +1,8 @@
 import {
-  GET_PRODUCTS_FAILURE,
   GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTS,
-  GET_PRODUCT_PAGE_FAILURE,
+  GET_PRODUCTS_FAILURE,
   GET_PRODUCT_PAGE_SUCCESS,
+  GET_PRODUCT_PAGE_FAILURE,
   GET_CAROUSEL2_PRODUCTS,
   SEARCH_ACTIVITY,
   RESPONSIVE_NAVBAR,
@@ -20,7 +19,7 @@ const initialState = {
   currentUserData: null,
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   priceFilter: ['', ''],
-  genre: [{gender: ''}],
+  genre: [{ gender: '' }],
   totalFilters: [],
   search: '',
   productsBackup: [],
@@ -42,60 +41,35 @@ const productReducer = (state = initialState, action) => {
     case PRICE_FILTER:
       return {
         ...state,
-        priceFilter: action.payload
+        priceFilter: action.payload,
       };
     case GENRES_FILTER:
       return {
         ...state,
-        genre: action.payload
+        genre: action.payload,
       };
     case SORT:
       return {
         ...state,
-        sort: action.payload
+        sort: action.payload,
       };
     case TOTAL_FILTERS:
       return {
         ...state,
-        totalFilters: [...state.totalFilters, action.payload]
+        totalFilters: [...state.totalFilters, action.payload],
       };
     case RESPONSIVE_NAVBAR:
       return {
         ...state,
-        responsiveNavBar: action.payload
+        responsiveNavBar: action.payload,
       };
-      case GET_PRODUCTS:
-        return {
-          ...state,
-          products: action.payload,
-          productsBackup: action.payload,
-          error: null,
-        };
-        case GET_CAROUSEL2_PRODUCTS:
-          return {
-            ...state,
-            carousel2Render: action.payload,
-            error: null,
+    case GET_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+        productsBackup: action.payload,
+        error: null,
       };
-      case SEARCH_ACTIVITY:
-        return {
-          ...state,
-          search: action.payload,
-          error: null,
-        };
-      case USER_LOGIN:
-        return {
-          ...state,
-          userData: action.payload,
-          error: null,
-        };
-        case GET_PRODUCTS_SUCCESS:
-          return {
-            ...state,
-            products: action.payload,
-            productsBackup: action.payload,
-            error: null,
-          };
     case GET_PRODUCTS_FAILURE:
       return {
         ...state,
@@ -115,6 +89,24 @@ const productReducer = (state = initialState, action) => {
         ...state,
         products: [],
         error: action.payload,
+      };
+    case GET_CAROUSEL2_PRODUCTS:
+      return {
+        ...state,
+        carousel2Render: action.payload,
+        error: null,
+      };
+    case SEARCH_ACTIVITY:
+      return {
+        ...state,
+        search: action.payload,
+        error: null,
+      };
+    case USER_LOGIN:
+      return {
+        ...state,
+        userData: action.payload,
+        error: null,
       };
     default:
       return state;

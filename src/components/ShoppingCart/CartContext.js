@@ -5,8 +5,16 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+  const addToCart = (product, quantity = 1) => {
+    const existingItem = cartItems.find((item) => item.data.id === product.data.id);
+
+    if (existingItem) {
+      // Si el producto ya está en el carrito, actualiza la cantidad
+      updateQuantity(product.data.id, existingItem.quantity + quantity);
+    } else {
+      // Agrega un nuevo producto al carrito
+      setCartItems((prevItems) => [...prevItems, { ...product, quantity }]);
+    }
   };
 
   const removeFromCart = (productId) => {
