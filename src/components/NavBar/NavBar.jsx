@@ -74,8 +74,8 @@ function NavBar() {
 
             <div className={styles.linksContainer}>
               <select onChange={(e) => changeLanguage(e.target.value)}>
-                <option value="en">English</option>
                 <option value="es">Español</option>
+                <option value="en">English</option>
                 <option value="de">Deutsch</option>
               </select>
             </div>
@@ -132,11 +132,13 @@ function NavBar() {
         <div className={styles.linksResponsive} id='/shoppingcart' onClick={handleNavigate}>
           <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
+
         </div>
 
         <div className={styles.linksResponsive} id='/login' onClick={handleNavigate}>
           <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
           <p id='/login' onClick={handleNavigate}>👤</p>
+
         </div>
       </div>
     </div>

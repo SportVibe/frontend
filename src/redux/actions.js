@@ -2,6 +2,8 @@ import axios from 'axios';
 import buildQueryString from '../utils/queryAlgorithm';
 import { API_URL } from '../helpers/config';
 
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
 export const GET_PRODUCTS = "GET_PRODUCTS";
@@ -102,4 +104,18 @@ export const getProductPage = ({ page, limit }) => async (dispatch) => {
     console.error(error.message);
     return dispatch({ type: GET_PRODUCT_PAGE_FAILURE, payload: error.message });
   }
+};
+
+export const addToCart = (item) => {
+  return {
+    type: "ADD_TO_CART",
+    payload: item,
+  };
+};
+
+export const removeFromCart = (itemId) => {
+  return {
+    type: "REMOVE_FROM_CART",
+    payload: itemId,
+  };
 };
