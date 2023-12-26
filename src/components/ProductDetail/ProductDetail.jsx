@@ -5,11 +5,13 @@ import { API_URL } from "../../helpers/config";
 import Carousel2 from "../Carousel2/Carousel2";
 import Loading from "../loading/Loading";
 import axios from "axios";
+import getLocalStorageData from "../../utils/getLocalStorage";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  const [storageCart, setStorageCart] = useState([]);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -62,14 +64,27 @@ const ProductDetail = () => {
     return descriptionText;
   };
 
-  const handleAddToCart = async () => {
-    // const product = await axios.post(´${API_URL}/´)     esperando la ruta del back. se agregara el producto por su id.
+  const initialStorageCart = async () => {
+    try {
+      const cartDataStorage = await getLocalStorageData('currentCart');
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      parseCartDataStorage && setStorageCart(parseCartDataStorage);
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  }
 
-    navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito.
+  const handleAddToCart = () => {
+    if (!storageCart.includes(id)) {
+      setStorageCart([...storageCart, id]);
+      localStorage.setItem('currentCart', JSON.stringify([...storageCart, id]));
+      /* navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito. */
+    }
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    initialStorageCart();
   }, []);
 
   return (

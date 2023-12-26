@@ -52,7 +52,7 @@ function App() {
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para esperar la respuesta antes de setear el loading en false y mostrar la página recargada.
-      const userDataLocalStorage = await getLocalStorageData(); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
+      const userDataLocalStorage = await getLocalStorageData('currentUser'); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
       const userData = JSON.parse(userDataLocalStorage);
       if (userData) {
         const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
