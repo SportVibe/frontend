@@ -24,12 +24,12 @@
     height: 270px;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 0 3px 1px rgb(204, 204, 204);
+    box-shadow: 0 1px 2px 1px rgb(204, 204, 204);
     transition: .3s ease;
     cursor: pointer;
 
     &:hover {
-        box-shadow: 0 0 8px 2px rgb(180, 180, 180);
+        box-shadow: 0 1px 6px 2px rgb(185, 185, 185);
     }
 
     & img {

@@ -39,7 +39,7 @@ const CarouselModel2 = (prop) => {
 
     return (
         <div className="mainView" >
-            <p className="DeportesTitle">Selecciona por {t(`translation.Sport`)}</p>
+            <p className="DeportesTitle">Busca por {t(`translation.Sport`)}</p>
             <div className="carouselContainer">
                 {sportArray?.length ? sportArray.map((property, i) => {
                     const key = Object.keys(property)[0];

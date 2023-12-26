@@ -194,18 +194,19 @@
 
     & select {
       color: gray;
+      background-color: transparent;
       height: 100%;
       padding: 5px 0;
       margin: 0;
       display: flex;
       align-items: center;
       gap: 10px;
-      border: 1px solid transparent;
+      border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: .2s ease;
 
       &:hover {
-      border: 1px solid gray;
       color: var(--font-color-hard);
       }
     }

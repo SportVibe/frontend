@@ -11,6 +11,7 @@ import { API_URL } from '../../helpers/config';
 import upperLowerCase from '../../utils/upperLowerCase';
 import { getCurrentUserAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import getLocalStorageData from '../../utils/getLocalStorage';
 
 
 function UserProfile() {
@@ -19,10 +20,9 @@ function UserProfile() {
     const navigate = useNavigate();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [loading, setLoading] = useState(true);
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
-    const storageData = window.localStorage.getItem('currentUser');
-    const userData = storageData ? JSON.parse(storageData) : null;
     const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
     const { id } = userDataRender ? userDataRender : '';
     // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
@@ -80,11 +80,15 @@ function UserProfile() {
 
     async function handleUserData() {
         try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
+            const userDataLocalStorage = await getLocalStorageData(); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
+            const userData = JSON.parse(userDataLocalStorage);
             if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                 const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
                 dispatch(getCurrentUserAction(data));
                 setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
+                setLoading(false);
             }
+            else navigate('/'); // significa que no hay nada en el local storage.
         } catch (error) {
             console.error(error.message);
             navigate('/');
@@ -93,15 +97,12 @@ function UserProfile() {
 
     useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
         window.scrollTo(0, 0);
-        if (!storageData) {
-            navigate('/');
-        }
         handleUserData();
     }, [user]);
 
     return (
         <div className={styles.mainView}>
-            {!userDataRender ?
+            {loading ?
                 <Loading /> :
                 <div className={styles.subMainView}>
                     <div className={styles.sideBarContainer}>
