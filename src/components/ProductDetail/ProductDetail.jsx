@@ -63,10 +63,12 @@ const ProductDetail = () => {
   }
 
   const handleAddToCart = () => {
+    const newStorage = storageCart.map((object, i) => {
+      
+    });
     if (!storageCart.includes(id)) {
-      setStorageCart([...storageCart, id]);
-      localStorage.setItem('currentCart', JSON.stringify([...storageCart, id]));
-      /* navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito. */
+      setStorageCart([...storageCart, {id, size: selectSize, color: selectColor, quantity}]);
+      localStorage.setItem('currentCart', JSON.stringify([...storageCart, {id, size: selectSize, color: selectColor, quantity}]));
     }
 
     const selectedStock = data.Stocks.find(
@@ -91,7 +93,7 @@ const ProductDetail = () => {
       })
     );
 
-    navigate("/shoppingcart");
+    // navigate("/shoppingcart");
   };
   const handleShippingSelection = (option) => {
     setSelectedShipping(option);
