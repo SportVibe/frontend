@@ -84,6 +84,22 @@ function ProductUpdate({ data, setSelectedRow }) {
           </div>
           <div className="form-group">
             <label for="formGroupExampleInput">CATEGORIA</label>
+            <select
+              className="form-select"
+              aria-label="category"
+              name="category"
+              onChange={handleChange}
+            >
+              <option disabled selected>
+                {dataProductUpdate?.category} || Seleccione Nuevo Valor
+              </option>
+              <option value="CALZADO">CALZADO</option>
+              <option value="DEPORTE">DEPORTE</option>
+              <option value="ROPA">ROPA</option>
+            </select>
+          </div>
+          {/* <div className="form-group">
+            <label for="formGroupExampleInput">CATEGORIA</label>
             <br></br>
             <input
               type="text"
@@ -93,8 +109,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               id="formGroupExampleInput"
               value={product.category || dataProductUpdate?.category}
             />
-          </div>
-          <div className="form-group">
+          </div> */}
+          {/* <div className="form-group">
             <label for="formGroupExampleInput">SUB-CATEGORIA</label>
             <input
               type="text"
@@ -103,6 +119,22 @@ function ProductUpdate({ data, setSelectedRow }) {
               className="form-control"
               value={product.subCategory || dataProductUpdate?.subCategory}
             />
+          </div> */}
+          <div className="form-group">
+            <label for="formGroupExampleInput">SUBCATEGORIA</label>
+            <select
+              className="form-select"
+              aria-label="subCategory"
+              name="subCategory"
+              onChange={handleChange}
+            >
+              <option disabled selected>
+                {dataProductUpdate?.subCategory} || Seleccione Nuevo Valor
+              </option>
+              <option value="ZAPATILLAS">ZAPATILLAS</option>
+              <option value="BOTINES">BOTINES</option>
+              <option value="ZAPATOS">ZAPATOS</option>
+            </select>
           </div>
           <div className="form-group">
             <label for="formGroupExampleInput">MARCA</label>
