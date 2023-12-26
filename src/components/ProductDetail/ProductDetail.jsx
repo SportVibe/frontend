@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import getLocalStorageData from "../../utils/getLocalStorage";
 import Loading from "../loading/Loading";
 import Carousel2 from "../Carousel2/Carousel2";
 import { API_URL } from "../../helpers/config";
@@ -12,6 +13,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState(null);
+  const [storageCart, setStorageCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectColor, setSelectColor] = useState();
@@ -50,9 +52,21 @@ const ProductDetail = () => {
     return descriptionText;
   };
 
-  const handleAddToCart = async () => {
-    if (!selectSize || !selectColor) {
-      return;
+  const initialStorageCart = async () => {
+    try {
+      const cartDataStorage = await getLocalStorageData('currentCart');
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      parseCartDataStorage && setStorageCart(parseCartDataStorage);
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  }
+
+  const handleAddToCart = () => {
+    if (!storageCart.includes(id)) {
+      setStorageCart([...storageCart, id]);
+      localStorage.setItem('currentCart', JSON.stringify([...storageCart, id]));
+      /* navigate("/shoppingcart"); // Redirige al carrito después de agregar al carrito. */
     }
 
     const selectedStock = data.Stocks.find(
@@ -113,6 +127,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    initialStorageCart();
   }, []);
 
   return (

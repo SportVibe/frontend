@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const externalUser = async (userData) => {
         // registramos el usuario externo en nuestra base de datos con la propiedad externalSignIn en true para saber que es externo y no local.
-        const externalUserData = axios.post(`${API_URL}/userRegister`, userData).then(({res}) => {
+        const externalUserData = axios.post(`${API_URL}/userRegister`, userData).then(({ res }) => {
             // console.log(res);
         })
         return externalUserData
@@ -39,27 +39,29 @@ export const AuthContextProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             // guardamos los datos de Firebase en nuestro local storage, igual como lo haríamos logueandonos de manera local.
-            currentUser && localStorage.setItem('currentUser', JSON.stringify({
-                token: currentUser.accessToken,
-                user: {
+            if (currentUser) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    token: currentUser.accessToken,
+                    user: {
+                        firstName: currentUser.displayName,
+                        email: currentUser.email,
+                        image: currentUser.photoURL,
+                        externalSignIn: true
+                    }
+                }));
+                externalUser({
+                    firstName: currentUser?.displayName,
+                    email: currentUser?.email,
+                    image: currentUser?.photoURL,
+                    externalSignIn: true
+                });
+                dispatch(getCurrentUserAction({ // despachamos la data del usuario rápidamente al estado global para que el nav bar tome la imagen del usuario.
                     firstName: currentUser.displayName,
                     email: currentUser.email,
                     image: currentUser.photoURL,
                     externalSignIn: true
-                }
-            }));
-            externalUser({
-                firstName: currentUser?.displayName,
-                email: currentUser?.email,
-                image: currentUser?.photoURL,
-                externalSignIn: true
-            });
-            dispatch(getCurrentUserAction({ // despachamos la data del usuario rápidamente al estado global para que el nav bar tome la imagen del usuario.
-                firstName: currentUser.displayName,
-                email: currentUser.email,
-                image: currentUser.photoURL,
-                externalSignIn: true
-            }));
+                }));
+            }
         });
         return () => {
             unsubscribe();

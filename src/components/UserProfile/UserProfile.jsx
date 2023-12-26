@@ -80,7 +80,7 @@ function UserProfile() {
 
     async function handleUserData() {
         try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
-            const userDataLocalStorage = await getLocalStorageData(); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
+            const userDataLocalStorage = await getLocalStorageData('currentUser'); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
             const userData = JSON.parse(userDataLocalStorage);
             if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                 const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);

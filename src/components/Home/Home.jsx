@@ -27,7 +27,7 @@ function Home() {
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para poder guardarlo en redux y poder renderizarlo en el nav bar u otras partes.
-      const storageData = await getLocalStorageData(); // la llamada al local storage lo hacemos con promesa para poder usar el await y esperar a que se cargue el local storage.
+      const storageData = await getLocalStorageData('currentUser'); // la llamada al local storage lo hacemos con promesa para poder usar el await y esperar a que se cargue el local storage.
       const userData = storageData ? JSON.parse(storageData) : null;
       if (userData) {
         const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
