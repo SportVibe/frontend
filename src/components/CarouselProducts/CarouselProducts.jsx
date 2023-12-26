@@ -1,29 +1,50 @@
 import styles from './CarouselProducts.module.css';
 import img from '../../Images/Running-Pons-Trainingok.webp'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getCarousel2Products } from '../../redux/actions';
+import { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
+import axios from 'axios';
+import { API_URL } from '../../helpers/config';
+import FalseCard from '../FalseCard/FalseCard';
 
-const CrouselProducts = () => {
-    const dispatch = useDispatch();
-    const productRender = useSelector((state) => state.carousel2Render);
+const CrouselProducts = (prop) => {
+    const displayCardAmount = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    const property = prop.property || [];
+    const [productArray, setProductArray] = useState(property);
+
+
+    async function getProductsWithDiscount() {
+        try {
+            const { data } = await axios(`${API_URL}/product/discount`);
+            if (data && data.length) setProductArray(data);
+        } catch (error) {
+            console.error({ error: error.message });
+        }
+    }
 
     useEffect(() => {
-        dispatch(getCarousel2Products());
+        getProductsWithDiscount();
     }, []);
 
     return (
         <div className={styles.mainView}>
             <p className={styles.DeportesTitle}>Lo más buscado</p>
             <div className={styles.carouselContainer}>
-                {productRender.data?.length > 0 && productRender.data.map((product, i) => {
+                {productArray.data?.length > 0 ? displayCardAmount.map((product, i) => {
+                    const productR = productArray.data[i];
                     return (
                         <div key={i} className={styles.cardComponentContainer}>
-                            <ProductCard productData={product} />
+                            <ProductCard productData={productR} />
                         </div>
                     )
-                })}
+                }) :
+                    displayCardAmount.map((product, i) => {
+                        return (
+                            <div key={i} className={styles.cardComponentContainer}>
+                                <FalseCard />
+                            </div>
+                        )
+                    })}
             </div>
         </div>
     );

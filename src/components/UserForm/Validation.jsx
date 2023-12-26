@@ -22,18 +22,18 @@ const validation = (newUsers) => {
     if (newUsers.firstName) {
         if (!regex.test(newUsers.firstName)) newErrors.firstName = 'No debe contener símbolos ni números';
         else if (!regex1.test(newUsers.firstName)) newErrors.firstName = 'Debe ser una palabra o frase válida';
-        else if (!regex2.test(newUsers.firstName)) newErrors.firstName = 'La primer letra debe ser mayuscula';
-        else if (regex4.test(newUsers.firstName)) newErrors.firstName = 'Palabra repetida';
+        // else if (!regex2.test(newUsers.firstName)) newErrors.firstName = 'La primer letra debe ser mayuscula';
+        // else if (regex4.test(newUsers.firstName)) newErrors.firstName = 'Palabra repetida';
         else newErrors.firstName = '';
     } else newErrors.firstName = 'Se requiere al menos un nombre';
 
-    if (newUsers.lastName) {
+    /* if (newUsers.lastName) {
         if (!regex.test(newUsers.lastName)) newErrors.lastName = 'No debe contener símbolos ni números';
         else if (!regex1.test(newUsers.lastName)) newErrors.lastName = 'Debe ser una palabra o frase válida';
         else if (!regex2.test(newUsers.lastName)) newErrors.lastName = 'La primer letra debe ser mayuscula';
         else if (regex4.test(newUsers.lastName)) newErrors.lastName = 'Palabra repetida';
         else newErrors.lastName = '';
-    } else newErrors.lastName = 'Se requiere al menos un apellido';
+    } else newErrors.lastName = 'Se requiere al menos un apellido'; */
 
     if (newUsers.phoneNumber) {
         let string = newUsers.phoneNumber.toString()
@@ -44,7 +44,7 @@ const validation = (newUsers) => {
         else newErrors.phoneNumber = '';
     } else newErrors.phoneNumber = 'Se requiere un numero de telefono';
 
-    if (newUsers.address) {
+    /* if (newUsers.address) {
         if (!regex5.test(newUsers.address)) newErrors.address = 'El formato de la dirección no es válido';
         else newErrors.address = '';
     } else newErrors.address = 'Se requiere una direccion'
@@ -55,7 +55,7 @@ const validation = (newUsers) => {
         else if (string.length < 5) newErrors.zipCode = 'Debe contener minimo 5 digitos';
         else if (string.length > 10) newErrors.zipCode = 'Debe contener maximo 10 digitos';
         else newErrors.zipCode = '';
-    } else newErrors.zipCode = 'Se requiere un codigo postal'
+    } else newErrors.zipCode = 'Se requiere un codigo postal' */
 
     if (newUsers.email) {
         if (!regexEmail.test(newUsers.email)) newErrors.email = 'debe ser un formato de correo valido'
@@ -71,7 +71,7 @@ const validation = (newUsers) => {
         else newErrors.password = '';
     } else newErrors.password = 'Se requiere una contraseña'
 
-    if (newUsers.city) {
+    /* if (newUsers.city) {
         if (!regex.test(newUsers.city)) newErrors.city = 'No debe contener símbolos ni números';
         else if (!regex1.test(newUsers.city)) newErrors.city = 'Debe ser una palabra o frase válida';
         else if (!regex2.test(newUsers.city)) newErrors.city = 'La primer letra debe ser mayuscula';
@@ -85,7 +85,7 @@ const validation = (newUsers) => {
         else if (!regex2.test(newUsers.country)) newErrors.country = 'La primer letra debe ser mayuscula';
         else if (regex4.test(newUsers.country)) newErrors.country = 'Palabra repetida';
         else newErrors.country = '';
-    } else newErrors.country = 'Se requiere un País';
+    } else newErrors.country = 'Se requiere un País'; */
 
     return newErrors
 

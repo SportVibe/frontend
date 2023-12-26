@@ -1,12 +1,16 @@
 import "./UserForm.css"
 import logo from "../../Images/Logo.jpg"
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getCurrentUserAction } from '../../redux/actions.js';
+import { API_URL } from '../../helpers/config.js'
 import validation from "./Validation";
 import axios from "axios"
 
 function UserForm() {
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [inputFirstName, setInputFirstName] = useState(false);
   const [inputLastName, setInputLastName] = useState(false);
   const [inputPhone, setInputPhone] = useState(false);
@@ -94,45 +98,51 @@ function UserForm() {
         alert("Por Favor llena los campos");
       } else if (newUsers.firstName === '') {
         alert("Falta el primer nombre. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.lastName === '') {
-        alert("Falta el Apellido. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.phoneNumber === '') {
-        alert("Falta el numero de telefono. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.address === '') {
-        alert("Falta la direccion. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.zipCode === '') {
-        alert("Falta el codigo postal. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.email === '') {
-        alert("Falta el email. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.password === '') {
-        alert("Falta la contraseña, completa el campo correspondiente.");
-      } else if (newUsers.city === '') {
-        alert("Falta ciudad. Por favor, completa el campo correspondiente.");
-      } else if (newUsers.country === '') {
-        alert("Falta pais, completa el campo correspondiente.");
-      } else if (newErrors.firstName !== 'Se requiere al menos un nombre' && newErrors.firstName !== '') {
-        alert('Primer nombre erroneo, por favor corrige el campo correspondiente')
-      } else if (newErrors.lastName !== 'Se requiere al menos un apellido' && newErrors.lastName !== '') {
-        alert('Apellido erroneo, por favor corrige el campo correspondiente')
-      } else if (newErrors.email !== 'Se requiere un correo' && newErrors.email !== '') {
-        alert('Correo erroneo, por favor corrige el campo correspondiente')
-      } else if (newErrors.phoneNumber !== 'Se requiere un numero de telefono' && newErrors.phoneNumber !== '') {
-        alert('Telefono erroneo por favor corrige el campo correspondiente')
-      } else if (newErrors.zipCode !== 'Se requiere un codigo postal' && newErrors.zipCode !== '') {
-        alert('Codigo postal erroneo, por favor corrige el campo correspondiente')
-      } else if (newErrors.address !== 'Se requiere una direccion' && newErrors.address !== '') {
-        alert('Direccion erronea, por favor corrige el campo correspondiente')
-      } else if (newErrors.password !== 'Se requiere un correo' && newErrors.password !== '') {
+      // } else if (newUsers.lastName === '') {
+      //   alert("Falta el Apellido. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.phoneNumber === '') {
+      //   alert("Falta el numero de telefono. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.address === '') {
+      //   alert("Falta la direccion. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.zipCode === '') {
+      //   alert("Falta el codigo postal. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.email === '') {
+      //   alert("Falta el email. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.password === '') {
+      //   alert("Falta la contraseña, completa el campo correspondiente.");
+      // } else if (newUsers.city === '') {
+      //   alert("Falta ciudad. Por favor, completa el campo correspondiente.");
+      // } else if (newUsers.country === '') {
+      //   alert("Falta pais, completa el campo correspondiente.");
+      // } else if (newErrors.firstName !== 'Se requiere al menos un nombre' && newErrors.firstName !== '') {
+      //   alert('Primer nombre erroneo, por favor corrige el campo correspondiente')
+      // } else if (newErrors.lastName !== 'Se requiere al menos un apellido' && newErrors.lastName !== '') {
+      //   alert('Apellido erroneo, por favor corrige el campo correspondiente')
+      // } else if (newErrors.email !== 'Se requiere un correo' && newErrors.email !== '') {
+      //   alert('Correo erroneo, por favor corrige el campo correspondiente')
+      // } else if (newErrors.phoneNumber !== 'Se requiere un numero de telefono' && newErrors.phoneNumber !== '') {
+      //   alert('Telefono erroneo por favor corrige el campo correspondiente')
+      // } else if (newErrors.zipCode !== 'Se requiere un codigo postal' && newErrors.zipCode !== '') {
+      //   alert('Codigo postal erroneo, por favor corrige el campo correspondiente')
+      // } else if (newErrors.address !== 'Se requiere una direccion' && newErrors.address !== '') {
+      //   alert('Direccion erronea, por favor corrige el campo correspondiente')
+        } else if (newErrors.password !== 'Se requiere un correo' && newErrors.password !== '') {
         alert('Contraseña erronea, por favor corrige el campo correspondiente')
-      } else if (newErrors.city !== 'Se requiere una ciudad' && newErrors.city !== '') {
-        alert('Ciudad erronea, por favor corrige el campo correspondiente')
-      } else if (newErrors.country !== 'Se requiere un País' && newErrors.country !== '') {
-        alert('País erroneo, por favor corrige el campo correspondiente')
-      } else {
+      // } else if (newErrors.city !== 'Se requiere una ciudad' && newErrors.city !== '') {
+      //   alert('Ciudad erronea, por favor corrige el campo correspondiente')
+      // } else if (newErrors.country !== 'Se requiere un País' && newErrors.country !== '') {
+      //   alert('País erroneo, por favor corrige el campo correspondiente')
+        } else {
 
         const { data } = await axios.post("http://localhost:3005/userRegister", newUsers)
 
         alert(data.message)
+        const response = await axios.post(`${API_URL}/login`, { email: newUsers.email, password: newUsers.password });
+        const dataLogin = response.data;
+        if (dataLogin) {
+          localStorage.setItem('currentUser', JSON.stringify(dataLogin));
+          dispatch(getCurrentUserAction(dataLogin));
+        }
         setNewUsers({
           firstName: '',
           lastName: '',
@@ -145,7 +155,7 @@ function UserForm() {
           password: '',
           image: '',
         })
-
+        navigate('/');
       }
 
     } catch (error) {
@@ -154,9 +164,9 @@ function UserForm() {
     }
 
   }
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); 
 
   return (
     <form onSubmit={handleSubmt} className="form">
@@ -185,7 +195,7 @@ function UserForm() {
           {inputLastName && newErrors.lastName ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
             <label className="label" htmlFor="">Número de teléfono </label>
-            <input className="input" type="text" name="phoneNumber" value={newUsers.phoneNumber} onChange={handleChange} />
+            <input className="input" type="number" min={8} max={11} name="phoneNumber" value={newUsers.phoneNumber} onChange={handleChange} />
           </div>
           {inputPhone && newErrors.phoneNumber ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
@@ -195,7 +205,7 @@ function UserForm() {
           {inputAddress && newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
             <label className="label" htmlFor="">Código postal </label>
-            <input className="input" type="text" name="zipCode" value={newUsers.zipCode} onChange={handleChange} />
+            <input className="input" type="number" min={5} max={10} name="zipCode" value={newUsers.zipCode} onChange={handleChange} />
           </div>
           {inputZipCode && newErrors.zipCode ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
@@ -205,7 +215,7 @@ function UserForm() {
           {inputEmail && newErrors.email ? <p className="messError"> {newErrors.email}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
             <label className="label" htmlFor="">Contraseña </label>
-            <input className="input" type="password" name="password" value={newUsers.password} onChange={handleChange} />
+            <input className="input" type="password" autoComplete='off' name="password" value={newUsers.password} onChange={handleChange} />
           </div>
           {inputPassword && newErrors.password ? <p className="messError"> {newErrors.password}</p> : <p className="puntos">...</p>}
 
@@ -217,7 +227,7 @@ function UserForm() {
           {inputCity && newErrors.city ? <p className="messError"> {newErrors.city}</p> : <p className="puntos">...</p>}
 
           <div className="contenedor2">
-            <label className="label" htmlFor="">Pais </label>
+            <label className="label" htmlFor="">País </label>
 
             <input className="input" type="text" name="country" onChange={handleChange} value={newUsers.country} />
           </div>

@@ -20,11 +20,17 @@
   gap: 10px;
 }
 
-.holiRender {
-  background-color: red;
-  min-height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .conteinerCardsHidden {
+    display:none;
+  }
+
+  .render {
+    /* background-color: rgba(17, 16, 16, 0.63); */
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+

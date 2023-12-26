@@ -7,7 +7,10 @@ import Paginado from "../Paginado/Paginado";
 import SearchResults from "../SearchResults/SearchResults";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getProducts, responsiveNavBar } from "../../redux/actions";
+import { getCurrentUserAction, getProducts, responsiveNavBar } from "../../redux/actions";
+import axios from 'axios';
+import { API_URL } from '../../helpers/config';
+import getLocalStorageData from '../../utils/getLocalStorage';
 
 
 
@@ -22,17 +25,31 @@ function Home() {
   const genre = useSelector((state => state.genre));
   const priceFilter = useSelector((state => state.priceFilter));
 
+  async function handleUserData() {
+    try { // necesitamos usar el local storage de manera asíncrona para poder guardarlo en redux y poder renderizarlo en el nav bar u otras partes.
+      const storageData = await getLocalStorageData(); // la llamada al local storage lo hacemos con promesa para poder usar el await y esperar a que se cargue el local storage.
+      const userData = storageData ? JSON.parse(storageData) : null;
+      if (userData) {
+        const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+        dispatch(getCurrentUserAction(data));
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   useEffect(() => {
     const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }]
     dispatch(getProducts(sumFilters));
     dispatch(responsiveNavBar(false));
     if (!search_Activity) {
-      navigate('/')
+      navigate('/');
     }
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    handleUserData(); // para saber si hay algún usuario logueado en este compu y renderizar su imagen en el navbar.
   }, []);
 
   return (

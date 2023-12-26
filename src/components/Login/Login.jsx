@@ -3,7 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "./Login.css";
 import logo from "../../Images/Logo.jpg";
 import google from "../../Images/google-signin-button.png"
-import { userLoginAction } from "../../redux/actions";
+import { getCurrentUserAction } from "../../redux/actions";
 import axios from "axios";
 import { API_URL } from '../../helpers/config';
 import { useDispatch } from "react-redux";
@@ -39,22 +39,21 @@ const login = () => {
     setUser({ ...username, [name]: value })
   }
 
-  const handleLoginU = () => {
+  const handleLoginU = (e) => {
+    e.preventDefault();
     if (username.email === '') setAux(true);
     else setUserCorrect(true);
   }
 
-  const handleLoginP = async () => {
+  const handleLoginP = async (e) => {
+    e.preventDefault();
     if (username.password === '') setAux(true);
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
         if (data) {
-          // (dispatch(userLoginAction(data)));
-          dispatch(userLoginAction({
-            userData: data.user, 
-            externLogin: false
-        }));
+          localStorage.setItem('currentUser', JSON.stringify(data));
+          dispatch(getCurrentUserAction(data));
           navigate('/');
         }
       } catch (error) {
@@ -126,11 +125,11 @@ const login = () => {
             ""
           )}
           {!userCorrect ? (
-            <button onClick={() => handleLoginU()} className="button">
+            <button onClick={handleLoginU} className="button">
               SIGUIENTE
             </button>
           ) : (
-            <button onClick={() => handleLoginP()} className="button">
+            <button onClick={handleLoginP} className="button">
               SIGUIENTE
             </button>
           )}

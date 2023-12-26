@@ -10,13 +10,11 @@ import {
     onAuthStateChanged
 } from "firebase/auth";
 import { auth } from '../helpers/firebase';
-import { userLoginAction } from "../redux/actions";
-import { useNavigate } from "react-router-dom";
+import { getCurrentUserAction } from "../redux/actions";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [user, setUser] = useState({});
     const googleSignIn = () => {
@@ -30,8 +28,9 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const externalUser = async (userData) => {
-        const externalUserData = axios.post(`${API_URL}/userRegister`, userData).then((res) => {
-            console.log(res);
+        // registramos el usuario externo en nuestra base de datos con la propiedad externalSignIn en true para saber que es externo y no local.
+        const externalUserData = axios.post(`${API_URL}/userRegister`, userData).then(({res}) => {
+            // console.log(res);
         })
         return externalUserData
     }
@@ -39,35 +38,28 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            dispatch(userLoginAction({
-                userData: {
-                    accessToken: currentUser.accessToken,
-                    displayName: currentUser.displayName,
+            // guardamos los datos de Firebase en nuestro local storage, igual como lo haríamos logueandonos de manera local.
+            currentUser && localStorage.setItem('currentUser', JSON.stringify({
+                token: currentUser.accessToken,
+                user: {
+                    firstName: currentUser.displayName,
                     email: currentUser.email,
-                    emailVerified: currentUser.emailVerified,
-                    isAnonymous: currentUser.isAnonymous,
-                    phoneNumber: currentUser.phoneNumber,
-                    photoURL: currentUser.photoURL,
-                    uid: currentUser.uid,
-                },
-                externLogin: true
+                    image: currentUser.photoURL,
+                    externalSignIn: true
+                }
             }));
-            console.log({
-                accessToken: currentUser.accessToken,
-                displayName: currentUser.displayName,
-                email: currentUser.email,
-                emailVerified: currentUser.emailVerified,
-                isAnonymous: currentUser.isAnonymous,
-                phoneNumber: currentUser.phoneNumber,
-                photoURL: currentUser.photoURL,
-                uid: currentUser.uid,
-            });
             externalUser({
+                firstName: currentUser?.displayName,
+                email: currentUser?.email,
+                image: currentUser?.photoURL,
+                externalSignIn: true
+            });
+            dispatch(getCurrentUserAction({ // despachamos la data del usuario rápidamente al estado global para que el nav bar tome la imagen del usuario.
                 firstName: currentUser.displayName,
                 email: currentUser.email,
                 image: currentUser.photoURL,
                 externalSignIn: true
-            });
+            }));
         });
         return () => {
             unsubscribe();

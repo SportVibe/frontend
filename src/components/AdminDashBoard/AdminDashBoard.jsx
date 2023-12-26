@@ -28,7 +28,7 @@ function AdminDashBoard() {
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>{<ProductPrueba setSelectedRow={setSelectedRow} />}</div>
         ) : null}
         {selectedRow && 
-          <div className={sidebarRender === "nuevo" ? styles.conteinerCardsHidden : styles.render}>
+          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" ? styles.conteinerCardsHidden : styles.render}>
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
             {/* <p onClick={handleClose}>✕</p> */}
           </div>}
