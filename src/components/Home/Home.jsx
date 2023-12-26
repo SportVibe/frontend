@@ -19,6 +19,7 @@ function Home() {
   const dispatch = useDispatch();
   const location = useLocation();
   const productRender = useSelector((state) => state.products);
+  // productRender && console.log(productRender);
   const search_Activity = useSelector((state => state.search));
   const totalFilters = useSelector((state => state.totalFilters));
   const sort = useSelector((state => state.sort));

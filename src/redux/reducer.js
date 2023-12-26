@@ -1,6 +1,7 @@
 import {
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAILURE,
+  GET_PRODUCTS,
   GET_PRODUCT_PAGE_SUCCESS,
   GET_PRODUCT_PAGE_FAILURE,
   GET_CAROUSEL2_PRODUCTS,
@@ -63,6 +64,13 @@ const productReducer = (state = initialState, action) => {
         ...state,
         responsiveNavBar: action.payload,
       };
+      case GET_PRODUCTS:
+        return {
+          ...state,
+          products: action.payload,
+          productsBackup: action.payload,
+          error: null,
+        };
     case GET_PRODUCTS_SUCCESS:
       return {
         ...state,
