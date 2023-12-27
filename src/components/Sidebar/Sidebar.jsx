@@ -1,4 +1,4 @@
-import React , { useState }from "react";
+import React , { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles.css"
 
@@ -12,7 +12,7 @@ function Sidebar(props) {
     
     const [active,setActive] = useState();
     return (
-         <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3 vh-100'>
+         <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3 '>
             <div>
                 <a href="/" className="p-3 text-white">
                     <i className="bi bi-gear fs-4 me-4"></i>

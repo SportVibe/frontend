@@ -16,12 +16,13 @@ function ProductUpdate({ data, setSelectedRow }) {
   }, []);
 
   function handleChange(e) {
-    setEditing(true);
+    //setEditing(true);
     setProduct({...product, [e.target.name]: e.target.value });
   }
 
   const handleSave = (e) => {
     e.preventDefault();
+    setEditing(true);
     setNewProduct({ ...dataProductUpdate, ...product });
   };
   const handleClose = () => {
@@ -58,20 +59,20 @@ function ProductUpdate({ data, setSelectedRow }) {
     myWidget.open();
   };
   return (
-    <div className="d-flex flex-wrap">
+    <div className="d-flex flex-wrap justify-content-center">
       <div className="d-flex">
-        <form className="">
+        <form className="d-flex flex-column">
           <div className="form-group">
             <label
-              className="d-flex justify-content-center"
+              className="d-flex justify-content-center mt-3"
               for="formGroupExampleInput"
             >
-              <h3>ID : {dataProductUpdate?.id}</h3>
+              <h3 className="">ID : {dataProductUpdate?.id}</h3>
             </label>
           </div>
-          <div className="form-group w-100">
+          <div className="form-group w-100 pb-3 mt-3">
             <label className="" for="formGroupExampleInput">
-              TITULO
+              <h5>TITULO</h5>
             </label>
             <input
               type="text"
@@ -82,8 +83,9 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.title || dataProductUpdate?.title}
             />
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">CATEGORIA</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput">
+              <h5>CATEGORIA</h5></label>
             <select
               className="form-select"
               aria-label="category"
@@ -120,8 +122,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.subCategory || dataProductUpdate?.subCategory}
             />
           </div> */}
-          <div className="form-group">
-            <label for="formGroupExampleInput">SUBCATEGORIA</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>SUBCATEGORIA</h5></label>
             <select
               className="form-select"
               aria-label="subCategory"
@@ -136,8 +138,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               <option value="ZAPATOS">ZAPATOS</option>
             </select>
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">MARCA</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>MARCA</h5></label>
             <input
               type="text"
               name="brand"
@@ -146,8 +148,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.brand || dataProductUpdate?.brand}
             />
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">DESCUENTO</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>DESCUENTO</h5></label>
             <input
               type="text"
               name="discount"
@@ -157,8 +159,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.discount || dataProductUpdate?.discount}
             />
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">GENERO</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>GENERO</h5></label>
             <select
               className="form-select"
               aria-label="gender"
@@ -173,8 +175,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               <option value="UNISEX">UNISEX</option>
             </select>
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">PRECIO</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>PRECIO</h5></label>
             <input
               type="text"
               name="price"
@@ -184,8 +186,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.price || dataProductUpdate?.price}
             />
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput">COLOR</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput"><h5>COLOR</h5></label>
             <input
               type="text"
               name="color"
@@ -195,8 +197,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.Colors || dataProductUpdate?.Colors.toString()}
             />
           </div>
-          <div className="form-group">
-            <label for="formGroupExampleInput2">DESCRIPCION</label>
+          <div className="form-group pb-3">
+            <label for="formGroupExampleInput2"><h5>DESCRIPCION</h5></label>
             <textarea
               rows="4"
               type="text"
@@ -206,9 +208,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               value={product.description || dataProductUpdate?.description}
             />
           </div>
-          <div className="form-group d-flex flex-wrap mt-3">
+          <div className="form-group d-flex flex-wrap mt-3 pb-3 justify-content-center">
             <label for="formGroupExampleInput"></label>
-            {/* <input type="text" name="subCategory" onChange={handleChange} className="form-control" id="formGroupExampleInput" value={product.images || dataProductUpdate?.Images} /> */}
             {dataProductUpdate?.Images.map((image) => {
               return (
                 <div className="d-flex me-3">
@@ -222,13 +223,13 @@ function ProductUpdate({ data, setSelectedRow }) {
                       }}
                       name={image.toString()}
                     ></button>
-                    <img className="" width="150px" src={image}></img>
+                    <img className="rounded-circle" width="150px" src={image}></img>
                   </div>
                 </div>
               );
             })}
           </div>
-          <div className="btn-group d-flex rounded-3 mt-2">
+          <div className="btn-group d-flex rounded-3 mt-2 pb-3">
             <button
               type="button"
               className="btn btn-secondary me-2 fs-5 rounded-3 mt-2"
@@ -258,53 +259,53 @@ function ProductUpdate({ data, setSelectedRow }) {
           </div>
         </form>
       </div>
-      <div className="d-flex flex-wrap bg-ligth rounded justify-content-center">
-        <div className="">
+      <div className={isEditing ? "d-flex flex-wrap mt-5 bg-light rounded justify-content-center border pt-4" : "sr-only"}>
+        <div className="d-flex flex-column align-items-center">
           <h2 className="d-flex justify-content-center">Actualización</h2>
-          <label for="formGroupExampleInput">TITULO :</label>
+          <label for="formGroupExampleInput"><h5>TITULO :</h5></label>
           {newProduct.title ? `${newProduct.title}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">CATEGORIA :</label>
+          <label for="formGroupExampleInput"><h5>CATEGORIA :</h5></label>
           {newProduct.category ? `${newProduct.category}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">SUBCATEGORIA :</label>
+          <label for="formGroupExampleInput"><h5>SUBCATEGORIA :</h5></label>
           {newProduct.subCategory ? `${newProduct.subCategory}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">MARCA :</label>
+          <label for="formGroupExampleInput"><h5>MARCA :</h5></label>
           {newProduct.brand ? `${newProduct.brand}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">DESCUENTO :</label>
+          <label for="formGroupExampleInput"><h5>DESCUENTO :</h5></label>
           {newProduct.discount ? `${newProduct.discount}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">GENERO :</label>
+          <label for="formGroupExampleInput"><h5>GENERO :</h5></label>
           {newProduct.gender ? `${newProduct.gender}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">PRECIO :</label>
+          <label for="formGroupExampleInput"><h5>PRECIO :</h5></label>
           {newProduct.price ? `${newProduct.price}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">COLOR :</label>
+          <label for="formGroupExampleInput"><h5>COLOR :</h5></label>
           {newProduct.Colors ? `${newProduct.Colors}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">DESCRIPCION :</label>
+          <label for="formGroupExampleInput"><h5>DESCRIPCION :</h5></label>
           {newProduct.description ? `${newProduct.description}` : ""}
           <br></br>
           <br></br>
-          <label for="formGroupExampleInput">IMAGENES :</label>
-          <div className="d-flex flex-wrap">
+          <label for="formGroupExampleInput"><h5>IMAGENES :</h5></label>
+          <div className="d-flex flex-wrap justify-content-center">
             {newProduct.Images &&
               newProduct?.Images.map((image) => {
                 return (
-                  <div className="d-flex flex-wrap me-3">
+                  <div className="d-flex flex-wrap">
                     <div className="">
-                      <img className="" width="150px" src={image}></img>
+                      <img className="rounded-circle" width="150px" src={image}></img>
                     </div>
                   </div>
                 );
