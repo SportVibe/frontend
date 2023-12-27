@@ -15,7 +15,6 @@ import getLocalStorageData from '../../utils/getLocalStorage';
 
 
 function UserProfile() {
-    const imgUser = null;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
@@ -24,6 +23,7 @@ function UserProfile() {
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
     const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
+    const imgUser = userDataRender ? userDataRender.image : null;
     const { id } = userDataRender ? userDataRender : '';
     // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
     const firstNameFull = userDataRender?.firstName ? userDataRender.firstName : '';
@@ -49,6 +49,7 @@ function UserProfile() {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editUserData);
                     setIsValidEmail(true);
                     console.log(data);
+                    alert('Usuario actualizado con éxito');
                 }
                 else {
                     setIsValidEmail(false);
@@ -140,7 +141,7 @@ function UserProfile() {
                             </div>
                             <div className={mainComponent === 'searchHistory' ? styles.divSelected : styles.div}>
                                 <i className="fa-solid fa-magnifying-glass" id='searchHistory' onClick={handlerComponent}></i>
-                                <p id='searchHistory' onClick={handlerComponent}>Historial de búsqueda</p>
+                                <p id='searchHistory' onClick={handlerComponent}>Mis reviews</p>
                             </div>
                         </div>
                     </div>
