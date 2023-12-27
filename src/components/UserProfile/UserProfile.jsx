@@ -68,7 +68,7 @@ function UserProfile() {
     async function handleSignOut() {
         try {
             // solo usamos el logOut de Firebase si el usuario es externo(externalSignIn en true)
-            if (userDataRender.externalSignIn) await logOut();
+            if (userDataRender.externalSignIn && logOut) await logOut();
             // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.
             localStorage.removeItem('currentUser');
             dispatch(getCurrentUserAction(null));
