@@ -12,6 +12,7 @@ import { addToCart } from "../../redux/actions";
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [reloadPage, setReloadPage] = useState(false);
   const [data, setData] = useState(null);
   const [storageCart, setStorageCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -63,12 +64,21 @@ const ProductDetail = () => {
   }
 
   const handleAddToCart = () => {
-    const newStorage = storageCart.map((object, i) => {
-      
+    let repeat = false;
+    const updateLocalStorageCart = storageCart.map((object) => {
+      if (object.id === id && object.size === selectSize && object.color === selectColor) {
+        const newQuantity = Number(object.quantity) + Number(quantity);
+        repeat = true;
+        return { ...object, quantity: newQuantity };
+      }
+      else return object;
     });
-    if (!storageCart.includes(id)) {
-      setStorageCart([...storageCart, {id, size: selectSize, color: selectColor, quantity}]);
-      localStorage.setItem('currentCart', JSON.stringify([...storageCart, {id, size: selectSize, color: selectColor, quantity}]));
+    if (repeat) {
+      localStorage.setItem('currentCart', JSON.stringify(updateLocalStorageCart));
+    }
+    else if (!repeat) {
+      setStorageCart([...storageCart, { id, size: selectSize, color: selectColor, quantity }]);
+      localStorage.setItem('currentCart', JSON.stringify([...storageCart, { id, size: selectSize, color: selectColor, quantity }]));
     }
 
     const selectedStock = data.Stocks.find(
@@ -92,8 +102,8 @@ const ProductDetail = () => {
         color: selectColor,
       })
     );
-
     // navigate("/shoppingcart");
+    return setReloadPage(!reloadPage);
   };
   const handleShippingSelection = (option) => {
     setSelectedShipping(option);
@@ -130,7 +140,7 @@ const ProductDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     initialStorageCart();
-  }, []);
+  }, [reloadPage]);
 
   return (
     <div className={styles.conteinerDetail}>
