@@ -134,7 +134,12 @@ function UserForm() {
       //   alert('País erroneo, por favor corrige el campo correspondiente')
         } else {
 
-        const { data } = await axios.post("http://localhost:3005/userRegister", newUsers)
+        const { data } = await axios.post(`${API_URL}/userRegister`, newUsers);
+        if (data) {
+          const newCartResponse = await axios.post(`${API_URL}/shoppingCart`, {userId: data.user.id, type: 'member'});
+          const dataLogin = newCartResponse.data;
+          console.log(dataLogin);
+        }
 
         alert(data.message)
         const response = await axios.post(`${API_URL}/login`, { email: newUsers.email, password: newUsers.password });

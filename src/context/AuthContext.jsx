@@ -28,11 +28,18 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const externalUser = async (userData) => {
-        // registramos el usuario externo en nuestra base de datos con la propiedad externalSignIn en true para saber que es externo y no local.
-        const externalUserData = axios.post(`${API_URL}/userRegister`, userData).then(({ res }) => {
-            // console.log(res);
-        })
-        return externalUserData
+        try {
+            // registramos el usuario externo en nuestra base de datos con la propiedad externalSignIn en true para saber que es externo y no local.
+            const externalUserData = await axios.post(`${API_URL}/userRegister`, userData);
+            if (externalUserData.data && externalUserData.data.user) {
+                const { id } = externalUserData.data.user;
+                const newCartResponse = await axios.post(`${API_URL}/shoppingCart`, { userId: id, type: 'member' });
+                console.log(newCartResponse);
+            }
+            return externalUserData
+        } catch (error) {
+            console.error('Error en la función externalUser:', error);
+        }
     }
 
     useEffect(() => {

@@ -12,7 +12,7 @@ import { UserAuth } from "../../context/AuthContext";
 const login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { googleSignIn, user } = UserAuth();
+  const { googleSignIn, user } = UserAuth() ?? {};
   const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
   const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [aux, setAux] = useState(false);
