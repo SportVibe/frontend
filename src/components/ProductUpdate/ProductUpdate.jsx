@@ -22,7 +22,7 @@ function ProductUpdate({ data, setSelectedRow }) {
 
   useEffect(() => {
     completeImages();
-  }, [newProduct]);
+  }, [newProduct.id]);
 
 
   function handleChange(e) {
