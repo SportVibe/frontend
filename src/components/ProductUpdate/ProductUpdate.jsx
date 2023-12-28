@@ -8,9 +8,10 @@ function ProductUpdate({ data, setSelectedRow }) {
   const [isEditing, setEditing] = useState(false);
   const [newProduct, setNewProduct] = useState(""); // cuando se guardan los cambios , este es el state que envio al back (put)
   const [sizesEditing, setSizesEditing] = useState(false);
-  const [sizes,setSizes] = useState("");
-  const [arrSizes,setArrSizes] = useState([]);
-  console.log(arrSizes);
+  const [sizes,setSizes] = useState([]);
+  const [stock,setStock] = useState([]);
+  
+
   useEffect(() => {
     axios(`${API_URL}/detail/${data.id}`)
       .then(({ data }) => {
@@ -18,6 +19,11 @@ function ProductUpdate({ data, setSelectedRow }) {
       })
       .catch((err) => console.log(err.message));
   }, []);
+
+  useEffect(() => {
+    completeImages();
+  }, [newProduct]);
+
 
   function handleChange(e) {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -28,13 +34,52 @@ function ProductUpdate({ data, setSelectedRow }) {
     setEditing(true);
     setNewProduct({ ...dataProductUpdate, ...product });
   };
+
   const handleClose = () => {
     setEditing(false);
     setSelectedRow("");
   };
 
-  const handleSubmit = (e) => {
+  const completeImages = () => {
+    let images=newProduct.Images;
+    let color=newProduct.Colors;
+    let arr = [];
+    let siz={};
+    newProduct.Stocks?.map((obj) => { //Formateo la info de size y stock antes de enviar
+      siz={"size":Object.keys(obj).toString(),
+      "stock":Object.values(obj).toString()};
+      arr.push(siz)
+    })
+    setNewProduct({
+      ...newProduct,
+      sizes:arr,
+      images:images,
+      color:color}) //agrego Propiedad sizes para enviar el back, paso a minuscula las propiedades images y color
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    completeImages();
+    await axios.put(`${API_URL}/product/${dataProductUpdate.id}`,newProduct)
+      .then((res) => {
+            Swal.fire({
+            position: "center",
+            icon: "success",
+            title: res.data.message,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        //handleClose();
+      })
+      .catch((err) => {
+          Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: err.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
   };
 
   const handleImage = (image, event) => {
@@ -63,8 +108,11 @@ function ProductUpdate({ data, setSelectedRow }) {
 
   const handleSizes = (e) => {
     e.preventDefault();
-    setSizes({...sizes,[e.target.name]:e.target.value});
-    setArrSizes([...arrSizes,sizes])
+    if(e.target.name === "size"){
+      setSizes([e.target.value]);
+    }else {
+      setStock([e.target.value])
+    }
     }
   
 
@@ -75,10 +123,18 @@ function ProductUpdate({ data, setSelectedRow }) {
     setDataProductUpdate({ ...dataProductUpdate, Stocks: newStocks });
   };
 
-  const handleCreateStock = (e) => {
+  const handleCreateStock = (e) => { //controla boton agregar cantidad y talles | formateo de obj Stocks y sizes para put
     e.preventDefault();
-    //setDataProductUpdate({...dataProductUpdate,Stocks:[...dataProductUpdate.Stocks,...arrSizes]})
+    let obj={};
+    for (let i=0;i<sizes.length;i++){
+      obj = {...obj,[sizes[i]]:stock[i]}
+    }
+    setDataProductUpdate({...dataProductUpdate,Stocks:[...dataProductUpdate.Stocks,obj]})
+    setSizes([]);
+    setStock([]);
   }
+
+
   return (
     <div className="d-flex flex-wrap justify-content-center">
       <div className="d-flex px-5">
@@ -323,7 +379,8 @@ function ProductUpdate({ data, setSelectedRow }) {
               <option value="10">10</option>
             </select>
           </div>
-                <button type="button" class="btn btn-primary btn-sm w-25 mb-3" onClick={(e)=>handleCreateStock(e)}>
+
+                <button type="button" className={stock.length === 0 ? "btn btn-primary btn-sm w-25 mb-3 disabled" : "btn btn-primary btn-sm w-25 mb-3"} onClick={(e)=>handleCreateStock(e)}>
                   Agregar
                 </button>
             </div>
@@ -374,7 +431,7 @@ function ProductUpdate({ data, setSelectedRow }) {
               className="btn btn-secondary me-2 fs-5 rounded-3 mt-2"
               onClick={handleClose}
             >
-              Cancelar
+              Salir
             </button>
             <button
               onClick={handleSave}
@@ -390,7 +447,7 @@ function ProductUpdate({ data, setSelectedRow }) {
               <i class="bi bi-box-arrow-up"></i> Imagenes
             </button>
             <button
-              onClick={() => handleSubmit}
+              onClick={(e)=>handleSubmit(e)}
               className="btn btn-primary fs-5 me-2 rounded-3 mt-2"
             >
               Enviar
