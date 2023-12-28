@@ -1,6 +1,4 @@
 .conteinerDetail {
-  /* background-color: #85ffbd;
-  background-image: linear-gradient(45deg, #85ffbd 0%, #fffb7d 100%); */
   background-color: white;
   width: 100%;
   height: 100%;
@@ -34,7 +32,14 @@
 }
 
 .imgContainer {
-  width: 100%;
+  /* width: 100%;
+  min-height: 70%;
+  transition: 0.3s ease;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px; */
+  width: 50%;
   min-height: 70%;
   transition: 0.3s ease;
   display: flex;
@@ -44,8 +49,8 @@
 
   & div {
     background-color: var(--bg-color-gray);
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 400px;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
@@ -99,12 +104,17 @@
 }
 
 .Box {
-  width: 100%;
-  min-height: 600px;
+  width: 300%; /* Define el ancho para la información del producto */
   padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  /* width: 100%;
+  min-height: 600px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; */
 
   & p {
     font-size: 25px;
@@ -144,7 +154,7 @@
   padding: 20px;
 
   & button {
-    background-color: var(--bg-color-gray);
+    background-color: grey;
     border: none;
     border-radius: 5px;
     margin-left: 20px;
@@ -156,10 +166,47 @@
 
   & button:hover {
     opacity: 0.8;
-    background-color: rgba(0, 0, 0, 0.26);
+    background-color: red;
   }
 }
 
 .selected {
-  background-color: rgba(255, 140, 0, 0.521);
+  background-color: rgba(255, 0, 0, 0.329);
+}
+
+.shareButtonsContainer {
+  display: flex;
+  justify-content: left;
+
+  & button {
+    background-color: rgba(0, 0, 0, 0.096);
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    height: 20%;
+    cursor: pointer;
+    padding: 10px;
+    width: 100px;
+  }
+  & button:hover {
+    opacity: 0.8;
+    background-color: rgba(245, 245, 220, 0.514);
+  }
+}
+
+.shippingInfoContainer {
+  padding: 20px;
+  width: 100%;
+  & button {
+    background-color: rgba(128, 128, 128, 0.212);
+    padding: 5px;
+    border-radius: 10px;
+  }
+}
+
+.quantity {
+  & input {
+    border: none;
+    margin-left: 10px;
+  }
 }

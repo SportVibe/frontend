@@ -55,38 +55,50 @@ const ProductDetail = () => {
 
   const initialStorageCart = async () => {
     try {
-      const cartDataStorage = await getLocalStorageData('currentCart');
+      const cartDataStorage = await getLocalStorageData("currentCart");
       const parseCartDataStorage = JSON.parse(cartDataStorage);
       parseCartDataStorage && setStorageCart(parseCartDataStorage);
     } catch (error) {
       console.error({ error: error.message });
     }
-  }
+  };
 
   const handleAddToCart = () => {
     let repeat = false;
     const updateLocalStorageCart = storageCart.map((object) => {
-      if (object.id === id && object.size === selectSize && object.color === selectColor) {
+      if (
+        object.id === id &&
+        object.size === selectSize &&
+        object.color === selectColor
+      ) {
         const newQuantity = Number(object.quantity) + Number(quantity);
         repeat = true;
         return { ...object, quantity: newQuantity };
-      }
-      else return object;
+      } else return object;
     });
     if (repeat) {
-      localStorage.setItem('currentCart', JSON.stringify(updateLocalStorageCart));
-    }
-    else if (!repeat) {
-      setStorageCart([...storageCart, { id, size: selectSize, color: selectColor, quantity }]);
-      localStorage.setItem('currentCart', JSON.stringify([...storageCart, { id, size: selectSize, color: selectColor, quantity }]));
+      localStorage.setItem(
+        "currentCart",
+        JSON.stringify(updateLocalStorageCart)
+      );
+    } else if (!repeat) {
+      setStorageCart([
+        ...storageCart,
+        { id, size: selectSize, color: selectColor, quantity },
+      ]);
+      localStorage.setItem(
+        "currentCart",
+        JSON.stringify([
+          ...storageCart,
+          { id, size: selectSize, color: selectColor, quantity },
+        ])
+      );
     }
 
     const selectedStock = data.Stocks.find(
       (stock) => Object.keys(stock)[0] === selectSize
     );
-    const availableQuantity = selectedStock
-      ? selectedStock[selectSize]
-      : 0;
+    const availableQuantity = selectedStock ? selectedStock[selectSize] : 0;
 
     if (quantity > availableQuantity) {
       return;
@@ -168,23 +180,9 @@ const ProductDetail = () => {
                 maximumFractionDigits: 2,
               })}
             </p>
-            <p>Colores:</p>
-            <div className={styles.buttonBoxColor}>
-              {data.Colors &&
-                data.Colors.length > 0 &&
-                data.Colors.map((color, i) => (
-                  <button
-                    key={i}
-                    className={
-                      selectColor === color ? styles.selected : ""
-                    }
-                    onClick={() => handleColorSelection(color)}
-                  >
-                    {color}
-                  </button>
-                ))}
-            </div>
-            <p>Talla:</p>
+
+            <p>{data.Colors.join(", ")}</p>
+            <p>Talles:</p>
             <div className={styles.talleBox}>
               {data.Stocks &&
                 data.Stocks.length > 0 &&
@@ -196,9 +194,7 @@ const ProductDetail = () => {
                         ? styles.selected
                         : ""
                     }
-                    onClick={() =>
-                      handleSizeSelection(Object.keys(stock)[0])
-                    }
+                    onClick={() => handleSizeSelection(Object.keys(stock)[0])}
                   >
                     {Object.keys(stock)[0]}
                   </button>
@@ -207,8 +203,8 @@ const ProductDetail = () => {
             <div className={styles.descriptionText}>
               <p>{generateDescriptionText()}</p>
             </div>
-            <div >
-              <label>
+            <div>
+              <label className={styles.quantity}>
                 Cantidad:
                 <input
                   type="number"
@@ -224,54 +220,46 @@ const ProductDetail = () => {
                 <i className="bi bi-cart-plus" />
               </button>
             </div>
-            <div className={styles.shippingInfoContainer}>
-              <button
-                onClick={() =>
-                  setShowShippingInfo(!showShippingInfo)
-                }
-              >
-                Envíos y Devoluciones
-                <i
-                  className={`bi bi-chevron-${
-                    showShippingInfo ? "up" : "down"
-                  }`}
-                />
-              </button>
+            <div>
+              <div className={styles.shippingInfoContainer}>
+                <button onClick={() => setShowShippingInfo(!showShippingInfo)}>
+                  Envíos y Devoluciones
+                  <i
+                    className={`bi bi-chevron-${
+                      showShippingInfo ? "up" : "down"
+                    }`}
+                  />
+                </button>
+              </div>
               {showShippingInfo && (
                 <div className={styles.shippingInfoContent}>
                   <p>
                     <strong>Envíos</strong>
                   </p>
                   <p>
-                    19 dólares a ciudades principales o ciudades
-                    intermedias. GRATIS por compras de 80 dólares o más.
-                    Entrega de 4-7 días hábiles.
+                    19 dólares a ciudades principales o ciudades intermedias.
+                    GRATIS por compras de 80 dólares o más. Entrega de 4-7 días
+                    hábiles.
                   </p>
                   <p>
-                    38 dólares a poblaciones. GRATIS por compras de 150
-                    dólares o más. Entrega de 10-12 días hábiles.
+                    38 dólares a poblaciones. GRATIS por compras de 150 dólares
+                    o más. Entrega de 10-12 días hábiles.
                   </p>
                   <p>
                     <strong>Cambios y Devoluciones</strong>
                   </p>
                   <p>
-                    Con SportVibe tienes tu satisfacción 100%
-                    garantizada; si por algún motivo no estás satisfecho
-                    con tu compra, tienes hasta 30 días para un cambio 
+                    Con SportVibe tienes tu satisfacción 100% garantizada; si
+                    por algún motivo no estás satisfecho con tu compra, tienes
+                    hasta 30 días para un cambio
                   </p>
                 </div>
               )}
             </div>
             <div className={styles.shareButtonsContainer}>
-              <button onClick={handleShareOnFacebook}>
-                Facebook
-              </button>
-              <button  onClick={handleShareOnTwitter}>
-                Twitter
-              </button>
-              <button onClick={handlePinOnPinterest}>
-                Pinterest
-              </button>
+              <button onClick={handleShareOnFacebook}>Facebook</button>
+              <button onClick={handleShareOnTwitter}>Twitter</button>
+              <button onClick={handlePinOnPinterest}>Pinterest</button>
             </div>
           </div>
         </div>
