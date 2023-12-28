@@ -19,6 +19,13 @@ export const PRICE_FILTER = "PRICE_FILTER";
 export const GENRES_FILTER = "GENRES_FILTER";
 export const USER_LOGIN = "USER_LOGIN";
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
+export const CREATE_ORDER = "CREATE_ORDER";
+export const GET_SHOPPING_CART = "GET_SHOPPING_CART";
+export const DELETE_MULTIPLE_PRODUCTS_FROM_CART = "DELETE_MULTIPLE_PRODUCTS_FROM_CART";
+export const CLEAR_SHOPPING_CART = "CLEAR_SHOPPING_CART";
+export const CAPTURE_ORDER = "CAPTURE_ORDER";
+export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
+
 
 export const getProducts = (filters) => async (dispatch) => {
   try {
@@ -115,16 +122,73 @@ export const getProductPage = ({ page, limit }) => async (dispatch) => {
   }
 };
 
-export const addToCart = (item) => {
-  return {
-    type: "ADD_TO_CART",
-    payload: item,
-  };
+export const getShoppingCart = (userId) => async (dispatch) => {
+  try {
+    if (!userId) {
+      console.error("UserId is undefined");
+      return;
+    }
+    const { data } = await axios.get(`${API_URL}/shoppingCart?userId=${userId}`);
+    dispatch({ type: GET_SHOPPING_CART, payload: data });
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
-export const removeFromCart = (itemId) => {
-  return {
-    type: "REMOVE_FROM_CART",
-    payload: itemId,
-  };
+export const deleteProductFromCart = (productId) => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_FROM_CART, payload: productId });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const deleteMultipleProductsFromCart = (userId) => async (dispatch) => {
+  try {
+    await axios.delete(`${API_URL}/cart/${userId}/delete-multiple`);
+    dispatch({ type: DELETE_MULTIPLE_PRODUCTS_FROM_CART });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const clearShoppingCart = (userId) => async (dispatch) => {
+  try {
+    await axios.put(`${API_URL}/cart/${userId}/delete`);
+    dispatch({ type: CLEAR_SHOPPING_CART });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const createOrder = (orderData) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`${API_URL}/create-order`, orderData);
+    dispatch({ type: CREATE_ORDER, payload: data });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const captureOrder = (orderId) => async (dispatch) => {
+  try {
+    await axios.get(`${API_URL}/capture-order?orderId=${orderId}`);
+    dispatch({ type: CAPTURE_ORDER, payload: orderId });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const updateCartItemQuantity = (productId, newQuantity) => async (dispatch) => {
+  try {
+    
+    dispatch({ type: UPDATE_CART_ITEM_QUANTITY, payload: { productId, newQuantity } });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+
+export const addToCart = (product) => async (dispatch) => {
+  try {
+   
+    dispatch({ type: ADD_TO_CART, payload: product });
+  } catch (error) {
+    console.error(error.message);
+  }
 };
