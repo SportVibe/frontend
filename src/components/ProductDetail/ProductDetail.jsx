@@ -79,12 +79,13 @@ const ProductDetail = () => {
         return { ...object, quantity: newQuantity };
       } else return object;
     });
+  
     if (repeat) {
       localStorage.setItem(
         "currentCart",
         JSON.stringify(updateLocalStorageCart)
       );
-    } else if (!repeat) {
+    } else {
       setStorageCart([
         ...storageCart,
         { id, size: selectSize, color: selectColor, quantity },
@@ -97,16 +98,16 @@ const ProductDetail = () => {
         ])
       );
     }
-
+  
     const selectedStock = data.Stocks.find(
       (stock) => Object.keys(stock)[0] === selectSize
     );
     const availableQuantity = selectedStock ? selectedStock[selectSize] : 0;
-
+  
     if (quantity > availableQuantity) {
       return;
     }
-
+  
     dispatch(
       addToCart({
         id: data.id,
@@ -114,10 +115,11 @@ const ProductDetail = () => {
         price: data.price,
         quantity,
         size: selectSize,
-        color: selectColor,
       })
     );
-    // navigate("/shoppingcart");
+    console.log('Cart Items:', storageCart);
+    navigate("/shoppingcart");
+    setReloadPage(!reloadPage);
     return setReloadPage(!reloadPage);
   };
   const handleShippingSelection = (option) => {
