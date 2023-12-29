@@ -1,20 +1,30 @@
-// Import necessary action types
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../actions/types';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  GET_SHOPPING_CART,
+  DELETE_MULTIPLE_PRODUCTS_FROM_CART,
+  CLEAR_SHOPPING_CART,
+  CAPTURE_ORDER,
+  UPDATE_CART_ITEM_QUANTITY,
+} from '../redux/actions';
 
-// Initial state for the cart
 const initialState = {
   items: [],
 };
 
-// Cart reducer function
 const cartReducer = (state = initialState, action) => {
+  
+  let existingItemIndex;
+  let productId, newQuantity;
+  let filteredItems;
+  let updatedItemsQuantity;
+
   switch (action.type) {
     case ADD_TO_CART:
-      // Check if the item is already in the cart
-      const existingItemIndex = state.items.findIndex(item => item.data.id === action.payload.data.id);
+      existingItemIndex = state.items.findIndex(item => item.data.id === action.payload.data.id);
 
       if (existingItemIndex !== -1) {
-        // If the item is already in the cart, update the quantity
         const updatedItems = [...state.items];
         updatedItems[existingItemIndex] = {
           ...updatedItems[existingItemIndex],
@@ -26,7 +36,6 @@ const cartReducer = (state = initialState, action) => {
           items: updatedItems,
         };
       } else {
-        // If the item is not in the cart, add it
         return {
           ...state,
           items: [...state.items, action.payload],
@@ -34,21 +43,63 @@ const cartReducer = (state = initialState, action) => {
       }
 
     case REMOVE_FROM_CART:
-      // Logic to handle removing an item from the cart
-      const updatedItems = state.items.filter(item => item.data.id !== action.payload);
+      filteredItems = state.items.filter(item => item.data.id !== action.payload);
       return {
         ...state,
-        items: updatedItems,
+        items: filteredItems,
       };
 
     case CLEAR_CART:
-      // Logic to handle clearing the entire cart
       return {
         ...state,
         items: [],
       };
 
-    // Add more cases as needed for additional actions
+    case GET_SHOPPING_CART:
+      
+      return {
+        ...state,
+        items: action.payload, 
+      };
+
+    case DELETE_MULTIPLE_PRODUCTS_FROM_CART:
+      
+      return {
+        ...state,
+        items: [],
+      };
+
+    case CLEAR_SHOPPING_CART:
+     
+      return {
+        ...state,
+        items: [], 
+      };
+
+    case CAPTURE_ORDER:
+     
+      return {
+        ...state,
+        capturedOrderId: action.payload,
+      };
+
+    case UPDATE_CART_ITEM_QUANTITY:
+      
+      ({ productId, newQuantity } = action.payload);
+      updatedItemsQuantity = state.items.map(item => {
+        if (item.data.id === productId) {
+          return {
+            ...item,
+            quantity: newQuantity,
+          };
+        }
+        return item;
+      });
+
+      return {
+        ...state,
+        items: updatedItemsQuantity,
+      };
 
     default:
       return state;
