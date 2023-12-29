@@ -11,7 +11,8 @@
 }
 
 .DeportesTitle{
-    width: 300px;
+    width: auto;
+    max-width: 400px;
     padding: 0 50px;
     font-size: 22px;
     color: var(--font-color-hard);

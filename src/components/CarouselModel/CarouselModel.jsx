@@ -12,12 +12,12 @@ const CarouselModel = (prop) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
-    const property = prop.property || ['brand'];
-    const [sportArray, setSportArray] = useState(property);
+    const [brandArray, setBrandArray] = useState(null);
 
     async function getSports() {
-        const { data } = await axios(`${API_URL}/property?property=${property}`);
-        setSportArray(data);
+        // const { data } = await axios(`${API_URL}/property?property=${property}`);
+        const {data} = await axios(`${API_URL}/product/brands`);
+        setBrandArray(data);
     }
 
     const handleFilter = (e) => {
@@ -39,18 +39,18 @@ const CarouselModel = (prop) => {
 
     return (
         <div className="mainView" >
-            <p className="DeportesTitle">Busca por {t('translation.Brand')}</p>
+            <p className="DeportesTitle">{t('translation.Brands')}</p>
             <div className="carouselContainer">
-                {sportArray?.length ? sportArray.map((property, i) => {
-                    const key = Object.keys(property)[0];
-                    let value = property[key];
-                    value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+            {brandArray?.length ? brandArray.map((brand, i) => {
+                    let brandName = brand.name;
+                    let brandImage = brand.image;
+                    brandName = brandName.charAt(0).toUpperCase() + brandName.slice(1).toLowerCase();
                     return (
-                        <div id={value} onClick={handleFilter} key={i} className="carouselItem">
-                            <div id={value}>
-                                <img id={value} src={img} />
+                        <div id={brandName} onClick={handleFilter} key={i} className="carouselItem">
+                            <div id={brandName}>
+                                <img id={brandName} src={brandImage} />
                             </div>
-                            <p id={value}>{value}</p>
+                            <p id={brandName}>{brandName}</p>
                         </div>
                     )
                 }) :
@@ -58,7 +58,7 @@ const CarouselModel = (prop) => {
                         <div>
                             <img src={img} />
                         </div>
-                        <p>{property}</p>
+                        <p></p>
                     </div>
                 }
             </div>

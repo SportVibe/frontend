@@ -94,10 +94,6 @@
     justify-content: space-between;
     cursor: pointer;
 
-    &:hover {
-        color: var(--button-color);
-    }
-
     &::after {
         content: '▿';
         font-size: 25px;
@@ -115,4 +111,34 @@
     width: 100%;
     max-width: 500px;
     margin: 20px auto;
+}
+
+.deleteAcountHidden {
+    padding: 0 10px;
+    margin: 20px 0;
+    height: 40px;
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid rgb(255, 44, 44);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: .3s ease-in-out;
+}
+
+.deleteAcountContainer {
+    padding: 0 10px;
+    margin: 20px 0;
+    height: 280px;
+    width: 100%;
+    max-width: 500px;
+    color: var(--button-color);
+    border: 2px solid rgb(255, 44, 44);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: .3s ease-in-out;
+}
+
+.BorrarCuentaP {
+    color: var(--font-color-hard);
+    font-weight: 300;
 }

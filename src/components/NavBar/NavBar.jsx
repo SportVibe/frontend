@@ -3,7 +3,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
 import SearchBar from './SearchBar/SearchBar';
-import Logo from '../../Images/Logo.jpg';
+// import Logo from '../../Images/Logo.jpg';
+import Logo from '../../Images/logoSportvibeSolid.jpeg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,8 +72,9 @@ function NavBar() {
     <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
       <div className={styles.subMainView}>
         <div className={styles.logoContainer}>
-          <img src={Logo} alt="" id='/' onClick={handleNavigate} />
+          <img src={Logo} alt="" id='/' onClick={handleNavigate}/>
         </div>
+        <p className={styles.logoTitle} onClick={handleNavigate}>𝗦𝗽𝗼𝗿𝘁𝗩𝗶𝗯𝗲</p>
         <div className={styles.navBarContainer}>
           {(location.pathname === '/' || location.pathname === '/search') && (
             <div id={styles.searchbarContainer}>

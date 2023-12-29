@@ -1,6 +1,8 @@
 :root {
     --categoryBar-height: 55px;
-    --font-color-hard: rgb(37, 37, 37);
+    --font-color-hard: rgb(4, 26, 37);
+    --oldPrice-color: rgb(205, 87, 87);
+    --newPrice-color: green;
     --button-color: #0d6efd;
     --button-color-hover: #0060f1;
     --bg-color-body2: rgba(33, 37, 41);
@@ -9,6 +11,7 @@
     /* --bg-color2: #ebebeb; */
     /* --bg-color2: rgb(6, 63, 92); */
     --bg-color2: rgb(4, 26, 37);
+    /* --bg-color2: rgb(255, 126, 56); */
     /* --bg-color2: rgb(24, 24, 24); */
     /* --bg-color2: rgb(255,0,0); */
     /* --bg-color2: #9d75c4; */
@@ -66,8 +69,8 @@
 
 /* CAROUSEL MODEL */
 .CarouselModelContainer{
-    margin-top: 50px;
-    height: 400px;
+    /* margin-top: 50px; */
+    /* height: 400px; */
 }
 
 /* CAROUSEL PRODUCTS */

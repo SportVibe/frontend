@@ -8,11 +8,12 @@ function Sort() {
     const totalFilters = useSelector((state => state.totalFilters));
     const priceFilter = useSelector((state => state.priceFilter));
     const genre = useSelector((state => state.genre));
+    const discount = useSelector((state => state.discount));
 
     function sortHandler(event) {
         const value = event.target.value;
         const sliceString = value.split('_');
-        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], genre[0], { search: search_Activity }, { sort: sliceString[0] }, { typeSort: sliceString[1] }]
+        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], genre[0], discount[0], { search: search_Activity }, { sort: sliceString[0] }, { typeSort: sliceString[1] }]
         dispatch(sortAction([{ sort: sliceString[0] }, { typeSort: sliceString[1] }]));
         dispatch(getProducts(newFiltersArray));
     }

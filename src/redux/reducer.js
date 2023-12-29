@@ -12,13 +12,15 @@ import {
   PRICE_FILTER,
   GENRES_FILTER,
   USER_LOGIN,
-  GET_CURRENT_USER
+  GET_CURRENT_USER,
+  DISCOUNT_PRODUCTS
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
   currentUserData: null,
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
+  discount: [{ discount: 0 }],
   priceFilter: ['', ''],
   genre: [{ gender: '' }],
   totalFilters: [],
@@ -43,6 +45,11 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         priceFilter: action.payload,
+      };
+    case DISCOUNT_PRODUCTS:
+      return {
+        ...state,
+        discount: action.payload,
       };
     case GENRES_FILTER:
       return {
