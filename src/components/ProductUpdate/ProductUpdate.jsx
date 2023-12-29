@@ -10,12 +10,20 @@ function ProductUpdate({ data, setSelectedRow }) {
   const [sizesEditing, setSizesEditing] = useState(false);
   const [sizes,setSizes] = useState([]);
   const [stock,setStock] = useState([]);
+  const [available,setAvailable] = useState(null)
+  console.log(available,"AVAILABLE");
   
 
   useEffect(() => {
     axios(`${API_URL}/detail/${data.id}`)
       .then(({ data }) => {
         setDataProductUpdate(data.data);
+        if(data.data.available === true){
+        setAvailable(true)}
+        if(data.data.available === false){
+          setAvailable(false)
+        }
+        
       })
       .catch((err) => console.log(err.message));
   }, []);
@@ -62,14 +70,16 @@ function ProductUpdate({ data, setSelectedRow }) {
     completeImages();
     await axios.put(`${API_URL}/product/${dataProductUpdate.id}`,newProduct)
       .then((res) => {
-            Swal.fire({
-            position: "center",
-            icon: "success",
-            title: res.data.message,
-            showConfirmButton: false,
-            timer: 1500
-          });
-        //handleClose();
+        if (Object.keys(res.data).length > 0){
+          Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      handleClose();
+        }
       })
       .catch((err) => {
           Swal.fire({
@@ -134,21 +144,48 @@ function ProductUpdate({ data, setSelectedRow }) {
     setStock([]);
   }
 
+  const handleAvailable = (e) =>{
+  }
+
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
       <div className="d-flex px-5">
         <form className="d-flex flex-column">
           <div
-            className="form-group rounded-pill mt-2"
-            style={{ backgroundColor: "#BFC9CA" }}
-          >
+            className="form-group rounded-pill mt-2 d-flex justify-content-around align-items-center"
+            style={{ backgroundColor: "#BFC9CA" }}>
             <label
               className="d-flex justify-content-center p-2"
-              for="formGroupExampleInput"
-            >
+              for="formGroupExampleInput">
               <h3 className="">ID : {dataProductUpdate?.id}</h3>
             </label>
+            {dataProductUpdate?.available === true ? 
+            <div className="form-check form-switch my-3">
+            <input
+              className="form-check-input"
+              defaultChecked
+              type="checkbox"
+              role="switch"
+              onClick={()=>setAvailable(!available)}
+            />
+            <label className="form-check-label" for="flexSwitchCheckDefault">
+              <h5>Disponible</h5>
+            </label>
+          </div> 
+          :
+          <div className="form-check form-switch my-3">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            role="switch"
+            onClick={()=>setAvailable(!available)}
+          />
+          <label className="form-check-label" for="flexSwitchCheckDefault">
+            <h5>Disponible</h5>
+          </label>
+        </div> }
+            
           </div>
           <div className="form-group w-100 pb-3 mt-3">
             <label className="" for="formGroupExampleInput">
@@ -267,7 +304,7 @@ function ProductUpdate({ data, setSelectedRow }) {
               onChange={handleChange}
               className="form-control"
               id="formGroupExampleInput"
-              value={product.Colors || dataProductUpdate?.Colors.toString()}
+              value={product?.Colors || dataProductUpdate?.Colors.toString()}
             />
           </div>
           <div class="form-check form-switch my-3">
@@ -357,7 +394,7 @@ function ProductUpdate({ data, setSelectedRow }) {
               <option value="NOAPLICA">NO APLICA</option>
             </select>}
           </div>
-          <div className="form-group pb-3 w-25">
+          <div className="form-group pb-3 w-25 mx-1">
             <select
               className="form-select"
               aria-label="stock"
@@ -380,7 +417,7 @@ function ProductUpdate({ data, setSelectedRow }) {
             </select>
           </div>
 
-                <button type="button" className={stock.length === 0 ? "btn btn-primary btn-sm w-25 mb-3 disabled" : "btn btn-primary btn-sm w-25 mb-3"} onClick={(e)=>handleCreateStock(e)}>
+                <button type="button" className={stock.length === 0 ? "btn btn-primary btn-sm w-25 mb-3 fs-6 mx-1 disabled" : "btn btn-primary btn-sm mx-1 fs-6 w-25 mb-3"} onClick={(e)=>handleCreateStock(e)}>
                   Agregar
                 </button>
             </div>
@@ -467,6 +504,10 @@ function ProductUpdate({ data, setSelectedRow }) {
             {" "}
             <i className="bi bi-pencil-square px-2"></i>Actualización
           </h2>
+          <label for="formGroupExampleInput">
+            <h5>DISPONIBLE : {available === true  ? "SI" : "NO" }</h5>
+          </label>
+          <br></br>
           <label for="formGroupExampleInput">
             <h5>TITULO :</h5>
           </label>
