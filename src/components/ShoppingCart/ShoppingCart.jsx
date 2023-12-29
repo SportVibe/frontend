@@ -26,6 +26,7 @@ const ShoppingCart = () => {
     }
   }, [dispatch, userId]);
 
+
   useEffect(() => {
     const calculateLocalSubtotal = () => {
       if (!cartItems || cartItems.length === 0) {
@@ -70,7 +71,7 @@ const ShoppingCart = () => {
               <div className="row g-0">
                 <div className="col-md-4">
                   <img
-                    src={item.images[0]}
+                    src={item.images[0]} // Asegúrate de que esta propiedad esté presente en el objeto del carrito
                     className="img-fluid rounded-start"
                     alt={item.title}
                   />
@@ -78,6 +79,8 @@ const ShoppingCart = () => {
                 <div className="col-md-8">
                   <div className="card-body">
                     <h5 className="card-title">{item.title}</h5>
+                    <p className="card-text">ID: {item.id}</p>
+                    <p className="card-text">Size: {item.size}</p>
                     <p className="card-text">Price: ${item.price}</p>
                     <div className="input-group">
                       <span className="input-group-text">Quantity:</span>
@@ -104,7 +107,6 @@ const ShoppingCart = () => {
           )),
         [cartItems]
       )}
-
       <div className="d-flex flex-column align-items-center mt-3">
         <div>
           <p>Subtotal: ${localSubtotal}</p>
