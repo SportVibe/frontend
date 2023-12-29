@@ -11,7 +11,6 @@ const ProductPrueba = ({setSelectedRow}) => {
   useEffect(() => {
     axios(`${API_URL}/admin`)
       .then(({ data }) => {
-            console.log(data.modifiedProducts);
             let prod = formatProductTable(data.modifiedProducts);
             setProductSearch(prod);
       })

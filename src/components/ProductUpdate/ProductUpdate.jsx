@@ -11,9 +11,9 @@ function ProductUpdate({ data, setSelectedRow }) {
   const [sizes,setSizes] = useState([]);
   const [stock,setStock] = useState([]);
   const [available,setAvailable] = useState(null)
+  const [send , setSend] = useState(false)  
   console.log(product,"PRODUCT");
-  console.log(newProduct,"NEWPRODUCT");
-  
+  console.log(newProduct,"NEW");
 
   useEffect(() => {
     axios(`${API_URL}/detail/${data.id}`)
@@ -30,6 +30,10 @@ function ProductUpdate({ data, setSelectedRow }) {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     completeImages();
   }, [newProduct.id]);
 
@@ -41,9 +45,8 @@ function ProductUpdate({ data, setSelectedRow }) {
   const handleSave = (e) => {
     e.preventDefault();
     setEditing(true);
-    setNewProduct({ ...dataProductUpdate, ...product });
-    if(available){setNewProduct({...newProduct,available:true})}
-    if(!available){setNewProduct({...newProduct,available:false})}
+    setSend(true)
+    setNewProduct({ ...dataProductUpdate, ...product});
   };
 
   const handleClose = () => {
@@ -65,8 +68,10 @@ function ProductUpdate({ data, setSelectedRow }) {
       ...newProduct,
       sizes:arr,
       images:images,
-      color:color}) //agrego Propiedad sizes para enviar el back, paso a minuscula las propiedades images y color
-  }
+      color:color,
+      available:available
+    }) //agrego Propiedad sizes para enviar el back, paso a minuscula las propiedades images y color
+  }                         //y actualizo disponibilidad 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -470,12 +475,6 @@ function ProductUpdate({ data, setSelectedRow }) {
               Salir
             </button>
             <button
-              onClick={handleSave}
-              className="btn btn-primary fs-5 me-2 rounded-3 mt-2"
-            >
-              Guardar
-            </button>
-            <button
               id="upload_widget"
               className="btn btn-primary fs-5 me-2 rounded-3 mt-2"
               onClick={handleWidget}
@@ -483,8 +482,14 @@ function ProductUpdate({ data, setSelectedRow }) {
               <i class="bi bi-box-arrow-up"></i> Imagenes
             </button>
             <button
-              onClick={(e)=>handleSubmit(e)}
+              onClick={handleSave}
               className="btn btn-primary fs-5 me-2 rounded-3 mt-2"
+            >
+              Guardar cambios
+            </button>
+            <button
+              onClick={(e)=>handleSubmit(e)}
+              className={send === true ? "btn btn-primary fs-5 me-2 rounded-3 mt-2" : "btn btn-primary fs-5 me-2 rounded-3 mt-2 disabled"}
             >
               Enviar
             </button>
