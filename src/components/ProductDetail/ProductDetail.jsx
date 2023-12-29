@@ -86,26 +86,31 @@ const ProductDetail = () => {
         JSON.stringify(updateLocalStorageCart)
       );
     } else {
-      setStorageCart([
-        ...storageCart,
-        { id, size: selectSize, color: selectColor, quantity },
-      ]);
+      const selectedStock = data.Stocks.find(
+        (stock) => Object.keys(stock)[0] === selectSize
+      );
+      const availableQuantity = selectedStock ? selectedStock[selectSize] : 0;
+  
+      if (quantity > availableQuantity) {
+        return;
+      }
+  
+      const newItem = {
+        id: data.id,
+        title: data.title,
+        imagen1: data.Images[0], 
+        quantity,
+        size: selectSize,
+        price: data.price,
+        color: selectColor,
+        
+      };
+  
+      setStorageCart([...storageCart, newItem]);
       localStorage.setItem(
         "currentCart",
-        JSON.stringify([
-          ...storageCart,
-          { id, size: selectSize, color: selectColor, quantity },
-        ])
+        JSON.stringify([...storageCart, newItem])
       );
-    }
-  
-    const selectedStock = data.Stocks.find(
-      (stock) => Object.keys(stock)[0] === selectSize
-    );
-    const availableQuantity = selectedStock ? selectedStock[selectSize] : 0;
-  
-    if (quantity > availableQuantity) {
-      return;
     }
   
     dispatch(
@@ -115,8 +120,11 @@ const ProductDetail = () => {
         price: data.price,
         quantity,
         size: selectSize,
+        color: selectColor,
+        
       })
     );
+  
     console.log('Cart Items:', storageCart);
     navigate("/shoppingcart");
     setReloadPage(!reloadPage);
