@@ -11,7 +11,8 @@ function ProductUpdate({ data, setSelectedRow }) {
   const [sizes,setSizes] = useState([]);
   const [stock,setStock] = useState([]);
   const [available,setAvailable] = useState(null)
-  console.log(available,"AVAILABLE");
+  console.log(product,"PRODUCT");
+  console.log(newProduct,"NEWPRODUCT");
   
 
   useEffect(() => {
@@ -41,6 +42,8 @@ function ProductUpdate({ data, setSelectedRow }) {
     e.preventDefault();
     setEditing(true);
     setNewProduct({ ...dataProductUpdate, ...product });
+    if(available){setNewProduct({...newProduct,available:true})}
+    if(!available){setNewProduct({...newProduct,available:false})}
   };
 
   const handleClose = () => {
@@ -143,10 +146,6 @@ function ProductUpdate({ data, setSelectedRow }) {
     setSizes([]);
     setStock([]);
   }
-
-  const handleAvailable = (e) =>{
-  }
-
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
