@@ -1,6 +1,8 @@
 import styles from "./Footer.module.css";
 import React from "react";
 import logoSportVibe from "../../Images/Logo.jpg";
+import image1 from "../../Images/606_instagram.jpg";
+import image2 from "../../Images/754_facebook_icon.jpg";
 
 const Footer = () => (
   <footer className="page-footer font-small blue pt-4">
@@ -10,10 +12,35 @@ const Footer = () => (
           <h5 className="text-uppercase">Redes Sociales</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="https://www.facebook.com/sportvibe07" target="_blank" rel="noreferrer">Facebook</a>
+              <a
+                href="https://www.facebook.com/sportvibe07"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  src={image2}
+                  alt=""
+                  style={{
+                    width: "60px",
+                    height: "40px",
+                    marginBottom: "10px",
+                  }}
+                />
+              </a>
             </li>
             <li>
-              <a href="https://www.instagram.com/sportvibe07/" target="_blank" rel="noreferrer">Instagram</a>
+              <a
+                href="https://www.instagram.com/sportvibe07/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ;
+                <img
+                  src={image1}
+                  alt=""
+                  style={{ width: "60px", height: "40px" ,  marginBottom: "10px" }}
+                />{" "}
+              </a>
             </li>
           </ul>
         </div>
@@ -46,7 +73,11 @@ const Footer = () => (
               <a href="/conditions">Terminos y Condiciones</a>
             </li>
             <li>
-              <a href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/icpen" target="_blank" rel="noreferrer">
+              <a
+                href="https://www.argentina.gob.ar/produccion/defensadelconsumidor/icpen"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Defensa al Consumidor
               </a>
             </li>

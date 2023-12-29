@@ -8,6 +8,9 @@ import { API_URL } from "../../helpers/config";
 import styles from "./ProductDetail.module.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
+import imagen1 from "../../Images/Pinterest-logo.png";
+import imagen2 from "../../Images/754_facebook_icon.jpg";
+import imagen3 from "../../Images/pngtree-twitter-social-media-round-icon-png-image_6315985.png";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -175,10 +178,11 @@ const ProductDetail = () => {
             <p>{data.description}</p>
             <p>{data.mark}</p>
             <p className={styles.price}>
-              {(data.price / 1).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+              {"US$" +
+                (data.price / 1).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
             </p>
 
             <p>{data.Colors.join(", ")}</p>
@@ -257,9 +261,30 @@ const ProductDetail = () => {
               )}
             </div>
             <div className={styles.shareButtonsContainer}>
-              <button onClick={handleShareOnFacebook}>Facebook</button>
-              <button onClick={handleShareOnTwitter}>Twitter</button>
-              <button onClick={handlePinOnPinterest}>Pinterest</button>
+              <button onClick={handleShareOnFacebook}>
+                {" "}
+                <img
+                  src={imagen2}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />
+              </button>
+              <button onClick={handleShareOnTwitter}>
+                {" "}
+                <img
+                  src={imagen3}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />
+              </button>
+              <button onClick={handlePinOnPinterest}>
+                {" "}
+                <img
+                  src={imagen1}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />{" "}
+              </button>
             </div>
           </div>
         </div>
