@@ -9,10 +9,11 @@ function GenreBox() {
     const totalFilters = useSelector((state => state.totalFilters));
     const priceFilter = useSelector((state => state.priceFilter));
     const sort = useSelector((state => state.sort));
+    const discount = useSelector((state => state.discount));
 
     function genreHandler(event) {
         const name = event.target.name;
-        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], { search: search_Activity }, { gender: name }]
+        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, { gender: name }]
         dispatch(genreFilterAction([{ gender: name }]));
         dispatch(getProducts(newFiltersArray));
     }

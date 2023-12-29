@@ -12,6 +12,7 @@ export const GET_PRODUCT_PAGE_FAILURE = "GET_PRODUCT_PAGE_FAILURE";
 export const GET_PRODUCT_PAGE = "GET_PRODUCT_PAGE";
 export const GET_CAROUSEL2_PRODUCTS = "GET_CAROUSEL2_PRODUCTS";
 export const SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
+export const DISCOUNT_PRODUCTS = "DISCOUNT_PRODUCTS";
 export const RESPONSIVE_NAVBAR = "RESPONSIVE_NAVBAR";
 export const TOTAL_FILTERS = "TOTAL_FILTERS";
 export const SORT = "SORT";
@@ -67,6 +68,14 @@ export const userLoginAction = (logInData) => async (dispatch) => {
 export const searchActivity = (activity) => async (dispatch) => {
   try {
     return dispatch({ type: SEARCH_ACTIVITY, payload: activity });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const discountProducts = (discount) => async (dispatch) => {
+  try {
+    return dispatch({ type: DISCOUNT_PRODUCTS, payload: discount });
   } catch (error) {
     console.error(error.message);
   }

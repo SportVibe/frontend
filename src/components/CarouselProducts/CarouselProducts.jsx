@@ -11,11 +11,13 @@ const CrouselProducts = (prop) => {
     const displayCardAmount = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     const property = prop.property || [];
     const [productArray, setProductArray] = useState(property);
+    const order = 'id';
+    const type = 'desc';
 
-
-    async function getProductsWithDiscount() {
+    async function getProductOrderBy() {
         try {
-            const { data } = await axios(`${API_URL}/product/discount`);
+            // const { data } = await axios(`${API_URL}/product/discount`);
+            const { data } = await axios(`${API_URL}/product/orderBy?${order}&${type}`);
             if (data && data.length) setProductArray(data);
         } catch (error) {
             console.error({ error: error.message });
@@ -23,18 +25,17 @@ const CrouselProducts = (prop) => {
     }
 
     useEffect(() => {
-        getProductsWithDiscount();
+        getProductOrderBy();
     }, []);
 
     return (
         <div className={styles.mainView}>
-            <p className={styles.DeportesTitle}>Lo más buscado</p>
+            <p className={styles.DeportesTitle}>Lo más reciente</p>
             <div className={styles.carouselContainer}>
-                {productArray.data?.length > 0 ? displayCardAmount.map((product, i) => {
-                    const productR = productArray.data[i];
+                {productArray?.length ? productArray.map((product, i) => {
                     return (
                         <div key={i} className={styles.cardComponentContainer}>
-                            <ProductCard productData={productR} />
+                            <ProductCard productData={product} />
                         </div>
                     )
                 }) :

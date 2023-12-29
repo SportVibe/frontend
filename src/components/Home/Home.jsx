@@ -20,11 +20,12 @@ function Home() {
   const location = useLocation();
   const productRender = useSelector((state) => state.products);
   // productRender && console.log(productRender);
-  const search_Activity = useSelector((state => state.search));
+  let search_Activity = useSelector((state => state.search));
   const totalFilters = useSelector((state => state.totalFilters));
   const sort = useSelector((state => state.sort));
   const genre = useSelector((state => state.genre));
   const priceFilter = useSelector((state => state.priceFilter));
+  const discount = useSelector((state => state.discount));
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para poder guardarlo en redux y poder renderizarlo en el nav bar u otras partes.
@@ -40,8 +41,13 @@ function Home() {
   }
 
   useEffect(() => {
-    const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }]
-    dispatch(getProducts(sumFilters));
+    if (location.pathname === '/search') {
+      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }]
+      dispatch(getProducts(sumFilters));
+    } // ya que queremos que en la ruta Home no se apliquen los filtros del Search bar.
+    else if (location.pathname !== '/search') {
+      dispatch(getProducts());
+    }
     dispatch(responsiveNavBar(false));
     if (!search_Activity) {
       navigate('/');
@@ -55,6 +61,7 @@ function Home() {
 
   return (
     <div className={styles.mainView}>
+      {location.pathname !== '/search' && <hr />}
       <div className={styles.subMainView}>
         {/* {location.pathname === '/search' &&
           <div className={styles.FilterBarContainer}>

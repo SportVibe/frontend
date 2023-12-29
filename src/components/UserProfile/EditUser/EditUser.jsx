@@ -76,7 +76,22 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                     </div>
                 }
                 <div onClick={handleSubmit} className={styles.submitButtoncontainer}>
-                    <ButtonComponent text={'Aplicar cambios'}/>
+                    <ButtonComponent text={'Aplicar cambios'} />
+                </div>
+                <div className={containerHidden ? styles.deleteAcountHidden : styles.deleteAcountContainer}>
+                    <p className={styles.p} onClick={handleContainerHidden}>Eliminar cuenta</p>
+                    <div className={styles.inputPasswordContainer}>
+                        <p className={styles.BorrarCuentaP}>Para borrar su cuenta debe ingresar su contraseña</p>
+                        <div className={styles.inputContainer}>
+                            <input type="password" autoComplete='off' placeholder='Contraseña' />
+                        </div>
+                        <div className={styles.inputContainer}>
+                            <input type="password" autoComplete='off' placeholder='Repita su contraseña' />
+                        </div>
+                        <div onClick={handleSubmit} className={styles.submitButtoncontainer}>
+                            <ButtonComponent text={'Eliminar cuenta'} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
