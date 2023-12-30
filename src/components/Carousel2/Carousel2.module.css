@@ -87,7 +87,7 @@
         width: 90px;
         height: 90px;
         border-radius: 100%;
-        background-color: var(--bg-color2);
+        background-color: var(--bg-color-gray);
         opacity: 1;
         overflow: hidden;
         cursor: pointer;

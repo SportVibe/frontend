@@ -8,6 +8,7 @@ import axios from "axios";
 import { API_URL } from '../../helpers/config';
 import { useDispatch } from "react-redux";
 import { UserAuth } from "../../context/AuthContext";
+import LoginModal from "../Modals/LoginModal";
 
 const login = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const login = () => {
   const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
   const [passwordCorrect, setPasswordCorrect] = useState(false);
   const [aux, setAux] = useState(false);
+  const [modal, setModal] = useState(null);
   const [username, setUser] = useState({
     email: "",
     password: "",
@@ -55,6 +57,9 @@ const login = () => {
           if (data.user.rol === 'admin') {
             navigate('/dashboard');
           }
+          else if (!data.user.active) {
+            setModal(data.user); // toda la data del usuario se pasa a la modal.
+          }
           else {
             localStorage.setItem('currentUser', JSON.stringify(data));
             dispatch(getCurrentUserAction(data));
@@ -79,6 +84,7 @@ const login = () => {
 
   return (
     <div className="contenedorLogin">
+      {modal && <LoginModal modal={modal} setModal={setModal} handleLoginP={(e) => handleLoginP(e)}/>}
       <div className="box">
         <div className="boxlogo">
           <NavLink to='/'>
