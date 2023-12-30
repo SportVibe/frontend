@@ -142,6 +142,7 @@
     }
 
     & .newPrice {
+        /* color: var(--newPrice-color); */
         color: var(--newPrice-color);
         font-weight: 400;
     }
@@ -161,7 +162,7 @@
             margin-left: 10px;
 
             & span {
-                color: var(--oldPrice-color);
+                color: gray;
                 text-decoration: line-through;
             }
         }

@@ -10,6 +10,7 @@ function GenreBox() {
     const priceFilter = useSelector((state => state.priceFilter));
     const sort = useSelector((state => state.sort));
     const discount = useSelector((state => state.discount));
+    console.log(search_Activity);
 
     function genreHandler(event) {
         const name = event.target.name;

@@ -18,10 +18,10 @@ function ProductCard({ productData }) {
     const brand = productData?.brand ? productData.brand : "";
     const subCategory = productData?.subCategory ? productData.subCategory : "";
     const title = productData?.title ? productData.title : "";
-    let price = productData?.price ? Number(productData.price) : '';
-    price = (price / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    let newPrice = discount ? (price * (100 - Number(discount)) / 100) : '';
-    newPrice = (newPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    let currentPrice = productData?.price ? Number(productData.price) : '';
+    let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
+    currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function handleMouseEnter() {
         setImgHover(true);
@@ -63,12 +63,12 @@ function ProductCard({ productData }) {
                     </div>
                     <div className={styles.priceContainer}>
                         {!discount ?
-                            <p>$USD {price}</p> :
+                            <p>$USD {currentPrice}</p> :
                             <div>
-                                <p className={styles.newPrice}>$USD {newPrice}</p>
+                                <p className={styles.newPrice}>$USD {currentPrice}</p>
                                 <div className={styles.discountContainer}>
                                     <p className={styles.discount}><span>-{discount}%</span></p>
-                                    <p className={styles.oldPrice}>Antes: <span>$USD {price}</span></p>
+                                    <p className={styles.oldPrice}>Antes: <span>$USD {oldPrice}</span></p>
                                 </div>
                             </div>
                         }

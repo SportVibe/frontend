@@ -32,8 +32,8 @@ function FilterBar() {
                     <div className={styles.filterBox}>
                         <PriceBox />
                     </div>
-                    {/* <div className={styles.divider}></div>
-                    <div className={styles.filterBox}>
+                    <div className={styles.divider}></div>
+                    {/* <div className={styles.filterBox}>
                         <SizeBox />
                     </div>
                     <div className={styles.divider}></div>
