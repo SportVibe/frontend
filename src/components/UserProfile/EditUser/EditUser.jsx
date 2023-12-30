@@ -45,15 +45,27 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
     }
 
     async function handleDelete() {
-        if (password.p1 !== '' && password.p2 !== '' && password.p1 === password.p2) {
-            const { data } = await axios.post(`${API_URL}/login`, {email: email, password: password.p1});
-            if (data) { // Aquí es donde seteamos en false el borrado lógico para mandarlo al backend.
-                setEditUserData({ ...editUserData, active: false });
-                handleSubmit({ ...editUserData, active: false });
+        try {
+            if (password.p1 !== '' && password.p2 !== '' && password.p1 === password.p2) {
+                const { data } = await axios.post(`${API_URL}/login`, {email: email, password: password.p1});
+                if (data) { // Aquí es donde seteamos en false el borrado lógico para mandarlo al backend.
+                    setEditUserData({ ...editUserData, active: false });
+                    handleSubmit({ ...editUserData, active: false });
+                }
+                else {
+                    setPassword({p1: '', p2: ''});
+                    alert('Contraseña inválida');
+                } 
             }
-            else alert('Contraseña inválida');
+            else {
+                setPassword({p1: '', p2: ''});
+                alert('Las contraseñas no coinciden');
+            } 
+        } catch (error) {
+            console.error({ error: error.message });
+            setPassword({p1: '', p2: ''});
+            alert('Contraseña inválida');
         }
-        else alert('Las contraseñas no coinciden');
     }
 
     return (

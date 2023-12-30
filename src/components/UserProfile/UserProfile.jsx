@@ -50,8 +50,12 @@ function UserProfile() {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editData);
                     setIsValidEmail(true);
                     console.log(data);
-                    alert('Usuario actualizado con éxito');
-                    if (deleteData) handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
+                    console.log(deleteData);
+                    if (deleteData) {
+                        alert('Su cuenta ha sido eliminada');
+                        handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
+                    } 
+                    else alert('Usuario actualizado con éxito');
                 }
                 else {
                     setIsValidEmail(false);
