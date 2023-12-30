@@ -21,7 +21,7 @@ const validation = (newUsers) => {
 
     if (newUsers.firstName) {
         if (!regex.test(newUsers.firstName)) newErrors.firstName = 'No debe contener símbolos ni números';
-        else if (!regex1.test(newUsers.firstName)) newErrors.firstName = 'Debe ser una palabra o frase válida';
+        // else if (!regex1.test(newUsers.firstName)) newErrors.firstName = 'Debe ser una palabra o frase válida';
         // else if (!regex2.test(newUsers.firstName)) newErrors.firstName = 'La primer letra debe ser mayuscula';
         // else if (regex4.test(newUsers.firstName)) newErrors.firstName = 'Palabra repetida';
         else newErrors.firstName = '';
@@ -39,8 +39,8 @@ const validation = (newUsers) => {
         let string = newUsers.phoneNumber.toString()
         if (!regex3.test(newUsers.phoneNumber)) newErrors.phoneNumber = 'No debe contener letras !solo numeros';
         if (!regex6.test(newUsers.phoneNumber)) newErrors.phoneNumber = 'No debe contener simbolos !solo numeros';
-        else if (string.length > 21) newErrors.phoneNumber = 'Debe contener maximo 11 digitos';
-        else if (string.length < 5) newErrors.phoneNumber = 'Debe contener minimo 8 digitos';
+        else if (string.length > 21) newErrors.phoneNumber = 'Debe contener maximo 21 digitos';
+        else if (string.length < 5) newErrors.phoneNumber = 'Debe contener minimo 5 digitos';
         else newErrors.phoneNumber = '';
     } else newErrors.phoneNumber = 'Se requiere un numero de telefono';
 

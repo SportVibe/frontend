@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import styles from './EditUser.module.css';
 import ButtonComponent from '../../FilterBar/FilterBoxes/ButtonComponent/ButtonComponent';
+import axios from 'axios';
+import { API_URL } from '../../../helpers/config';
 
 function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit }) {
     const [containerHidden, setContainerHidden] = useState(true);
+    const [deleteHidden, setDeleteHidden] = useState(true);
+    const [password, setPassword] = useState({p1: '', p2: ''});
     let { externalSignIn, active, firstName, lastName, phoneNumber, address, city, country, zipCode, email, sendMailsActive } = editUserData ?? {};
     externalSignIn = externalSignIn ? externalSignIn : '';
     active = active ? active : '';
@@ -17,8 +21,14 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
     email = email ? email : '';
     sendMailsActive = sendMailsActive ? sendMailsActive : '';
 
-    function handleContainerHidden() {
-        setContainerHidden(!containerHidden);
+    function handleContainerHidden(e) {
+        const id = e.target.id;
+        if (id === 'changePassword') {
+            setContainerHidden(!containerHidden);
+        }
+        else {
+            setDeleteHidden(!deleteHidden);
+        }
     }
 
     function handleChangeInput(e) {
@@ -26,6 +36,24 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
         const value = e.target.value;
         setEditUserData({ ...editUserData, [id]: value })
         console.log({ ...editUserData, [id]: value });
+    }
+
+    function handlePasswordVerify(e) {
+        const id = e.target.id;
+        const value = e.target.value;
+        setPassword({ ...password, [id]: value });
+    }
+
+    async function handleDelete() {
+        if (password.p1 !== '' && password.p2 !== '' && password.p1 === password.p2) {
+            const { data } = await axios.post(`${API_URL}/login`, {email: email, password: password.p1});
+            if (data) { // Aquí es donde seteamos en false el borrado lógico para mandarlo al backend.
+                setEditUserData({ ...editUserData, active: false });
+                handleSubmit({ ...editUserData, active: false });
+            }
+            else alert('Contraseña inválida');
+        }
+        else alert('Las contraseñas no coinciden');
     }
 
     return (
@@ -61,7 +89,7 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                 }
                 {!externalSignIn &&
                     <div className={containerHidden ? styles.changePasswordHidden : styles.changePasswordContainer}>
-                        <p className={styles.p} onClick={handleContainerHidden}>Cambiar contraseña</p>
+                        <p className={styles.p} id='changePassword' onClick={handleContainerHidden}>Cambiar contraseña</p>
                         <div className={styles.inputPasswordContainer}>
                             <div className={styles.inputContainer}>
                                 <input type="password" autoComplete='off' placeholder='Contraseña actual' />
@@ -78,17 +106,17 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                 <div onClick={handleSubmit} className={styles.submitButtoncontainer}>
                     <ButtonComponent text={'Aplicar cambios'} />
                 </div>
-                <div className={containerHidden ? styles.deleteAcountHidden : styles.deleteAcountContainer}>
-                    <p className={styles.p} onClick={handleContainerHidden}>Eliminar cuenta</p>
+                <div className={deleteHidden ? styles.deleteAcountHidden : styles.deleteAcountContainer}>
+                    <p className={styles.p} id='deleteAcount' onClick={handleContainerHidden}>Eliminar cuenta</p>
                     <div className={styles.inputPasswordContainer}>
                         <p className={styles.BorrarCuentaP}>Para borrar su cuenta debe ingresar su contraseña</p>
                         <div className={styles.inputContainer}>
-                            <input type="password" autoComplete='off' placeholder='Contraseña' />
+                            <input id='p1' onChange={handlePasswordVerify} value={password.p1} type="password" autoComplete='off' placeholder='Contraseña' />
                         </div>
                         <div className={styles.inputContainer}>
-                            <input type="password" autoComplete='off' placeholder='Repita su contraseña' />
+                            <input id='p2' onChange={handlePasswordVerify} value={password.p2} type="password" autoComplete='off' placeholder='Repita su contraseña' />
                         </div>
-                        <div onClick={handleSubmit} className={styles.submitButtoncontainer}>
+                        <div onClick={handleDelete} className={styles.submitButtoncontainer}>
                             <ButtonComponent text={'Eliminar cuenta'} />
                         </div>
                     </div>

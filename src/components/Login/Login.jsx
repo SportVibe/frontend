@@ -52,9 +52,14 @@ const login = () => {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
         if (data) {
-          localStorage.setItem('currentUser', JSON.stringify(data));
-          dispatch(getCurrentUserAction(data));
-          navigate('/');
+          if (data.user.rol === 'admin') {
+            navigate('/dashboard');
+          }
+          else {
+            localStorage.setItem('currentUser', JSON.stringify(data));
+            dispatch(getCurrentUserAction(data));
+            navigate('/');
+          }
         }
       } catch (error) {
         console.error({ error: error.message });
