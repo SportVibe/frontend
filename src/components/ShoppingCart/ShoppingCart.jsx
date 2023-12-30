@@ -21,32 +21,36 @@ const ShoppingCart = () => {
   );
   const [localSubtotal, setLocalSubtotal] = useState(0);
 
+  const calculateLocalSubtotal = () => {
+    if (!cartItems || cartItems.length === 0) {
+      return 0;
+    }
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+
   useEffect(() => {
     const storedCart = localStorage.getItem('shoppingCart');
     if (userId) {
       dispatch(getShoppingCart(userId));
     } else if (storedCart) {
+      // Si no hay un usuario autenticado, carga el carrito desde localStorage
       dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
     }
   }, [dispatch, userId]);
 
   useEffect(() => {
-    const calculateLocalSubtotal = () => {
-      if (!cartItems || cartItems.length === 0) {
-        return 0;
-      }
-      return cartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      );
-    };
-
     const newSubtotal = calculateLocalSubtotal();
     if (newSubtotal !== localSubtotal) {
-      localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
       setLocalSubtotal(newSubtotal);
     }
   }, [cartItems, localSubtotal]);
+
+  useEffect(() => {
+    localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const handleQuantityChange = (productId, newQuantity) => {
     dispatch(updateCartItemQuantity(productId, newQuantity));
@@ -59,6 +63,8 @@ const ShoppingCart = () => {
   const handleGoToPayment = () => {
     navigate('/payment');
   };
+
+  console.log('Rendering ShoppingCart');
 
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
