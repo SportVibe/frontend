@@ -135,6 +135,10 @@ function UserProfile() {
                                 <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
+                            <div className={mainComponent === 'purchasesTable' ? styles.divSelected : styles.div} id='purchasesTable' onClick={handlerComponent}>
+                                <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
+                                <p id='purchasesTable' onClick={handlerComponent}>Mis órdenes</p>
+                            </div>
                             <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
                                 <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
