@@ -200,7 +200,7 @@ function UserForm() {
           {inputLastName && newErrors.lastName ? <p className="messError"> {newErrors.lastName}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
             <label className="label" htmlFor="">Número de teléfono </label>
-            <input className="input" type="number" min={5} max={20} name="phoneNumber" value={newUsers.phoneNumber} onChange={handleChange} />
+            <input className="input" type="number" name="phoneNumber" value={newUsers.phoneNumber} onChange={handleChange} />
           </div>
           {inputPhone && newErrors.phoneNumber ? <p className="messError"> {newErrors.phoneNumber}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
@@ -210,7 +210,7 @@ function UserForm() {
           {inputAddress && newErrors.address ? <p className="messError"> {newErrors.address}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
             <label className="label" htmlFor="">Código postal </label>
-            <input className="input" type="number" min={5} max={10} name="zipCode" value={newUsers.zipCode} onChange={handleChange} />
+            <input className="input" type="number" name="zipCode" value={newUsers.zipCode} onChange={handleChange} />
           </div>
           {inputZipCode && newErrors.zipCode ? <p className="messError"> {newErrors.zipCode}</p> : <p className="puntos">...</p>}
           <div className="contenedor2">
