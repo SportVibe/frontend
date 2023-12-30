@@ -8,9 +8,9 @@ import { API_URL } from "../../helpers/config";
 import styles from "./ProductDetail.module.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
-import imagen1 from "../../Images/Pinterest-logo.png";
-import imagen2 from "../../Images/754_facebook_icon.jpg";
-import imagen3 from "../../Images/pngtree-twitter-social-media-round-icon-png-image_6315985.png";
+import imagen1 from "../../Images/pinterest.png";
+import imagen2 from "../../Images/facebook.png";
+import imagen3 from "../../Images/twitter.png";
 
 const ProductDetail = () => {
   const { id } = useParams();
