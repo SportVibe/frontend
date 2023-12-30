@@ -157,8 +157,7 @@ function ProductUpdate({ data, setSelectedRow }) {
       <div className="d-flex px-5">
         <form className="d-flex flex-column">
           <div
-            className="form-group rounded-pill mt-2 d-flex justify-content-around align-items-center"
-            style={{ backgroundColor: "#BFC9CA" }}>
+            className="form-group rounded-pill bg-body-secondary mt-2 d-flex justify-content-around align-items-center">
             <label
               className="d-flex justify-content-center p-2"
               for="formGroupExampleInput">
