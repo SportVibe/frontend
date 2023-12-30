@@ -1,11 +1,12 @@
-import { useEffect, useState, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CartCards from './CartCards';
 import {
   deleteProductFromCart,
   updateCartItemQuantity,
   getShoppingCart,
-} from "../../redux/actions";
+} from '../../redux/actions';
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -21,11 +22,13 @@ const ShoppingCart = () => {
   const [localSubtotal, setLocalSubtotal] = useState(0);
 
   useEffect(() => {
+    const storedCart = localStorage.getItem('shoppingCart');
     if (userId) {
       dispatch(getShoppingCart(userId));
+    } else if (storedCart) {
+      dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
     }
   }, [dispatch, userId]);
-
 
   useEffect(() => {
     const calculateLocalSubtotal = () => {
@@ -40,6 +43,7 @@ const ShoppingCart = () => {
 
     const newSubtotal = calculateLocalSubtotal();
     if (newSubtotal !== localSubtotal) {
+      localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
       setLocalSubtotal(newSubtotal);
     }
   }, [cartItems, localSubtotal]);
@@ -53,7 +57,7 @@ const ShoppingCart = () => {
   };
 
   const handleGoToPayment = () => {
-    navigate("/payment");
+    navigate('/payment');
   };
 
   return (
@@ -63,50 +67,16 @@ const ShoppingCart = () => {
       {useMemo(
         () =>
           cartItems.map((item) => (
-            <div
+            <CartCards
               key={item.id}
-              className="card mb-3"
-              style={{ maxWidth: "540px" }}
-            >
-              <div className="row g-0">
-                <div className="col-md-4">
-                  <img
-                    src={item.images[0]} // Asegúrate de que esta propiedad esté presente en el objeto del carrito
-                    className="img-fluid rounded-start"
-                    alt={item.title}
-                  />
-                </div>
-                <div className="col-md-8">
-                  <div className="card-body">
-                    <h5 className="card-title">{item.title}</h5>
-                    <p className="card-text">ID: {item.id}</p>
-                    <p className="card-text">Size: {item.size}</p>
-                    <p className="card-text">Price: ${item.price}</p>
-                    <div className="input-group">
-                      <span className="input-group-text">Quantity:</span>
-                      <input
-                        type="number"
-                        className="form-control"
-                        value={item.quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(item.id, e.target.value)
-                        }
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className="btn btn-danger mt-2"
-                      onClick={() => handleRemoveFromCart(item.id)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+              item={item}
+              handleQuantityChange={handleQuantityChange}
+              handleRemoveFromCart={handleRemoveFromCart}
+            />
           )),
         [cartItems]
       )}
+
       <div className="d-flex flex-column align-items-center mt-3">
         <div>
           <p>Subtotal: ${localSubtotal}</p>
