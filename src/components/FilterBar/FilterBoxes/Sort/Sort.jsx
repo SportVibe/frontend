@@ -24,6 +24,7 @@ function Sort() {
             <select onChange={sortHandler} className={styles.selectSort}>
                 {/* <option value="1">Mas vendidos</option>
                 <option value="2">Menos vendidos</option> */}
+                <option value="">Opciones</option>
                 <option value="id_desc">Mas reciente</option>
                 <option value="id_asc">Menos reciente</option>
                 <option value="price_desc">Mayor precio</option>

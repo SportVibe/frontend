@@ -39,8 +39,8 @@ const validation = (newUsers) => {
         let string = newUsers.phoneNumber.toString()
         if (!regex3.test(newUsers.phoneNumber)) newErrors.phoneNumber = 'No debe contener letras !solo numeros';
         if (!regex6.test(newUsers.phoneNumber)) newErrors.phoneNumber = 'No debe contener simbolos !solo numeros';
-        else if (string.length > 12) newErrors.phoneNumber = 'Debe contener maximo 11 digitos';
-        else if (string.length < 8) newErrors.phoneNumber = 'Debe contener minimo 8 digitos';
+        else if (string.length > 21) newErrors.phoneNumber = 'Debe contener maximo 11 digitos';
+        else if (string.length < 5) newErrors.phoneNumber = 'Debe contener minimo 8 digitos';
         else newErrors.phoneNumber = '';
     } else newErrors.phoneNumber = 'Se requiere un numero de telefono';
 

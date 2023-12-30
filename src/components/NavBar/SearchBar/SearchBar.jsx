@@ -2,7 +2,7 @@ import styles from './SearchBar.module.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction } from '../../../redux/actions';
+import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts } from '../../../redux/actions';
 
 function SearchBar() {
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ function SearchBar() {
       dispatch(genreFilterAction([{ gender: '' }]));
       dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
       dispatch(priceFilterAction(['', '']));
+      dispatch(discountProducts([{ discount: 0 }]));
       dispatch(searchActivity(searchTerm));
 
       dispatch(getProducts(propertiesArray));

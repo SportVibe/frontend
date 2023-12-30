@@ -7,10 +7,10 @@ function CarouselCard({ productData }) {
     const discount = productData?.discount ? productData.discount : "";
     const Images = productData?.Images.length ? productData.Images : [''];
     const title = productData?.title ? productData.title : '';
-    let price = productData?.price ? Number(productData.price) : '';
-    price = (price / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    let newPrice = discount ? (price * (100 - Number(discount)) / 100) : '';
-    newPrice = (newPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    let currentPrice = productData?.price ? Number(productData.price) : '';
+    let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
+    currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function handleNavigate() {
         navigate(`/detail/${id}`);
@@ -23,8 +23,8 @@ function CarouselCard({ productData }) {
             </div>
             <p className={styles.nameAfter}>{title}</p>
             <p className={styles.discount}><span>-{discount}%</span></p>
-            {newPrice && <p className={styles.newPriceAfter}><span> $USD {newPrice}</span></p>}
-            <p className={styles.priceAfter}><span> $USD {price}</span> </p>
+            {currentPrice && <p className={styles.newPriceAfter}><span> $USD {currentPrice}</span></p>}
+            <p className={styles.priceAfter}><span> $USD {oldPrice}</span> </p>
         </div>
     );
 }
