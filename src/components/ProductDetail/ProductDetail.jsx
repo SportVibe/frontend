@@ -117,7 +117,7 @@ const ProductDetail = () => {
       addToCart({
         id: data.id,
         title: data.title,
-        price: data.price,
+        price: data.currentPrice,
         quantity,
         size: selectSize,
         color: selectColor,

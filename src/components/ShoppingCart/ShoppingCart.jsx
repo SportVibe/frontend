@@ -13,12 +13,17 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
 
   const userId = useSelector((state) => state.auth?.userId || null);
+
   const cartItems = useSelector(
     (state) => state.cart?.items || [],
-    (prev, next) =>
-      prev.length === next.length &&
-      prev.every((item, index) => item.id === next[index].id)
+    (prev, curr) =>
+      prev.length === curr.length &&
+      prev.every(
+        (item, index) =>
+          item.id === curr[index].id && item.quantity === curr[index].quantity
+      )
   );
+
   const [localSubtotal, setLocalSubtotal] = useState(0);
 
   const calculateLocalSubtotal = () => {
@@ -35,9 +40,10 @@ const ShoppingCart = () => {
     const storedCart = localStorage.getItem('shoppingCart');
     if (userId) {
       dispatch(getShoppingCart(userId));
-    } else if (storedCart) {
-      // Si no hay un usuario autenticado, carga el carrito desde localStorage
-      dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
+    } else {
+      if (storedCart) {
+        dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
+      }
     }
   }, [dispatch, userId]);
 
@@ -121,3 +127,4 @@ const ShoppingCart = () => {
 };
 
 export default ShoppingCart;
+
