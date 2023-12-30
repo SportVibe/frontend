@@ -1,10 +1,10 @@
 import styles from './Carousel2.module.css';
-import logoImage from '../../Images/Logo.jpg';
+// import logoImage from '../../Images/Logo.jpg';
 import CarouselCard from './CarouselCar/CarouselCard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
-import { discountProducts, genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction } from '../../redux/actions';
+import { discountProducts, genreFilterAction, getProducts, priceFilterAction, sortAction } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -60,7 +60,7 @@ function Carousel2() {
                             return (
                                 <div key={i} className={styles.imgContainer}>
                                     <div className={styles.img}>
-                                        <img src={logoImage} alt="" />
+                                        <img src="" alt="" />
                                     </div>
                                     <p className={styles.nameAfter}></p>
                                 </div>

@@ -5,7 +5,7 @@ function CarouselCard({ productData }) {
     const navigate = useNavigate();
     const id = productData?.id ? productData.id : "";
     const discount = productData?.discount ? productData.discount : "";
-    const Images = productData?.Images.length ? productData.Images : [''];
+    const images = productData?.Images.length ? productData.Images : [''];
     const title = productData?.title ? productData.title : '';
     let currentPrice = productData?.price ? Number(productData.price) : '';
     let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
@@ -19,7 +19,7 @@ function CarouselCard({ productData }) {
     return (
         <div onClick={handleNavigate} className={styles.imgContainer}>
             <div className={styles.img}>
-                <img src={Images[0].url}  alt=""/>
+                <img src={images[0].url}  alt=""/>
             </div>
             <p className={styles.nameAfter}>{title}</p>
             <p className={styles.discount}><span>-{discount}%</span></p>
