@@ -26,6 +26,7 @@ export const DELETE_MULTIPLE_PRODUCTS_FROM_CART = "DELETE_MULTIPLE_PRODUCTS_FROM
 export const CLEAR_SHOPPING_CART = "CLEAR_SHOPPING_CART";
 export const CAPTURE_ORDER = "CAPTURE_ORDER";
 export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
+export const QUANTITY__TOTAL_CART = "QUANTITY__TOTAL_CART";
 
 
 export const getProducts = (filters) => async (dispatch) => {
@@ -192,11 +193,17 @@ export const updateCartItemQuantity = (productId, newQuantity) => async (dispatc
   }
 };
 
-
 export const addToCart = (product) => async (dispatch) => {
   try {
-   
     dispatch({ type: ADD_TO_CART, payload: product });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const quantityCartAction = (total) => async (dispatch) => {
+  try {
+    dispatch({ type: QUANTITY__TOTAL_CART, payload: total });
   } catch (error) {
     console.error(error.message);
   }

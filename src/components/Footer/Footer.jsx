@@ -34,7 +34,6 @@ const Footer = () => (
                 target="_blank"
                 rel="noreferrer"
               >
-                ;
                 <img
                   src={image1}
                   alt=""

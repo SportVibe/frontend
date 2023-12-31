@@ -1,12 +1,40 @@
 import PropTypes from 'prop-types';
-const CartCards = ({ item, handleQuantityChange, handleRemoveFromCart }) => {
+import { useState } from 'react';
+import { quantityCartAction } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+const CartCards = ({ cartItems, setCartItems, item, handleRemoveFromCart, setReloadPage, reloadPage }) => {
+  const [quantity, setQuantity] = useState(item ? item.quantity : 0);
+  const productId = Number(item.id);
+  const dispatch = useDispatch();
+
+  const handleQuantityChange = (e) => {
+    // dispatch(updateCartItemQuantity(productId, newQuantity));
+    const newQuantity = e.target.value;
+    setQuantity(newQuantity);
+    let newTotalQuantity = 0;
+    const updateCart = cartItems?.map(product => {
+      if (Number(product.id) === Number(productId)) {
+        newTotalQuantity = newTotalQuantity + Number(newQuantity);
+        return {...product, quantity: newQuantity}
+      }
+      else {
+        newTotalQuantity = newTotalQuantity + Number(product.quantity);
+        return product;
+      } 
+    });
+    setCartItems(updateCart);
+    dispatch(quantityCartAction(newTotalQuantity));
+    localStorage.setItem("currentCart",JSON.stringify(updateCart));
+    setReloadPage(!reloadPage);
+  };
+
     return (
       <div className="card mb-3" style={{ maxWidth: '540px' }}>
         <div className="row g-0">
           <div className="col-md-4">
-            {item.images && item.images.length > 0 && (
+            {item.imagen1 && (
               <img
-                src={item.images[0]}
+                src={item.imagen1}
                 className="img-fluid rounded-start"
                 alt={item.title}
               />
@@ -22,9 +50,10 @@ const CartCards = ({ item, handleQuantityChange, handleRemoveFromCart }) => {
                 <span className="input-group-text">Quantity:</span>
                 <input
                   type="number"
+                  min={0}
                   className="form-control"
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                  value={quantity}
+                  onChange={(e) => handleQuantityChange(e)}
                 />
               </div>
               <button

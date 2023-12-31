@@ -3,13 +3,16 @@ import styles from './EditUser.module.css';
 import ButtonComponent from '../../FilterBar/FilterBoxes/ButtonComponent/ButtonComponent';
 import axios from 'axios';
 import { API_URL } from '../../../helpers/config';
+import { Await } from 'react-router-dom';
 
 function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit }) {
     const [containerHidden, setContainerHidden] = useState(true);
     const [deleteHidden, setDeleteHidden] = useState(true);
-    const [password, setPassword] = useState({p1: '', p2: ''});
-    let { externalSignIn, active, firstName, lastName, phoneNumber, address, city, country, zipCode, email, sendMailsActive } = editUserData ?? {};
+    const [password, setPassword] = useState({ p1: '', p2: '' });
+    const [newPassword, setNewPassword] = useState({ currentP: '', newP1: '', newP2: '' });
+    let { id, externalSignIn, active, firstName, lastName, phoneNumber, address, city, country, zipCode, email, sendMailsActive } = editUserData ?? {};
     externalSignIn = externalSignIn ? externalSignIn : '';
+    id = id ? id : '';
     active = active ? active : '';
     firstName = firstName ? firstName : '';
     lastName = lastName ? lastName : '';
@@ -44,26 +47,70 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
         setPassword({ ...password, [id]: value });
     }
 
+    function handleNewPassword(e) {
+        const id = e.target.id;
+        const value = e.target.value;
+        console.log(id, value);
+        setNewPassword({ ...newPassword, [id]: value });
+    }
+
+    async function handleChangePassword() {
+        try {
+            if (newPassword.newP1.trim() !== '' && newPassword.newP2.trim() !== '' && (newPassword.newP1.trim() === newPassword.newP2.trim())) {
+                if (newPassword.currentP.trim() !== '') {
+                    const { data } = await axios.post(`${API_URL}/login`, { email: email, password: newPassword.currentP });
+                    if (data) { // Aquí es donde seteamos en false el borrado lógico para mandarlo al backend.
+                        const response = await axios.put(`${API_URL}/user/${id}/password`, { currentPassword: newPassword.currentP, newPassword: newPassword.newP1 });
+                        if (response) {
+                            alert('Nueva contraseña creada con éxito');
+                            setNewPassword({ currentP: '', newP1: '', newP2: '' });
+                        }
+                        else {
+                            alert('Se produjo un error al cargar los datos');
+                            setNewPassword({ currentP: '', newP1: '', newP2: '' });
+                        }
+                    }
+                    else {
+                        setNewPassword({ currentP: '', newP1: '', newP2: '' });
+                        alert('Contraseña inválida');
+                    }
+                }
+                else {
+                    setNewPassword({ currentP: '', newP1: '', newP2: '' });
+                    alert('Debe completar los 3 campos');
+                }
+            }
+            else {
+                setNewPassword({ currentP: '', newP1: '', newP2: '' });
+                alert('Las contraseñas no coinciden');
+            }
+        } catch (error) {
+            console.error({ error: error.message });
+            setPassword({ currentP: '', newP1: '', newP2: '' });
+            alert('Contraseña inválida');
+        }
+    }
+
     async function handleDelete() {
         try {
             if (password.p1 !== '' && password.p2 !== '' && password.p1 === password.p2) {
-                const { data } = await axios.post(`${API_URL}/login`, {email: email, password: password.p1});
+                const { data } = await axios.post(`${API_URL}/login`, { email: email, password: password.p1 });
                 if (data) { // Aquí es donde seteamos en false el borrado lógico para mandarlo al backend.
                     setEditUserData({ ...editUserData, active: false });
                     handleSubmit({ ...editUserData, active: false });
                 }
                 else {
-                    setPassword({p1: '', p2: ''});
+                    setPassword({ p1: '', p2: '' });
                     alert('Contraseña inválida');
-                } 
+                }
             }
             else {
-                setPassword({p1: '', p2: ''});
+                setPassword({ p1: '', p2: '' });
                 alert('Las contraseñas no coinciden');
-            } 
+            }
         } catch (error) {
             console.error({ error: error.message });
-            setPassword({p1: '', p2: ''});
+            setPassword({ p1: '', p2: '' });
             alert('Contraseña inválida');
         }
     }
@@ -99,25 +146,28 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
                         {!isValidEmail && <p className={styles.invalidEmail}>Formato de correo incorrecto</p>}
                     </div>
                 }
+                <div onClick={() => handleSubmit(false)} className={styles.submitButtoncontainer}>
+                    <ButtonComponent text={'Guardar cambios'} />
+                </div>
                 {!externalSignIn &&
                     <div className={containerHidden ? styles.changePasswordHidden : styles.changePasswordContainer}>
                         <p className={styles.p} id='changePassword' onClick={handleContainerHidden}>Cambiar contraseña</p>
                         <div className={styles.inputPasswordContainer}>
                             <div className={styles.inputContainer}>
-                                <input type="password" autoComplete='off' placeholder='Contraseña actual' />
+                                <input value={newPassword.currentP} id='currentP' onChange={handleNewPassword} type="password" autoComplete='off' placeholder='Contraseña actual' />
                             </div>
                             <div className={styles.inputContainer}>
-                                <input type="password" autoComplete='off' placeholder='Nueva contraseña' />
+                                <input value={newPassword.newP1} id='newP1' onChange={handleNewPassword} type="password" autoComplete='off' placeholder='Nueva contraseña' />
                             </div>
                             <div className={styles.inputContainer}>
-                                <input type="password" autoComplete='off' placeholder='Repita su nueva contraseña' />
+                                <input value={newPassword.newP2} id='newP2' onChange={handleNewPassword} type="password" autoComplete='off' placeholder='Repita su nueva contraseña' />
+                            </div>
+                            <div onClick={handleChangePassword} className={styles.submitButtoncontainer}>
+                                <ButtonComponent text={'Cambiar contraseña'} />
                             </div>
                         </div>
                     </div>
                 }
-                <div onClick={handleSubmit} className={styles.submitButtoncontainer}>
-                    <ButtonComponent text={'Aplicar cambios'} />
-                </div>
                 <div className={deleteHidden ? styles.deleteAcountHidden : styles.deleteAcountContainer}>
                     <p className={styles.p} id='deleteAcount' onClick={handleContainerHidden}>Eliminar cuenta</p>
                     <div className={styles.inputPasswordContainer}>

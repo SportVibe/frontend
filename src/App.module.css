@@ -1,5 +1,7 @@
 :root {
     --categoryBar-height: 55px;
+    --navBar-height: 60px;
+    --navBarDropDown-height: 65px;
     --font-color-hard: rgb(4, 26, 37);
     --oldPrice-color: rgb(205, 87, 87);
     --newPrice-color: green;
@@ -32,6 +34,7 @@
 /* NAV BAR */
 .navBarContainer {
     position: sticky;
+    /* position: fixed; */
     top: 0;
     left: 0;
     z-index: 200;

@@ -13,7 +13,8 @@ import {
   GENRES_FILTER,
   USER_LOGIN,
   GET_CURRENT_USER,
-  DISCOUNT_PRODUCTS
+  DISCOUNT_PRODUCTS,
+  QUANTITY__TOTAL_CART
 } from "./actions";
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   error: null,
   currentPage: 1,
   limitPage: 20,
+  totalCartQuantity: 0
 };
 
 const productReducer = (state = initialState, action) => {
@@ -71,13 +73,13 @@ const productReducer = (state = initialState, action) => {
         ...state,
         responsiveNavBar: action.payload,
       };
-      case GET_PRODUCTS:
-        return {
-          ...state,
-          products: action.payload,
-          productsBackup: action.payload,
-          error: null,
-        };
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        productsBackup: action.payload,
+        error: null,
+      };
     case GET_PRODUCTS_SUCCESS:
       return {
         ...state,
@@ -125,6 +127,11 @@ const productReducer = (state = initialState, action) => {
       };
     default:
       return state;
+    case QUANTITY__TOTAL_CART:
+      return {
+        ...state,
+        totalCartQuantity: Number(action.payload),
+      };
   }
 };
 

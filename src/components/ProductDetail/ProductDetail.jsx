@@ -6,8 +6,8 @@ import Loading from "../loading/Loading";
 import Carousel2 from "../Carousel2/Carousel2";
 import { API_URL } from "../../helpers/config";
 import styles from "./ProductDetail.module.css";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, quantityCartAction } from "../../redux/actions";
 import imagen1 from "../../Images/Pinterest-logo.png";
 import imagen2 from "../../Images/754_facebook_icon.jpg";
 import imagen3 from "../../Images/pngtree-twitter-social-media-round-icon-png-image_6315985.png";
@@ -15,6 +15,7 @@ import imagen3 from "../../Images/pngtree-twitter-social-media-round-icon-png-im
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const [reloadPage, setReloadPage] = useState(false);
   const [data, setData] = useState(null);
   const [storageCart, setStorageCart] = useState([]);
@@ -25,17 +26,6 @@ const ProductDetail = () => {
   const [selectedShipping, setSelectedShipping] = useState("standard");
   const [showShippingInfo, setShowShippingInfo] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/detail/${id}`)
-      .then(({ data }) => {
-        setData(data.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching product details:", error);
-      });
-  }, [id]);
 
   const handleColorSelection = (color) => {
     setSelectColor(color);
@@ -67,69 +57,79 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
+    let newItem = {};
     let repeat = false;
-    const updateLocalStorageCart = storageCart.map((object) => {
-      if (
-        object.id === id &&
-        object.size === selectSize &&
-        object.color === selectColor
-      ) {
-        const newQuantity = Number(object.quantity) + Number(quantity);
-        repeat = true;
-        return { ...object, quantity: newQuantity };
-      } else return object;
-    });
-  
-    if (repeat) {
-      localStorage.setItem(
-        "currentCart",
-        JSON.stringify(updateLocalStorageCart)
-      );
-    } else {
-      const selectedStock = data.Stocks.find(
-        (stock) => Object.keys(stock)[0] === selectSize
-      );
-      const availableQuantity = selectedStock ? selectedStock[selectSize] : 0;
-  
-      if (quantity > availableQuantity) {
-        return;
+    const selectedStock = data.Stocks.find(
+      (stock) => {
+        const size = Object.keys(stock)[0];
+        return size === selectSize && quantity <= stock[size];
       }
-  
-      const newItem = {
-        id: data.id,
-        title: data.title,
-        imagen1: data.Images[0], 
-        quantity,
-        size: selectSize,
-        price: data.price,
-        color: selectColor,
-        
-      };
-  
-      setStorageCart([...storageCart, newItem]);
-      localStorage.setItem(
-        "currentCart",
-        JSON.stringify([...storageCart, newItem])
-      );
-    }
-  
-    dispatch(
-      addToCart({
-        id: data.id,
-        title: data.title,
-        price: data.price,
-        quantity,
-        size: selectSize,
-        color: selectColor,
-        
-      })
     );
-  
-    console.log('Cart Items:', storageCart);
-    navigate("/shoppingcart");
-    setReloadPage(!reloadPage);
-    return setReloadPage(!reloadPage);
+    if (selectedStock) {
+      if (!storageCart.length) {
+        newItem = {
+          id,
+          title: data.title,
+          imagen1: data.Images[0],
+          quantity,
+          size: selectSize,
+          price: data.price,
+        };
+        localStorage.setItem(
+          "currentCart",
+          JSON.stringify([newItem])
+        );
+        const newTotalQuantity = totalCartQuantity + Number(newItem.quantity);
+        dispatch(quantityCartAction(newTotalQuantity));
+        dispatch(addToCart(newItem));
+        setReloadPage(!reloadPage);
+        navigate("/shoppingcart");
+      }
+      else {
+        let updateLocalStorageCart = storageCart.map((object) => {
+          if (Number(object.id) === Number(id) && object.size === selectSize) {
+            repeat = true;
+            const newQuantity = Number(object.quantity) + Number(quantity);
+            setStorageCart({ ...object, quantity: newQuantity });
+            dispatch(addToCart({ ...object, quantity: newQuantity }));
+            const newTotalQuantity = totalCartQuantity + newQuantity;
+            dispatch(quantityCartAction(newTotalQuantity));
+            return { ...object, quantity: newQuantity };
+          }
+          else {
+            const newTotalQuantity = totalCartQuantity + Number(object.quantity);
+            dispatch(quantityCartAction(newTotalQuantity));
+            return object;
+          }
+        });
+        if (!repeat) {
+          newItem = {
+            id,
+            title: data.title,
+            imagen1: data.Images[0],
+            quantity,
+            size: selectSize,
+            price: data.price,
+          };
+          const newTotalQuantity = totalCartQuantity + Number(newItem.quantity);
+          dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
+          setStorageCart([...storageCart, newItem]);
+          dispatch(addToCart(newItem));
+          updateLocalStorageCart = [...updateLocalStorageCart, newItem];
+        }
+        localStorage.setItem(
+          "currentCart",
+          JSON.stringify(updateLocalStorageCart)
+        );
+        setReloadPage(!reloadPage);
+        // navigate("/shoppingcart");
+      }
+    }
+    else {
+      alert('No hay stock del producto en esa talla')
+    }
   };
+
   const handleShippingSelection = (option) => {
     setSelectedShipping(option);
   };
@@ -137,7 +137,7 @@ const ProductDetail = () => {
   const handleShareOnFacebook = () => {
     window.open(
       "https://www.facebook.com/sharer/sharer.php?u=" +
-        encodeURIComponent(window.location.href),
+      encodeURIComponent(window.location.href),
       "_blank"
     );
   };
@@ -145,7 +145,7 @@ const ProductDetail = () => {
   const handleShareOnTwitter = () => {
     window.open(
       "https://twitter.com/intent/tweet?url=" +
-        encodeURIComponent(window.location.href),
+      encodeURIComponent(window.location.href),
       "_blank"
     );
   };
@@ -153,19 +153,30 @@ const ProductDetail = () => {
   const handlePinOnPinterest = () => {
     window.open(
       "https://pinterest.com/pin/create/button/?url=" +
-        encodeURIComponent(window.location.href) +
-        "&media=" +
-        encodeURIComponent(data.Images[0]) +
-        "&description=" +
-        encodeURIComponent(data.title),
+      encodeURIComponent(window.location.href) +
+      "&media=" +
+      encodeURIComponent(data.Images[0]) +
+      "&description=" +
+      encodeURIComponent(data.title),
       "_blank"
     );
   };
 
   useEffect(() => {
+    axios
+      .get(`${API_URL}/detail/${id}`)
+      .then(({ data }) => {
+        setData(data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching product details:", error);
+      });
+  }, [id]);
+
+  useEffect(() => {
     window.scrollTo(0, 0);
     initialStorageCart();
-  }, [reloadPage]);
+  }, [reloadPage]); // para recuperar el carrito del localStorage cada vez que se actualice.
 
   return (
     <div className={styles.conteinerDetail}>
@@ -239,9 +250,8 @@ const ProductDetail = () => {
                 <button onClick={() => setShowShippingInfo(!showShippingInfo)}>
                   Envíos y Devoluciones
                   <i
-                    className={`bi bi-chevron-${
-                      showShippingInfo ? "up" : "down"
-                    }`}
+                    className={`bi bi-chevron-${showShippingInfo ? "up" : "down"
+                      }`}
                   />
                 </button>
               </div>
