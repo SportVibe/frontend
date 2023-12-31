@@ -40,7 +40,7 @@ import ProductUpdate from "./components/ProductUpdate/ProductUpdate";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "./helpers/config";
-import { getCurrentUserAction } from "./redux/actions";
+import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -65,12 +65,32 @@ function App() {
     }
   }
 
+  const initialStorageCart = async () => {
+    try {
+      let newTotalQuantity = 0;
+      setLoading(true);
+      const cartDataStorage = await getLocalStorageData("currentCart");
+      setLoading(false);
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      if (parseCartDataStorage) {
+        parseCartDataStorage.map(product => {
+          newTotalQuantity = newTotalQuantity + Number(product.quantity);
+        });
+        dispatch(quantityCartAction(newTotalQuantity));
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error({ error: error.message });
+    }
+  };
+
   useEffect(() => {
     handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    initialStorageCart();
   }, [location.pathname]);
 
   if (loading) {

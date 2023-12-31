@@ -17,11 +17,13 @@ import {
   priceFilterAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
+import getLocalStorageData from '../../utils/getLocalStorage';
 
 function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
   // const storageData = window.localStorage.getItem('currentUser');
   // const userData = storageData ? JSON.parse(storageData) : null;
@@ -99,11 +101,11 @@ function NavBar() {
               <p id='/about' onClick={handleNavigate}>{t('translation.about')}</p>
             </div>
 
-            <div id='/shoppingcart' onClick={handleNavigate}>
+            <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
               <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
-              <div className={styles.cartNumber}>
-                <p>77</p>
+              <div id='/shoppingcart' className={styles.cartNumber}>
+                <p id='/shoppingcart'>{totalCartQuantity}</p>
               </div>
             </div>
 

@@ -41,16 +41,16 @@ function UserProfile() {
     }
     const [editUserData, setEditUserData] = useState(userDataRender);
 
-    async function handleSubmit(deleteData = null) {
+    async function handleSubmit(deleteData) {
+        console.log(deleteData);
         try {
             let editData = deleteData ? deleteData : editUserData; // si la data llega por parámetro, es porque estámos eliminando la cuenta.
-            if (!editData.firstName.trim().length) alert('FirstName no puede estar vacío');
+            if (editData && !editData.firstName.trim().length) alert('FirstName no puede estar vacío');
             else {
                 if (emailRegex.test(editData.email)) {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editData);
                     setIsValidEmail(true);
                     console.log(data);
-                    console.log(deleteData);
                     if (deleteData) {
                         alert('Su cuenta ha sido eliminada');
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
@@ -144,17 +144,14 @@ function UserProfile() {
                                 <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
-                            <hr />
                             <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
                                 <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
                                 <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
                             </div>
-                            <hr />
                             <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
                                 <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
                             </div>
-                            <hr />
                             <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
                                 <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
                                 <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
@@ -168,7 +165,7 @@ function UserProfile() {
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
-                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={handleSubmit} />
+                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
                             </div>}
                     </div>
                 </div>

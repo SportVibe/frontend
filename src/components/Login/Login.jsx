@@ -66,7 +66,13 @@ const login = () => {
             navigate('/');
           }
         }
+        else {
+          alert ('El usuario o la contraseña no son válidos');
+          setUser({...username, password: ''});
+        }
       } catch (error) {
+        alert ('El usuario o la contraseña no son válidos');
+        setUser({...username, password: ''});
         console.error({ error: error.message });
       }
     }
