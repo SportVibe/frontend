@@ -39,9 +39,10 @@ const ShoppingCart = () => {
     const storedCart = localStorage.getItem('shoppingCart');
     if (userId) {
       dispatch(getShoppingCart(userId));
-    } else if (storedCart) {
-      // Si no hay un usuario autenticado, carga el carrito desde localStorage
-      dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
+    } else {
+      if (storedCart) {
+        dispatch({ type: 'SET_CART', payload: JSON.parse(storedCart) });
+      }
     }
   }, [dispatch, userId]);
 
@@ -150,3 +151,4 @@ const ShoppingCart = () => {
 };
 
 export default ShoppingCart;
+

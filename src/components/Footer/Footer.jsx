@@ -1,8 +1,10 @@
 import styles from "./Footer.module.css";
 import React from "react";
 import logoSportVibe from "../../Images/Logo.jpg";
-import image1 from "../../Images/606_instagram.jpg";
-import image2 from "../../Images/754_facebook_icon.jpg";
+import image1 from "../../Images/instagram.png";
+import image2 from "../../Images/facebook.png";
+import image3 from "../../Images/apoyo-tecnico.png";
+
 
 const Footer = () => (
   <footer className="page-footer font-small blue pt-4">
@@ -21,8 +23,8 @@ const Footer = () => (
                   src={image2}
                   alt=""
                   style={{
-                    width: "60px",
-                    height: "40px",
+                    width: "40px",
+                    height: "35px",
                     marginBottom: "10px",
                   }}
                 />
@@ -37,7 +39,11 @@ const Footer = () => (
                 <img
                   src={image1}
                   alt=""
-                  style={{ width: "60px", height: "40px" ,  marginBottom: "10px" }}
+                  style={{
+                    width: "40px",
+                    height: "35px",
+                    marginBottom: "10px",
+                  }}
                 />{" "}
               </a>
             </li>
@@ -86,6 +92,15 @@ const Footer = () => (
         <div className="col-md-3 mb-md-0 mb-3">
           <h5 className="text-uppercase">Centro de Atencion al Cliente</h5>
           <ul className="list-unstyled">
+          <img
+                  src={image3}
+                  alt=""
+                  style={{
+                    width: "40px",
+                    height: "35px",
+                    marginBottom: "10px",
+                  }}
+                />
             <li>
               <a>Lunes a Viernes de 9 a 20 hs / Sábado de 9 a 17 hs</a>
             </li>
