@@ -17,15 +17,15 @@ const ShoppingCart = () => {
 
   const userId = useSelector((state) => state.auth?.userId || null);
   const [reloadPage, setReloadPage] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(null);
   const [localSubtotal, setLocalSubtotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const calculateLocalSubtotal = () => {
-    if (!cartItems || cartItems.length === 0) {
+    if (!cartItems || cartItems.cart.length === 0) {
       return 0;
     }
-    return cartItems.reduce(
+    return cartItems.cart.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
@@ -53,9 +53,9 @@ const ShoppingCart = () => {
     }
   }, [cartItems, localSubtotal]);
 
-  useEffect(() => {
-    localStorage.setItem('shoppingCart', JSON.stringify(cartItems));
-  }, [cartItems]);
+/*   useEffect(() => {
+    localStorage.setItem('currentCart', JSON.stringify(cartItems));
+  }, [cartItems]); */
 
   useEffect(() => {
     initialStorageCart();
@@ -67,7 +67,6 @@ const ShoppingCart = () => {
       const cartDataStorage = await getLocalStorageData("currentCart");
       setLoading(false);
       const parseCartDataStorage = JSON.parse(cartDataStorage);
-      console.log(cartDataStorage);
       parseCartDataStorage && setCartItems(parseCartDataStorage);
     } catch (error) {
       setLoading(false);
@@ -78,14 +77,14 @@ const ShoppingCart = () => {
   const handleRemoveFromCart = (productId) => {
     // dispatch(deleteProductFromCart(productId));
     let newTotalQuantity = 0;
-    const updateCart = cartItems.filter(product => {
+    const updateCart = cartItems.cart.filter(product => {
       if (Number(product.id) !== Number(productId)) {
         newTotalQuantity = newTotalQuantity + Number(product.quantity);
       }
       return Number(product.id) !== Number(productId);
     });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
-    localStorage.setItem("currentCart", JSON.stringify(updateCart));
+    localStorage.setItem("currentCart", JSON.stringify({userId: userId, cart: updateCart}));
     setReloadPage(!reloadPage); // para estar recuperando el carrito del localStorage cada vez que se actualice.
   };
 
@@ -100,11 +99,12 @@ const ShoppingCart = () => {
 
       {useMemo(
         () =>
-          cartItems?.map((item) => (
+          cartItems?.cart.map((item) => (
             <CartCards
+            userId={userId}
               key={item.id}
               item={item}
-              cartItems={cartItems}
+              cartItems={cartItems.cart}
               setCartItems={setCartItems}
               handleRemoveFromCart={handleRemoveFromCart}
               reloadPage={reloadPage}

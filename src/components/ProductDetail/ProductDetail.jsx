@@ -8,17 +8,19 @@ import { API_URL } from "../../helpers/config";
 import styles from "./ProductDetail.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, quantityCartAction } from "../../redux/actions";
-import imagen1 from "../../Images/Pinterest-logo.png";
-import imagen2 from "../../Images/754_facebook_icon.jpg";
-import imagen3 from "../../Images/pngtree-twitter-social-media-round-icon-png-image_6315985.png";
+import imagen1 from "../../Images/pinterest.png";
+import imagen2 from "../../Images/facebook.png";
+import imagen3 from "../../Images/twitter.png";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const currentUserData = useSelector((state) => state.currentUserData);
+  const userId = currentUserData ? currentUserData.id : null;
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const [reloadPage, setReloadPage] = useState(false);
   const [data, setData] = useState(null);
-  const [storageCart, setStorageCart] = useState([]);
+  const [storageCart, setStorageCart] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [selectColor, setSelectColor] = useState();
@@ -66,7 +68,7 @@ const ProductDetail = () => {
       }
     );
     if (selectedStock) {
-      if (!storageCart.length) {
+      if (!storageCart) {
         newItem = {
           id,
           title: data.title,
@@ -77,28 +79,27 @@ const ProductDetail = () => {
         };
         localStorage.setItem(
           "currentCart",
-          JSON.stringify([newItem])
+          JSON.stringify({userId: userId, cart: [newItem]})
         );
-        const newTotalQuantity = totalCartQuantity + Number(newItem.quantity);
+        const newTotalQuantity = Number(quantity);
         dispatch(quantityCartAction(newTotalQuantity));
         dispatch(addToCart(newItem));
         setReloadPage(!reloadPage);
-        navigate("/shoppingcart");
+        // navigate("/shoppingcart");
       }
       else {
-        let updateLocalStorageCart = storageCart.map((object) => {
+        let newTotalQuantity = 0;
+        let updateLocalStorageCart = storageCart.cart.map((object) => {
           if (Number(object.id) === Number(id) && object.size === selectSize) {
             repeat = true;
-            const newQuantity = Number(object.quantity) + Number(quantity);
-            setStorageCart({ ...object, quantity: newQuantity });
-            dispatch(addToCart({ ...object, quantity: newQuantity }));
-            const newTotalQuantity = totalCartQuantity + newQuantity;
-            dispatch(quantityCartAction(newTotalQuantity));
-            return { ...object, quantity: newQuantity };
+            newTotalQuantity = newTotalQuantity + Number(object.quantity) + Number(quantity);
+            const newProductQuantity = Number(object.quantity) + Number(quantity);
+            setStorageCart({ ...object, quantity: newProductQuantity });
+            dispatch(addToCart({ ...object, quantity: newProductQuantity }));
+            return { ...object, quantity: newProductQuantity };
           }
           else {
-            const newTotalQuantity = totalCartQuantity + Number(object.quantity);
-            dispatch(quantityCartAction(newTotalQuantity));
+            newTotalQuantity = newTotalQuantity + Number(object.quantity);
             return object;
           }
         });
@@ -111,17 +112,17 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
-          const newTotalQuantity = totalCartQuantity + Number(newItem.quantity);
-          dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
-          setStorageCart([...storageCart, newItem]);
+          newTotalQuantity = newTotalQuantity + Number(quantity);
+          setStorageCart([...storageCart.cart, newItem]);
           dispatch(addToCart(newItem));
           updateLocalStorageCart = [...updateLocalStorageCart, newItem];
         }
         localStorage.setItem(
           "currentCart",
-          JSON.stringify(updateLocalStorageCart)
+          JSON.stringify({userId: userId, cart: updateLocalStorageCart})
         );
         setReloadPage(!reloadPage);
+        dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
         // navigate("/shoppingcart");
       }
     }

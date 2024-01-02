@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { quantityCartAction } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
-const CartCards = ({ cartItems, setCartItems, item, handleRemoveFromCart, setReloadPage, reloadPage }) => {
+const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart, setReloadPage, reloadPage }) => {
   const [quantity, setQuantity] = useState(item ? item.quantity : 0);
   const productId = Number(item.id);
+  const productSize = item.size.toString();
   const dispatch = useDispatch();
 
   const handleQuantityChange = (e) => {
@@ -13,7 +14,7 @@ const CartCards = ({ cartItems, setCartItems, item, handleRemoveFromCart, setRel
     setQuantity(newQuantity);
     let newTotalQuantity = 0;
     const updateCart = cartItems?.map(product => {
-      if (Number(product.id) === Number(productId)) {
+      if (Number(product.id) === Number(productId) && product.size === productSize) {
         newTotalQuantity = newTotalQuantity + Number(newQuantity);
         return {...product, quantity: newQuantity}
       }
@@ -22,9 +23,9 @@ const CartCards = ({ cartItems, setCartItems, item, handleRemoveFromCart, setRel
         return product;
       } 
     });
-    setCartItems(updateCart);
+    setCartItems({userId: userId, cart: updateCart});
     dispatch(quantityCartAction(newTotalQuantity));
-    localStorage.setItem("currentCart",JSON.stringify(updateCart));
+    localStorage.setItem("currentCart",JSON.stringify({userId: userId, cart: updateCart}));
     setReloadPage(!reloadPage);
   };
 
