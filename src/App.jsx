@@ -73,7 +73,7 @@ function App() {
       setLoading(false);
       const parseCartDataStorage = JSON.parse(cartDataStorage);
       if (parseCartDataStorage) {
-        parseCartDataStorage.map(product => {
+        parseCartDataStorage?.cart.map(product => {
           newTotalQuantity = newTotalQuantity + Number(product.quantity);
         });
         dispatch(quantityCartAction(newTotalQuantity));
