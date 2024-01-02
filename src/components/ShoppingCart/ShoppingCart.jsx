@@ -74,14 +74,14 @@ const ShoppingCart = () => {
     }
   };
 
-  const handleRemoveFromCart = (productId) => {
+  const handleRemoveFromCart = (productId, productSize) => {
     // dispatch(deleteProductFromCart(productId));
     let newTotalQuantity = 0;
     const updateCart = cartItems.cart.filter(product => {
-      if (Number(product.id) !== Number(productId)) {
+      if (Number(product.id) === Number(productId)) {
         newTotalQuantity = newTotalQuantity + Number(product.quantity);
       }
-      return Number(product.id) !== Number(productId);
+      return (Number(product.id) === Number(productId)) && (product.size !== productSize.toString());
     });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
     localStorage.setItem("currentCart", JSON.stringify({userId: userId, cart: updateCart}));
