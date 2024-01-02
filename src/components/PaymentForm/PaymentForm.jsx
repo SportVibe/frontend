@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import validate from './Validationpayment';
 import { API_URL } from '../../helpers/config';
 import styles from './PaymentForm.module.css';
+import getLocalStorageData from '../../utils/getLocalStorage';
 
 const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [cartItems, setCartItems] = useState(null);
+  const [userItems, setUserItems] = useState(null);
   const [form, setForm] = useState({
     country: '',
     address: '',
@@ -38,14 +41,23 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
       setErrors(validationErrors);
       return;
     }
+    let sumaTotal = 0;
+    cartItems.cart.forEach(product => {
+      sumaTotal = sumaTotal + (product.price * product.quantity);
+    })
+    /* console.log({
+      userId: userItems.user.id,
+      ShoppingCartId: userItems.user.cartId,
+      total: sumaTotal,
+      shippingInfo: form,
+    }); */
 
     try {
       setIsLoading(true);
-
       const response = await axios.post(`${API_URL}/create-order`, {
-        userId,
-        shoppingCartId,
-        total,
+        userId: userItems.user.id,
+        ShoppingCartId: userItems.user.cartId,
+        total: sumaTotal,
         shippingInfo: form,
       });
 
@@ -56,6 +68,23 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
       setIsLoading(false);
     }
   };
+
+const initialStorageCart = async () => {
+  try {
+    const cartDataStorage = await getLocalStorageData("currentCart");
+    const userDataStorage = await getLocalStorageData("currentUser");
+    const parseCartDataStorage = JSON.parse(cartDataStorage);
+    const parseUserDataStorage = JSON.parse(userDataStorage);
+    parseCartDataStorage && setCartItems(parseCartDataStorage);
+    parseUserDataStorage && setUserItems(parseUserDataStorage);
+  } catch (error) {
+    console.error({ error: error.message });
+  }
+};
+
+useEffect(() => {
+  initialStorageCart();
+}, []);
 
   return (
     <div className={styles.container}>
@@ -82,7 +111,7 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
         <div className={styles.orderDetails}>
           <h3>Detalles del Pedido</h3>
           <ul>
-            {propCartItems.map((item) => (
+            {propCartItems?.map((item) => (
               <li key={item.id}>
                 <strong>ID:</strong> {item.id}<br />
                 <strong>Título:</strong> {item.title}<br />
