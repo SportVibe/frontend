@@ -2,9 +2,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import validate from './Validationpayment';
 import { API_URL } from '../../helpers/config';
+import styles from './PaymentForm.module.css';
 
-
-const PaymentForm = ({ userId, total, shoppingCartId }) => {
+const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     country: '',
@@ -14,6 +14,7 @@ const PaymentForm = ({ userId, total, shoppingCartId }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [localCartItems, setLocalCartItems] = useState([]);
 
   const handleChange = (e) => {
     setForm({
@@ -45,10 +46,9 @@ const PaymentForm = ({ userId, total, shoppingCartId }) => {
         userId,
         shoppingCartId,
         total,
-        shippingInfo: form, 
+        shippingInfo: form,
       });
 
-      
       window.location.href = response.data.orderUrl;
     } catch (error) {
       console.error('Error al crear la orden en PayPal:', error);
@@ -58,27 +58,43 @@ const PaymentForm = ({ userId, total, shoppingCartId }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Detalles de Pago</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="country">País</label>
+        <div className={`form-group ${styles.formGroup}`}>
+          <label htmlFor="country" className={styles.label}>
+            País
+          </label>
           <select
             id="country"
             name="country"
             value={form.country}
             onChange={handleChange}
-            className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+            className={`form-control ${styles.input} ${errors.country ? 'is-invalid' : ''}`}
           >
             <option value="">Selecciona un país</option>
             <option value="Colombia">Colombia</option>
             <option value="Chile">Chile</option>
             <option value="Argentina">Argentina</option>
           </select>
-          {errors.country && <div className="invalid-feedback">{errors.country}</div>}
+          {errors.country && <div className={`invalid-feedback ${styles.invalidFeedback}`}>{errors.country}</div>}
+        </div>
+        <div className={styles.orderDetails}>
+          <h3>Detalles del Pedido</h3>
+          <ul>
+            {propCartItems.map((item) => (
+              <li key={item.id}>
+                <strong>ID:</strong> {item.id}<br />
+                <strong>Título:</strong> {item.title}<br />
+                <strong>Cantidad:</strong> {item.quantity}<br />
+                <strong>Tamaño:</strong> {item.size}<br />
+                <strong>Precio:</strong> ${item.price}<br />
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <button type="submit" disabled={isLoading}>
+        <button type="submit" disabled={isLoading} className={`btn btn-primary ${styles.btn}`}>
           {isLoading ? 'Procesando...' : 'Ir a Pagar con PayPal'}
         </button>
       </form>
