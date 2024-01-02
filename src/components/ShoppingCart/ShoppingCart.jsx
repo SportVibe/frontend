@@ -67,6 +67,7 @@ const ShoppingCart = () => {
       const cartDataStorage = await getLocalStorageData("currentCart");
       setLoading(false);
       const parseCartDataStorage = JSON.parse(cartDataStorage);
+      console.log(cartDataStorage);
       parseCartDataStorage && setCartItems(parseCartDataStorage);
     } catch (error) {
       setLoading(false);

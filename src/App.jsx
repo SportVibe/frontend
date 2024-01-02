@@ -85,11 +85,8 @@ function App() {
   };
 
   useEffect(() => {
-    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
-  }, []);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
+    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
     initialStorageCart();
   }, [location.pathname]);
 
