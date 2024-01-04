@@ -12,10 +12,10 @@ function CardTeam({ name, image, description, linkedin, github }) {
         <Card.Text>{description}</Card.Text>
       </Card.Body>
       <Card.Body className={styles.socialLinks}>
-        <Card.Link href={linkedin} target="_blank" rel="noopener noreferrer">
+        <Card.Link className="text-decoration-none" href={linkedin} target="_blank" rel="noopener noreferrer">
           LinkedIn
         </Card.Link>
-        <Card.Link href={github} target="_blank" rel="noopener noreferrer">
+        <Card.Link className="text-decoration-none" href={github} target="_blank" rel="noopener noreferrer">
           GitHub
         </Card.Link>
       </Card.Body>
