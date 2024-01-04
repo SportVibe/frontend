@@ -1,32 +1,60 @@
-
-
-
-
-.imageContainer {
-  border-radius: 50%;
-  overflow: hidden;
+.teamCard {
+  width: 18rem;
+  margin: 30px;
+  text-align: center;
   transition: 0.3s ease;
-  flex-wrap: wrap;
-  gap: 10px;
-  cursor: pointer;
-  object-fit: cover;
-  flex-grow: 1;
-
-  &:hover {
-    opacity: 0.8;
-
-    & img {
-      scale: 1.1;
-      transition: 0.3s ease-in-out;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  overflow: hidden;
+  position: relative; 
 }
 
+.teamCard:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-image: url('../../../Images/colores.jpg'); 
+  background-size: cover;
+  border-radius: 5px 5px 0 0; 
+  opacity: 0; 
+  transition: opacity 0.3s ease;
+}
 
+.teamCard:hover:before {
+  opacity: 1; 
+}
+.teamCard:hover {
+  transform: scale(1.05);
+}
 
-.listGroupItem {
+.imageContainer {
+  border-radius: 100%;
+  overflow: hidden;
+  margin: 5px;
+  transition: 0.2s ease;
+}
+
+.teamCard:hover .imageContainer {
+  border-radius: 50%; 
+}
+
+.imageContainer img {
+  object-fit: cover;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.teamCard:hover img {
+  transform: scale(1.1); 
+}
+
+.socialLinks {
   display: flex;
-  justify-content: space-between;
-  list-style: none;
-  margin-bottom: 20px;
+  justify-content: space-around;
+  margin-top: 15px;
+  
 }
