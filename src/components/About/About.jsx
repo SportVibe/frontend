@@ -2,6 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
 import Brian from '../../Images/Brian.jpg';
+import Daniel from '../../Images/Daniel.jpg';
 
 function About() {
   // Datos de ejemplo para los miembros del equipo
@@ -65,7 +66,7 @@ function About() {
     {
       id: 8,
       name: 'Daniel Enoc Amaya Amaya',
-      image: 'https://media.licdn.com/dms/image/D4E35AQFROy33DDjPvA/profile-framedphoto-shrink_800_800/0/1699231376636?e=1703620800&v=beta&t=q37o_MkerE_j8DX_JHv_iU_ZY_R0_45wPC-pLUQoiio',
+      image: Daniel,
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/daniel-enoc-amaya-amaya/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       github: 'https://github.com/danielamaya1908',
@@ -75,13 +76,13 @@ function About() {
   return (
     <div className={styles.aboutContainer}>
       <Card className={styles.companyCard}>
-        <Row id={styles.row} className="g-0">
-          <Col md={8}>
+        <Row className="g-0">
+          <Col md={8} className="mx-auto">
             <Card.Body className={styles.textContainer}>
               <Card.Title className={styles.text}>¡SportVibe: Siente la energía, viste la pasión!</Card.Title>
               <Card.Text className={styles.text}>
                 La e-commerce SportVibe es una tienda de ropa deportiva creada como parte del proyecto final en Soy Henry.
-                Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo o Socket.io.
+                Con despliegue eficiente, autorización segura, pasarela de pagos y notificaciones por correo.
                 Nuestra e-commerce incluye filtros combinados, Cloudinary para imágenes y revisiones con puntuaciones.
                 El Dashboard Admin facilita la gestión de productos y estadísticas. Desde categorías y ofertas hasta tallas disponibles,
                 SportVibe fusiona estilo y funcionalidad. Experimenta la emoción deportiva con una interfaz intuitiva y procesamiento de pagos eficiente.
@@ -91,9 +92,9 @@ function About() {
         </Row>
       </Card>
 
-      <Row xs={1} md={2} lg={3} className='d-flex'>
+      <Row xs={1} md={2} lg={4} className='d-flex justify-content-center'>
         {teamMembers.map((member) => (
-          <Col key={member.id} xs={12} md={6} lg={4}>
+          <Col key={member.id} xs={12} md={6} lg={3}>
             <CardTeam {...member} />
           </Col>
         ))}
