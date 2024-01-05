@@ -14,23 +14,29 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
     address: '',
     city: '',
     zipCode: '',
+    mail: '',
+    cel: '',
+
+
+    billingAddress: '',
   });
 
   const [errors, setErrors] = useState({});
   const [localCartItems, setLocalCartItems] = useState([]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
 
     setErrors({
       ...errors,
-      [e.target.name]: '',
+      [name]: '',
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,26 +75,26 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
     }
   };
 
-const initialStorageCart = async () => {
-  try {
-    const cartDataStorage = await getLocalStorageData("currentCart");
-    const userDataStorage = await getLocalStorageData("currentUser");
-    const parseCartDataStorage = JSON.parse(cartDataStorage);
-    const parseUserDataStorage = JSON.parse(userDataStorage);
-    parseCartDataStorage && setCartItems(parseCartDataStorage);
-    parseUserDataStorage && setUserItems(parseUserDataStorage);
-  } catch (error) {
-    console.error({ error: error.message });
-  }
-};
-
-useEffect(() => {
-  initialStorageCart();
-}, []);
-
+  const initialStorageCart = async () => {
+    try {
+      const cartDataStorage = await getLocalStorageData("currentCart");
+      const userDataStorage = await getLocalStorageData("currentUser");
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      const parseUserDataStorage = JSON.parse(userDataStorage);
+      parseCartDataStorage && setCartItems(parseCartDataStorage);
+      parseUserDataStorage && setUserItems(parseUserDataStorage);
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  };
+  useEffect(() => {
+    initialStorageCart();
+  }, []);
   return (
     <div className={styles.container}>
-      <h2>Detalles de Pago</h2>
+     <p>Total a pagar: ${total}</p>
+
+      <h2>Información de Envío</h2>
       <form onSubmit={handleSubmit}>
         <div className={`form-group ${styles.formGroup}`}>
           <label htmlFor="country" className={styles.label}>
@@ -101,27 +107,60 @@ useEffect(() => {
             onChange={handleChange}
             className={`form-control ${styles.input} ${errors.country ? 'is-invalid' : ''}`}
           >
-            <option value="">Selecciona un país</option>
+            <option value="">Selecciona un país *</option>
             <option value="Colombia">Colombia</option>
             <option value="Chile">Chile</option>
             <option value="Argentina">Argentina</option>
           </select>
           {errors.country && <div className={`invalid-feedback ${styles.invalidFeedback}`}>{errors.country}</div>}
         </div>
-        <div className={styles.orderDetails}>
-          <h3>Detalles del Pedido</h3>
-          <ul>
-            {propCartItems?.map((item) => (
-              <li key={item.id}>
-                <strong>ID:</strong> {item.id}<br />
-                <strong>Título:</strong> {item.title}<br />
-                <strong>Cantidad:</strong> {item.quantity}<br />
-                <strong>Tamaño:</strong> {item.size}<br />
-                <strong>Precio:</strong> ${item.price}<br />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <label htmlFor="city">Ciudad</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          value={form.city}
+          onChange={handleChange}
+          className={`form-control ${styles.input} ${errors.city ? 'is-invalid' : ''}`}
+        />
+        <label htmlFor="address">Dirección </label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={form.address}
+          onChange={handleChange}
+          className={`form-control ${styles.input} ${errors.address ? 'is-invalid' : ''}`}
+        />
+        <label htmlFor="zipCode">Código Postal</label>
+        <input
+          type="text"
+          id="zipCode"
+          name="zipCode"
+          value={form.zipCode}
+          onChange={handleChange}
+          className={`form-control ${styles.input} ${errors.zipCode ? 'is-invalid' : ''}`}
+        />
+        <label htmlFor="mail">Correo electrónico </label>
+        <input
+          type="mail"
+          id="mail"
+          name="mail"
+          value={form.mail}
+          onChange={handleChange}
+          className={`form-control ${styles.input} ${errors.mail ? 'is-invalid' : ''}`}
+        />
+        <label htmlFor="cel">Celular </label>
+        <input
+          type="tel"
+          id="cel"
+          name="cel"
+          value={form.cel}
+          onChange={handleChange}
+          className={`form-control ${styles.input} ${errors.cel ? 'is-invalid' : ''}`}
+        />
+
+
 
         <button type="submit" disabled={isLoading} className={`btn btn-primary ${styles.btn}`}>
           {isLoading ? 'Procesando...' : 'Ir a Pagar con PayPal'}
