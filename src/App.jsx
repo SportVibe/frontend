@@ -15,7 +15,8 @@ import {
   Footer,
   UserForm,
   PaymentForm,
-  Loading
+  Loading,
+  PaymentStatus
 } from "./helpers/indexComponents";
 import styles from './App.module.css';
 import PrivacyPolitic from "./components/Footer/privacyPolitic/privacyPolitic";
@@ -151,6 +152,7 @@ function App() {
                 <Route path="/changes" element={<Changes />} />
                 <Route path="/payment" element={<PaymentForm />} />
                 <Route path="/payments" element={<Payments />} />
+                <Route path="/payment-status" element={<PaymentStatus />} />
               </Routes>
               {(location.pathname === '/search') &&
                 <div className={styles.carousel2Container}>
