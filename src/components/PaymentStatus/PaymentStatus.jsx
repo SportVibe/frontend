@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import styles from './PaymentStatus.module.css';
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+import styles from "./PaymentStatus.module.css";
 
-const PaymentStatus = ({ orderId, message }) => {
+const PaymentStatus = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const orderId = queryParams.get("orderId");
+  const message = queryParams.get("status");
   return (
     <div className={styles.container}>
       <h2>Gracias por elegir SportVibe</h2>
