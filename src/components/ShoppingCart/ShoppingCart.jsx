@@ -77,12 +77,13 @@ const ShoppingCart = () => {
   const handleRemoveFromCart = (productId, productSize) => {
     // dispatch(deleteProductFromCart(productId));
     let newTotalQuantity = 0;
-    const updateCart = cartItems.cart.filter(product => {
-      if (Number(product.id) === Number(productId)) {
+    const updateCart = cartItems?.cart.filter(product => {
+      if ((Number(product.id) === Number(productId)) && (product.size !== productSize.toString()) || (Number(product.id) !== Number(productId))) {
         newTotalQuantity = newTotalQuantity + Number(product.quantity);
+        return true;
       }
-      return (Number(product.id) === Number(productId)) && (product.size !== productSize.toString());
     });
+    setCartItems({userId: userId, cart: updateCart});
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
     localStorage.setItem("currentCart", JSON.stringify({userId: userId, cart: updateCart}));
     setReloadPage(!reloadPage); // para estar recuperando el carrito del localStorage cada vez que se actualice.
