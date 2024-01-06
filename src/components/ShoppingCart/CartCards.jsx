@@ -53,7 +53,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
                   type="number"
                   min={0}
                   className="form-control"
-                  value={quantity}
+                  value={item.quantity}
                   onChange={(e) => handleQuantityChange(e)}
                 />
               </div>
