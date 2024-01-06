@@ -89,7 +89,7 @@ const ProductDetail = () => {
       }
       else {
         let newTotalQuantity = 0;
-        let updateLocalStorageCart = storageCart?.cart.map((object) => {
+        let updateLocalStorageCart = storageCart.cart.map((object) => {
           if (Number(object.id) === Number(id) && object.size === selectSize) {
             repeat = true;
             newTotalQuantity = newTotalQuantity + Number(object.quantity) + Number(quantity);

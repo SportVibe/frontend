@@ -28,6 +28,9 @@ function NavBar() {
   // const storageData = window.localStorage.getItem('currentUser');
   // const userData = storageData ? JSON.parse(storageData) : null;
   const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
+  let currentAdminData = useSelector((state) => state.currentAdminData); // data del admin a renderizar
+  let adminLocalStorage = JSON.parse(localStorage.getItem('adminUser'));
+  currentAdminData = currentAdminData ? currentAdminData : adminLocalStorage;
   // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
   const firstNameFull = userDataRender ? userDataRender.firstName : '';
   let firstName = userDataRender ? userDataRender.firstName?.charAt(0).toUpperCase() : '';
@@ -45,8 +48,8 @@ function NavBar() {
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (id === 'profile' && userDataRender) {
-      navigate(`/profile`);
+    if (userDataRender) {
+      navigate(`/${id}`);
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
@@ -74,7 +77,7 @@ function NavBar() {
     <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
       <div className={styles.subMainView}>
         <div className={styles.logoContainer}>
-          <img src={Logo} alt="" id='/' onClick={handleNavigate}/>
+          <img src={Logo} alt="" id='/' onClick={handleNavigate} />
         </div>
         <p className={styles.logoTitle} onClick={handleNavigate}>𝗦𝗽𝗼𝗿𝘁𝗩𝗶𝗯𝗲</p>
         <div className={styles.navBarContainer}>
@@ -108,16 +111,24 @@ function NavBar() {
                 <p id='/shoppingcart'>{totalCartQuantity}</p>
               </div>
             </div>
-
-            {userDataRender ? (
-              <div id='profile' className={styles.userLogContainer} onClick={handleNavigate}>
-                <div id='profile' onClick={handleNavigate}>
-                  {userDataRender?.image ? (
-                    <img id='profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
-                  ) : (
-                    <p id='profile' onClick={handleNavigate}>{firstName}{lastName}</p>
-                  )}
-                </div>
+            {(userDataRender || currentAdminData) ? (
+              <div id='dashboard' className={styles.userLogContainer} onClick={handleNavigate}>
+                {currentAdminData ?
+                  <div id='dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
+                    {currentAdminData?.image ? (
+                      <img id='dashboard' src={userDataRender?.image} alt="" onClick={handleNavigate} />
+                    ) : (
+                      <p id='dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
+                    )}
+                  </div> :
+                  <div id='profile' onClick={handleNavigate}>
+                    {userDataRender?.image ? (
+                      <img id='profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
+                    ) : (
+                      <p id='profile' onClick={handleNavigate}>{firstName}{lastName}</p>
+                    )}
+                  </div>
+                }
               </div>
             ) : (
               <div id='/login' onClick={handleNavigate}>

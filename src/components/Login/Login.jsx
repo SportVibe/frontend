@@ -3,7 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "./Login.css";
 import logo from "../../Images/Logo.jpg";
 import google from "../../Images/google-signin-button.png"
-import { getCurrentUserAction } from "../../redux/actions";
+import { getAdminUserAction, getCurrentUserAction } from "../../redux/actions";
 import axios from "axios";
 import { API_URL } from '../../helpers/config';
 import { useDispatch } from "react-redux";
@@ -55,7 +55,10 @@ const login = () => {
         const { data } = await axios.post(`${API_URL}/login`, username);
         if (data) {
           if (data.user.rol === 'admin') {
-            navigate('/dashboard');
+            localStorage.setItem('adminUser', JSON.stringify(data.user));
+            dispatch(getAdminUserAction(data.user));
+            // navigate('/dashboard');
+            navigate('/');
           }
           else if (!data.user.active) {
             setModal(data.user); // toda la data del usuario se pasa a la modal.

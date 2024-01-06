@@ -235,6 +235,12 @@
     display: flex;
     align-items: center;
 
+    & .adminLogContainer { /* estilos de admin */
+      & p {
+        background-color: rgb(126, 42, 165);
+      }
+    }
+
     & div {
       padding: 0;
       width: 40px;

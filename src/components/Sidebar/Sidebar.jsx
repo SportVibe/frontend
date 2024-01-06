@@ -13,7 +13,7 @@ function Sidebar(props) {
     const [active,setActive] = useState();
     return (
          <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3 vh-100'>
-            <div className="d-flex flex-column w-100">
+            <div>
                 <a href="/" className="p-3 text-white">
                     <i className="bi bi-gear fs-4 me-4"></i>
                     <span className="fs-3"><strong>SportVibe</strong></span>
@@ -47,7 +47,7 @@ function Sidebar(props) {
                     <li className={active === 5 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(5)}>
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-bullseye me-3 fs-4"></i>
-                        <span className="fs-4" name="metricas">Metricas</span>
+                        <span className="fs-4" name="otro">Otro</span>
                     </a>
                     </li>
                     </ul>

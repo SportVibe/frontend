@@ -22,7 +22,7 @@ const ShoppingCart = () => {
   const [loading, setLoading] = useState(false);
 
   const calculateLocalSubtotal = () => {
-    if (!cartItems || !cartItems.cart || !Array.isArray(cartItems.cart) || cartItems.cart.length === 0) {
+    if (!cartItems || cartItems.cart.length === 0) {
       return 0;
     }
     return cartItems.cart.reduce(
@@ -101,7 +101,7 @@ const ShoppingCart = () => {
         () =>
           cartItems?.cart.map((item) => (
             <CartCards
-              userId={userId}
+            userId={userId}
               key={item.id}
               item={item}
               cartItems={cartItems.cart}
@@ -111,7 +111,7 @@ const ShoppingCart = () => {
               setReloadPage={setReloadPage}
             />
           )),
-        [cartItems?.cart] 
+        [cartItems]
       )}
 
       <div className="d-flex flex-column align-items-center mt-3">
