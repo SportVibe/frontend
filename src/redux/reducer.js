@@ -14,12 +14,14 @@ import {
   USER_LOGIN,
   GET_CURRENT_USER,
   DISCOUNT_PRODUCTS,
-  QUANTITY__TOTAL_CART
+  QUANTITY__TOTAL_CART,
+  GET_CURRENT_ADMIN
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
   currentUserData: null,
+  currentAdminData: null,
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   discount: [{ discount: 0 }],
   priceFilter: ['', ''],
@@ -42,6 +44,11 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUserData: action.payload
+      };
+    case GET_CURRENT_ADMIN:
+      return {
+        ...state,
+        currentAdminData: action.payload
       };
     case PRICE_FILTER:
       return {

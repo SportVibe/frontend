@@ -20,6 +20,7 @@ export const PRICE_FILTER = "PRICE_FILTER";
 export const GENRES_FILTER = "GENRES_FILTER";
 export const USER_LOGIN = "USER_LOGIN";
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
+export const GET_CURRENT_ADMIN = "GET_CURRENT_ADMIN";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const GET_SHOPPING_CART = "GET_SHOPPING_CART";
 export const DELETE_MULTIPLE_PRODUCTS_FROM_CART = "DELETE_MULTIPLE_PRODUCTS_FROM_CART";
@@ -44,6 +45,15 @@ export const getProducts = (filters) => async (dispatch) => {
 export const getCurrentUserAction = (user) => async (dispatch) => {
   try {
     return dispatch({ type: GET_CURRENT_USER, payload: user });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAdminUserAction = (admin) => async (dispatch) => {
+  console.log(admin);
+  try {
+    return dispatch({ type: GET_CURRENT_ADMIN, payload: admin });
   } catch (error) {
     console.error(error.message);
   }
