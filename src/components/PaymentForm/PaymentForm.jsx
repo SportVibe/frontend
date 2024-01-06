@@ -66,7 +66,6 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
         total: sumaTotal,
         shippingInfo: form,
       });
-
       window.location.href = response.data.orderUrl;
     } catch (error) {
       console.error('Error al crear la orden en PayPal:', error);
@@ -92,7 +91,7 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
   }, []);
   return (
     <div className={styles.container}>
-     <p>Total a pagar: ${total}</p>
+      <p>Total a pagar: ${total}</p>
 
       <h2>Información de Envío</h2>
       <form onSubmit={handleSubmit}>

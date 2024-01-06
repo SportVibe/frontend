@@ -35,8 +35,11 @@ export const AuthContextProvider = ({ children }) => {
                 const { id } = externalUserData.data.user;
                 const newCartResponse = await axios.post(`${API_URL}/shoppingCart`, { userId: id, type: 'member' });
                 console.log(newCartResponse);
+                localStorage.setItem('currentUser', JSON.stringify(externalUserData.data));
+                dispatch(getCurrentUserAction(externalUserData.data.user));
+                navigate('/');
             }
-            return externalUserData
+            // return externalUserData
         } catch (error) {
             console.error('Error en la función externalUser:', error);
         }
@@ -62,12 +65,12 @@ export const AuthContextProvider = ({ children }) => {
                     image: currentUser?.photoURL,
                     externalSignIn: true
                 });
-                dispatch(getCurrentUserAction({ // despachamos la data del usuario rápidamente al estado global para que el nav bar tome la imagen del usuario.
+                /* dispatch(getCurrentUserAction({ // despachamos la data del usuario rápidamente al estado global para que el nav bar tome la imagen del usuario.
                     firstName: currentUser.displayName,
                     email: currentUser.email,
                     image: currentUser.photoURL,
                     externalSignIn: true
-                }));
+                })); */
             }
         });
         return () => {
