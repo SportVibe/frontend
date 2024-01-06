@@ -5,7 +5,7 @@ import { API_URL } from '../../helpers/config';
 import styles from './PaymentForm.module.css';
 import getLocalStorageData from '../../utils/getLocalStorage';
 
-const PaymentForm = ({ userId, total }) => {
+const PaymentForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [cartItems, setCartItems] = useState(null);
   const [userItems, setUserItems] = useState(null);
