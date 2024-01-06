@@ -5,38 +5,36 @@ import { API_URL } from '../../helpers/config';
 import styles from './PaymentForm.module.css';
 import getLocalStorageData from '../../utils/getLocalStorage';
 
-const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }) => {
+const PaymentForm = ({ userId, total }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [cartItems, setCartItems] = useState(null);
   const [userItems, setUserItems] = useState(null);
   const [form, setForm] = useState({
     country: '',
-    address: '',
     city: '',
+    address: '',
     zipCode: '',
     mail: '',
     cel: '',
-
-
-    billingAddress: '',
+    sameBilling: false,
   });
 
   const [errors, setErrors] = useState({});
-  const [localCartItems, setLocalCartItems] = useState([]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
 
-    setErrors({
-      ...errors,
+    setErrors((prevErrors) => ({
+      ...prevErrors,
       [name]: '',
-    });
+    }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,16 +45,11 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
       setErrors(validationErrors);
       return;
     }
+
     let sumaTotal = 0;
-    cartItems.cart.forEach(product => {
-      sumaTotal = sumaTotal + (product.price * product.quantity);
-    })
-    /* console.log({
-      userId: userItems.user.id,
-      ShoppingCartId: userItems.user.cartId,
-      total: sumaTotal,
-      shippingInfo: form,
-    }); */
+    cartItems.cart.forEach((product) => {
+      sumaTotal += product.price * product.quantity;
+    });
 
     try {
       setIsLoading(true);
@@ -66,6 +59,7 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
         total: sumaTotal,
         shippingInfo: form,
       });
+
       window.location.href = response.data.orderUrl;
     } catch (error) {
       console.error('Error al crear la orden en PayPal:', error);
@@ -76,8 +70,8 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
 
   const initialStorageCart = async () => {
     try {
-      const cartDataStorage = await getLocalStorageData("currentCart");
-      const userDataStorage = await getLocalStorageData("currentUser");
+      const cartDataStorage = await getLocalStorageData('currentCart');
+      const userDataStorage = await getLocalStorageData('currentUser');
       const parseCartDataStorage = JSON.parse(cartDataStorage);
       const parseUserDataStorage = JSON.parse(userDataStorage);
       parseCartDataStorage && setCartItems(parseCartDataStorage);
@@ -86,85 +80,102 @@ const PaymentForm = ({ userId, total, shoppingCartId, cartItems: propCartItems }
       console.error({ error: error.message });
     }
   };
+
   useEffect(() => {
     initialStorageCart();
   }, []);
+
   return (
     <div className={styles.container}>
-      <p>Total a pagar: ${total}</p>
+   
 
-      <h2>Información de Envío</h2>
-      <form onSubmit={handleSubmit}>
-        <div className={`form-group ${styles.formGroup}`}>
-          <label htmlFor="country" className={styles.label}>
-            País
-          </label>
-          <select
-            id="country"
-            name="country"
-            value={form.country}
+      <label htmlFor="country" className={styles.label}>
+        País
+      </label>
+      <select
+        id="country"
+        name="country"
+        value={form.country}
+        onChange={handleChange}
+        className={`form-control ${styles.input} ${errors.country ? 'is-invalid' : ''}`}
+      >
+        <option value="">Selecciona un país *</option>
+        <option value="Colombia">Colombia</option>
+        <option value="Chile">Chile</option>
+        <option value="Argentina">Argentina</option>
+      </select>
+      {errors.country && <div className={`invalid-feedback ${styles.invalidFeedback}`}>{errors.country}</div>}
+
+      <label>
+        <input
+          type="checkbox"
+          name="sameBilling"
+          checked={form.sameBilling}
+          onChange={handleChange}
+        />
+        La información de envío es la misma que la registrada en el perfil de usuario
+      </label>
+
+      <div>
+        <h2>Información de Envío</h2>
+        <form onSubmit={handleSubmit}>
+          <div className={`form-group ${styles.formGroup}`}>
+            <label htmlFor="city">Ciudad</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+              className={`form-control ${styles.input} ${errors.city ? 'is-invalid' : ''}`}
+              disabled={form.sameBilling}
+            />
+          </div>
+          <label htmlFor="address">Dirección</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={form.address}
             onChange={handleChange}
-            className={`form-control ${styles.input} ${errors.country ? 'is-invalid' : ''}`}
-          >
-            <option value="">Selecciona un país *</option>
-            <option value="Colombia">Colombia</option>
-            <option value="Chile">Chile</option>
-            <option value="Argentina">Argentina</option>
-          </select>
-          {errors.country && <div className={`invalid-feedback ${styles.invalidFeedback}`}>{errors.country}</div>}
-        </div>
-        <label htmlFor="city">Ciudad</label>
-        <input
-          type="text"
-          id="city"
-          name="city"
-          value={form.city}
-          onChange={handleChange}
-          className={`form-control ${styles.input} ${errors.city ? 'is-invalid' : ''}`}
-        />
-        <label htmlFor="address">Dirección </label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={form.address}
-          onChange={handleChange}
-          className={`form-control ${styles.input} ${errors.address ? 'is-invalid' : ''}`}
-        />
-        <label htmlFor="zipCode">Código Postal</label>
-        <input
-          type="text"
-          id="zipCode"
-          name="zipCode"
-          value={form.zipCode}
-          onChange={handleChange}
-          className={`form-control ${styles.input} ${errors.zipCode ? 'is-invalid' : ''}`}
-        />
-        <label htmlFor="mail">Correo electrónico </label>
-        <input
-          type="mail"
-          id="mail"
-          name="mail"
-          value={form.mail}
-          onChange={handleChange}
-          className={`form-control ${styles.input} ${errors.mail ? 'is-invalid' : ''}`}
-        />
-        <label htmlFor="cel">Celular </label>
-        <input
-          type="tel"
-          id="cel"
-          name="cel"
-          value={form.cel}
-          onChange={handleChange}
-          className={`form-control ${styles.input} ${errors.cel ? 'is-invalid' : ''}`}
-        />
-
-
-
-        <button type="submit" disabled={isLoading} className={`btn btn-primary ${styles.btn}`}>
-          {isLoading ? 'Procesando...' : 'Ir a Pagar con PayPal'}
-        </button>
-      </form>
+            className={`form-control ${styles.input} ${errors.address ? 'is-invalid' : ''}`}
+            disabled={form.sameBilling}
+          />
+          <label htmlFor="zipCode">Código Postal</label>
+          <input
+            type="text"
+            id="zipCode"
+            name="zipCode"
+            value={form.zipCode}
+            onChange={handleChange}
+            className={`form-control ${styles.input} ${errors.zipCode ? 'is-invalid' : ''}`}
+            disabled={form.sameBilling}
+          />
+          <label htmlFor="mail">Correo electrónico</label>
+          <input
+            type="mail"
+            id="mail"
+            name="mail"
+            value={form.mail}
+            onChange={handleChange}
+            className={`form-control ${styles.input} ${errors.mail ? 'is-invalid' : ''}`}
+            disabled={form.sameBilling}
+          />
+          <label htmlFor="cel">Celular</label>
+          <input
+            type="tel"
+            id="cel"
+            name="cel"
+            value={form.cel}
+            onChange={handleChange}
+            className={`form-control ${styles.input} ${errors.cel ? 'is-invalid' : ''}`}
+            disabled={form.sameBilling}
+          />
+          <button type="submit" disabled={isLoading} className={`btn btn-primary ${styles.btn}`}>
+            {isLoading ? 'Procesando...' : 'Ir a Pagar con PayPal'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
