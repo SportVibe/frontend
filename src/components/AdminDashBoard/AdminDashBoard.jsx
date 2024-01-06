@@ -10,6 +10,7 @@ import ProductUpdate from "../ProductUpdate/ProductUpdate";
 function AdminDashBoard() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
+  const [visibleSidebar,setVisibleSidebar] = useState(true);
   
 
   useEffect(() => {
@@ -22,11 +23,11 @@ function AdminDashBoard() {
 
   return (
     <div className="d-flex">
-      <Sidebar setSidebarRender={setSidebarRender} />
+      {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
       <div className="bg-transparent w-100">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
-          {<ProductPrueba setSelectedRow={setSelectedRow} />}
+          {<ProductPrueba setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow} />}
           </div>
         ) : null}
         {selectedRow && 
