@@ -7,19 +7,36 @@ import { useNavigate } from "react-router-dom";
 const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
     const [reviews,setReviews] = useState(null);
     const [reload,setReload] = useState(true);
-
+    const [detailProductsReviews , setDetailProductsReviews] = useState([]);
+    const [reloadDetail,setReloadDetail] = useState(true)
     const navigate = useNavigate();
+    console.log(detailProductsReviews,"DETIAl");
+    
     
     useEffect(()=>{
         axios(`${API_URL}/reviews`)
         .then(({ data }) => {
             let pendingReviews = data.data.filter((reviews) => reviews.status === "pending")
             setReviews(pendingReviews);
+            //handleDetail();
       })
       .catch((err) => console.log(err));
   }, [reload,navigate]);
 
     useEffect(()=>{handleVisibleSidebar()},[])
+
+    useEffect(()=>{
+        //Funcion para extraer el detalle de cada producto de la review
+         async function handleDetail() {
+             let arr = [];
+               reviews?.forEach(async(rev)=> {
+                   const result = await axios(`${API_URL}/detail/${rev.ProductId}`)
+                   arr.push(result.data)
+                   setDetailProductsReviews(arr)
+                 })
+                }
+         handleDetail()
+    },[reviews,reload])
 
   const hanlderScore = (score)=>{
     switch (score){
@@ -56,6 +73,8 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
     }
 }
 
+  
+
     return (
         <div>
             <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100 ">
@@ -85,19 +104,25 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
               })
               && setSidebarRender("productos")
             : 
-                reviews?.map((rev) => (
+                reviews?.map((rev,i) => (
                 <div className="card w-50 mb-3 mt-2" id={rev.id}>
                 <div className="card-header fs-4 bg-dark-subtle">
-                  Comentario Nº : {rev.id}
+                    {detailProductsReviews[i]?.data?.title}
                 </div>
                 <div class="card-body">
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between align-items-center">
                   <h5 className="card-title fs-4 mb-3">Descripcion :</h5>
-                  <p>Puntaje:  {hanlderScore(rev.score)}</p>
+                  <p className="fs-5">Puntaje:  {hanlderScore(rev.score)}</p>
+                  <img src={detailProductsReviews[i]?.data?.Images[0]} width="100px" className="rounded-pill"></img>
                   </div>
                   <p className="card-text"><strong>{rev.description}</strong></p>
+                  <div className="d-flex">
                   <a href="#" name="accepted" id={rev.id} className="btn btn-success me-1" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
                   <a href="#" name="rejected" id={rev.id} className="btn btn-danger" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
+                  <div className="ms-auto">
+                  <p className="">Comentario ID : {rev.id}</p>
+                  </div>
+                  </div>
                 </div>
               </div>
             ))
