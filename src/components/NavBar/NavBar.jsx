@@ -49,7 +49,7 @@ function NavBar() {
   function handleNavigate(event) {
     const id = event.target.id;
     if (userDataRender) {
-      navigate(`/${id}`);
+      navigate(`${id}`);
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
@@ -107,25 +107,25 @@ function NavBar() {
             <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
               <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
-              <div id='/shoppingcart' className={styles.cartNumber}>
-                <p id='/shoppingcart'>{totalCartQuantity}</p>
+              <div id='/shoppingcart' onClick={handleNavigate} className={styles.cartNumber}>
+                <p id='/shoppingcart' onClick={handleNavigate}>{totalCartQuantity}</p>
               </div>
             </div>
             {(userDataRender || currentAdminData) ? (
-              <div id='dashboard' className={styles.userLogContainer} onClick={handleNavigate}>
+              <div id='/dashboard' className={styles.userLogContainer} onClick={handleNavigate}>
                 {currentAdminData ?
-                  <div id='dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
+                  <div id='/dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
                     {currentAdminData?.image ? (
-                      <img id='dashboard' src={userDataRender?.image} alt="" onClick={handleNavigate} />
+                      <img id='/dashboard' src={userDataRender?.image} alt="" onClick={handleNavigate} />
                     ) : (
-                      <p id='dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
+                      <p id='/dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
                     )}
                   </div> :
-                  <div id='profile' onClick={handleNavigate}>
+                  <div id='/profile' onClick={handleNavigate}>
                     {userDataRender?.image ? (
-                      <img id='profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
+                      <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                     ) : (
-                      <p id='profile' onClick={handleNavigate}>{firstName}{lastName}</p>
+                      <p id='/profile' onClick={handleNavigate}>{firstName}{lastName}</p>
                     )}
                   </div>
                 }
