@@ -1,0 +1,27 @@
+.reviewsContainer {
+    margin-top: 20px;
+    width: 100%;
+    background-color: red;
+}
+
+.ratingContainer,
+.descriptionContainer {
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+}
+
+.error {
+    color: red;
+}
+
+.submitButton {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}

@@ -1,0 +1,25 @@
+.mainView {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.225);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+
+    & p {
+        color: var(--font-color-hard);
+    }
+}
+
+.reviewsContainer{
+    background-color: white;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 10px;
+    overflow: hidden;
+}
