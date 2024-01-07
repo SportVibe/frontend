@@ -20,34 +20,34 @@ function Sidebar(props) {
                 </a>
                 <hr className="text-secondary mt-3" />
                 <ul className="nav nav-pills flex-column mt-2">
-                    <li className={active === 1 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(1)}>
+                    <li className={active === 1 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} >
                     <a href="" className="p-1 text-white">
                         <i className="bi bi-speedometer2 me-3 fs-4"></i>
                         <span className="fs-4" name="dashboard">Dasboard</span>
                     </a>
                     </li>
-                    <li className={active === 2 ? "active nav-item p-3" : "nav-item p-3"} value="productos" name="productos" onClick={(e) =>setActive(2)}>
+                    <li className={active === 2 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} value="productos" name="productos" onClick={(e) =>setActive(2)}>
                     <a href="" className="p-1 text-white" name="productos" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-columns-gap me-3 fs-4"></i>
                         <span className="fs-4" name="productos">Productos</span>
                     </a>
                     </li>
-                    <li className={active === 3 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e)=>setActive(3)}>
+                    <li className={active === 3 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} onClick={(e)=>setActive(3)}>
                     <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-bag-plus me-3 fs-4"></i>
                         <span className="fs-4" name="nuevo">Nuevo</span>
                     </a>
                     </li>
-                    <li className={active === 4 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(4)}>
+                    <li className={active === 4 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} onClick={(e) => setActive(4)}>
                     <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-person-circle me-3 fs-4"></i>
                         <span className="fs-4" name="usuarios">Usuarios</span>
                     </a>
                     </li>
-                    <li className={active === 5 ? "active nav-item p-3" : "nav-item p-3"} onClick={(e) => setActive(5)}>
-                    <a href="" className="p-1 text-white">
-                        <i className="bi bi-bullseye me-3 fs-4"></i>
-                        <span className="fs-4" name="otro">Otro</span>
+                    <li className={active === 5 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} onClick={(e) => setActive(5)}>
+                    <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
+                    <i class="bi bi-people me-3 fs-4"></i>
+                        <span className="fs-4" name="comentarios" onClick={opcionSeleccionadaSidebar}>Comentarios</span>
                     </a>
                     </li>
                     </ul>

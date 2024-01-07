@@ -6,11 +6,12 @@ import ProductForm from "../ProductForm/ProductForm";
 import UserForm from "../UserForm/UserForm";
 import ProductPrueba from "../ProductForm/ProductPrueba";
 import ProductUpdate from "../ProductUpdate/ProductUpdate";
+import ReviewsAdmin from "../ReviewsAdmin/ReviewsAdmin"
 
 function AdminDashBoard() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  const [visibleSidebar,setVisibleSidebar] = useState(true);
+  const [visibleSidebar,setVisibleSidebar] = useState(false);
   
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function AdminDashBoard() {
           </div>
         ) : null}
         {selectedRow && 
-          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" ? styles.conteinerCardsHidden : styles.render}>
+          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" ? styles.conteinerCardsHidden : styles.render}>
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
             {/* <p onClick={handleClose}>✕</p> */}
           </div>}
@@ -42,6 +43,7 @@ function AdminDashBoard() {
           </div>
         )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
+        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
       </div>
     </div>
   );
