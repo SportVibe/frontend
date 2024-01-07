@@ -32,7 +32,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.title,
       sortable: true,
       allowOverflow: false,
-      style: { fontSize: 20 },
+      style: { fontSize: 16 },
       width: "600px",
     },
     {
@@ -41,7 +41,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       sortable: true,
       center: "true",
       width: "120px",
-      style: { fontSize: 20 },
+      style: { fontSize: 16 },
       conditionalCellStyles: [
         {
           when: (row) => row.stocks < 40,
@@ -70,7 +70,8 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.images,
       sortable: true,
       center: "true",
-      style: { fontSize: 20 },
+      width:"115px",
+      style: { fontSize: 16 },
       //width:"200px"
     },
     {
@@ -78,7 +79,8 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.available,
       sortable: true,
       center: "true",
-      style: { fontSize: 20 },
+      width:"125px",
+      style: { fontSize: 16 },
       //width:"200px"
     },
     {
@@ -86,7 +88,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.colors,
       sortable: true,
       center: "true",
-      style: { fontSize: 20 },
+      style: { fontSize: 16 },
       //width: "400px",
     },
     {
@@ -94,7 +96,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.precio,
       sortable: true,
       center: "true",
-      style: { fontSize: 20 },
+      style: { fontSize: 16 },
       //width:"150px"
     },
   ];
@@ -144,13 +146,13 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
   const customStyles = {
     rows: {
       style: {
-        fontSize: "23px",
+        fontSize: "17px",
         backgroundColor: "#e0e3de",
       },
     },
     cells: {
       style: {
-        width: "200px",
+        width: "20px",
         paddingLeft: "8px",
         paddingRight: "8px",
         backgroundColor: "#e0e3de",
@@ -165,12 +167,12 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
         paddingRight: "8px",
         justify: "center",
         justifyContent: "center",
-        fontSize: "18px",
+        fontSize: "16px",
         backgroundColor: '#afb1b0',
         '&:hover': {
           backgroundColor: '#dbdedc',
           color: "black",
-          fontSize: "21px"
+          fontSize: "18px"
         },
       },
     },
@@ -182,7 +184,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
 
   return (
     <>
-      <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100 ">
+      <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100">
             <div className="">
             <button type="button" class="btn btn-ligth btn-s" onClick={handleVisibleSidebar}><i className="bi bi-list fs-3"></i></button>
             </div>
@@ -205,7 +207,6 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
             </div>
         </nav>
         <DataTable
-        title="LISTA DE PRODUCTOS"
         responsive
         columns={columns}
         data={productRender}
