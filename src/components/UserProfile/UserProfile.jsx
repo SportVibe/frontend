@@ -161,7 +161,7 @@ function UserProfile() {
                     <div className={styles.mainComponentsContainer}>
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
-                                <Table records={null} />
+                                <Table records={null} userId={userDataRender.id}/>
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
