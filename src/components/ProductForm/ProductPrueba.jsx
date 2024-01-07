@@ -195,6 +195,14 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
                 onChange={handleFilter}
               />
             </div>
+            <div class="btn-group me-5">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
+              </ul>
+            </div>
         </nav>
         <DataTable
         title="LISTA DE PRODUCTOS"
