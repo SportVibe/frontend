@@ -18,7 +18,6 @@ const svgBad = <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fi
  
  const handleFile = (event) => {
     let arrayImage=[];
-    //console.log(event.target.files)
     const imagen = event.target.files[0]; //La imagen subida se guarda en esta propiedad
     const data = new FormData(); //Instanciamos FormData, permite crear pares key:value con el metodo append
     data.append("file",imagen);
@@ -26,16 +25,14 @@ const svgBad = <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fi
     axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, data)  //peticion post , link y form
     .then((res) => {
         setResponseOk(res.status)
-       
-        //arrayImage.push(res.data.secure_url);
         props.setArrayImages(res.data.secure_url)
         props.completeProduct();
         })
     .catch(err=> window.alert(err.message))
  }
     return (
-        <div>
-            <input type="file" onChange={handleFile}/>
+        <div className=''>
+            <input type="file" className='btn btn-outline-primary' onChange={handleFile}/>
             {responseOk >= 200 && responseOk < 400 ? <>{svgOK}</> : <>{svgBad}</>}
         </div>
         );

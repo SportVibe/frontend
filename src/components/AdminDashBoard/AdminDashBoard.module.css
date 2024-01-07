@@ -1,17 +1,36 @@
-.text-sidebar{
-    color:white;
+.text-sidebar {
+  color: white;
 }
 
-.cardComponentContainer{
-    width: 200px;
-    height: 400px;
+.cardComponentContainer {
+  width: 200px;
+  height: 400px;
+}
+
+.conteinerCardsHidden {
+  display: none;
+}
+
+.conteinerCards {
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+  .conteinerCardsHidden {
+    display:none;
   }
 
-  .conteinerCards{
-    /* background-color: aqua; */
+  .render {
+    /* background-color: rgba(17, 16, 16, 0.63); */
+    min-height: 100%;
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
   }
+ 
+

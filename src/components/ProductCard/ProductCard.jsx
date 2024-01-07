@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function ProductCard({ productData }) {
     const navigate = useNavigate();
-
     const [imgHover, setImgHover] = useState(false);
     const id = productData?.id ? productData.id : "";
     const Colors = productData?.Colors.length ? productData.Colors : [""];
@@ -14,16 +13,15 @@ function ProductCard({ productData }) {
     const available = productData?.available ? productData.available : "";
     const category = productData?.category ? productData.category : "";
     const description = productData?.description ? productData.description : "";
-    const discount = productData?.discount ? productData.discount : "";
+    const discount = productData?.discount > 0 ? productData.discount : "";
     const gender = productData?.gender ? productData.gender : "";
     const brand = productData?.brand ? productData.brand : "";
     const subCategory = productData?.subCategory ? productData.subCategory : "";
     const title = productData?.title ? productData.title : "";
-    let price = productData?.price ? productData.price : "";
-    price = (price / 1).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-    });
+    let currentPrice = productData?.price ? Number(productData.price) : '';
+    let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
+    currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     function handleMouseEnter() {
         setImgHover(true);
@@ -32,7 +30,7 @@ function ProductCard({ productData }) {
     function handleMouseLeave() {
         setImgHover(false);
     }
-    
+
     function handleNavigate() {
         navigate(`/detail/${id}`);
     }
@@ -47,7 +45,7 @@ function ProductCard({ productData }) {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <img src={Images[0]} alt="imagen"/>
+                    <img src={Images[0]} alt="imagen" />
                     {imgHover && (
                         <div className={styles.layout}>
                             <div>
@@ -58,13 +56,22 @@ function ProductCard({ productData }) {
                 </div>
                 <div className={styles.downSideContainer}>
                     <div className={styles.categoryNameContainer}>
-                        <p>{category}</p>
+                        <p className={styles.category}>{category}</p>
                     </div>
                     <div className={styles.titleContainer}>
                         <p>{title}</p>
                     </div>
                     <div className={styles.priceContainer}>
-                        <p>$USD {price}</p>
+                        {!discount ?
+                            <p>$USD {currentPrice}</p> :
+                            <div>
+                                <p className={styles.newPrice}>$USD {currentPrice}</p>
+                                <div className={styles.discountContainer}>
+                                    <p className={styles.discount}><span>-{discount}%</span></p>
+                                    <p className={styles.oldPrice}>Antes: <span>$USD {oldPrice}</span></p>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,32 +1,58 @@
 import styles from './Carousel2.module.css';
-import logoImage from '../../Images/Logo.jpg';
+// import logoImage from '../../Images/Logo.jpg';
 import CarouselCard from './CarouselCar/CarouselCard';
-import { getCarousel2Products } from '../../redux/actions';
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../helpers/config';
+import { discountProducts, genreFilterAction, getProducts, priceFilterAction, sortAction } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function Carousel2() {
-    const dispatch = useDispatch();
     const count = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    const productRender = useSelector((state) => state.carousel2Render);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [productArray, setProductArray] = useState(null);
+    const limit = 20;
+
+    async function getProductsWithDiscount() {
+        try {
+            const { data } = await axios(`${API_URL}/product/discount?limit=${limit}`);
+            if (data && data.length) setProductArray(data);
+        } catch (error) {
+            console.error({ error: error.message });
+        }
+    }
+
+    const handleFilter = () => {
+        const propertiesArray = [{ discount: 1 }]
+        // reseteamos todos los filtrso y ordenamientos
+        dispatch(genreFilterAction([{ gender: '' }]));
+        dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+        dispatch(priceFilterAction(['', '']));
+        dispatch(discountProducts([{ discount: 1 }]));
+
+        dispatch(getProducts(propertiesArray));
+        navigate('/search');
+    };
 
     useEffect(() => {
-        dispatch(getCarousel2Products());
+        getProductsWithDiscount();
     }, []);
 
     return (
         <div className={styles.mainView}>
-            <div className={styles.mostSold}>
-                Productos más vendidos
+            <div className={styles.mostSold} onClick={handleFilter}>
+                Descuentos
             </div>
             <div className={styles.backgroundMidle}>
             </div>
             <div className={styles.subMainView}>
                 <ul className={styles.ul}>
-                    {productRender.data?.length ? count.map((item, i) => {
+                    {productArray?.length ? productArray.map((item, i) => {
                         return (
                             <div key={i} className={styles.imgContainer}>
-                                <CarouselCard productData={productRender.data[i]}/>
+                                <CarouselCard productData={item}/>
                             </div>
                         )
                     }) :
@@ -34,9 +60,9 @@ function Carousel2() {
                             return (
                                 <div key={i} className={styles.imgContainer}>
                                     <div className={styles.img}>
-                                        <img src={logoImage} alt="" />
+                                        <img src="" alt="" />
                                     </div>
-                                    <p className={styles.nameAfter}>Mas vendido</p>
+                                    <p className={styles.nameAfter}></p>
                                 </div>
                             )
                         })}

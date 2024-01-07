@@ -1,0 +1,27 @@
+.loading {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: rgb(8, 53, 121);
+    animation: spin 1s ease infinite;
+    position:absolute;
+    top:50%;
+    z-index: 10000;
+  }
+
+  .hiddenTable {
+    display: none;
+    width: 100%;
+
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }

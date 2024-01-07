@@ -1,15 +1,18 @@
 :root {
     --padding-left-tableParamns: 7px;
     --height-params-table: 35px;
-    --minWidth-counterParam: 50px;
+    --minWidth-counterParam: 30px;
     --fontSize-params: 14px;
 }
 
 .mainView {
+    position: relative;
     width: 100%;
     height: 100%;
     color: black;
-    padding: 25px;
+    border: 1px solid rgba(128, 128, 128, 0.761);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .tableContainer {
@@ -21,10 +24,6 @@
 
     & p {
         flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 0 0 0 var(--padding-left-tableParamns);
         margin: 0;
         font-size: var(--fontSize-params);
     }
@@ -36,13 +35,20 @@
     display: flex;
     background-color: gray;
 
+    & .param:nth-child(2) {
+        min-width: 120px;
+    }
+
     & .counterParam {
         flex: 0;
+        padding: 0 0 0 var(--padding-left-tableParamns);
         min-width: var(--minWidth-counterParam);
-        height: 100%;
     }
 
     & p {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         font-weight: 600;
         font-size: var(--fontSize-params);
         color: white;
@@ -51,12 +57,10 @@
 }
 
 .recordsContainer {
-    background-color: blue;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
-    overflow: scroll;
 }
 
 .records {
@@ -64,27 +68,77 @@
     min-height: var(--height-params-table);
     display: flex;
     border-top: 1px solid rgb(212, 212, 212);
-    
+
+    & .value:nth-child(2) {
+        min-width: 120px;
+    }
 
     & .counterValue {
         flex: 0;
+        padding: 0 0 0 var(--padding-left-tableParamns);
         min-width: var(--minWidth-counterParam);
-        height: 100%;
         font-weight: 600;
         font-size: var(--fontSize-params);
     }
 
-    & p {
-        min-height: 100%;
+    & #p {
+        /* min-height: 100%; */
         width: 100px;
-        overflow: scroll;
+        padding: 0 5px;
+        word-wrap: break-word;
+        /* overflow: hidden; */
     }
 }
 
-.records:nth-child(even){
+.records:nth-child(even) {
     background-color: var(--bg-color-gray);
 }
 
-.records:nth-child(odd){
+.records:nth-child(odd) {
     background-color: white;
+}
+
+.buttonReviews {
+    width: 100px;
+    height: 45px;
+    margin: 10px;
+
+    & button {
+        background-color: var(--button-color);
+        font-size: var(--fontSize-params);
+        width: 100%;
+        height: 100%;
+        border: none;
+        color: white;
+        font-weight: 300;
+        word-wrap: break-word;
+        border: 2px solid var(--button-color);
+        border-radius: 10px;
+    }
+
+    &:hover {
+        opacity: .9;
+    }
+}
+
+.coment {
+    color: black;
+    background-color: white;
+    font-size: var(--fontSize-params);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+    cursor: pointer;
+    border: 2px solid var(--button-color);
+    border-radius: 10px;
+    transition: .1s ease;
+
+    &:hover {
+        background-color: rgb(99, 57, 145);
+    border: 2px solid rgb(99, 57, 145);
+        color: white;
+        transition: .1s ease;
+    }
 }

@@ -1,36 +1,64 @@
-.mainView{
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-    color: white;
-    background-color: var(--bg-color2);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.mainView {
+  width: 100%;
+  /* height: 250px; */
+  overflow: hidden;
+  color: black;
+  /* background-color: var(--bg-color2); */
+  background-color: rgba(136, 136, 136, 0.164);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 20px;
 
-    & p{
-        text-align: center;
-        padding: 5px 0;
-        margin: 0;
-        font-size: 14px;
-        font-weight: 400;
-    }
+  & p {
+    text-align: center;
+    padding: 5px 0;
+    margin: 5;
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
 
-.logoContainer{
-    width: 500px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    margin: auto;
+#subMainView {
+  display: flex;
+  justify-content: space-between;
+
+  & div {
+    width: auto;
+  }
+}
+
+.logoContainer {
+  width: 500px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  & img {
+    width: 50%;
+    height: 50%;
     border-radius: 20px;
-    overflow: hidden;
+  }
+}
 
+.buttonConteiner {
+  & button {
+    background-color: blueviolet;
+    border-radius: 5px;
+    padding-bottom: 5px;
+  }
+}
 
-    & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
+#lastBox {
+  padding: 20px;
+  background-color: var(--bg-color2);
+  color: white;
+}
+
+.derechosReservados {
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
 }

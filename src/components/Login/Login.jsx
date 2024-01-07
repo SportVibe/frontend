@@ -1,111 +1,181 @@
-import { useState } from "react";
-import "./Login.css"
-import {useNavigate} from 'react-router-dom';
-import logo from "../../Images/Logo.jpg"
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import "./Login.css";
+import logo from "../../Images/Logo.jpg";
+import google from "../../Images/google-signin-button.png"
+import { getAdminUserAction, getCurrentUserAction } from "../../redux/actions";
+import axios from "axios";
+import { API_URL } from '../../helpers/config';
+import { useDispatch } from "react-redux";
+import { UserAuth } from "../../context/AuthContext";
+import LoginModal from "../Modals/LoginModal";
 
-function Login() {
-
-  const navigate = useNavigate()
-  const [userCorrect, setUserCorrect] = useState(false)//declaro un estado con su funcion de actualizacion inicialzado en false
-  const [passwordCorrect, setPasswordCorrect] =useState(false)
-  const [aux, setAux] =useState(false) 
-  const [ user, setUser ] = useState({
-    usuario:'',
-    password:''
+const login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { googleSignIn, user } = UserAuth() ?? {};
+  const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
+  const [aux, setAux] = useState(false);
+  const [modal, setModal] = useState(null);
+  const [username, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    email: '',
+    password: ''
   })
-  const [ errors, setErrors] = useState({
-    usuario:'',
-    password:''
-  })
-  const handleChange=(event)=>{
-    let {name} = event.target
-    let {value} = event.target
-    setErrors(validacion({...user, [name]: value}))
-    setUser({...user, [name]: value})
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChange = (event) => {
+    let { name } = event.target
+    let { value } = event.target
+    setUser({ ...username, [name]: value })
   }
 
-  const handleLoginU = ()=>{
-    
-    if (user.usuario === '') setAux(true)
-    else if(arr[0].user === user.usuario) setUserCorrect(true)
-    else window.alert('El usuario no existe')
-
+  const handleLoginU = (e) => {
+    e.preventDefault();
+    if (username.email === '') setAux(true);
+    else setUserCorrect(true);
   }
-  const handleLoginP = ()=>{
-    
-    if (user.password === '') setAux(true)
-    else if(userCorrect && arr[0].password === user.password) navigate('/dashboard')
-    else window.alert('La contrasena es incorrecta')
 
+  const handleLoginP = async (e) => {
+    e.preventDefault();
+    if (username.password === '') setAux(true);
+    else {
+      try {
+        const { data } = await axios.post(`${API_URL}/login`, username);
+        if (data) {
+          if (data.user.rol === 'admin') {
+            localStorage.setItem('adminUser', JSON.stringify(data.user));
+            dispatch(getAdminUserAction(data.user));
+            navigate('/dashboard');
+          }
+          else if (!data.user.active) {
+            setModal(data.user); // toda la data del usuario se pasa a la modal.
+          }
+          else {
+            localStorage.setItem('currentUser', JSON.stringify(data));
+            dispatch(getCurrentUserAction(data));
+            navigate('/');
+          }
+        }
+        else {
+          alert('El usuario o la contraseña no son válidos');
+          setUser({ ...username, password: '' });
+        }
+      } catch (error) {
+        alert('El usuario o la contraseña no son válidos');
+        setUser({ ...username, password: '' });
+        console.error({ error: error.message });
+      }
+    }
   }
-  let arr = [{user:'sportvibe07@gmail.com', password:'Henry2023'}]
 
-    return (
-      <div className="contenedorLogin"> 
+  useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
+    if (user != null) {
+      navigate('/');
+    }
+  }, [user]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="contenedorLogin">
+      {modal && <LoginModal modal={modal} setModal={setModal} handleLoginP={(e) => handleLoginP(e)} />}
       <div className="box">
-        
         <div className="boxlogo">
           <NavLink to='/'>
-          <img className="logo" src={logo} alt="" />
+            <img className="logo" src={logo} alt="" />
           </NavLink>
         </div>
         <div className="label">
-      {/* <p className="text-wrapper">SportVibe</p> */}
-      <p className="text-wrapper2">¡Siente la energía, viste la pasión!</p>
-      
-       {!userCorrect ? <div className="text-wrapper3">Correo electrónico</div> : 
-       <div className="text-wrapper3">Contraseña</div>}
-
+          {/* <p className="text-wrapper">SportVibe</p> */}
+          <p className="text-wrapper2">¡Siente la energía, viste la pasión!</p>
+          {!userCorrect ? (
+            <div className="text-wrapper3">Correo electrónico</div>
+          ) : (
+            <div className="text-wrapper3">Contraseña</div>
+          )}
+        </div>
+        <div className="boxInput">
+          {!userCorrect ? (
+            <input value={username.email} className="input" name="email" onChange={handleChange} />
+          ) : (
+            <input
+              value={username.password}
+              className="input"
+              name="password"
+              type="password"
+              autoComplete="off"
+              onChange={handleChange}
+            />
+          )}
+          {!userCorrect ? (
+            aux && !errors.email ? (
+              <p className="error">Por favor ingrese un usuario</p>
+            ) : (
+              <p className="error">{errors.email}</p>
+            )
+          ) : (
+            ""
+          )}
+          {userCorrect ? (
+            !passwordCorrect ? (
+              aux && !errors.password ? (
+                <p className="error">Por favor ingrese una clave</p>
+              ) : (
+                <p className="error">{errors.password}</p>
+              )
+            ) : (
+              ""
+            )
+          ) : (
+            ""
+          )}
+          {!userCorrect ? (
+            <button onClick={handleLoginU} className="button">
+              SIGUIENTE
+            </button>
+          ) : (
+            <button onClick={handleLoginP} className="button">
+              SIGUIENTE
+            </button>
+          )}
+        </div>
+        <hr />
+        <div className="boxlin">
+          <p className="o">O</p>
+        </div>
+        <button className="googleButton" onClick={handleGoogleSignIn}> <img className="googleImag" src={google} alt="" /></button>
+        <div className="crear">
+          <p className="text-wrapper4">¿Aún no tienes cuenta SportVibe? ¡Regístrate aquí!!</p>
+          <NavLink to='/userForm'>
+            <button className="botton2">CREAR UNA CUENTA</button>
+          </NavLink>
+        </div>
       </div>
-      <div className="boxInput">
-        
-      {!userCorrect ?
-       <input value={user.usuario} className="input" name="usuario" onChange={handleChange} /> :
-      <input value={user.password} className="input" name="password" type="password" autoComplete="off" onChange={handleChange} />}
-      
-      {!userCorrect ? 
-      aux && !errors.usuario ? 
-      <p className="error">Por favor ingrese un usuario</p>:
-      <p className="error">{errors.usuario}</p>:
-      ''}
-      
-      {userCorrect ? 
-      !passwordCorrect ? 
-      aux && !errors.password ? 
-      <p className="error">Por favor ingrese una clave</p>:
-      <p className="error">{errors.password}</p>:
-      '':
-      ''}
-
-      {!userCorrect ? 
-      <button onClick={()=>handleLoginU()} className="button">SIGUIENTE</button>:
-      <button onClick={()=>handleLoginP()} className="button">SIGUIENTE</button>}
     </div>
-      <hr />
-    <div className="boxlin">
-      <p className="o">O</p>
-    </div>
-    <div className="crear">
-      <p className="text-wrapper4">¿Aún no tienes cuenta SportVibe? ¡Regístrate aquí!!</p>
-      <NavLink to='/userForm'>
-      <button className="botton2">CREAR UNA CUENTA</button>
-      </NavLink>
-    </div>
-    </div>
-    </div>
-    );
-  }
-  export default Login;
+  );
+};
 
-  const validacion = ({usuario, password}) =>{
-    let error = {};
+export default login;
 
-  if(!usuario) error.usuario = 'Por favor ingrese un usuario'
-  else error.usuario = '✔'
-
-  if(!password) error.password = 'Por favor ingrese una clave'
-  else error.password = '✔'
-
-    return error
-  }
+// const validacion = ({ email, password }) => {
+//   let error = {};
+//   if (!email) error.email = 'Por favor ingrese un email'
+//   else error.email = '✔'
+//   if (!password) error.password = 'Por favor ingrese una clave'
+//   else error.password = '✔'
+//   return error
+// }

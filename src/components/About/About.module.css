@@ -1,26 +1,30 @@
 .aboutContainer {
-    padding: 20px;
-    }
-  
-  .companyCard {
-    margin-top: 20px;
-  }
-    
-  .teamCardsContainer {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .teamCard {
-    margin-bottom: 20px;
-  }
+  margin: 30px;
+}
 
-  .logo {
-    height: 100%; 
-    width: complite;
-    display: block; 
-    margin: 0 auto; 
-  }
+#row {
+  display: flex;
+  justify-content: center;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+}
+
+.companyCard {
+  width: 100%;
+}
+
+.teamCardsContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-start;
+}
