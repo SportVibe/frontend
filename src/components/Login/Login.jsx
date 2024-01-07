@@ -57,8 +57,7 @@ const login = () => {
           if (data.user.rol === 'admin') {
             localStorage.setItem('adminUser', JSON.stringify(data.user));
             dispatch(getAdminUserAction(data.user));
-            // navigate('/dashboard');
-            navigate('/');
+            navigate('/dashboard');
           }
           else if (!data.user.active) {
             setModal(data.user); // toda la data del usuario se pasa a la modal.
@@ -70,12 +69,12 @@ const login = () => {
           }
         }
         else {
-          alert ('El usuario o la contraseña no son válidos');
-          setUser({...username, password: ''});
+          alert('El usuario o la contraseña no son válidos');
+          setUser({ ...username, password: '' });
         }
       } catch (error) {
-        alert ('El usuario o la contraseña no son válidos');
-        setUser({...username, password: ''});
+        alert('El usuario o la contraseña no son válidos');
+        setUser({ ...username, password: '' });
         console.error({ error: error.message });
       }
     }
@@ -93,7 +92,7 @@ const login = () => {
 
   return (
     <div className="contenedorLogin">
-      {modal && <LoginModal modal={modal} setModal={setModal} handleLoginP={(e) => handleLoginP(e)}/>}
+      {modal && <LoginModal modal={modal} setModal={setModal} handleLoginP={(e) => handleLoginP(e)} />}
       <div className="box">
         <div className="boxlogo">
           <NavLink to='/'>
