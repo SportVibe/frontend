@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
+import { useNavigate } from "react-router-dom";
 
 
-const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar}) => {
+const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
     const [reviews,setReviews] = useState(null);
     const [reload,setReload] = useState(true);
+
+    const navigate = useNavigate();
     
     useEffect(()=>{
         axios(`${API_URL}/reviews`)
@@ -14,7 +17,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar}) => {
             setReviews(pendingReviews);
       })
       .catch((err) => console.log(err));
-  }, [reload]);
+  }, [reload,navigate]);
 
     useEffect(()=>{handleVisibleSidebar()},[])
 
@@ -57,11 +60,32 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar}) => {
         <div>
             <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100 ">
                 <div className="">
-                <button type="button" class="btn btn-ligth btn-s" onClick={handleVisibleSidebar}><i className="bi bi-list fs-3"></i></button>
+                <button type="button" class="btn btn-ligth btn-s" onClick={handleVisibleSidebar}
+                ><i className="bi bi-list fs-3"></i></button>
                 </div>
             </nav>
         <div className="d-flex flex-column align-items-center bg-body-tertiary">
-            {reviews?.map((rev) => (
+            {reviews?.length === 0 ? 
+            Swal.fire({
+                title: "No hay Comentarios Pendientes",
+                showClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `
+                },
+                hideClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                }
+              })
+              && setSidebarRender("productos")
+            : 
+                reviews?.map((rev) => (
                 <div className="card w-50 mb-3 mt-2" id={rev.id}>
                 <div className="card-header fs-4 bg-dark-subtle">
                   Comentario Nº : {rev.id}
@@ -76,7 +100,8 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar}) => {
                   <a href="#" name="rejected" id={rev.id} className="btn btn-danger" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
                 </div>
               </div>
-            ))}
+            ))
+            }
         </div>
         </div>
     );

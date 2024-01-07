@@ -186,7 +186,11 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
     <>
       <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100">
             <div className="">
-            <button type="button" class="btn btn-ligth btn-s" onClick={handleVisibleSidebar}><i className="bi bi-list fs-3"></i></button>
+            <button 
+            type="button" 
+            class="btn btn-ligth btn-s" 
+            onClick={handleVisibleSidebar} 
+            ><i className="bi bi-list fs-3"></i></button>
             </div>
             <div className="d-flex  mx-auto">
             <i className="bi bi-search fs-3 me-2"></i>

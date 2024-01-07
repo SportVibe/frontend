@@ -40,7 +40,7 @@ function AdminDashBoard() {
           </div>
         )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
-        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
+        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender}/> : null}
       </div>
     </div>
   );
