@@ -94,8 +94,8 @@ export default function ProductForm() {
   
    
     return (
-    <div className="bg-light d-flex flex-column vh-100">
-      <div className="d-flex p-2 mt-2 w-50 bg-body-secondary justify-content-center mx-auto rounded-pill">
+    <div className="bg-light d-flex flex-column">
+      <div className="d-flex mt-2 w-50 bg-body-secondary justify-content-center mx-auto rounded-pill">
       <p className="fs-2">
       Nuevo Producto
       </p>

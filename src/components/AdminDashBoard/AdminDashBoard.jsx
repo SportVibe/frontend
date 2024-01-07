@@ -18,9 +18,6 @@ function AdminDashBoard() {
     window.scrollTo(0, 0);
   }, []);
 
-  function handleClose() {
-    setSelectedRow(null);
-  }
 
   return (
     <div className="d-flex">

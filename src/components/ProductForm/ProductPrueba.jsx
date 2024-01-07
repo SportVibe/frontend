@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
-import { loadLanguages } from "i18next";
+import Loading from "../loading/Loading";
 
 const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
   const [productRender, setProductRender] = useState([]);
@@ -206,6 +206,19 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
               </ul>
             </div>
         </nav>
+        {productRender.length === 0 ? 
+        <div className="vh-100 d-flex align-items-center">
+        <div class="spinner-grow text-success mx-3" role="status">
+        <span class="visually-hidden"></span>
+        </div>
+        <div class="spinner-grow text-danger mx-3" role="status">
+        <span class="visually-hidden"></span>
+        </div>
+        <div class="spinner-grow text-warning mx-3" role="status">
+        <span class="visually-hidden"></span>
+        </div> 
+        </div>
+        : 
         <DataTable
         responsive
         columns={columns}
@@ -216,6 +229,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
         theme="light"
         onRowClicked={handleChange}
       ></DataTable> 
+      }
     </>
   );
 };
