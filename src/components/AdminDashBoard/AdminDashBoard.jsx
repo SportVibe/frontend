@@ -12,6 +12,7 @@ function AdminDashBoard() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
   const [visibleSidebar,setVisibleSidebar] = useState(false);
+  const [reloadDetails,setReloadDetails] = useState(false); // recargo imagenes y titulos de reviews de dashboard por demora de react
   
 
   useEffect(() => {
@@ -40,7 +41,7 @@ function AdminDashBoard() {
           </div>
         )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
-        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender}/> : null}
+        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} setReloadDetails={setReloadDetails} reloadDetails={reloadDetails}/> : null}
       </div>
     </div>
   );

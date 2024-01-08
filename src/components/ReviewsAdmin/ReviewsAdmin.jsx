@@ -4,13 +4,11 @@ import { API_URL } from "../../helpers/config";
 import { useNavigate } from "react-router-dom";
 
 
-const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
+const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadDetails,setReloadDetails}) => {
     const [reviews,setReviews] = useState(null);
     const [reload,setReload] = useState(true);
     const [detailProductsReviews , setDetailProductsReviews] = useState([]);
-    const [reloadDetail,setReloadDetail] = useState(true)
     const navigate = useNavigate();
-    console.log(detailProductsReviews,"DETIAl");
     
     
     useEffect(()=>{
@@ -36,6 +34,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
                  })
                 }
          handleDetail()
+         setTimeout(()=>{setReloadDetails(!reloadDetails)},1000)
     },[reviews,reload])
 
   const hanlderScore = (score)=>{
@@ -73,8 +72,6 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
     }
 }
 
-  
-
     return (
         <div>
             <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100 ">
@@ -103,7 +100,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
                 }
               })
               && setSidebarRender("productos")
-            : 
+            :
                 reviews?.map((rev,i) => (
                 <div className="card w-50 mb-3 mt-2" id={rev.id}>
                 <div className="card-header fs-4 bg-dark-subtle">
@@ -112,8 +109,8 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender}) => {
                 <div class="card-body">
                     <div className="d-flex justify-content-between align-items-center">
                   <h5 className="card-title fs-4 mb-3">Descripcion :</h5>
-                  <p className="fs-5">Puntaje:  {hanlderScore(rev.score)}</p>
-                  <img src={detailProductsReviews[i]?.data?.Images[0]} width="100px" className="rounded-pill"></img>
+                  <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p>
+                  <img src={detailProductsReviews[i]?.data.Images[0]} width="100px" className="rounded-pill"></img>
                   </div>
                   <p className="card-text"><strong>{rev.description}</strong></p>
                   <div className="d-flex">
