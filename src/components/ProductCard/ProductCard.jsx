@@ -24,12 +24,8 @@ function ProductCard({ productData }) {
     oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     const array = productData?.Reviews ? productData.Reviews : [];
-    let avgScore = array?.reduce((acc, review) => {
-        return acc + parseInt(review.score);
-    }, 0);
-    avgScore = avgScore / array.length;
+    let avgScore = productData.averageScore;
     avgScore = parseFloat(avgScore.toFixed(1));
-    // console.log(avgScore, `id: ${id}`);
 
     function handleMouseEnter() {
         setImgHover(true);
