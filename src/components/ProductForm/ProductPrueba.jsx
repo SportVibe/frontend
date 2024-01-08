@@ -4,16 +4,16 @@ import axios from "axios";
 import { API_URL } from "../../helpers/config";
 import Loading from "../loading/Loading";
 
-const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
+const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, handleSignOut }) => {
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
- 
+
 
   useEffect(() => {
     axios(`${API_URL}/admin`)
       .then(({ data }) => {
-            let prod = formatProductTable(data.modifiedProducts);
-            setProductSearch(prod);
+        let prod = formatProductTable(data.modifiedProducts);
+        setProductSearch(prod);
       })
       .catch((err) => window.alert(err));
     //return setProducRender([]);
@@ -70,7 +70,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.images,
       sortable: true,
       center: "true",
-      width:"115px",
+      width: "115px",
       style: { fontSize: 16 },
       //width:"200px"
     },
@@ -79,7 +79,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
       selector: (row) => row.available,
       sortable: true,
       center: "true",
-      width:"125px",
+      width: "125px",
       style: { fontSize: 16 },
       //width:"200px"
     },
@@ -163,7 +163,7 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
     },
     headCells: {
       style: {
-        paddingLeft: "8px", 
+        paddingLeft: "8px",
         paddingRight: "8px",
         justify: "center",
         justifyContent: "center",
@@ -185,54 +185,54 @@ const ProductPrueba = ({setSelectedRow, setVisibleSidebar, visibleSidebar}) => {
   return (
     <>
       <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100">
-            <div className="">
-            <button 
-            type="button" 
-            class="btn btn-ligth btn-s" 
-            onClick={handleVisibleSidebar} 
-            ><i className="bi bi-list fs-3"></i></button>
-            </div>
-            <div className="d-flex  mx-auto">
-            <i className="bi bi-search fs-3 me-2"></i>
-              <input
-                className="form-control"
-                type="search"
-                placeholder="Producto..."
-                onChange={handleFilter}
-              />
-            </div>
-            <div class="btn-group me-5">
-              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Admin
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
-              </ul>
-            </div>
-        </nav>
-        {productRender.length === 0 ? 
+        <div className="">
+          <button
+            type="button"
+            class="btn btn-ligth btn-s"
+            onClick={handleVisibleSidebar}
+          ><i className="bi bi-list fs-3"></i></button>
+        </div>
+        <div className="d-flex  mx-auto">
+          <i className="bi bi-search fs-3 me-2"></i>
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Producto..."
+            onChange={handleFilter}
+          />
+        </div>
+        <div class="btn-group me-5">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
+            <li onClick={handleSignOut}><a class="dropdown-item" href="#" onClick={handleSignOut}>Cerrar Sesion</a></li>
+          </ul>
+        </div>
+      </nav>
+      {productRender.length === 0 ?
         <div className="vh-100 d-flex align-items-center">
-        <div class="spinner-grow text-success mx-3" role="status">
-        <span class="visually-hidden"></span>
+          <div class="spinner-grow text-success mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-grow text-danger mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-grow text-warning mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
         </div>
-        <div class="spinner-grow text-danger mx-3" role="status">
-        <span class="visually-hidden"></span>
-        </div>
-        <div class="spinner-grow text-warning mx-3" role="status">
-        <span class="visually-hidden"></span>
-        </div> 
-        </div>
-        : 
+        :
         <DataTable
-        responsive
-        columns={columns}
-        data={productRender}
-        fixedHeader
-        pointerOnHover
-        customStyles={customStyles}
-        theme="light"
-        onRowClicked={handleChange}
-      ></DataTable> 
+          responsive
+          columns={columns}
+          data={productRender}
+          fixedHeader
+          pointerOnHover
+          customStyles={customStyles}
+          theme="light"
+          onRowClicked={handleChange}
+        ></DataTable>
       }
     </>
   );

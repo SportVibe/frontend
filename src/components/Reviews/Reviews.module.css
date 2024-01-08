@@ -89,13 +89,43 @@
     margin-bottom: 15px;
 
     & p {
-        color: rgb(189, 116, 0);
         font-weight: 300;
         align-self: flex-start;
     }
 
+    & .pending {
+        color: rgb(189, 116, 0);
+    }
+
+    & .accepted {
+        color: rgb(31, 141, 0);
+    }
+
+    & .rejected {
+        color: rgb(198, 0, 0);
+
+        & span {
+            font-weight: 700;
+        }
+    }
+
     & textarea {
         width: 100%;
+    }
+
+    & .textRejected {
+        border: 1px solid rgba(198, 0, 0, 0.456);
+        background-color: rgba(198, 0, 0, 0.07);
+
+    }
+
+    & .textAccepted {
+        border: 2px solid rgba(31, 141, 0, 0.476);
+        background-color: rgba(31, 141, 0, 0.084);
+    }
+
+    & .textPending {
+        border: 1px solid rgba(189, 117, 0, 0.588);
     }
 }
 

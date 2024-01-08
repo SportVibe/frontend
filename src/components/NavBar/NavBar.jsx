@@ -30,7 +30,7 @@ function NavBar() {
   const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
   let currentAdminData = useSelector((state) => state.currentAdminData); // data del admin a renderizar
   let adminLocalStorage = JSON.parse(localStorage.getItem('adminUser'));
-  currentAdminData = currentAdminData ? currentAdminData : adminLocalStorage;
+  currentAdminData = adminLocalStorage ? adminLocalStorage : null;
   // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
   const firstNameFull = userDataRender ? userDataRender.firstName : '';
   let firstName = userDataRender ? userDataRender.firstName?.charAt(0).toUpperCase() : '';
