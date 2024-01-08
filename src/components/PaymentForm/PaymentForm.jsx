@@ -87,7 +87,7 @@ const PaymentForm = () => {
 
   return (
     <div className={styles.container}>
-   
+
 
       <label htmlFor="country" className={styles.label}>
         País

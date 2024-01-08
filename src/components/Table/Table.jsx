@@ -47,7 +47,7 @@ function Table(props) {
             Cantidad: 1,
             'Precio unitario': 8,
             'Precio total': 8,
-            id: 85,
+            id: 65,
         }
     ]);
     const [recordArray, setRecordArray] = useState([

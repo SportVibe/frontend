@@ -85,6 +85,7 @@ const Reviews = ({ productId, userId, setModal }) => {
         try {
             setLoading(true);
             const { data } = await axios(`${API_URL}/reviews?productId=${productId}&userId=${userId}`);
+            console.log(data);
             if (data) {
                 setScore(data.data[0].score);
                 setDescription(data.data[0].description);
@@ -129,11 +130,14 @@ const Reviews = ({ productId, userId, setModal }) => {
                 <div className={styles.descriptionContainer}>
                     <label>Comentario:</label>
                     <textarea
+                        className={`${(status === 'rejected' && !inputsUsed) && styles.textRejected} ${(status === 'accepted' && !inputsUsed) && styles.textAccepted} ${(status === 'pending' && !inputsUsed) && styles.textPending}`}
                         placeholder='Deja aquí tu comentario sobre el producto...'
                         value={description}
                         onChange={(e) => { setDescription(e.target.value); setInputUsed(true); }}
                     />
-                    {(status && reviewExists) && <p>Comentario en revisión</p>}
+                    {(status === 'pending' && reviewExists && !inputsUsed) && <p className={styles.pending}>Su comentario está siendo revisado...</p>}
+                    {(status === 'accepted' && reviewExists && !inputsUsed) && <p className={styles.accepted}>Comentario aceptado ✓</p>}
+                    {(status === 'rejected' && reviewExists && !inputsUsed) && <p className={styles.rejected}>Su comentario <span>rechazado</span>, intente cambiarlo</p>}
                 </div>
                 {error && <p className={styles.error}>{error}</p>}
                 <button onClick={handleSubmitReview} className={(score && description.trim().length && inputsUsed) ? styles.submitButton : styles.submitButtonOff}>
