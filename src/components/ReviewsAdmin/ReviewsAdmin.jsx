@@ -80,7 +80,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
                 ><i className="bi bi-list fs-3"></i></button>
                 </div>
             </nav>
-        <div className="d-flex flex-column align-items-center bg-body-tertiary">
+        <div className="d-flex flex-row flex-wrap gap-3 align-items-center justify-content-center bg-body-tertiary">
             {reviews?.length === 0 ? 
             Swal.fire({
                 title: "No hay Comentarios Pendientes",
@@ -102,25 +102,28 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
               && setSidebarRender("productos")
             :
                 reviews?.map((rev,i) => (
-                <div className="card w-50 mb-3 mt-2" id={rev.id}>
-                <div className="card-header fs-4 bg-dark-subtle">
+                    <div className="">
+                <div className="card w-100 mb-3 mt-2" id={rev.id}>
+                <div className="card-header fs-5 bg-dark-subtle">
                     {detailProductsReviews[i]?.data?.title}
                 </div>
                 <div class="card-body">
                     <div className="d-flex justify-content-between align-items-center">
                   <h5 className="card-title fs-4 mb-3">Descripcion :</h5>
-                  <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p>
+                  {/* <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p> */}
                   <img src={detailProductsReviews[i]?.data.Images[0]} width="100px" className="rounded-pill"></img>
                   </div>
-                  <p className="card-text"><strong>{rev.description}</strong></p>
+                  <p className="card-text fs-4 mb-5">{rev.description}</p>
                   <div className="d-flex">
-                  <a href="#" name="accepted" id={rev.id} className="btn btn-success me-1" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
-                  <a href="#" name="rejected" id={rev.id} className="btn btn-danger" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
+                  <a href="#" name="accepted" id={rev.id} className="btn btn-success me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
+                  <a href="#" name="rejected" id={rev.id} className="btn btn-danger align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
                   <div className="ms-auto">
+                  <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p>
                   <p className="">Comentario ID : {rev.id}</p>
                   </div>
                   </div>
                 </div>
+              </div>
               </div>
             ))
             }
