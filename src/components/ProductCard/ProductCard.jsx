@@ -23,6 +23,10 @@ function ProductCard({ productData }) {
     currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+    const array = productData?.Reviews ? productData.Reviews : [];
+    let avgScore = productData.averageScore;
+    avgScore = parseFloat(avgScore.toFixed(1));
+
     function handleMouseEnter() {
         setImgHover(true);
     }
@@ -57,6 +61,26 @@ function ProductCard({ productData }) {
                 <div className={styles.downSideContainer}>
                     <div className={styles.categoryNameContainer}>
                         <p className={styles.category}>{category}</p>
+                        <div className={styles.starContainer}>
+                            <p className={styles.category}>{avgScore}</p>
+                            {(avgScore > 0 && avgScore < 1) && <i className="fa-solid fa-star-half-stroke"></i>}
+                            {avgScore >= 1 && <i className="fa-solid fa-star"></i>}
+                            {(avgScore > 1 && avgScore < 2) && <i className="fa-solid fa-star-half-stroke"></i>}
+                            {avgScore >= 2 && <i className="fa-solid fa-star"></i>}
+                            {(avgScore > 2 && avgScore < 3) && <i className="fa-solid fa-star-half-stroke"></i>}
+                            {avgScore >= 3 && <i className="fa-solid fa-star"></i>}
+                            {(avgScore > 3 && avgScore < 4) && <i className="fa-solid fa-star-half-stroke"></i>}
+                            {avgScore >= 4 && <i className="fa-solid fa-star"></i>}
+                            {(avgScore > 4 && avgScore < 5) && <i className="fa-solid fa-star-half-stroke"></i>}
+                            {avgScore >= 5 && <i className="fa-solid fa-star"></i>}
+
+                            {(avgScore <= 4) && <i className="fa-regular fa-star"></i>}
+                            {(avgScore <= 3) && <i className="fa-regular fa-star"></i>}
+                            {(avgScore <= 2) && <i className="fa-regular fa-star"></i>}
+                            {(avgScore <= 1) && <i className="fa-regular fa-star"></i>}
+                            {(avgScore === 0) && <i className="fa-regular fa-star"></i>}
+                            <p className={styles.category}>{`(${array.length})`}</p>
+                        </div>
                     </div>
                     <div className={styles.titleContainer}>
                         <p>{title}</p>

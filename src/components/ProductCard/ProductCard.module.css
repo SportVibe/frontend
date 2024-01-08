@@ -107,6 +107,24 @@
     & .category:hover {
         text-decoration: underline;
     }
+
+    & .starContainer {
+        display: flex;
+        align-items: center;
+
+        & p{
+            margin: 0 10px;
+            color: var(--font-color-hard);
+        }
+
+        & i {
+            font-size: 12px;
+            padding: 0;
+            margin: 0;
+            color: var(--font-color-hard);
+            opacity: .9;
+        }
+    }
 }
 
 .titleContainer {
