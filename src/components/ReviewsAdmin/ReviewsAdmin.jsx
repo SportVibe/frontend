@@ -116,9 +116,9 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
                   <p className="card-text fs-4 mb-5">{rev.description}</p>
                   <div className="d-flex">
                   <a href="#" name="accepted" id={rev.id} className="btn btn-success me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
-                  <a href="#" name="rejected" id={rev.id} className="btn btn-danger align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
-                  <div className="ms-auto">
-                  <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p>
+                  <a href="#" name="rejected" id={rev.id} className="btn btn-danger align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
+                  <div className="ms-auto align-items-end">
+                  <p className="fs-6 mb-0">Puntaje:  {hanlderScore(rev.score)}</p>
                   <p className="">Comentario ID : {rev.id}</p>
                   </div>
                   </div>
