@@ -29,7 +29,8 @@
 }
 
 .logoContainer {
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 100px;
   display: flex;
   justify-content: center;

@@ -56,7 +56,7 @@
 
                 & .imgContainer {
                     width: 100%;
-    
+
                     & div {
                         width: 80px;
                         height: 80px;
@@ -64,14 +64,14 @@
                         background-color: white;
                         color: black;
                         border-radius: 100%;
-    
+
                         & img {
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
                             object-position: top;
                         }
-    
+
                         & p {
                             width: 100%;
                             height: 100%;
@@ -148,7 +148,8 @@
                 gap: 6px;
                 border-radius: 5px;
                 cursor: pointer;
-    
+                transition: .2s ease;
+
                 &:hover {
                     color: var(--button-color);
                 }
@@ -156,7 +157,7 @@
 
             & .divSelected {
                 width: 100%;
-                padding: 10px;
+                padding: 10px 10px 10px 20px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
@@ -164,6 +165,7 @@
                 border-radius: 5px;
                 color: var(--button-color);
                 cursor: pointer;
+                transition: padding .2s ease;
             }
         }
     }

@@ -54,7 +54,7 @@ function UserProfile() {
                     if (deleteData) {
                         alert('Su cuenta ha sido eliminada');
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
-                    } 
+                    }
                     else alert('Usuario actualizado con éxito');
                 }
                 else {
@@ -152,16 +152,16 @@ function UserProfile() {
                                 <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
                             </div>
-                            <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
+                            {/* <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
                                 <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
                                 <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className={styles.mainComponentsContainer}>
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
-                                <Table records={null} userId={userDataRender.id}/>
+                                <Table records={null} userId={userDataRender.id} />
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>

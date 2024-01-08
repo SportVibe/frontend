@@ -17,6 +17,24 @@
         font-weight: 300;
         color: gray;
     }
+
+    & .submitButton {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    & .submitButtonOff {
+        padding: 10px;
+        background-color: gray;
+        color: white;
+        cursor: default;
+        border: none;
+        border-radius: 5px;
+    }
 }
 
 #closeIcon {
@@ -45,7 +63,7 @@
     }
 }
 
-.descriptionContainer{
+.descriptionContainer {
     padding: 10px 0;
     display: flex;
     flex-direction: column;
@@ -69,15 +87,26 @@
 .ratingContainer,
 .descriptionContainer {
     margin-bottom: 15px;
+
+    & p {
+        color: rgb(189, 116, 0);
+        font-weight: 300;
+        align-self: flex-start;
+    }
+
+    & textarea {
+        width: 100%;
+    }
 }
 
 .starsContainer {
-    width: 150px;
+    /* width: 150px; */
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     & i {
+        padding: 0 2px;
         font-size: 25px;
         cursor: pointer;
         color: var(--button-color);
@@ -85,19 +114,6 @@
     }
 }
 
-textarea {
-    width: 100%;
-}
-
 .error {
     color: red;
-}
-
-.submitButton {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
 }
