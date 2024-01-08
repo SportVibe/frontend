@@ -29,6 +29,7 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
+  console.log(data);
 
   useEffect(() => {
     axios
@@ -233,11 +234,12 @@ const ProductDetail = () => {
         return "";
     }
   };
+  
 
   return (
     <div className="d-flex w-100 gap-5 justify-content-center">
-      <div className="d-flex flex-column w-75">
-        <div className="d-flex justify-content-center mt-5 bg-body-tertiary gap-5 rounded-5 me-4 h-100">
+      <div className="d-flex flex-column w-100 ms-5 me-5">
+        <div className="d-flex justify-content-center mt-5 bg-body-tertiary gap-5 rounded-5 me-4 h-100 flex-wrap">
           <div className="w-50 me-5 mt-4">
             <div id="carouselExample" className="carousel slide">
               <div className="carousel-inner">
@@ -286,7 +288,7 @@ const ProductDetail = () => {
                 Nuevo | +1000 vendidos
               </p>
             </div>
-            <p className="fs-3 mt-3 mb-0">{data?.title}</p>
+            <p className="fs-3 mt-3 mb-0 overflow-hidden">{data?.title}</p>
             <p className="">
               ({reviewsAvg}) {hanlderScore(reviewsAvg)} ({reviews?.length})
             </p>
@@ -299,16 +301,21 @@ const ProductDetail = () => {
                     maximumFractionDigits: 2,
                   })}
               </p>
-              <p>Colores Disponibles: {data?.Colors.join(", ")}</p>
+              {/* <p>Colores Disponibles: {data?.Colors.join(", ")}</p> */}
+              <div>
+              <p>Colores Disponibles: 
+              {data?.Colors.map((color) => <button type="button" className="btn btn-outline-secondary btn-sm ms-1">{color}</button>)}
+              </p>
+              </div>
             </div>
-            <div className="d-flex">
+            <div className="d-flex mb-2">
               <p className="fs-5 me-3 my-auto">Talles:</p>
               {data?.Stocks &&
                 data?.Stocks.length > 0 &&
                 data?.Stocks.map((stock, i) => (
                   <button
                     key={i}
-                    className="btn btn-secondary me-2 my-3"
+                    className="btn btn-outline-secondary btn-sm ms-1"
                     onClick={() => handleSizeSelection(Object.keys(stock)[0])}
                   >
                     {Object.keys(stock)[0]}
@@ -318,7 +325,7 @@ const ProductDetail = () => {
             <div className="fs-5 mt-2">
               <p>{generateDescriptionText()}</p>
             </div>
-            <div className="d-flex gap-3 mt-3">
+            <div className="d-flex gap-3 mt-2">
               <label className="my-auto">Cantidad:</label>
               <input
                 type="number"
@@ -330,23 +337,38 @@ const ProductDetail = () => {
             </div>
             <div className="mt-3 mb-5">
               <button
-                className="btn btn-primary w-50"
+                className="btn btn-primary w-50 mt-3"
                 onClick={handleAddToCart}
               >
                 Agregar al carrito
                 <i className="bi bi-cart-plus" />
               </button>
             </div>
+            <div className="text-secondary">
+              <p>Descripcion</p>
+              {data?.description}
+            </div>
+          </div>
+          <div className="rounded-3 bg-body-tertiary w-100">
+            <p className="fs-5 ms-2 mb-1 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p>
+            <ul class="list-group rounded-pill">
+            {reviews?.map((rev)=> 
+            <div className="">
+            <li className="list-group-item rounded-3 mt-1">{hanlderScore(rev.score)}<p className="fs-6 mb-0">{rev.description}</p></li>
+            </div>
+            )}
+            </ul>
           </div>
         </div>
+      
         <div>
           <button
             type="button"
-            class="btn btn-secondary "
+            class="btn btn-info mt-2 mb-1"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >
-            Envios y devoluciones
+            <i class="bi bi-info-circle"></i>  Envios y devoluciones
           </button>
         </div>
         <div
