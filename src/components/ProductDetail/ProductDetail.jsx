@@ -29,7 +29,6 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
-  
 
   useEffect(() => {
     axios
@@ -234,271 +233,331 @@ const ProductDetail = () => {
         return "";
     }
   };
-  
 
   return (
-    
     <div className="d-flex w-100 justify-content-center">
-      {!data ? 
-      <div className="vh-100 d-flex align-items-center">
-      <div class="spinner-grow text-success mx-3" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-grow text-danger mx-3" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-      <div class="spinner-grow text-warning mx-3" role="status">
-        <span class="visually-hidden"></span>
-      </div>
-    </div> 
-    :
-    <div className="d-flex flex-column w-75 ms-5 me-5">
-        <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center">
-              {/* CAROUSEL */}
+      {!data ? (
+        <div className="vh-100 d-flex align-items-center">
+          <div class="spinner-grow text-success mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-grow text-danger mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          <div class="spinner-grow text-warning mx-3" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      ) : (
+        <div className="d-flex flex-column w-75 ms-5 me-5">
+          <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center">
+            {/* CAROUSEL */}
             <div className="d-flex w-50 ms-4 mt-4">
-            <div id="carouselExample" className="carousel slide">
-              <div className="carousel-inner">
-                {data?.Images.map((img, i) => (
-                  <div id={i} className="carousel-item active">
-                    <img
-                      src={img}
-                      className="d-block w-100 text-success-emphasis"
-                      alt="..."
-                    />
-                  </div>
-                ))}
+              <div id="carouselExample" className="carousel slide">
+                <div className="carousel-inner">
+                  {data?.Images.map((img, i) => (
+                    <div id={i} className="carousel-item active">
+                      <img src={img} className={`${styles.image}`} alt="..." />
+                    </div>
+                  ))}
+                </div>
+                <button
+                  className="carousel-control-prev text-success-emphasis"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-90%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que ,
+                  }}
+                >
+                  <span
+                    className="carousel-control-prev-icon text-success-emphasis  "
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      left: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden text-success-emphasis "></span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-90%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que
+                  }}
+                >
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      right: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden"></span>
+                </button>
               </div>
-              <button
-                className="carousel-control-prev text-success-emphasis"
-                type="button"
-                data-bs-target="#carouselExample"
-                data-bs-slide="prev"
-              >
-                <span
-                  className="carousel-control-prev-icon text-success-emphasis"
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden text-success-emphasis">
-                  Previous
-                </span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselExample"
-                data-bs-slide="next"
-              >
-                <span
-                  className="carousel-control-next-icon "
-                  aria-hidden="true"
-                ></span>
-                <span className="visually-hidden">Next</span>
-              </button>
-            </div>
               {/*  FIN CAROUSEL */}
-              </div>
-              {/* DETALLE PRODUCTO */}
-            <div className="d-flex flex-column w-50 align-self-start mt-2">
-            <div className="mt-3">
-              <p className="text-success-emphasis mx-auto">
-                Nuevo | +1000 vendidos
-              </p>
             </div>
-            <p className="fs-3 mt-3 mb-0 overflow-hidden">{data?.title}</p>
-            {/* ESTRELLAS REVIEWS */}
-            <button type="button" className="d-flex justify-content-start align-items-center w-25 bg-transparent border-0 overflow-visible text-dark mt-0 mb-2" data-bs-toggle="modal" data-bs-target="#reviewsModal">
-              ({parseInt(reviewsAvg)}) {hanlderScore(reviewsAvg)} ({reviews?.length})
-            </button>
-            {/* MODAL DE REVIEWS */}
-            <div class="modal fade" id="reviewsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {/* DETALLE PRODUCTO */}
+            <div className="d-flex flex-column w-50 align-self-start mt-2">
+              <div className="mt-3">
+                <p className="text-success-emphasis mx-auto">
+                  Nuevo | +1000 vendidos
+                </p>
+              </div>
+              <p className="fs-3 mt-3 mb-0 overflow-hidden">{data?.title}</p>
+              <hr />
+              <p>{data?.brand}</p>
+              {/* ESTRELLAS REVIEWS */}
+              <button
+                type="button"
+                className="d-flex justify-content-start align-items-center w-25 bg-transparent border-0 overflow-visible text-dark mt-0 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#reviewsModal"
+              >
+                ({parseInt(reviewsAvg)}) {hanlderScore(reviewsAvg)} (
+                {reviews?.length})
+              </button>
+              {/* MODAL DE REVIEWS */}
+              <div
+                class="modal fade"
+                id="reviewsModal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropLabel"><p className="fs-5 ms-2 mb-2 mt-3 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p></h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <p className="fs-5 ms-2 mb-2 mt-3 text-secondary">
+                          <i className="bi bi-ui-checks fs-5"></i> Oponiones Del
+                          Producto
+                        </p>
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div class="modal-body">
-                    <div className="w-100">
+                      <div className="w-100">
                         <ul class="list-group rounded-pill">
-                        {reviews?.map((rev)=> 
-                        <div className="">
-                        <li className="list-group-item rounded-3 mt-1">{hanlderScore(rev.score)}<p className="fs-6 mb-0">{rev.description}</p></li>
-                        </div>
-                        )}
+                          {reviews?.map((rev) => (
+                            <div className="">
+                              <li className="list-group-item rounded-3 mt-1">
+                                {hanlderScore(rev.score)}
+                                <p className="fs-6 mb-0">{rev.description}</p>
+                              </li>
+                            </div>
+                          ))}
                         </ul>
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Cerrar
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            <div className="d-flex flex-column ">
-              <p>{data?.brand}</p>
-              <p className="fs-2">
-                {"US$" +
-                  (data?.price / 1).toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-              </p>
-              <div>
-              <p>Colores Disponibles: 
-              {data?.Colors.map((color) => <button type="button" className="btn btn-outline-secondary btn-sm ms-1">{color}</button>)}
-              </p>
+              <div className="d-flex flex-column ">
+                <p className="fs-2">
+                  {"US$" +
+                    (data?.price / 1).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                </p>
+                <div>
+                  <p>
+                    De Color:
+                    <p>{data?.Colors.join(", ")}</p>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="d-flex mb-2">
-              <p className="fs-5 me-3 my-auto">Talles:</p>
-              {data?.Stocks &&
-                data?.Stocks.length > 0 &&
-                data?.Stocks.map((stock, i) => (
-                  <button
-                    key={i}
-                    className="btn btn-outline-secondary btn-sm ms-1"
-                    onClick={() => handleSizeSelection(Object.keys(stock)[0])}
-                  >
-                    {Object.keys(stock)[0]}
-                  </button>
-                ))}
-            </div>
-            <div className="fs-5 mt-2">
-              <p>{generateDescriptionText()}</p>
-            </div>
-            <div className="d-flex gap-3 mt-2">
-              <label className="my-auto">Cantidad:</label>
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                className="form-control fs-5 m-0 w-25"
-              />
-            </div>
-            <div className="mt-3 mb-5">
-              <button
-                className="btn btn-primary w-50 mt-3"
-                onClick={handleAddToCart}
-              >
-                Agregar al carrito
-                <i className="bi bi-cart-plus" />
-              </button>
-            </div>
-            <div className="text-secondary w-100 mb-4">
-              <p className="fs-5">Descripcion</p>
-              {data?.description}
-            </div>
+              <div className="d-flex mb-2">
+                <p className="fs-5 me-3 my-auto">Talles:</p>
+                {data?.Stocks &&
+                  data?.Stocks.length > 0 &&
+                  data?.Stocks.map((stock, i) => (
+                    <button
+                      key={i}
+                      className="btn btn-outline-secondary btn-sm ms-1"
+                      onClick={() => handleSizeSelection(Object.keys(stock)[0])}
+                    >
+                      {Object.keys(stock)[0]}
+                    </button>
+                  ))}
               </div>
-              {/* DETALLE PRODUCTO */}
-        </div>
-        {/* ENVIO DEVOLUCIONES Y REDES  */}
-        <div className="d-flex ms-auto gap-2 mt-2">
-          <div>
-          <button
-            type="button"
-            class="btn bg-body-secondary mt-2 mb-1"
-            data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-          >
-            <i class="bi bi-info-circle"></i>  Envios y devoluciones
-          </button>
-          </div>
-          <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Informacion Sobre Envios y Devoluciones
-                </h1>
+              <div className="fs-5 mt-2">
+                <p>{generateDescriptionText()}</p>
+              </div>
+              <div className="d-flex gap-3 mt-2">
+                <label className="my-auto">Cantidad:</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className="form-control fs-5 m-0 w-25"
+                />
+              </div>
+              <div className="mt-3 mb-5">
                 <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <p>
-                  <strong>Envíos</strong>
-                </p>
-                <p>
-                  19 dólares a ciudades principales o ciudades intermedias.
-                  GRATIS por compras de 80 dólares o más. Entrega de 4-7 días
-                  hábiles.
-                </p>
-                <p>
-                  38 dólares a poblaciones. GRATIS por compras de 150 dólares o
-                  más. Entrega de 10-12 días hábiles.
-                </p>
-                <p>
-                  <strong>Cambios y Devoluciones</strong>
-                </p>
-                <p>
-                  Con SportVibe tienes tu satisfacción 100% garantizada; si por
-                  algún motivo no estás satisfecho con tu compra, tienes hasta
-                  30 días para un cambio
-                </p>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
+                  className="btn btn-primary w-50 mt-3"
+                  onClick={handleAddToCart}
                 >
-                  Close
+                  Agregar al carrito
+                  <i className="bi bi-cart-plus" />
                 </button>
               </div>
+              <div className="text-secondary w-100 mb-4">
+                <p className="fs-5">Descripción</p>
+                {data?.description}
+              </div>
             </div>
-          </div>
-          </div>
-        <div className="d-flex">
-          <button
-            className="btn btn-light me-3 btn-lg"
-            onClick={handleShareOnFacebook}
-          >
-            {" "}
-            <img
-              src={imagen2}
-              alt=""
-              style={{ width: "30px", height: "27px" }}
-            />
-          </button>
-          <button
-            className="btn btn-light me-3 btn-lg"
-            onClick={handleShareOnTwitter}
-          >
-            {" "}
-            <img
-              src={imagen3}
-              alt=""
-              style={{ width: "30px", height: "27px" }}
-            />
-          </button>
-          <button
-            className="btn btn-light me-3 btn-lg"
-            onClick={handlePinOnPinterest}
-          >
-            {" "}
-            <img
-              src={imagen1}
-              alt=""
-              style={{ width: "30px", height: "27px" }}
-            />{" "}
-          </button>
-          </div>
+            {/* DETALLE PRODUCTO */}
           </div>
           {/* ENVIO DEVOLUCIONES Y REDES  */}
-      </div>
-     }
+          <div className="d-flex ms-auto gap-2 mt-2">
+            <div>
+              <button
+                type="button"
+                class="btn bg-body-secondary mt-2 mb-1"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                <i class="bi bi-info-circle"></i> Envios y devoluciones
+              </button>
+            </div>
+            <div
+              class="modal fade"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                      Informacion Sobre Envios y Devoluciones
+                    </h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Cerrar"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      <strong>Envíos</strong>
+                    </p>
+                    <p>
+                      19 dólares a ciudades principales o ciudades intermedias.
+                      GRATIS por compras de 80 dólares o más. Entrega de 4-7
+                      días hábiles.
+                    </p>
+                    <p>
+                      38 dólares a poblaciones. GRATIS por compras de 150
+                      dólares o más. Entrega de 10-12 días hábiles.
+                    </p>
+                    <p>
+                      <strong>Cambios y Devoluciones</strong>
+                    </p>
+                    <p>
+                      Con SportVibe tienes tu satisfacción 100% garantizada; si
+                      por algún motivo no estás satisfecho con tu compra, tienes
+                      hasta 30 días para un cambio
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.shareButtonsContainer}>
+              <button onClick={handleShareOnFacebook}>
+                {" "}
+                <img
+                  src={imagen2}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />
+              </button>
+              <button onClick={handleShareOnTwitter}>
+                {" "}
+                <img
+                  src={imagen3}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />
+              </button>
+              <button onClick={handlePinOnPinterest}>
+                {" "}
+                <img
+                  src={imagen1}
+                  alt=""
+                  style={{ width: "30px", height: "27px" }}
+                />{" "}
+              </button>
+            </div>
+          </div>
+          {/* ENVIO DEVOLUCIONES Y REDES  */}
+        </div>
+      )}
     </div>
   );
 };
