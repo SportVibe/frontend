@@ -29,7 +29,7 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
-  console.log(data);
+  
 
   useEffect(() => {
     axios
@@ -237,8 +237,22 @@ const ProductDetail = () => {
   
 
   return (
+    
     <div className="d-flex w-100 justify-content-center">
-      <div className="d-flex flex-column w-75 ms-5 me-5">
+      {!data ? 
+      <div className="vh-100 d-flex align-items-center">
+      <div class="spinner-grow text-success mx-3" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-grow text-danger mx-3" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+      <div class="spinner-grow text-warning mx-3" role="status">
+        <span class="visually-hidden"></span>
+      </div>
+    </div> 
+    :
+    <div className="d-flex flex-column w-75 ms-5 me-5">
         <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center align-items-center">
             <div className="d-flex w-50 ms-4 mt-4">
               {/* CAROUSEL */}
@@ -484,6 +498,7 @@ const ProductDetail = () => {
           </div>
           {/* ENVIO DEVOLUCIONES Y REDES  */}
       </div>
+     }
     </div>
   );
 };
