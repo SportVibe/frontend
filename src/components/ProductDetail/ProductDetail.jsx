@@ -282,7 +282,7 @@ const ProductDetail = () => {
               </button>
             </div>
               </div>
-            <div className="d-flex flex-column w-50">
+            <div className="d-flex flex-column w-50 align-self-start mt-2">
             <div className="mt-3">
               <p className="text-success-emphasis mx-auto">
                 Nuevo | +1000 vendidos
