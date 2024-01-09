@@ -59,7 +59,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
     if (e.target.name === "accepted"){
         await axios.put(`${API_URL}/reviews`,bodyPutReview)
         .then((data) => 
-        {setReload(!reload);
+        {setReload(!reload); 
         })
         .catch((err) => console.log(err))
     }
@@ -104,7 +104,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
                 reviews?.map((rev,i) => (
                     <div className="">
                 <div className="card w-100 mb-3 mt-2" id={rev.id}>
-                <div className="card-header fs-5 bg-dark-subtle">
+                <div className="card-header fs-5 bg-success-subtle">
                     {detailProductsReviews[i]?.data?.title}
                 </div>
                 <div class="card-body">
@@ -115,8 +115,8 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
                   </div>
                   <p className="card-text fs-4 mb-5">{rev.description}</p>
                   <div className="d-flex">
-                  <a href="#" name="accepted" id={rev.id} className="btn btn-success me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
-                  <a href="#" name="rejected" id={rev.id} className="btn btn-danger align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
+                  <a href="#" name="accepted" id={rev.id} className="btn bg-info-subtle me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
+                  <a href="#" name="rejected" id={rev.id} className="btn bg-info-subtle align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
                   <div className="ms-auto align-items-end">
                   <p className="fs-6 mb-0">Puntaje:  {hanlderScore(rev.score)}</p>
                   <p className="">Comentario ID : {rev.id}</p>
