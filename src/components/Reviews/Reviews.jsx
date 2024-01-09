@@ -137,7 +137,7 @@ const Reviews = ({ productId, userId, setModal }) => {
                     />
                     {(status === 'pending' && reviewExists && !inputsUsed) && <p className={styles.pending}>Su comentario está siendo revisado...</p>}
                     {(status === 'accepted' && reviewExists && !inputsUsed) && <p className={styles.accepted}>Comentario aceptado ✓</p>}
-                    {(status === 'rejected' && reviewExists && !inputsUsed) && <p className={styles.rejected}>Su comentario <span>rechazado</span>, intente cambiarlo</p>}
+                    {(status === 'rejected' && reviewExists && !inputsUsed) && <p className={styles.rejected}>Su comentario ha sido<span>rechazado</span>, intente cambiarlo</p>}
                 </div>
                 {error && <p className={styles.error}>{error}</p>}
                 <button onClick={handleSubmitReview} className={(score && description.trim().length && inputsUsed) ? styles.submitButton : styles.submitButtonOff}>

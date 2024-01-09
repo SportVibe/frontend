@@ -13,6 +13,21 @@
     flex-direction: column;
     align-items: flex-start;
 
+    & .newProduct {
+        color: gray;
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0;
+        padding: 0 5px;
+        margin: 5px 8px;
+        border: 1px solid rgba(128, 128, 128, 0.558);
+        border-radius: 3px;
+    }
+
+    & .hiddenText {
+        scale: 0;
+    }
+
     & p {
         overflow: hidden;
         color: var(--font-color-hard);
@@ -88,7 +103,6 @@
 }
 
 .categoryNameContainer {
-    cursor: pointer;
     /* height: 22px; */
     display: flex;
     justify-content: space-between;
@@ -104,8 +118,12 @@
         margin: 0;
     }
 
-    & .category:hover {
-        text-decoration: underline;
+    & .category {
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     & .starContainer {
@@ -154,14 +172,16 @@
     & p {
         line-height: 30px;
         font-size: 26px;
-        font-weight: 600;
+        font-weight: 400;
         padding: 0;
         margin: 0;
+        color: var(--font-color-hard);
     }
 
     & .newPrice {
         /* color: var(--newPrice-color); */
-        color: var(--newPrice-color);
+        /* color: var(--newPrice-color); */
+        color: var(--font-color-hard);
         font-weight: 400;
     }
 
@@ -192,7 +212,8 @@
             font-size: 16px;
 
             & span {
-                color: var(--button-color);
+                /* color: var(--button-color); */
+                color: var(--newPrice-color);
                 font-weight: 400;
                 font-size: 20px;
             }

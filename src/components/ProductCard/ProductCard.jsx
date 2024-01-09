@@ -23,8 +23,8 @@ function ProductCard({ productData }) {
     currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    const array = productData?.Reviews ? productData.Reviews : [];
-    let avgScore = productData.averageScore;
+    const countReviews = productData?.countReviews ? productData?.countReviews : 0;
+    let avgScore = productData?.averageScore ? productData?.averageScore : 0;
     avgScore = parseFloat(avgScore.toFixed(1));
 
     function handleMouseEnter() {
@@ -42,6 +42,7 @@ function ProductCard({ productData }) {
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
+                <p className={`${styles.newProduct} ${(id && parseInt(id) >= 30) ? '' : styles.hiddenText}`}>Nuevo</p>
                 <div
                     onClick={handleNavigate}
                     className={styles.imgContainer}
@@ -62,7 +63,7 @@ function ProductCard({ productData }) {
                     <div className={styles.categoryNameContainer}>
                         <p className={styles.category}>{category}</p>
                         <div className={styles.starContainer}>
-                            <p className={styles.category}>{avgScore}</p>
+                            <p>{avgScore}</p>
                             {(avgScore > 0 && avgScore < 1) && <i className="fa-solid fa-star-half-stroke"></i>}
                             {avgScore >= 1 && <i className="fa-solid fa-star"></i>}
                             {(avgScore > 1 && avgScore < 2) && <i className="fa-solid fa-star-half-stroke"></i>}
@@ -79,7 +80,7 @@ function ProductCard({ productData }) {
                             {(avgScore <= 2) && <i className="fa-regular fa-star"></i>}
                             {(avgScore <= 1) && <i className="fa-regular fa-star"></i>}
                             {(avgScore === 0) && <i className="fa-regular fa-star"></i>}
-                            <p className={styles.category}>{`(${array.length})`}</p>
+                            <p>{`(${countReviews})`}</p>
                         </div>
                     </div>
                     <div className={styles.titleContainer}>

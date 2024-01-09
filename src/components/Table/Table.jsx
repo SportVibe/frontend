@@ -12,44 +12,51 @@ function Table(props) {
     const [userId, setUserId] = useState(props.userId);
     const [breakPoint, setBreakPoint] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [displayTable, setDisplayTable] = useState(false);
 
-    const [porpsRecords, setPorpsRecords] = useState(props.records || [
-        {
-            Producto: 'pala de padelpalapapapapappa de padelpala de padelpala de padel ',
-            Cantidad: 3,
-            'Precio unitario': 5.10,
-            'Precio total': 15.30,
-            id: 5,
-        },
-        {
-            Producto: 'pala de padel',
-            Cantidad: 1,
-            'Precio unitario': 5.10,
-            'Precio total': 5.10,
-            id: 15,
-        },
-        {
-            Producto: 'pala de padel',
-            Cantidad: 5,
-            'Precio unitario': 5.10,
-            'Precio total': 25.50,
-            id: 10,
-        },
-        {
-            Producto: 'pala de padel',
-            Cantidad: 1,
-            'Precio unitario': 8,
-            'Precio total': 8,
-            id: 35,
-        },
-        {
-            Producto: 'pala de padel',
-            Cantidad: 1,
-            'Precio unitario': 8,
-            'Precio total': 8,
-            id: 65,
-        }
-    ]);
+    const [porpsRecords, setPorpsRecords] = useState(props.records || {
+        purchases: [
+            {
+                Producto: 'pala de padelpalapapapapappa de padelpala de padelpala de padel ',
+                Cantidad: 3,
+                'Precio unitario': 5.10,
+                'Precio total': 15.30,
+                id: 5,
+            },
+            {
+                Producto: 'pala de padel',
+                Cantidad: 1,
+                'Precio unitario': 5.10,
+                'Precio total': 5.10,
+                id: 15,
+            },
+            {
+                Producto: 'pala de padel',
+                Cantidad: 5,
+                'Precio unitario': 5.10,
+                'Precio total': 25.50,
+                id: 10,
+            },
+            {
+                Producto: 'pala de padel',
+                Cantidad: 1,
+                'Precio unitario': 8,
+                'Precio total': 8,
+                id: 35,
+            },
+            {
+                Producto: 'pala de padel',
+                Cantidad: 1,
+                'Precio unitario': 8,
+                'Precio total': 8,
+                id: 65,
+            }
+        ],
+        id: '1ad23',
+        totalPaid: 61.9,
+        date: '2024-01-08',
+        time: '15:45:33'
+    });
     const [recordArray, setRecordArray] = useState([
         'Producto',
         'Cantidad',
@@ -57,6 +64,10 @@ function Table(props) {
         'Precio total',
         'Calificar'
     ]);
+
+    function handleDisplayTable() {
+        setDisplayTable(!displayTable);
+    }
 
     function handleResize() {
         if (window.innerWidth < 600) {
@@ -91,7 +102,7 @@ function Table(props) {
     async function getReview(porpsRecords) {
         setLoading(true);
         try {
-            const myProductReviews = await Promise.all(porpsRecords.map(async (product) => {
+            const myProductReviews = await Promise.all(porpsRecords?.purchases.map(async (product) => {
                 try {
                     const { data } = await axios(`${API_URL}/reviews?productId=${product.id}&userId=${userId}`);
                     if (data) {
@@ -104,8 +115,7 @@ function Table(props) {
                     return product;
                 }
             }));
-            setPorpsRecords(myProductReviews);
-            console.log(myProductReviews);
+            setPorpsRecords({ ...porpsRecords, purchases: myProductReviews });
         } catch (error) {
             console.error({ error: error.message });
         } finally {
@@ -131,11 +141,16 @@ function Table(props) {
 
     return (
         <div className={styles.mainView}>
+            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.id}</p>
             {modal &&
                 <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} />
             }
             {loading ? <Loading /> :
-                <div className={styles.tableContainer}>
+                <div className={`${styles.tableContainer} ${!displayTable ? styles.displayTableOff : styles.displayTableOn}`}>
+                    <div className={styles.orderContainer} onClick={handleDisplayTable}>
+                        <p onClick={handleDisplayTable}>Fecha de compra: {porpsRecords.date}</p>
+                        <p onClick={handleDisplayTable}>Hora: {porpsRecords.time}</p>
+                    </div>
                     <div className={styles.paramsContainer}>
                         <p className={styles.counterParam}>#</p>
                         {recordArray?.map((param, i) => {
@@ -143,7 +158,7 @@ function Table(props) {
                         })}
                     </div>
                     <div className={styles.recordsContainer}>
-                        {porpsRecords?.map((record, i) => {
+                        {porpsRecords?.purchases.map((record, i) => {
                             return (
                                 <div className={styles.records} key={i}>
                                     <p className={styles.counterValue}>{record.id}</p>

@@ -19,12 +19,12 @@ function CarouselCard({ productData }) {
     return (
         <div onClick={handleNavigate} className={styles.imgContainer}>
             <div className={styles.img}>
-                <img src={images[0].url}  alt=""/>
+                <img src={images[0].url} alt="" />
             </div>
             <p className={styles.nameAfter}>{title}</p>
-            <p className={styles.discount}><span>-{discount}%</span></p>
             {currentPrice && <p className={styles.newPriceAfter}><span> $USD {currentPrice}</span></p>}
             <p className={styles.priceAfter}><span> $USD {oldPrice}</span> </p>
+            <p className={styles.discount}><span>-{discount}%</span></p>
         </div>
     );
 }

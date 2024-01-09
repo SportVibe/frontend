@@ -10,17 +10,17 @@
     width: 100%;
     height: 100%;
     color: black;
-    border: 1px solid rgba(128, 128, 128, 0.761);
-    border-radius: 10px;
-    overflow: hidden;
+    /* border: 1px solid rgba(128, 128, 128, 0.423); */
 }
 
 .tableContainer {
     width: 100%;
-    height: 100%;
-    max-height: 500px;
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+    /* border: 1px solid rgba(128, 128, 128, 0.256); */
+    transition: .2s ease;
 
     & p {
         flex: 1;
@@ -29,6 +29,62 @@
         font-size: var(--fontSize-params);
     }
 }
+
+.displayTableOff {
+    height: 70px;
+    box-shadow: none;
+
+    &:hover {
+        box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412);
+    }
+}
+
+.displayTableOn {
+    box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412);
+    /* border: 1px solid rgba(128, 128, 128, 0.256); */
+
+    & .orderContainer p {
+        font-weight: 400;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* ORDER DATA */
+
+.codigoOrden {
+    font-size: 15px;
+    font-weight: 300;
+    color: gray;
+}
+
+.orderContainer {
+    width: 100%;
+    min-height: 70px;
+    max-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(100, 57, 145, 0.186);
+    cursor: pointer;
+
+    & p {
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* PARAMS CONTAINER */
 
 .paramsContainer {
     width: 100%;
@@ -81,7 +137,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        font-weight: 600;
+        /* font-weight: 600; */
         font-size: var(--fontSize-params);
         color: white;
         min-height: 100%;
@@ -126,10 +182,11 @@
     }
 
     & .counterValue {
+        color: var(--font-color-hard);
+        font-weight: 400;
         flex: 0;
         padding: 0 0 0 var(--padding-left-tableParamns);
         min-width: var(--minWidth-counterParam);
-        font-weight: 600;
         font-size: var(--fontSize-params);
     }
 
@@ -195,7 +252,6 @@
     background-color: rgb(99, 57, 145);
     border: 2px solid rgb(99, 57, 145);
     border-radius: 5px;
-    color: white;
     font-weight: 400;
     font-size: var(--fontSize-params);
     height: 100%;
@@ -204,6 +260,10 @@
     justify-content: center;
     word-wrap: break-word;
     cursor: pointer;
+
+    & {
+        color: white;
+    }
 
     &:hover {
         background-color: rgb(96, 47, 148);
