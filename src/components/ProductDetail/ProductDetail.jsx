@@ -195,39 +195,39 @@ const ProductDetail = () => {
   const hanlderScore = (score) => {
     switch (score) {
       case 1:
-        return <i className="bi bi-star text-dark fs-5"> fs-5</i>;
+        return <i className="bi bi-star-fill text-primary fs-5"> fs-5</i>;
       case 2:
         return (
           <>
-            <i className="bi bi-star text-dark"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
           </>
         );
       case 3:
         return (
           <>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
           </>
         );
       case 4:
         return (
           <>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
           </>
         );
       case 5:
         return (
           <>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
-            <i className="bi bi-star text-dark fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
           </>
         );
       default:
@@ -241,13 +241,13 @@ const ProductDetail = () => {
       <div className="d-flex flex-column w-75 ms-5 me-5">
         <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center align-items-center">
             <div className="d-flex w-50 ms-4 mt-4">
+              {/* CAROUSEL */}
             <div id="carouselExample" className="carousel slide">
               <div className="carousel-inner">
                 {data?.Images.map((img, i) => (
                   <div id={i} className="carousel-item active">
                     <img
                       src={img}
-                      //height="100vh"
                       className="d-block w-100 text-success-emphasis"
                       alt="..."
                     />
@@ -281,7 +281,9 @@ const ProductDetail = () => {
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
+              {/* CAROUSEL */}
               </div>
+              {/* DETALLE PRODUCTO */}
             <div className="d-flex flex-column w-50 align-self-start mt-2">
             <div className="mt-3">
               <p className="text-success-emphasis mx-auto">
@@ -289,9 +291,35 @@ const ProductDetail = () => {
               </p>
             </div>
             <p className="fs-3 mt-3 mb-0 overflow-hidden">{data?.title}</p>
-            <p className="">
-              ({reviewsAvg}) {hanlderScore(reviewsAvg)} ({reviews?.length})
-            </p>
+            {/* ESTRELLAS REVIEWS */}
+            <button type="button" className="w-25 border-2 bg-transparent btn btn-primary border-0 fs-0 text-dark" data-bs-toggle="modal" data-bs-target="#reviewsModal">
+              ({parseInt(reviewsAvg)}) {hanlderScore(reviewsAvg)} ({reviews?.length})
+            </button>
+            {/* MODAL DE REVIEWS */}
+            <div class="modal fade" id="reviewsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel"><p className="fs-5 ms-2 mb-2 mt-3 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p></h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <div className="w-100">
+                        <ul class="list-group rounded-pill">
+                        {reviews?.map((rev)=> 
+                        <div className="">
+                        <li className="list-group-item rounded-3 mt-1">{hanlderScore(rev.score)}<p className="fs-6 mb-0">{rev.description}</p></li>
+                        </div>
+                        )}
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <div className="d-flex flex-column ">
               <p>{data?.brand}</p>
               <p className="fs-2">
@@ -348,28 +376,21 @@ const ProductDetail = () => {
               {data?.description}
             </div>
               </div>
+              {/* DETALLE PRODUCTO */}
         </div>
-        <div className="rounded-3 bg-body-tertiary w-100">
-            <p className="fs-5 ms-2 mb-2 mt-3 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p>
-            <ul class="list-group rounded-pill">
-            {reviews?.map((rev)=> 
-            <div className="">
-            <li className="list-group-item rounded-3 mt-1">{hanlderScore(rev.score)}<p className="fs-6 mb-0">{rev.description}</p></li>
-            </div>
-            )}
-            </ul>
-          </div>
-        <div>
+        {/* ENVIO DEVOLUCIONES Y REDES  */}
+        <div className="d-flex ms-auto gap-2">
+          <div>
           <button
             type="button"
-            class="btn btn-info mt-2 mb-1"
+            class="btn bg-body-secondary mt-2 mb-1"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
           >
             <i class="bi bi-info-circle"></i>  Envios y devoluciones
           </button>
           </div>
-        <div
+          <div
           class="modal fade"
           id="staticBackdrop"
           data-bs-backdrop="static"
@@ -460,6 +481,8 @@ const ProductDetail = () => {
             />{" "}
           </button>
           </div>
+          </div>
+          {/* ENVIO DEVOLUCIONES Y REDES  */}
       </div>
     </div>
   );
