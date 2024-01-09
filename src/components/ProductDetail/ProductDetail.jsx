@@ -253,9 +253,9 @@ const ProductDetail = () => {
     </div> 
     :
     <div className="d-flex flex-column w-75 ms-5 me-5">
-        <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center align-items-center">
-            <div className="d-flex w-50 ms-4 mt-4">
+        <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center">
               {/* CAROUSEL */}
+            <div className="d-flex w-50 ms-4 mt-4">
             <div id="carouselExample" className="carousel slide">
               <div className="carousel-inner">
                 {data?.Images.map((img, i) => (
@@ -295,7 +295,7 @@ const ProductDetail = () => {
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
-              {/* CAROUSEL */}
+              {/*  FIN CAROUSEL */}
               </div>
               {/* DETALLE PRODUCTO */}
             <div className="d-flex flex-column w-50 align-self-start mt-2">
@@ -306,7 +306,7 @@ const ProductDetail = () => {
             </div>
             <p className="fs-3 mt-3 mb-0 overflow-hidden">{data?.title}</p>
             {/* ESTRELLAS REVIEWS */}
-            <button type="button" className="w-25 border-2 bg-transparent btn btn-primary border-0 fs-0 text-dark" data-bs-toggle="modal" data-bs-target="#reviewsModal">
+            <button type="button" className="d-flex justify-content-start align-items-center w-25 bg-transparent border-0 overflow-visible text-dark mt-0 mb-2" data-bs-toggle="modal" data-bs-target="#reviewsModal">
               ({parseInt(reviewsAvg)}) {hanlderScore(reviewsAvg)} ({reviews?.length})
             </button>
             {/* MODAL DE REVIEWS */}
@@ -385,15 +385,15 @@ const ProductDetail = () => {
                 <i className="bi bi-cart-plus" />
               </button>
             </div>
-            <div className="text-secondary w-75">
-              <p>Descripcion</p>
+            <div className="text-secondary w-100 mb-4">
+              <p className="fs-5">Descripcion</p>
               {data?.description}
             </div>
               </div>
               {/* DETALLE PRODUCTO */}
         </div>
         {/* ENVIO DEVOLUCIONES Y REDES  */}
-        <div className="d-flex ms-auto gap-2">
+        <div className="d-flex ms-auto gap-2 mt-2">
           <div>
           <button
             type="button"
