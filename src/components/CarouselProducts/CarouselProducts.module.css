@@ -11,15 +11,33 @@
 }
 
 .DeportesTitle{
+    background-color: var(--bg-color2);
+    background-color: white;
     width: auto;
     max-width: 400px;
     padding: 0 50px;
     font-size: 22px;
+    font-weight: 300;
     color: var(--font-color-hard);
     cursor: pointer;
+    /* border-top: 2px solid var(--bg-color2);
+    border-right: 2px solid var(--bg-color2);
+    border-bottom: 2px solid var(--bg-color2);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; */
 
     &:hover {
-        opacity: .8;
+        background-color: var(--bg-color-gray);
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .DeportesTitle {
+        max-width: 100%;
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 }
 

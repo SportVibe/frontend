@@ -105,11 +105,6 @@ function App() {
                   <NavBar />
                 </div>
               }
-              {/* {(location.pathname === '/' || location.pathname === '/search') &&
-              <div className={styles.categoryBarContainer}>
-                <CategoryBar />
-              </div>
-            } */}
               {location.pathname === '/' &&
                 <div className={styles.carouselContainer}>
                   <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
@@ -118,6 +113,11 @@ function App() {
               {(location.pathname === '/') &&
                 <div className={styles.carousel2Container}>
                   <Carousel2 />
+                </div>
+              }
+              {(location.pathname === '/' || location.pathname === '/search') &&
+                <div className={styles.categoryBarContainer}>
+                  <CategoryBar />
                 </div>
               }
               {location.pathname === '/' &&
@@ -132,7 +132,12 @@ function App() {
               }
               {location.pathname === '/' &&
                 <div className={styles.CarouselProductsContainer}>
-                  <CarouselProducts />
+                  <CarouselProducts order='id' type='desc' title='Nuevos productos' />
+                </div>
+              }
+              {location.pathname === '/' &&
+                <div className={styles.CarouselProductsContainer}>
+                  <CarouselProducts order='averageScore' type='desc' title='Productos mejor evaluados' />
                 </div>
               }
               <Routes className={styles.routesContainer}>

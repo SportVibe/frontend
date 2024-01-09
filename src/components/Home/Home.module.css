@@ -27,7 +27,7 @@
 
 .FilterBarContainer {
   position: sticky;
-  top: var(--categoryBar-height);
+  top: 120px;
   left: 0;
   max-width: 260px;
   height: 100vh;

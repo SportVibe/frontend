@@ -112,7 +112,7 @@ function NavBar() {
               </div>
             </div>
             {(userDataRender || currentAdminData) ? (
-              <div id='/dashboard' className={styles.userLogContainer} onClick={handleNavigate}>
+              <div className={styles.userLogContainer}>
                 {currentAdminData ?
                   <div id='/dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
                     {currentAdminData?.image ? (
