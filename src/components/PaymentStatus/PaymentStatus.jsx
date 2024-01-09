@@ -28,14 +28,14 @@ const PaymentStatus = () => {
         <p>Te enviaremos un correo electrónico con la confirmación y detalles adicionales.</p>
       </>
       );
-    } else if (trimmedMessage === "CANCELLED") {
+    } else if (trimmedMessage === "REJECTED") {
       content = (
       <>
         <h2>Tu pago en SportVibe ha sido cancelado</h2>
         <div className={styles.paymentDetails}>
           <h3>Detalles del Pago</h3>
           <p>ID del Pago: {orderId}</p>
-          <p>Estado: Cancelled</p>
+          <p>Estado: Rejected</p>
         </div>
         <div className={styles.purchaseDetails}>
           <h3>Detalles de la Compra</h3>
