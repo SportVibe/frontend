@@ -237,17 +237,17 @@ const ProductDetail = () => {
   
 
   return (
-    <div className="d-flex w-100 gap-5 justify-content-center">
-      <div className="d-flex flex-column w-100 ms-5 me-5">
-        <div className="d-flex justify-content-center mt-5 bg-body-tertiary gap-5 rounded-5 me-4 h-100 flex-wrap">
-          <div className="w-50 me-5 mt-4">
+    <div className="d-flex w-100 justify-content-center">
+      <div className="d-flex flex-column w-75 ms-5 me-5">
+        <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center align-items-center">
+            <div className="d-flex w-50 ms-4 mt-4">
             <div id="carouselExample" className="carousel slide">
               <div className="carousel-inner">
                 {data?.Images.map((img, i) => (
                   <div id={i} className="carousel-item active">
                     <img
                       src={img}
-                      height="500px"
+                      //height="100vh"
                       className="d-block w-100 text-success-emphasis"
                       alt="..."
                     />
@@ -281,8 +281,8 @@ const ProductDetail = () => {
                 <span className="visually-hidden">Next</span>
               </button>
             </div>
-          </div>
-          <div className="d-flex flex-column">
+              </div>
+            <div className="d-flex flex-column w-50">
             <div className="mt-3">
               <p className="text-success-emphasis mx-auto">
                 Nuevo | +1000 vendidos
@@ -301,7 +301,6 @@ const ProductDetail = () => {
                     maximumFractionDigits: 2,
                   })}
               </p>
-              {/* <p>Colores Disponibles: {data?.Colors.join(", ")}</p> */}
               <div>
               <p>Colores Disponibles: 
               {data?.Colors.map((color) => <button type="button" className="btn btn-outline-secondary btn-sm ms-1">{color}</button>)}
@@ -344,13 +343,14 @@ const ProductDetail = () => {
                 <i className="bi bi-cart-plus" />
               </button>
             </div>
-            <div className="text-secondary">
+            <div className="text-secondary w-75">
               <p>Descripcion</p>
               {data?.description}
             </div>
-          </div>
-          <div className="rounded-3 bg-body-tertiary w-100">
-            <p className="fs-5 ms-2 mb-1 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p>
+              </div>
+        </div>
+        <div className="rounded-3 bg-body-tertiary w-100">
+            <p className="fs-5 ms-2 mb-2 mt-3 text-secondary"><i className="bi bi-ui-checks fs-5"></i> Oponiones Del Producto</p>
             <ul class="list-group rounded-pill">
             {reviews?.map((rev)=> 
             <div className="">
@@ -359,8 +359,6 @@ const ProductDetail = () => {
             )}
             </ul>
           </div>
-        </div>
-      
         <div>
           <button
             type="button"
@@ -370,7 +368,7 @@ const ProductDetail = () => {
           >
             <i class="bi bi-info-circle"></i>  Envios y devoluciones
           </button>
-        </div>
+          </div>
         <div
           class="modal fade"
           id="staticBackdrop"
@@ -426,7 +424,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
-        </div>
+          </div>
         <div className="d-flex">
           <button
             className="btn btn-light me-3 btn-lg"
@@ -461,7 +459,7 @@ const ProductDetail = () => {
               style={{ width: "30px", height: "27px" }}
             />{" "}
           </button>
-        </div>
+          </div>
       </div>
     </div>
   );
