@@ -63,10 +63,10 @@ function Payments() {
           />
         </div>
       </div>
-      <h2 className={styles.card}>Mercado pago</h2>
+      <h2 className={styles.card}>PayPal</h2>
       <div id={styles.cardsBox} className={styles.imgConteiner}>
         <img
-          src="https://revistauy.files.wordpress.com/2018/04/logo-mercado-pago.png?w=1024"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpTHz5buz-9NK9IIvy1a-alI8-x5NPnHeUqg&usqp=CAU"
           alt=""
         />
       </div>
