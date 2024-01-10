@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
-import { useNavigate } from "react-router-dom";
 
 
-const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadDetails,setReloadDetails}) => {
+
+const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleSignOut}) => {
     const [reviews,setReviews] = useState(null);
     const [reload,setReload] = useState(true);
-    const [detailProductsReviews , setDetailProductsReviews] = useState([]);
-    const navigate = useNavigate();
     
     
     useEffect(()=>{
@@ -16,36 +14,97 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
         .then(({ data }) => {
             let pendingReviews = data.data.filter((reviews) => reviews.status === "pending")
             setReviews(pendingReviews);
-            //handleDetail();
       })
       .catch((err) => console.log(err));
-  }, [reload,navigate]);
+  }, [reload]);
 
     useEffect(()=>{handleVisibleSidebar()},[])
 
-    useEffect(()=>{
-        //Funcion para extraer el detalle de cada producto de la review
-         async function handleDetail() {
-             let arr = [];
-               reviews?.forEach(async(rev)=> {
-                   const result = await axios(`${API_URL}/detail/${rev.ProductId}`)
-                   arr.push(result.data)
-                   setDetailProductsReviews(arr)
-                 })
-                }
-         handleDetail()
-         setTimeout(()=>{setReloadDetails(!reloadDetails)},1000)
-    },[reviews,reload])
 
   const hanlderScore = (score)=>{
-    switch (score){
-        case 1: return (<i className="bi bi-star text-warning"></i>)
-        case 2: return (<><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i></>)
-        case 3: return (<><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i></>)
-        case 4: return (<><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i></>)
-        case 5: return (<><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i><i className="bi bi-star text-warning"></i></>)
-        default: return ""
-    }
+    if (score === 1){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score > 1 && score < 2){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-half text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score === 2){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score > 2 && score < 3){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-half text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score === 3){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score > 3 && score < 4){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-half text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if ( score === 4){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star text-primary fs-5"></i>
+          </>);
+      }
+      if (score > 4 && score < 5){
+        return (<>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-half text-primary fs-5"></i>
+          </>);
+      }
+      if ( score === 5){
+        return (
+          <>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+            <i className="bi bi-star-fill text-primary fs-5"></i>
+          </>
+        );
+      }
   }
 
   const handleVisibleSidebar = () => {
@@ -71,16 +130,33 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
         .catch((err) => console.log(err))
     }
 }
+    
 
     return (
-        <div>
-            <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100 ">
-                <div className="">
-                <button type="button" class="btn btn-ligth btn-s" onClick={handleVisibleSidebar}
-                ><i className="bi bi-list fs-3"></i></button>
+        <div className="">
+            <nav className="d-flex justify-content-start navbar navbar-ligth bg-body-secondary w-100">
+                  <button type="button" className="btn btn-ligth btn-s ms-1" onClick={handleVisibleSidebar}
+                  ><i className="bi bi-list fs-3"></i>
+                  </button>
+                  <button 
+                  className="btn ms-1" 
+                  onClick={(e)=>setReload(!reload)}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-title="Tooltip on bottom"
+                  >
+                  <i class="bi bi-repeat fs-4"></i>
+                  </button>
+                  <div class="ms-auto btn-group">
+                    <button type="button" className="btn bg-body-secondary border-secondary rounded dropdown-toggle ms-auto me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                   </button>
+                  <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
+                  <li onClick={handleSignOut}><a class="dropdown-item" href="#" onClick={handleSignOut}>Cerrar Sesion</a></li>
+                </ul>
                 </div>
             </nav>
-        <div className="d-flex flex-row flex-wrap gap-3 align-items-center justify-content-center bg-body-tertiary">
+        <div className="d-flex flex-wrap gap-2 align-items-start justify-content-center bg-body-tertiary min-vh-100 w-100">
             {reviews?.length === 0 ? 
             Swal.fire({
                 title: "No hay Comentarios Pendientes",
@@ -102,28 +178,26 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,reloadD
               && setSidebarRender("productos")
             :
                 reviews?.map((rev,i) => (
-                    <div className="">
-                <div className="card w-100 mb-3 mt-2" id={rev.id}>
-                <div className="card-header fs-5 bg-success-subtle">
-                    {detailProductsReviews[i]?.data?.title}
+                
+                <div className="d-flex card mb-3 mt-2" id={rev.id}>
+                <div className="card-header bg-body-secondary">
+                    {rev?.Product.title}
                 </div>
                 <div class="card-body">
                     <div className="d-flex justify-content-between align-items-center">
-                  <h5 className="card-title fs-4 mb-3">Descripcion :</h5>
-                  {/* <p className="fs-6">Puntaje:  {hanlderScore(rev.score)}</p> */}
-                  <img src={detailProductsReviews[i]?.data.Images[0]} width="100px" className="rounded-pill"></img>
+                  <h5 className="card-title text-secondary mb-3">Descripcion :</h5>
+                  <img src={rev?.Product.Images[0]} width="100px" className="rounded-pill"></img>
                   </div>
-                  <p className="card-text fs-4 mb-5">{rev.description}</p>
+                  <div className="card-text fs-5 mb-5">{rev.description}</div>
                   <div className="d-flex">
-                  <a href="#" name="accepted" id={rev.id} className="btn bg-info-subtle me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</a>
-                  <a href="#" name="rejected" id={rev.id} className="btn bg-info-subtle align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</a>
+                  <button href="#" name="accepted" id={rev.id} className="btn bg-body-secondary me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</button>
+                  <button href="#" name="rejected" id={rev.id} className="btn bg-body-secondary align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</button>
                   <div className="ms-auto align-items-end">
-                  <p className="fs-6 mb-0">Puntaje:  {hanlderScore(rev.score)}</p>
+                  <div className="justify-content-end d-flex mb-0 opacity-75">{hanlderScore(rev.score)}</div>
                   <p className="">Comentario ID : {rev.id}</p>
                   </div>
                   </div>
                 </div>
-              </div>
               </div>
             ))
             }

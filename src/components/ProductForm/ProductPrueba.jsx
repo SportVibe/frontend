@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
-import Loading from "../loading/Loading";
+
 
 const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, handleSignOut }) => {
   const [productRender, setProductRender] = useState([]);
@@ -139,7 +139,6 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
   };
 
   const handleChange = (data) => {
-    // console.log(data);
     setSelectedRow(data)
   };
 
@@ -192,7 +191,7 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
             onClick={handleVisibleSidebar}
           ><i className="bi bi-list fs-3"></i></button>
         </div>
-        <div className="d-flex  mx-auto">
+        <div className="d-flex mx-auto">
           <i className="bi bi-search fs-3 me-2"></i>
           <input
             className="form-control"
