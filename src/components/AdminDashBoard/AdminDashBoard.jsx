@@ -37,9 +37,9 @@ function AdminDashBoard() {
 
 
   return (
-    <div className="d-flex w-auto">
+    <div className="d-flex">
       {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
-      <div className=" d-flex bg-transparent w-auto">
+      <div className="bg-transparent w-100">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
             {<ProductPrueba handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow} />}

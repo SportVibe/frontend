@@ -310,7 +310,7 @@ const ProductDetail = () => {
         </div>
       ) : (
         <div className="d-flex flex-column w-75 ms-5 me-5">
-          <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center">
+          <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center flex-lg-nowrap flex-md-wrap flex-sm-wrap">
             {/* CAROUSEL */}
             <div className="d-flex w-50 ms-4 mt-4">
               <div id="carouselExample" className="carousel slide">
