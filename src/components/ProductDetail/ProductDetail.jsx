@@ -29,6 +29,7 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
+  console.log(reviews);
 
   useEffect(() => {
     axios
@@ -39,6 +40,7 @@ const ProductDetail = () => {
       .catch((error) => {
         console.error("Error fetching product details:", error);
       });
+    return setData(null)
   }, [id]);
 
   useEffect(() => {
@@ -153,7 +155,7 @@ const ProductDetail = () => {
 
   const handleShareOnFacebook = () => {
     window.open(
-      "https://www.facebook.com/sharer/sharer.php?u=" +
+        "https://www.facebook.com/sharer/sharer.php?href=" +
         encodeURIComponent(window.location.href),
       "_blank"
     );
@@ -182,58 +184,109 @@ const ProductDetail = () => {
   const handleReviews = async () => {
     let suma = 0;
     let promedio = 0;
-    let review = await axios(`${API_URL}/reviews?productId=${id}`);
-    setReviews(review.data.data);
-    review.data.data.map((review) => {
+    let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
+    setReviews(reviewData.data.data);
+    reviewData.data.data.map((review) => {
       suma = suma + review.score;
     });
-    promedio = suma / review.data.data.length;
-    setReviewsAvg(promedio);
-  };
-
-  const hanlderScore = (score) => {
-    switch (score) {
-      case 1:
-        return <i className="bi bi-star-fill text-primary fs-5"> fs-5</i>;
-      case 2:
-        return (
-          <>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-          </>
-        );
-      case 3:
-        return (
-          <>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-          </>
-        );
-      case 4:
-        return (
-          <>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-          </>
-        );
-      case 5:
-        return (
-          <>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-            <i className="bi bi-star-fill text-primary fs-5"></i>
-          </>
-        );
-      default:
-        return "";
+    promedio = (suma / reviewData.data.data.length);
+    if(promedio === 1.0 || promedio === 2.0 || promedio === 3.0 || promedio === 4.0 || promedio === 5.0 ){
+      promedio = parseInt(promedio);
+    } else {
+      promedio = Number(promedio.toFixed(1));
     }
+    setReviewsAvg(promedio);
+    promedio=0;
+    suma=0;
   };
 
+
+  const hanldeScore = (reviewsAvg) => {
+    if (reviewsAvg === 1){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg > 1 && reviewsAvg < 2){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-half text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg === 2){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg > 2 && reviewsAvg < 3){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-half text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg === 3){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg > 3 && reviewsAvg < 4){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-half text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg === 4){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        </>);
+    }
+    if (reviewsAvg > 4 && reviewsAvg < 5){
+      return (<>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-fill text-primary fs-5"></i>
+        <i className="bi bi-star-half text-primary fs-5"></i>
+        </>);
+    }
+    if ( reviewsAvg === 5){
+      return (
+        <>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+          <i className="bi bi-star-fill text-primary fs-5"></i>
+        </>
+      );
+    }
+  }
+    
   return (
     <div className="d-flex w-100 justify-content-center">
       {!data ? (
@@ -347,7 +400,7 @@ const ProductDetail = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#reviewsModal"
               >
-                ({parseInt(reviewsAvg)}) {hanlderScore(reviewsAvg)} (
+                ({(reviewsAvg)}) {hanldeScore(reviewsAvg)} (
                 {reviews?.length})
               </button>
               {/* MODAL DE REVIEWS */}
@@ -382,7 +435,8 @@ const ProductDetail = () => {
                           {reviews?.map((rev) => (
                             <div className="">
                               <li className="list-group-item rounded-3 mt-1">
-                                {hanlderScore(rev.score)}
+                              ({(reviewsAvg)}) {hanldeScore(rev.score)} (
+                                {reviews?.length})
                                 <p className="fs-6 mb-0">{rev.description}</p>
                               </li>
                             </div>
@@ -535,6 +589,7 @@ const ProductDetail = () => {
                   src={imagen2}
                   alt=""
                   style={{ width: "30px", height: "27px" }}
+
                 />
               </button>
               <button onClick={handleShareOnTwitter}>
