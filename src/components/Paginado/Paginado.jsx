@@ -10,6 +10,7 @@ const Paginado = () => {
   const search_Activity = useSelector((state => state.search));
   const totalFilters = useSelector((state => state.totalFilters));
   const sort = useSelector((state => state.sort));
+  const category = useSelector((state => state.category));
   const genre = useSelector((state => state.genre));
   const discount = useSelector((state => state.discount));
   const priceFilter = useSelector((state => state.priceFilter));
@@ -23,7 +24,7 @@ const Paginado = () => {
 
   const handlePageChange = (newPage) => {
     setPageNumber(newPage);
-    const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
+    const sumFilters = [...totalFilters, category[0], priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
     dispatch(getProducts(sumFilters));
     navigate('/search');
   };
@@ -31,7 +32,7 @@ const Paginado = () => {
   const handlePageChangeLeft = (newPage) => {
     if (currentPage !== 1) {
       setPageNumber(newPage);
-      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
+      const sumFilters = [...totalFilters, category[0], priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
       dispatch(getProducts(sumFilters));
       navigate('/search');
     }
@@ -40,7 +41,7 @@ const Paginado = () => {
   const handlePageChangeRight = (newPage) => {
     if (currentPage !== arrayPages.length) {
       setPageNumber(newPage);
-      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
+      const sumFilters = [...totalFilters, category[0], priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { page: newPage }, { limit: limitPage }]
       dispatch(getProducts(sumFilters));
       navigate('/search');
     }

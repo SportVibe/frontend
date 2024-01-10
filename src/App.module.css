@@ -33,18 +33,26 @@
 
 /* NAV BAR */
 .navBarContainer {
-    position: sticky;
     /* position: fixed; */
+    /* position: sticky;
     top: 0;
-    left: 0;
-    z-index: 200;
+    left: 0; */
+    z-index: 210;
     width: 100%;
     /* height: 60px; */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
-    border-bottom: 1px solid var(--bg-color-gray);
+    /* border-bottom: 1px solid var(--bg-color-gray); */
+}
+
+@media only screen and (min-width: 1000px) {
+    .navBarContainer {
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
 }
 
 /* CATEGORY BAR */
@@ -55,6 +63,12 @@
     height: var(--categoryBar-height);
     width: 100%;
     z-index: 200;
+}
+
+@media only screen and (max-width: 1000px) {
+    .categoryBarContainer {
+        top: 0;
+    }
 }
 
 /* CAROUSEL COMPONENT CONTAINER */
@@ -71,7 +85,7 @@
 }
 
 /* CAROUSEL MODEL */
-.CarouselModelContainer{
+.CarouselModelContainer {
     /* margin-top: 50px; */
     /* height: 400px; */
 }

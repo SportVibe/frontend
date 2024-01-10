@@ -110,14 +110,14 @@ function App() {
                   <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
                 </div>
               }
-              {(location.pathname === '/') &&
-                <div className={styles.carousel2Container}>
-                  <Carousel2 />
-                </div>
-              }
               {(location.pathname === '/' || location.pathname === '/search') &&
                 <div className={styles.categoryBarContainer}>
                   <CategoryBar />
+                </div>
+              }
+              {(location.pathname === '/') &&
+                <div className={styles.carousel2Container}>
+                  <Carousel2 />
                 </div>
               }
               {location.pathname === '/' &&

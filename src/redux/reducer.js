@@ -15,7 +15,8 @@ import {
   GET_CURRENT_USER,
   DISCOUNT_PRODUCTS,
   QUANTITY__TOTAL_CART,
-  GET_CURRENT_ADMIN
+  GET_CURRENT_ADMIN,
+  CATEGORY_FILTER
 } from "./actions";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   discount: [{ discount: 0 }],
   priceFilter: ['', ''],
   genre: [{ gender: '' }],
+  category: [{ category: '' }],
   totalFilters: [],
   search: '',
   productsBackup: [],
@@ -64,6 +66,11 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         genre: action.payload,
+      };
+    case CATEGORY_FILTER:
+      return {
+        ...state,
+        category: action.payload,
       };
     case SORT:
       return {

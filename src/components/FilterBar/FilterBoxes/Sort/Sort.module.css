@@ -1,20 +1,29 @@
 .sortBox {
-    width: 70%;
+    /* width: 140px; */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0 10px;
 
     & p {
         align-self: center;
         padding: 0;
         margin: 0;
         padding-bottom: 5px;
+        color: var(--font-color-hard);
     }
 
     .selectSort {
+        background-color: transparent;
         width: 100%;
-        height: var(--height-button);
-        border: 1px solid gray;
-        border-radius: 5px;
+        border: 1px solid var(--bg-color-gray);
+        border-radius: 20px;
+        padding: 2px 5px;
+        font-size: var(--font-size);
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid gray;
+        }
     }
 }

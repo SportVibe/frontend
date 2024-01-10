@@ -28,6 +28,7 @@ export const CLEAR_SHOPPING_CART = "CLEAR_SHOPPING_CART";
 export const CAPTURE_ORDER = "CAPTURE_ORDER";
 export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
 export const QUANTITY__TOTAL_CART = "QUANTITY__TOTAL_CART";
+export const CATEGORY_FILTER = "CATEGORY_FILTER";
 
 
 export const getProducts = (filters) => async (dispatch) => {
@@ -132,6 +133,14 @@ export const genreFilterAction = (genre) => async (dispatch) => {
   }
 };
 
+export const categoryAction = (category) => async (dispatch) => {
+  try {
+    return dispatch({ type: CATEGORY_FILTER, payload: category });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 export const getProductPage = ({ page, limit }) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${API_URL}/product?limit=${limit}&page=${page}`);
@@ -196,7 +205,7 @@ export const captureOrder = (orderId) => async (dispatch) => {
 };
 export const updateCartItemQuantity = (productId, newQuantity) => async (dispatch) => {
   try {
-    
+
     dispatch({ type: UPDATE_CART_ITEM_QUANTITY, payload: { productId, newQuantity } });
   } catch (error) {
     console.error(error.message);
