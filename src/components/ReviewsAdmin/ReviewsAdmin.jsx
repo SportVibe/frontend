@@ -133,8 +133,8 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
     
 
     return (
-        <div className="">
-            <nav className="d-flex justify-content-start navbar navbar-ligth bg-body-secondary w-100">
+        <div className="d-flex flex-column">
+            <nav className="d-flex justify-content-start align-items-center navbar navbar-ligth bg-body-secondary w-100 ">
                   <button type="button" className="btn btn-ligth btn-s ms-1" onClick={handleVisibleSidebar}
                   ><i className="bi bi-list fs-3"></i>
                   </button>
@@ -145,7 +145,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
                   data-bs-placement="bottom"
                   data-bs-title="Tooltip on bottom"
                   >
-                  <i class="bi bi-repeat fs-4"></i>
+                  <i class="bi bi-arrow-counterclockwise fs-4"></i>
                   </button>
                   <div class="ms-auto btn-group">
                     <button type="button" className="btn bg-body-secondary border-secondary rounded dropdown-toggle ms-auto me-2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -178,17 +178,16 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
               && setSidebarRender("productos")
             :
                 reviews?.map((rev,i) => (
-                
                 <div className="d-flex card mb-3 mt-2" id={rev.id}>
                 <div className="card-header bg-body-secondary">
                     {rev?.Product.title}
                 </div>
-                <div class="card-body">
-                    <div className="d-flex justify-content-between align-items-center">
-                  <h5 className="card-title text-secondary mb-3">Descripcion :</h5>
-                  <img src={rev?.Product.Images[0]} width="100px" className="rounded-pill"></img>
+                <div class="card-body flex-md-column flex-lg-column">
+                    <div className="d-flex justify-content-between align-items-center mb-2">
+                      <h5 className="card-title text-secondary align-self-end mb-3">Comentario :</h5>
+                      <img src={rev?.Product.Images[0]} width="80px" className="rounded-pill"></img>
                   </div>
-                  <div className="card-text fs-5 mb-5">{rev.description}</div>
+                  <div className="card-text fs-5 mb-5 shadow-sm rounded w-75">{rev.description}</div>
                   <div className="d-flex">
                   <button href="#" name="accepted" id={rev.id} className="btn bg-body-secondary me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</button>
                   <button href="#" name="rejected" id={rev.id} className="btn bg-body-secondary align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</button>
