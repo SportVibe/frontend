@@ -37,9 +37,9 @@ function AdminDashBoard() {
 
 
   return (
-    <div className="d-flex">
+    <div className="d-flex w-auto">
       {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
-      <div className="bg-transparent w-100">
+      <div className=" d-flex bg-transparent w-auto">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
             {<ProductPrueba handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow} />}
@@ -48,7 +48,6 @@ function AdminDashBoard() {
         {selectedRow &&
           <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" ? styles.conteinerCardsHidden : styles.render}>
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow} />
-            {/* <p onClick={handleClose}>✕</p> */}
           </div>}
         {sidebarRender === "nuevo" &&
           (
@@ -57,7 +56,7 @@ function AdminDashBoard() {
             </div>
           )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
-        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} setReloadDetails={setReloadDetails} reloadDetails={reloadDetails} /> : null}
+        {sidebarRender === "comentarios" ? <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} /> : null}
       </div>
     </div>
   );
