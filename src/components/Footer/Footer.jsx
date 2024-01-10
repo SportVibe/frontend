@@ -7,7 +7,7 @@ import image3 from "../../Images/apoyo-tecnico.png";
 
 
 const Footer = () => (
-  <footer className="page-footer font-small blue pt-4">
+  <footer className="page-footer font-small blue ">
     <div className={styles.mainView}>
       <div id={styles.subMainView} className="row">
         <div className="col-md-3 mb-md-0 mb-3">
@@ -92,15 +92,15 @@ const Footer = () => (
         <div className="col-md-3 mb-md-0 mb-3">
           <h5 className="text-uppercase">Centro de Atencion al Cliente</h5>
           <ul className="list-unstyled">
-          <img
-                  src={image3}
-                  alt=""
-                  style={{
-                    width: "40px",
-                    height: "35px",
-                    marginBottom: "10px",
-                  }}
-                />
+            <img
+              src={image3}
+              alt=""
+              style={{
+                width: "40px",
+                height: "35px",
+                marginBottom: "10px",
+              }}
+            />
             <li>
               <a>Lunes a Viernes de 9 a 20 hs / Sábado de 9 a 17 hs</a>
             </li>

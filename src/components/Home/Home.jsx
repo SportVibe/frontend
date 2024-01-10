@@ -24,6 +24,7 @@ function Home() {
   const totalFilters = useSelector((state => state.totalFilters));
   const sort = useSelector((state => state.sort));
   const genre = useSelector((state => state.genre));
+  const category = useSelector((state => state.category));
   const priceFilter = useSelector((state => state.priceFilter));
   const discount = useSelector((state => state.discount));
 
@@ -42,7 +43,7 @@ function Home() {
 
   useEffect(() => {
     if (location.pathname === '/search') {
-      const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }]
+      const sumFilters = [...totalFilters, category[0], priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }]
       dispatch(getProducts(sumFilters));
     } // ya que queremos que en la ruta Home no se apliquen los filtros del Search bar.
     else if (location.pathname !== '/search') {

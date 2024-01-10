@@ -33,15 +33,17 @@
 .displayTableOff {
     height: 70px;
     box-shadow: none;
+    border: 2px solid transparent;
 
     &:hover {
-        box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412);
+        /* box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412); */
+        border: 2px solid var(--font-color-hard);
     }
 }
 
 .displayTableOn {
-    box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412);
-    /* border: 1px solid rgba(128, 128, 128, 0.256); */
+    /* box-shadow: 1px 2px 5px rgba(81, 81, 81, 0.412); */
+    border: 2px solid transparent;
 
     & .orderContainer p {
         font-weight: 400;

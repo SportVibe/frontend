@@ -15,6 +15,7 @@ import {
   genreFilterAction,
   sortAction,
   priceFilterAction,
+  categoryAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -48,13 +49,14 @@ function NavBar() {
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (userDataRender) {
+    if (userDataRender && (id === 'profile' || id === 'dashboard')) {
       navigate(`${id}`);
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
       dispatch(getProducts());
       dispatch(genreFilterAction([{ gender: '' }]));
+      dispatch(categoryAction([{ category: '' }]));
       dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
       dispatch(priceFilterAction(['', '']));
       navigate(`${id}`);
