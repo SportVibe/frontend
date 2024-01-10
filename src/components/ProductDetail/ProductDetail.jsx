@@ -10,6 +10,8 @@ import { addToCart, quantityCartAction } from "../../redux/actions";
 import imagen1 from "../../Images/pinterest.png";
 import imagen2 from "../../Images/facebook.png";
 import imagen3 from "../../Images/twitter.png";
+import Swal from 'sweetalert2';
+
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -145,7 +147,12 @@ const ProductDetail = () => {
         // navigate("/shoppingcart");
       }
     } else {
-      alert("No hay stock del producto en esa talla");
+      Swal.fire({
+        title: '¡Porfavor selecciona una Talla!',
+        icon: 'error',
+        confirmButtonText: 'ok!'
+      });
+      
     }
   };
 
@@ -418,7 +425,7 @@ const ProductDetail = () => {
                     <div class="modal-header">
                       <h1 class="modal-title fs-5" id="staticBackdropLabel">
                         <p className="fs-5 ms-2 mb-2 mt-3 text-secondary">
-                          <i className="bi bi-ui-checks fs-5"></i> Oponiones Del
+                          <i className="bi bi-ui-checks fs-5"></i> Opiniones Del
                           Producto
                         </p>
                       </h1>
