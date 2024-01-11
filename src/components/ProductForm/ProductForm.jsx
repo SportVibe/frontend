@@ -4,7 +4,7 @@ import UploadFile from "../UploadFile/UploadFile";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { API_URL } from "../../helpers/config";
-//import validation from "../../../../api/src/helpers/validation";
+import validation from "./ValidationForm";
 
 
 export default function ProductForm() {
@@ -13,6 +13,8 @@ export default function ProductForm() {
   const [errors, setErrors] = useState({});
   const [sizeStock , setSizeStock] = useState({}); // voy guardando pares key:value de talle y cantidad
   const [sizeArray , setSizeArray] = useState([]); // armo el array de objetos para enviar al back de size y stock
+  const [categories,setCategories] = useState([]);
+  const [subCategories,setSubCategories] = useState([]);
   
 
   let [product, setProduct] = useState({
@@ -25,8 +27,7 @@ export default function ProductForm() {
     discount: "",
     price: "",
     gender: "",
-    description:"",
-    //images:[], 
+    description:"", 
   });
   
   const completeProduct = () => {
@@ -43,6 +44,10 @@ export default function ProductForm() {
   useEffect(()=>{
     completeProduct();
   },[arrayImages])
+
+  useEffect(()=>{
+    handleCategories();
+  },[])
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,7 +60,22 @@ export default function ProductForm() {
           title: res.data,
           showConfirmButton: false,
           timer: 1500
-        });}
+        });
+        setProduct({
+          title: "",
+          sizes: [],
+          brand:"",
+          category: "",
+          subCategory:"", 
+          color:[],
+          discount: "",
+          price: "",
+          gender: "",
+          description:"", 
+        });
+        setSizeArray([]);
+        setSizeStock({})
+      }
         ) 
       .catch(error => {
         Swal.fire({
@@ -69,11 +89,12 @@ export default function ProductForm() {
    
 
    const handleChange = (event) => {
+    const input = event.target.name
     event.preventDefault();
     setProduct({ ...product, [event.target.name]: event.target.value });
-//     setErrors(
-//       validation({ ...product, [event.target.name]: event.target.value })
-//     );
+    setErrors(
+      validation({ ...product, [event.target.name]: event.target.value },input)
+    );
 
    };
    
@@ -91,12 +112,21 @@ export default function ProductForm() {
       arr.push(e.target.value.toString())
       setProduct({...product,color:arr})
     }
+
+    const handleCategories = () => {
+      axios(`${API_URL}/product/category`)
+      .then(({data}) => setCategories(data.categories))
+      .catch((err) => console.log(err))
+      axios(`${API_URL}/product/sub-category`)
+      .then(({data}) => setSubCategories(data.subCategories))
+      .catch((err) => console.log(err))
+    }
   
    
     return (
     <div className="bg-light d-flex flex-column">
-      <div className="d-flex mt-2 w-50 bg-body-secondary justify-content-center mx-auto rounded-pill">
-      <p className="fs-2">
+      <div className="d-flex mt-2 w-100 bg-body-secondary justify-content-center mx-auto rounded-3">
+      <p className="fs-2 mt-2">
       Nuevo Producto
       </p>
       </div>
@@ -110,7 +140,7 @@ export default function ProductForm() {
                   name="title"
                   value={product.title}
                   type="text"
-                  className="style.inputs form-control"
+                  className={errors.title ? "style.inputs form-control border-danger border-3 bg-danger-subtle opacity-75" : "style.inputs form-control"}
                   onChange={handleChange}
                 ></input>
               </div>
@@ -120,16 +150,16 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Categoria</label>
                 <select
-              className="form-select w-75"
+              className={errors.category ? "form-select w-75 border border-danger border-3 bg-danger-subtle opacity-75" : "form-select w-75"}
               aria-label="category"
               name="category"
               onChange={handleChange}>
               <option disabled selected>
                 Seleccione Categoria
               </option>
-              <option value="calzado">CALZADO</option>
-              <option value="deporte">DEPORTE</option>
-              <option value="ropa">ROPA</option>
+              {categories?.map((cat) => 
+                <option value={cat.toLowerCase()}>{cat}</option>
+              )}
             </select>
               </div>
               {/* <p id={style.errorAtaque}>{errors.category}</p> */}
@@ -138,7 +168,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className="style.labels d-flex flex-wrap">Sub-Categoria</label>
                 <select
-                className="form-select w-75"
+                className={errors.category ? "form-select w-75 border border-danger border-3 bg-danger-subtle opacity-75" : "form-select w-75"}
                 aria-label="subCategory"
                 name="subCategory"
                 onChange={handleChange}
@@ -146,9 +176,9 @@ export default function ProductForm() {
               <option disabled selected>
                 Seleccione Sub-categoria
               </option>
-              <option value="zapatillas">ZAPATILLAS</option>
-              <option value="BOTINES">BOTINES</option>
-              <option value="ZAPATOS">ZAPATOS</option>
+              {subCategories?.map((subCat) => 
+                <option value={subCat.toLowerCase()}>{subCat}</option>
+              )}
             </select>
               </div>
               {/* <p id={style.errorAtaque}>{errors.subCategory}</p> */}
@@ -159,7 +189,7 @@ export default function ProductForm() {
                 <input
                   name="brand"
                   value={product.brand}
-                  className="style.inputs form-control w-75"
+                  className={errors.brand ? "style.inputs form-control w-75 border-danger border-3 bg-danger-subtle opacity-75" : "style.inputs form-control w-75"}
                   onChange={handleChange}
                 ></input>
               </div>
@@ -168,7 +198,7 @@ export default function ProductForm() {
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label className={style.labels}>Talle</label>
-                  <select name="size" onChange={handleSizes} className="style.tipos form-select w-75" >
+                  <select name="size" onChange={handleSizes} className={errors.sizes ? "style.tipos form-select w-75 border-danger border-3 bg-danger-subtle opacity-75" : "style.tipos form-select w-75"}>
                   <option  disabled selected>Seleccione Talle</option>
                   <option value="xs">XS</option>
                   <option value="s">S</option>
@@ -186,7 +216,7 @@ export default function ProductForm() {
             <div className={style.divLabels}>
               <div className={style.inputBox}>
                 <label  name="stock" className={style.labels}>Cantidad</label>
-                <select id={style.cantidadSelect} name="stock" onChange={handleSizes} className="style.tipos form-select" >
+                <select id={style.cantidadSelect} name="stock" onChange={handleSizes} className={errors.sizes ? "style.tipos form-select border-danger border-3 bg-danger-subtle opacity-75" : "style.tipos form-select"} >
                 <option value="" disabled selected>Cantidad</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -207,7 +237,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Color</label>
                 <select
-                  className="form-select w-75"
+                  className={errors.color ?"form-select w-75 border-danger border-3 bg-danger-subtle opacity-75" : "form-select w-75"}
                   aria-label="color"
                   name="color"
                   onChange={handleColor}>
@@ -232,14 +262,14 @@ export default function ProductForm() {
                   name="discount"
                   value={product.discount}
                   type="text"
-                  className="style.inputs form-control w-75"
+                  className={errors.discount ? "style.inputs form-control w-75 border-danger border-3 bg-danger-subtle opacity-75" : "style.inputs form-control w-75"}
                   onChange={handleChange}
                 ></input>
               </div>
             </div>
             <div className={style.divLabels}>
               <div className={style.inputBox}>
-                <label className={style.labels}>Precio</label>
+                <label className={errors.precio ? "style.labels border-danger border-3 bg-danger-subtle opacity-75" : style.labels}>Precio</label>
                 <input
                   name="price"
                   value={product.price}
@@ -253,7 +283,7 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Genero</label>
                 <select
-                  className="form-select w-75"
+                  className={errors.gender ? "form-control w-75 border-danger border-3 bg-danger-subtle opacity-75" : "form-control w-75"}
                   aria-label="gender"
                   name="gender"
                   onChange={handleChange}>
@@ -272,7 +302,7 @@ export default function ProductForm() {
                 <textarea
                   name="description"
                   value={product.description}
-                  className="style.tipos form-control w-75 fs-5 mb-4"
+                  className={errors.description ? "style.tipos form-control w-75 fs-5 mb-4 border-danger border-3 bg-danger-subtle opacity-75": "style.tipos form-control w-75 fs-5 mb-4"}
                   onChange={handleChange}
                   >
                 </textarea>
@@ -282,12 +312,12 @@ export default function ProductForm() {
               <div className={style.inputBox}>
                 <label className={style.labels}>Imagen</label>
                 <div className={style.inputImage}>
-                <UploadFile completeProduct={completeProduct} setArrayImages={setArrayImages}/>
+                {Object.keys(errors).length === 0 && <UploadFile completeProduct={completeProduct} setArrayImages={setArrayImages}/>}
                 </div>
               </div>
             </div>
             <div className="d-flex w-100 mt-4">
-            <button form className="btn btn-primary btn-lg w-100">
+            <button form className={Object.keys(errors).length>0 ? "btn btn-primary btn-lg w-100 disabled": "btn btn-primary btn-lg w-100"}>
               Crear
             </button>
             </div>
@@ -300,184 +330,3 @@ export default function ProductForm() {
 }
 
 
-// return (
-//   <div>
-//     <p className={style.titulo}>
-//     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-person-walking" viewBox="0 0 16 16">
-// <path d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.75 1.75 0 0 1-.088.395l-.318.906.213.242a.75.75 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"/>
-// <path d="M6.25 11.745v-1.418l1.204 1.375.261.524a.75.75 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843a1.93 1.93 0 0 0 .006-.067l1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"/>
-// </svg>Nuevo Producto
-// <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-person-walking" viewBox="0 0 16 16">
-// <path d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6.44 3.752A.75.75 0 0 1 7 3.5h1.445c.742 0 1.32.643 1.243 1.38l-.43 4.083a1.75 1.75 0 0 1-.088.395l-.318.906.213.242a.75.75 0 0 1 .114.175l2 4.25a.75.75 0 1 1-1.357.638l-1.956-4.154-1.68-1.921A.75.75 0 0 1 6 8.96l.138-2.613-.435.489-.464 2.786a.75.75 0 1 1-1.48-.246l.5-3a.75.75 0 0 1 .18-.375l2-2.25Z"/>
-// <path d="M6.25 11.745v-1.418l1.204 1.375.261.524a.75.75 0 0 1-.12.231l-2.5 3.25a.75.75 0 1 1-1.19-.914zm4.22-4.215-.494-.494.205-1.843a1.93 1.93 0 0 0 .006-.067l1.124 1.124h1.44a.75.75 0 0 1 0 1.5H11a.75.75 0 0 1-.531-.22Z"/>
-// </svg>
-//     </p>
-//     <div className={style.containerForm}>
-//       <div className={style.divForm}>
-//         <form onSubmit={handleSubmit} className={style.form}>
-//           <div id={style.nameContainer} >
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Nombre Producto</label>
-//               <input
-//                 name="title"
-//                 value={product.title}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//             {/* <p className={style.errors}>{errors.title}</p> */}
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Categoria</label>
-//               <input
-//                 name="category"
-//                 value={product.category}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//             {/* <p id={style.errorAtaque}>{errors.category}</p> */}
-//           </div>           
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Sub-Categoria</label>
-//               <input
-//                 name="subCategory"
-//                 value={product.subCategory}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//             {/* <p id={style.errorAtaque}>{errors.subCategory}</p> */}
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Marca</label>
-//               <input
-//                 name="brand"
-//                 value={product.brand}
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//             {/* <p id={style.errorVida}>{errors.mark}</p> */}
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Talle</label>
-//                 <select name="size" onChange={handleSizes} className={style.tipos} >
-//                 <option value="" disabled selected>Seleccione Talle</option>
-//                 <option value="XS">XS</option>
-//                 <option value="S">S</option>
-//                 <option value="M">M</option>
-//                 <option value="L">L</option>
-//                 <option value="XL">XL</option>
-//                 <option value="XXL">XXL</option>
-//                 <option value="XXXL">XXXL</option>
-//                 <option value="otro">Otro</option>
-//                 <option value="noAplica">No Aplica</option>
-//                </select>
-//             </div>
-//             {/* <p id={style.errorVida}>{errors.sizes}</p> */}
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label  name="stock" className={style.labels}>Cantidad</label>
-//               <select id={style.cantidadSelect} name="stock" onChange={handleSizes} className={style.tipos} >
-//               <option value="" disabled selected>Cantidad</option>
-//               <option value="1">1</option>
-//               <option value="2">2</option>
-//               <option value="3">3</option>
-//               <option value="4">4</option>
-//               <option value="5">5</option>
-//               <option value="6">6</option>
-//               <option value="7">7</option>
-//               <option value="8">8</option>
-//               <option value="9">9</option>
-//               <option value="10">10</option>
-//               </select>
-//               <button id={style.buttonOk} className={sizeArray.length>=1? style.active : style.inactive} value="button" onClick={handleSizes}>Agregar talle y cantidad</button>
-//              </div>
-//             {/* <p id={style.errorVida}>{errors.sizes}</p> */}
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Color</label>
-//               <input
-//                 name="color"
-//                 //value={product.color}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleColor}
-//               ></input>
-//             </div>
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Descuento</label>
-//               <input
-//                 name="discount"
-//                 value={product.discount}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Precio</label>
-//               <input
-//                 name="price"
-//                 value={product.price}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Genero</label>
-//               <input
-//                 name="gender"
-//                 value={product.gender}
-//                 type="text"
-//                 className={style.inputs}
-//                 onChange={handleChange}
-//               ></input>
-//             </div>
-//           </div>
-//           <div id={style.tipoPadre} >
-//             <div id={style.tipoContainer} >
-//               <label className={style.labels}>Descripcion</label>
-//               <textarea
-//                 name="description"
-//                 value={product.description}
-//                 className={style.tipos}
-//                 onChange={handleChange}
-//                 >
-//               </textarea>
-//             </div>
-//           </div>
-//           <div className={style.divLabels}>
-//             <div className={style.inputBox}>
-//               <label className={style.labels}>Imagen</label>
-//               <div className={style.inputImage}>
-//               <UploadFile completeProduct={completeProduct} setArrayImages={setArrayImages}/>
-//               </div>
-//             </div>
-//           </div>
-//           <button form className={style.buttonForm}>
-//             Crear
-//           </button>
-//         </form>
-//           {/* <p id={style.campos}>{errors.general}</p> */}
-//       </div>
-//     </div>
-//   </div>
-// );
