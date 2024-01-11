@@ -16,7 +16,7 @@ function AdminDashBoard() {
   const navigate = useNavigate();
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  const [visibleSidebar, setVisibleSidebar] = useState(false);
+  const [visibleSidebar, setVisibleSidebar] = useState(true);
   const [reloadDetails, setReloadDetails] = useState(false); // recargo imagenes y titulos de reviews de dashboard por demora de react
 
   async function handleSignOut() {
@@ -37,12 +37,12 @@ function AdminDashBoard() {
 
 
   return (
-    <div className="d-flex">
+    <div className="d-flex min-vh-100 w-100">
       {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
-      <div className="bg-transparent w-100">
+      <div className="bg-body-tertiary w-100">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
-            {<ProductPrueba handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow} />}
+            {<ProductPrueba handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow}/>}
           </div>
         ) : null}
         {selectedRow &&

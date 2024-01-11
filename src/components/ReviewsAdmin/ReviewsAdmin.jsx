@@ -134,7 +134,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
 
     return (
         <div className="d-flex flex-column">
-            <nav className="d-flex justify-content-start align-items-center navbar navbar-ligth bg-body-secondary w-100 ">
+            <nav className="d-flex justify-content-start align-items-center navbar navbar-ligth bg-body-secondary w-100 mb-2">
                   <button type="button" className="btn btn-ligth btn-s ms-1" onClick={handleVisibleSidebar}
                   ><i className="bi bi-list fs-3"></i>
                   </button>
@@ -156,7 +156,6 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
                 </ul>
                 </div>
             </nav>
-        <div className="d-flex flex-wrap gap-2 align-items-start justify-content-center bg-body-tertiary min-vh-100 w-100">
             {reviews?.length === 0 ? 
             Swal.fire({
                 title: "No hay Comentarios Pendientes",
@@ -177,30 +176,32 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
               })
               && setSidebarRender("productos")
             :
-                reviews?.map((rev,i) => (
-                <div className="d-flex card mb-3 mt-2" id={rev.id}>
-                <div className="card-header bg-body-secondary">
+            <div className="d-flex flex-wrap gap-2 align-items-start align-content-start justify-content-center bg-body-tertiary min-vh-100">
+                {reviews?.map((rev,i) => (
+                <div className="d-flex card mt-2" id={rev.id}>
+                    <div className="card-header bg-body-secondary">
                     {rev?.Product.title}
-                </div>
-                <div class="card-body flex-md-column flex-lg-column">
+                    </div>
+                  <div class="card-body flex-md-column flex-lg-column">
                     <div className="d-flex justify-content-between align-items-center mb-2">
-                      <h5 className="card-title text-secondary align-self-end mb-3">Comentario :</h5>
-                      <img src={rev?.Product.Images[0]} width="80px" className="rounded-pill"></img>
-                  </div>
-                  <div className="card-text fs-5 mb-5 shadow-sm rounded w-75">{rev.description}</div>
-                  <div className="d-flex">
-                  <button href="#" name="accepted" id={rev.id} className="btn bg-body-secondary me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</button>
-                  <button href="#" name="rejected" id={rev.id} className="btn bg-body-secondary align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</button>
-                  <div className="ms-auto align-items-end">
-                  <div className="justify-content-end d-flex mb-0 opacity-75">{hanlderScore(rev.score)}</div>
-                  <p className="">Comentario ID : {rev.id}</p>
-                  </div>
-                  </div>
+                        <h5 className="card-title text-secondary align-self-end mb-3">Comentario :</h5>
+                        <img src={rev?.Product.Images[0]} width="80px" height="80px" className="rounded-pill"></img>
+                    </div>
+                    <div className="card-text fs-5 mb-5 shadow-sm rounded w-75">{rev.description}</div>
+                    <div className="d-flex">
+                        <button href="#" name="accepted" id={rev.id} className="btn bg-body-secondary me-1 align-self-center" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-up me-1"></i>Aceptar</button>
+                        <button href="#" name="rejected" id={rev.id} className="btn bg-body-secondary align-self-center me-3" onClick={(e)=>{handleAction(e)}}><i className="bi bi-hand-thumbs-down me-1"></i>Rechazar</button>
+                        <div className="ms-auto align-items-end">
+                            <div className="justify-content-end d-flex mb-0 opacity-75">{hanlderScore(rev.score)}</div>
+                            <p className="">Comentario ID : {rev.id}</p>
+                        </div>
+                    </div>
                 </div>
               </div>
-            ))
+                ))
+              }
+            </div>
             }
-        </div>
         </div>
     );
 };

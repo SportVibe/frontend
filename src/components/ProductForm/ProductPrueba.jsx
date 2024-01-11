@@ -7,6 +7,7 @@ import { API_URL } from "../../helpers/config";
 const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, handleSignOut }) => {
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
+  const [alertProducts, setAlertProducts] = useState("AUX");
 
 
   useEffect(() => {
@@ -25,7 +26,8 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
       selector: (row) => row.id,
       sortable: true,
       width: "120px",
-      center: "true"
+      center: "true",
+      hide:"md"
     },
     {
       name: "TITULO",
@@ -33,7 +35,14 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
       sortable: true,
       allowOverflow: false,
       style: { fontSize: 16 },
-      width: "600px",
+      width: "500px",
+    },
+    {
+      name: "DISPONIBLE",
+      selector: (row) => row.available,
+      sortable: true,
+      center: "true",
+      style: { fontSize: 16 },
     },
     {
       name: "STOCK",
@@ -70,26 +79,8 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
       selector: (row) => row.images,
       sortable: true,
       center: "true",
-      width: "115px",
       style: { fontSize: 16 },
-      //width:"200px"
-    },
-    {
-      name: "DISPONIBLE",
-      selector: (row) => row.available,
-      sortable: true,
-      center: "true",
-      width: "125px",
-      style: { fontSize: 16 },
-      //width:"200px"
-    },
-    {
-      name: "COLORES",
-      selector: (row) => row.colors,
-      sortable: true,
-      center: "true",
-      style: { fontSize: 16 },
-      //width: "400px",
+      hide:"md"
     },
     {
       name: "PRECIO",
@@ -97,7 +88,15 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
       sortable: true,
       center: "true",
       style: { fontSize: 16 },
-      //width:"150px"
+      hide:"md"
+    },
+    {
+      name: "COLORES",
+      selector: (row) => row.colors,
+      sortable: true,
+      center: "true",
+      style: { fontSize: 16 },
+      hide:"md",
     },
   ];
 
@@ -135,7 +134,8 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
 
   const handleFilter = (event) => {
     let filter = productSearch.filter((prod) => prod.title.toLowerCase().includes(event.target.value.toLowerCase()))
-    setProductRender(filter)
+    setProductRender(filter);
+    setAlertProducts(filter);
   };
 
   const handleChange = (data) => {
@@ -200,7 +200,7 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
             onChange={handleFilter}
           />
         </div>
-        <div class="btn-group me-5">
+        <div class="btn-group me-2">
           <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
           </button>
@@ -209,7 +209,10 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
           </ul>
         </div>
       </nav>
-      {productRender.length === 0 ?
+      <div className="bg-secondary-subtle w-100 border-4 d-none d-lg-block">
+        <div className="d-flex justify-content-center">CATALOGO PRODUCTOS</div>
+      </div>
+      {productRender.length === 0  ?
         <div className="vh-100 d-flex align-items-center">
           <div class="spinner-grow text-success mx-3" role="status">
             <span class="visually-hidden"></span>
@@ -231,8 +234,16 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
           customStyles={customStyles}
           theme="light"
           onRowClicked={handleChange}
+          highlightOnHover
+          dense
         ></DataTable>
       }
+      {alertProducts.length === 0 && alertProducts !== "AUX" ? 
+        <div className="alert alert-danger position-absolute bottom-0 rigth-0" role="alert">
+            <i className="bi bi-exclamation-triangle me-2"></i>
+              No hay productos con ese nombre, intente otra busqueda 
+            <i className="bi bi-exclamation-triangle ms-2"></i>
+        </div> : null}
     </>
   );
 };
