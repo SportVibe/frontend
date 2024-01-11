@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
 import styles from './Sports.module.css';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../../helpers/config';
 import capitalize from '../../../../utils/capitalize';
 
-function Sports() {
+function Sports({ sportHandler, sport }) {
     const [sportArray, setSportArray] = useState(null);
 
     async function getSports() {
@@ -22,8 +22,8 @@ function Sports() {
         <div className={styles.mainView}>
             <p className={styles.title}>Deportes</p>
             <div className={styles.genreBox}>
-                {sportArray?.map((sport, i) => {
-                    return <p key={i}>{capitalize(sport.name)}</p>
+                {sportArray?.map((_sport, i) => {
+                    return <p onClick={sportHandler} id={_sport.name} key={i} className={sport[0].sport === _sport.name ? styles.selected : ''}>{capitalize(_sport.name)}</p>
                 })}
             </div>
         </div>

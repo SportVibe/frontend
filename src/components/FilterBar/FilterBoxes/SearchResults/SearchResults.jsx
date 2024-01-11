@@ -14,6 +14,7 @@ function SearchResults(props) {
     }, []);
     return (
         <div className={styles.mainView}>
+            {/* {search && <p>Estás buscando:</p>} */}
             {search && <p className={styles.searchText}>{`"${search}"`}</p>}
             <p>Resultados encontrados: {totalCount}</p>
         </div>

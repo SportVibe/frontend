@@ -4,13 +4,13 @@ import axios from 'axios';
 import { API_URL } from '../../../../helpers/config';
 import capitalize from '../../../../utils/capitalize';
 
-function Brands() {
-    const [sportArray, setSportArray] = useState(null);
+function Brands({ brandHandler, brand }) {
+    const [brandArray, setBrandArray] = useState(null);
 
     async function getSports() {
         // const { data } = await axios(`${API_URL}/property?property=${property}`);
-        const { data } = await axios(`${API_URL}/product/sports`);
-        setSportArray(data);
+        const { data } = await axios(`${API_URL}/product/brands`);
+        setBrandArray(data);
     }
 
 
@@ -22,8 +22,8 @@ function Brands() {
         <div className={styles.mainView}>
             <p className={styles.title}>Marcas</p>
             <div className={styles.genreBox}>
-                {sportArray?.map((sport, i) => {
-                    return <p key={i}>{capitalize(sport.name)}</p>
+                {brandArray?.map((_brand, i) => {
+                    return <p onClick={brandHandler} key={i} id={_brand.name} className={brand[0].brand === _brand.name ? styles.selected : ''}>{capitalize(_brand.name)}</p>
                 })}
             </div>
         </div>

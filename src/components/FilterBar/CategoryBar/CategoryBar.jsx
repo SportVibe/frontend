@@ -17,16 +17,19 @@ function CategoryBar() {
     const navigate = useNavigate();
     const [imgHover, setImgHover] = useState(false);
     const [allCategories, setAllCategories] = useState(null);
+    const category = useSelector((state => state.category));
     const genre = useSelector((state => state.genre));
+    const sport = useSelector((state => state.sport));
+    const brand = useSelector((state => state.brand));
     const search_Activity = useSelector((state => state.search));
     const totalFilters = useSelector((state => state.totalFilters));
     const priceFilter = useSelector((state => state.priceFilter));
     const sort = useSelector((state => state.sort));
     const discount = useSelector((state => state.discount));
 
-    function genreHandler(event) {
+    function categoryHandler(event) {
         const id = event.target.id;
-        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, genre[0], { category: id }]
+        const newFiltersArray = [...totalFilters, sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, genre[0], { category: id }]
         dispatch(categoryAction([{ category: id }]));
         dispatch(getProducts(newFiltersArray));
         navigate('/search');
@@ -61,12 +64,12 @@ function CategoryBar() {
                 <div className={styles.carouselContainer}>
                     <div className={styles.siderLeft}></div>
                     <div className={styles.carouselDiv}>
-                        {allCategories?.map((category, i) => {
+                        {allCategories?.map((_category, i) => {
                             const index = i;
                             return (
                                 <div key={i}>
                                     <img src={imgArray[index]} alt="" />
-                                    <p id={category} onClick={genreHandler}>{category}</p>
+                                    <p id={_category} onClick={categoryHandler} className={category[0].category === _category ? styles.selectedCategory : ''}>{_category}</p>
                                 </div>
                             )
                         })}

@@ -2,6 +2,7 @@ import styles from "./ProductCard.module.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import capitalize from '../../utils/capitalize.js';
 
 function ProductCard({ productData }) {
     const navigate = useNavigate();
@@ -15,9 +16,9 @@ function ProductCard({ productData }) {
     const description = productData?.description ? productData.description : "";
     const discount = productData?.discount > 0 ? productData.discount : "";
     const gender = productData?.gender ? productData.gender : "";
-    const brand = productData?.brand ? productData.brand : "";
+    const brand = productData?.brand ? capitalize(productData.brand) : "";
     const subCategory = productData?.subCategory ? productData.subCategory : "";
-    const title = productData?.title ? productData.title : "";
+    const title = productData?.title ? capitalize(productData.title) : "";
     let currentPrice = productData?.price ? Number(productData.price) : '';
     let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
     currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -85,6 +86,9 @@ function ProductCard({ productData }) {
                     </div>
                     <div className={styles.titleContainer}>
                         <p>{title}</p>
+                    </div>
+                    <div className={styles.brandContainer}>
+                        <p>{brand}</p>
                     </div>
                     <div className={styles.priceContainer}>
                         {!discount ?

@@ -104,7 +104,7 @@ function Table(props) {
         try {
             const myProductReviews = await Promise.all(porpsRecords?.purchases.map(async (product) => {
                 try {
-                    const { data } = await axios(`${API_URL}/reviews?productId=${product.id}&userId=${userId}`);
+                    const { data } = await axios(`${API_URL}/reviews?productId=${product.productId}&userId=${userId}`);
                     if (data) {
                         return { ...product, reviewData: data.data };
                     } else {
@@ -141,7 +141,7 @@ function Table(props) {
 
     return (
         <div className={styles.mainView}>
-            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.id}</p>
+            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderId}</p>
             {modal &&
                 <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} />
             }
@@ -150,6 +150,7 @@ function Table(props) {
                     <div className={styles.orderContainer} onClick={handleDisplayTable}>
                         <p onClick={handleDisplayTable}>Fecha de compra: {porpsRecords.date}</p>
                         <p onClick={handleDisplayTable}>Hora: {porpsRecords.time}</p>
+                        <p onClick={handleDisplayTable}>Total: ${porpsRecords.totalPaid}</p>
                     </div>
                     <div className={styles.paramsContainer}>
                         <p className={styles.counterParam}>#</p>
@@ -161,16 +162,16 @@ function Table(props) {
                         {porpsRecords?.purchases.map((record, i) => {
                             return (
                                 <div className={styles.records} key={i}>
-                                    <p className={styles.counterValue}>{record.id}</p>
-                                    {[0, 1, 2, 3]?.map((param, i) => {
-                                        let recordValue = Object.values(record)[i];
-                                        return <p className={styles.value} id={styles.p} key={i}>{recordValue}</p>
-                                    })}
-                                    <div id={record.id} className={styles.buttonReviews} onClick={HandleDisplayModal}>
+                                    <p className={styles.counterValue}>{record.productId}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.product}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.quantity}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.price}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.total}</p>
+                                    <div id={record.productId} className={styles.buttonReviews} onClick={HandleDisplayModal}>
                                         {record.reviewData ?
-                                            <p className={styles.coment} id={record.id}>Editar</p>
+                                            <p className={styles.coment} id={record.productId}>Editar</p>
                                             :
-                                            <button id={record.id}>Nuevo</button>
+                                            <button id={record.productId}>Nuevo</button>
                                         }
                                     </div>
                                 </div>
