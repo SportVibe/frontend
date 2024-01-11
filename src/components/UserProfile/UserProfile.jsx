@@ -12,7 +12,7 @@ import upperLowerCase from '../../utils/upperLowerCase';
 import { getCurrentUserAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
-import userPurchases from '../../utils/userPurchases';
+// import userPurchases from '../../utils/userPurchases';
 
 
 function UserProfile() {
@@ -20,6 +20,7 @@ function UserProfile() {
     const navigate = useNavigate();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [userPurchases, setUserPurchases] = useState(null);
     const [loading, setLoading] = useState(true);
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
@@ -93,6 +94,9 @@ function UserProfile() {
             if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                 const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
                 if (data.active) { // solo si la cuenta del usuario está activa.
+                    const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
+                    console.log(userPurchasesData.data);
+                    setUserPurchases(userPurchasesData.data);
                     dispatch(getCurrentUserAction(data));
                     setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
                     setLoading(false);
@@ -164,7 +168,10 @@ function UserProfile() {
                             <div className={styles.componentContainer}>
                                 <p className={styles.titleMain}>Historial de compra:</p>
                                 {userPurchases?.map((purchase, i) => {
-                                    return <Table key={i} records={purchase} userId={userDataRender.id} />
+                                    if (purchase.purchases.length) {
+                                        return <Table key={i} records={purchase} userId={userDataRender.id} />
+                                    }
+                                    return null;
                                 })}
                             </div>}
                         {mainComponent === 'editUser' &&

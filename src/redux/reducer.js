@@ -16,17 +16,22 @@ import {
   DISCOUNT_PRODUCTS,
   QUANTITY__TOTAL_CART,
   GET_CURRENT_ADMIN,
-  CATEGORY_FILTER
+  CATEGORY_FILTER,
+  BRAND_FILTER,
+  SPORT_FILTER
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
   currentUserData: null,
   currentAdminData: null,
+  filterCounter: [],
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   discount: [{ discount: 0 }],
   priceFilter: ['', ''],
   genre: [{ gender: '' }],
+  brand: [{ brand: '' }],
+  sport: [{ sport: '' }],
   category: [{ category: '' }],
   totalFilters: [],
   search: '',
@@ -56,16 +61,31 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         priceFilter: action.payload,
+        filterCounter: [...state.filterCounter, action.payload],
       };
     case DISCOUNT_PRODUCTS:
       return {
         ...state,
         discount: action.payload,
+        filterCounter: [...state.filterCounter, action.payload],
       };
     case GENRES_FILTER:
       return {
         ...state,
         genre: action.payload,
+        filterCounter: [...state.filterCounter, action.payload],
+      };
+    case SPORT_FILTER:
+      return {
+        ...state,
+        sport: action.payload,
+        filterCounter: [...state.filterCounter, action.payload],
+      };
+    case BRAND_FILTER:
+      return {
+        ...state,
+        brand: action.payload,
+        filterCounter: [...state.filterCounter, action.payload],
       };
     case CATEGORY_FILTER:
       return {

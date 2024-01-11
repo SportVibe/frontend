@@ -237,7 +237,7 @@
 
     &:hover{
       & div {
-        border-radius: 8px;
+        border-radius: 0;
         transition: .4s;
       }
     }

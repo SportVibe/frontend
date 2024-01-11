@@ -53,6 +53,7 @@ const login = () => {
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
+        console.log(data);
         if (data) {
           if (data.user.rol === 'admin') {
             localStorage.setItem('adminUser', JSON.stringify(data.user));

@@ -16,6 +16,8 @@ import {
   sortAction,
   priceFilterAction,
   categoryAction,
+  sportAction,
+  brandAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -56,6 +58,8 @@ function NavBar() {
       dispatch(searchActivity(''));
       dispatch(getProducts());
       dispatch(genreFilterAction([{ gender: '' }]));
+      dispatch(sportAction([{ sport: '' }]));
+      dispatch(brandAction([{ brand: '' }]));
       dispatch(categoryAction([{ category: '' }]));
       dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
       dispatch(priceFilterAction(['', '']));

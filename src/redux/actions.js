@@ -29,6 +29,8 @@ export const CAPTURE_ORDER = "CAPTURE_ORDER";
 export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
 export const QUANTITY__TOTAL_CART = "QUANTITY__TOTAL_CART";
 export const CATEGORY_FILTER = "CATEGORY_FILTER";
+export const SPORT_FILTER = "SPORT_FILTER";
+export const BRAND_FILTER = "BRAND_FILTER";
 
 
 export const getProducts = (filters) => async (dispatch) => {
@@ -136,6 +138,22 @@ export const genreFilterAction = (genre) => async (dispatch) => {
 export const categoryAction = (category) => async (dispatch) => {
   try {
     return dispatch({ type: CATEGORY_FILTER, payload: category });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const sportAction = (sport) => async (dispatch) => {
+  try {
+    return dispatch({ type: SPORT_FILTER, payload: sport });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const brandAction = (brand) => async (dispatch) => {
+  try {
+    return dispatch({ type: BRAND_FILTER, payload: brand });
   } catch (error) {
     console.error(error.message);
   }

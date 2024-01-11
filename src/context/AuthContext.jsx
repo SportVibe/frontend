@@ -11,11 +11,13 @@ import {
 } from "firebase/auth";
 import { auth } from '../helpers/firebase';
 import { getCurrentUserAction } from "../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();

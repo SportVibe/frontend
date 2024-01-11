@@ -9,6 +9,7 @@ function SearchBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const search_Activity = useSelector((state => state.search));
   const [searchTerm, setSearchTerm] = useState(search_Activity);
 
@@ -27,10 +28,20 @@ function SearchBar() {
     }
   };
 
+  const handleInputClick = () => {
+    setIsInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false);
+  };
+
   return (
-    <div className={styles.mainView}>
+    <div className={`${styles.mainView} ${isInputFocused ? styles.onClick : ''}`}>
       <input
         type="text"
+        onClick={handleInputClick}
+        onBlur={handleInputBlur}
         placeholder={t('translation.Product')}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
