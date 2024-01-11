@@ -209,8 +209,8 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
           </ul>
         </div>
       </nav>
-      <div className="bg-secondary-subtle w-100 border-4 d-none d-lg-block">
-        <div className="d-flex justify-content-center">CATALOGO PRODUCTOS</div>
+      <div className="bg-secondary-subtle w-100 d-none d-lg-block">
+        <div className="d-flex justify-content-center">CATALOGO DE PRODUCTOS</div>
       </div>
       {productRender.length === 0  ?
         <div className="vh-100 d-flex align-items-center">
