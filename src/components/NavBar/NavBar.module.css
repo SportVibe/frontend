@@ -230,16 +230,32 @@
   }
 
   & .userLogContainer {
+    position: relative;
     width: 100%;
     padding: 0;
     display: flex;
     align-items: center;
 
     &:hover{
-      & div {
-        border-radius: 0;
+      & img {
+        border-radius: 5px;
         transition: .4s;
       }
+    }
+
+    & .profileLogo {
+      position: relative;
+
+      & .circleNotify {
+        background-color: red;
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        border: 1px solid white;
+        border-radius: 100%;
+        right: -6px;
+        top: -6px;
+    }
     }
 
     & .adminLogContainer { /* estilos de admin */
@@ -253,14 +269,15 @@
       width: 40px;
       height: 40px;
       border-radius: 100%;
-      overflow: hidden;
-      transition: .4s;
+      /* overflow: hidden; */
 
       & img {
         width: 100%;
         min-height: 100%;
         object-fit: cover;
         object-position: center;
+        border-radius: 100%;
+        transition: .4s;
       }
 
       & p {

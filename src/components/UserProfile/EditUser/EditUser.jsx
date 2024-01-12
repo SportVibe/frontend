@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../../helpers/config';
 import { Await } from 'react-router-dom';
 
-function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit }) {
+function EditUser({ notify, editUserData, setEditUserData, isValidEmail, handleSubmit }) {
     const [containerHidden, setContainerHidden] = useState(true);
     const [deleteHidden, setDeleteHidden] = useState(true);
     const [password, setPassword] = useState({ p1: '', p2: '' });
@@ -117,6 +117,10 @@ function EditUser({ editUserData, setEditUserData, isValidEmail, handleSubmit })
 
     return (
         <div className={styles.mainView}>
+            {(notify && notify.userDataMissing) &&
+                <div className={styles.missingData}>
+                    <p>{notify.userDataMissing}</p>
+                </div>}
             <p id={styles.title}>Información de usuario:</p>
             <div className={styles.subMainView}>
                 <div className={styles.inputContainer}>

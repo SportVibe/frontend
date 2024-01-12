@@ -4,6 +4,7 @@ import CarouselCard from './CarouselCar/CarouselCard';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
+import FalseCard from '../FalseCard/FalseCard';
 import { discountProducts, genreFilterAction, getProducts, priceFilterAction, sortAction } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -52,17 +53,15 @@ function Carousel2() {
                     {productArray?.length ? productArray.map((item, i) => {
                         return (
                             <div key={i} className={styles.imgContainer}>
-                                <CarouselCard productData={item}/>
+                                <CarouselCard productData={item} />
                             </div>
                         )
                     }) :
                         count.map((item, i) => {
                             return (
                                 <div key={i} className={styles.imgContainer}>
-                                    <div className={styles.img}>
-                                        <img src="" alt="" />
+                                    <div className={styles.falseCard}>
                                     </div>
-                                    <p className={styles.nameAfter}></p>
                                 </div>
                             )
                         })}

@@ -22,8 +22,9 @@ function Brands({ brandHandler, brand }) {
         <div className={styles.mainView}>
             <p className={styles.title}>Marcas</p>
             <div className={styles.genreBox}>
+                <p onClick={brandHandler} id='' className={brand[0]?.brand === '' ? styles.selected : ''}>Todo</p>
                 {brandArray?.map((_brand, i) => {
-                    return <p onClick={brandHandler} key={i} id={_brand.name} className={brand[0].brand === _brand.name ? styles.selected : ''}>{capitalize(_brand.name)}</p>
+                    return <p onClick={brandHandler} key={i} id={_brand.name} className={brand[0]?.brand === _brand.name ? styles.selected : ''}>{capitalize(_brand.name)}</p>
                 })}
             </div>
         </div>

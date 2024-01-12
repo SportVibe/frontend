@@ -18,6 +18,7 @@ import {
   categoryAction,
   sportAction,
   brandAction,
+  filterCounterAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -28,6 +29,7 @@ function NavBar() {
   const navigate = useNavigate();
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
+  const filterCounter = useSelector((state) => state.filterCounter);
   // const storageData = window.localStorage.getItem('currentUser');
   // const userData = storageData ? JSON.parse(storageData) : null;
   const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
@@ -48,6 +50,10 @@ function NavBar() {
     }
   }
   const { t, i18n } = useTranslation();
+  // buscamos si hay que notificar sobre datos incompletos al usuario.
+  const notify = userDataRender ? Object.values(userDataRender).some(value => {
+    return value === null;
+  }) : null;
 
   function handleNavigate(event) {
     const id = event.target.id;
@@ -63,6 +69,7 @@ function NavBar() {
       dispatch(categoryAction([{ category: '' }]));
       dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
       dispatch(priceFilterAction(['', '']));
+      dispatch(filterCounterAction({}));
       navigate(`${id}`);
     }
   }
@@ -127,7 +134,8 @@ function NavBar() {
                       <p id='/dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
                     )}
                   </div> :
-                  <div id='/profile' onClick={handleNavigate}>
+                  <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
+                    {notify && <div className={styles.circleNotify}></div>}
                     {userDataRender?.image ? (
                       <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                     ) : (
