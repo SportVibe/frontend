@@ -54,7 +54,7 @@ function AdminDashBoard() {
         {sidebarRender === "nuevo" &&
           (
             <div>
-              <ProductForm setActive={setActive} setSidebarRender={setSidebarRender}/>
+              <ProductForm setActive={setActive} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender}/>
             </div>
           )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}

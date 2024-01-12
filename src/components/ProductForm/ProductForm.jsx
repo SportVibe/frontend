@@ -8,7 +8,7 @@ import validation from "./ValidationForm";
 import { Toast } from "react-bootstrap";
 
 
-export default function ProductForm({setSidebarRender,setActive}) {
+export default function ProductForm({setSidebarRender,setActive,setVisibleSidebar, visibleSidebar}) {
 
   const [arrayImages, setArrayImages] = useState("");
   const [errors, setErrors] = useState({});
@@ -140,12 +140,23 @@ export default function ProductForm({setSidebarRender,setActive}) {
     const handleClose = () => {
       setCloseAlert(false)
     }
+
+    const handleVisibleSidebar = () => {
+      setVisibleSidebar(!visibleSidebar);
+    }
   
    
     return (
     <div className="bg-body-tertiary d-flex flex-column position-relative">
-      <div className="d-flex mt-2 w-100 bg-body-secondary justify-content-center mx-auto rounded-3">
-      <p className="fs-2 mt-2">
+      <div className="d-flex mt-2 w-100 bg-body-secondary rounded-3 justify-content-start">
+      <div className="justify-content-end d-flex">
+          <button
+            type="button"
+            className="btn btn-ligth btn-s"
+            onClick={handleVisibleSidebar}
+          ><i className="bi bi-list fs-3"></i></button>
+        </div>
+      <p className="fs-2 mt-2 d-flex mx-auto">
       Nuevo Producto
       </p>
       </div>
