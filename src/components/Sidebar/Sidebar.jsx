@@ -2,15 +2,15 @@ import React , { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles.css"
 
-function Sidebar(props) {
+function Sidebar({setSidebarRender,setActive,active}) {
 
     const opcionSeleccionadaSidebar = (e) =>{
         e.preventDefault();
-        props.setSidebarRender(e.target.attributes.name.nodeValue)
+        setSidebarRender(e.target.attributes.name.nodeValue)
     }
 
     
-    const [active,setActive] = useState();
+    // const [active,setActive] = useState();
     return (
          <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3'>
             <div>
