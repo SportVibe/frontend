@@ -47,18 +47,18 @@ function LoginModal({modal, setModal, handleLoginP}) {
                 }
                 else {
                     setLoading(false);
-                    alert('Contraseña inválida');
+                    Swal.fire("Contraseña invalida!");
                     setPassword({ p1: '', p2: '' });
                 }
             }
             else {
                 setLoading(false);
-                alert('Las contraseñas no coinciden');
+                Swal.fire("Las contraseñas no coinciden!");
                 setPassword({ p1: '', p2: '' });
             }
         } catch (error) {
             setLoading(false);
-            alert('Contraseña inválida');
+            Swal.fire("Contraseña invalida!");
             setPassword({ p1: '', p2: '' });
             console.error({ error: error.message });
         }

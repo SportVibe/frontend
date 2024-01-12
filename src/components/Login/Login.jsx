@@ -53,7 +53,7 @@ const login = () => {
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
-        console.log(data);
+        // console.log(data);
         if (data) {
           if (data.user.rol === 'admin') {
             localStorage.setItem('adminUser', JSON.stringify(data.user));
@@ -70,11 +70,11 @@ const login = () => {
           }
         }
         else {
-          alert('El usuario o la contraseña no son válidos');
+         Swal.fire("La contraseña o email son invalidos!");
           setUser({ ...username, password: '' });
         }
       } catch (error) {
-        alert('El usuario o la contraseña no son válidos');
+       Swal.fire("Contraseña o email son invalidos!");
         setUser({ ...username, password: '' });
         console.error({ error: error.message });
       }
