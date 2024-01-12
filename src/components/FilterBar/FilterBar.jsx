@@ -5,9 +5,14 @@ import Sports from './FilterBoxes/Sports/Sports';
 import Brands from './FilterBoxes/Brands/Brands';
 import { useEffect, useState } from 'react';
 import { brandAction, genreFilterAction, getProducts, priceFilterAction, responsiveNavBar, sortAction, sportAction } from '../../redux/actions';
+import { useLocation, useNavigate } from 'react-router-dom';
+import videoSource from '../../Images/bike_-_76618 (1080p).mp4';
+import img1 from '../../Images/camiseta-seleccion-argentina-adidas.webp';
 
 
 function FilterBar() {
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [minimumValue, setMinimumValue] = useState('');
     const [maximumValue, setMaximumValue] = useState('');
@@ -28,6 +33,7 @@ function FilterBar() {
         const newFiltersArray = [...totalFilters, category[0], sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, { gender: id }]
         dispatch(genreFilterAction([{ gender: id }]));
         dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
     }
 
     function sportHandler(event) {
@@ -35,6 +41,7 @@ function FilterBar() {
         const newFiltersArray = [...totalFilters, category[0], { sport: id }, brand[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], discount[0], { search: search_Activity }]
         dispatch(sportAction([{ sport: id }]));
         dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
     }
 
     function brandHandler(event) {
@@ -42,6 +49,7 @@ function FilterBar() {
         const newFiltersArray = [...totalFilters, category[0], { brand: id }, sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], discount[0], { search: search_Activity }]
         dispatch(brandAction([{ brand: id }]));
         dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
     }
 
     function sortHandler(event) {
@@ -50,18 +58,22 @@ function FilterBar() {
         const newFiltersArray = [...totalFilters, category[0], sport[0], brand[0], priceFilter[0], priceFilter[1], genre[0], discount[0], { search: search_Activity }, { sort: sliceString[0] }, { typeSort: sliceString[1] }]
         dispatch(sortAction([{ sort: sliceString[0] }, { typeSort: sliceString[1] }]));
         dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
     }
 
     function priceSubmit(value) {
         if (value) {
             const newFiltersArray = [...totalFilters, category[0], sport[0], brand[0], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { minPrice: value.min }, { maxPrice: value.max }];
+            console.log(category[0], sport[0], brand[0], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { minPrice: value.min }, { maxPrice: value.max });
             dispatch(priceFilterAction([{ minPrice: value.min }, { maxPrice: value.max }]));
             dispatch(getProducts(newFiltersArray));
+            if (pathname !== '/search') navigate('/search');
         }
         else {
             const newFiltersArray = [...totalFilters, category[0], sport[0], brand[0], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { minPrice: '' }, { maxPrice: '' }];
             dispatch(priceFilterAction(['', '']));
             dispatch(getProducts(newFiltersArray));
+            if (pathname !== '/search') navigate('/search');
         }
     }
 
@@ -71,6 +83,7 @@ function FilterBar() {
                 const newFiltersArray = [...totalFilters, category[0], brand[0], sport[0], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }, { minPrice: minimumValue }, { maxPrice: maximumValue }];
                 dispatch(priceFilterAction([{ minPrice: minimumValue }, { maxPrice: maximumValue }]));
                 dispatch(getProducts(newFiltersArray));
+                if (pathname !== '/search') navigate('/search');
             }
             else
                 alert('El precio mínimo debe ser menor al precio máximo');
@@ -92,15 +105,15 @@ function FilterBar() {
                         <Sort sortHandler={sortHandler} />
                     </div>
                     <div className={styles.resultsBox}>
-                        <SearchResults search={category[0].category || search_Activity} totalCount={totalFilteredCount} />
+                        <SearchResults search={search_Activity} totalCount={totalFilteredCount} />
                         <div className={styles.divider}></div>
                     </div>
-                    {(filterCounter && filterCounter.length > 0) &&
+                    {/* {(filterCounter && Object.values(filterCounter).length > 0) &&
                         <div className={styles.filtrosAplicados}>
                             <p>Filtros aplicados:</p>
-                            <p>{filterCounter.length}</p>
+                            <p>{Object.values(filterCounter).length}</p>
                         </div>
-                    }
+                    } */}
                     <div className={styles.filterBox}>
                         <PriceBox priceFilter={priceFilter} priceSubmit={priceSubmit} submitPriceInput={submitPriceInput} setMaximumValue={setMaximumValue} setMinimumValue={setMinimumValue} minimumValue={minimumValue} maximumValue={maximumValue} />
                     </div>
@@ -124,6 +137,17 @@ function FilterBar() {
                         <ColorBox />
                     </div>
                     <div className={styles.divider}></div> */}
+                    {pathname !== '/search' &&
+                        <div className={styles.videoContainer}>
+                            <video autoPlay muted loop>
+                                <source src={videoSource} type="video/mp4" />
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        </div>}
+                    {pathname !== '/search' &&
+                        <div className={styles.imageContainer}>
+                            <img src={img1} alt="" />
+                        </div>}
                 </div>
             </div>
             <div className={styles.layoutUp}>

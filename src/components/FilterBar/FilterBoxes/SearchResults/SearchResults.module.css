@@ -8,9 +8,18 @@
     justify-content: flex-start;
 
     & .searchText {
-        font-size: 30px;
-        font-weight: 300;
+        font-size: 25px;
+        font-weight: 400;
         color: black;
+        display: flex;
+        align-items: center;
+
+        & span {
+            font-size: 16px;
+            font-weight: 300;
+            color: gray;
+            margin-left: 5px;
+        }
     }
 
     & p {

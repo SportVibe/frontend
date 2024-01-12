@@ -160,7 +160,8 @@
         margin: 0;
 
         &:hover {
-            text-decoration: underline;
+            /* text-decoration: underline; */
+            color: var(--button-color);
         }
     }
 }
@@ -193,7 +194,7 @@
     & p {
         line-height: 30px;
         font-size: 22px;
-        font-weight: 400;
+        font-weight: 300;
         padding: 0;
         margin: 0;
         color: var(--font-color-hard);
@@ -233,7 +234,7 @@
             & span {
                 /* color: var(--button-color); */
                 color: var(--newPrice-color);
-                font-weight: 400;
+                font-weight: 300;
                 font-size: 16px;
             }
         }

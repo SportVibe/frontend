@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { API_URL } from '../../../helpers/config';
 import upperLowerCase from '../../../utils/upperLowerCase';
 import { useDispatch, useSelector } from 'react-redux';
-import { categoryAction, getProducts } from '../../../redux/actions';
-import { useNavigate } from 'react-router-dom';
+import { brandAction, categoryAction, discountProducts, filterCounterAction, genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction, sportAction } from '../../../redux/actions';
+import { useLocation, useNavigate } from 'react-router-dom';
 import img1 from '../../../Images/steps_FILL0_wght400_GRAD0_opsz24.svg';
 import img2 from '../../../Images/sports_tennis_FILL0_wght400_GRAD0_opsz24.svg';
 import img3 from '../../../Images/checkroom_FILL0_wght400_GRAD0_opsz24.svg';
@@ -15,7 +15,7 @@ const imgArray = [img1, img2, img3, img4];
 function CategoryBar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [imgHover, setImgHover] = useState(false);
+    const { pathname } = useLocation();
     const [allCategories, setAllCategories] = useState(null);
     const category = useSelector((state => state.category));
     const genre = useSelector((state => state.genre));
@@ -27,20 +27,29 @@ function CategoryBar() {
     const sort = useSelector((state => state.sort));
     const discount = useSelector((state => state.discount));
 
-    function categoryHandler(event) {
-        const id = event.target.id;
-        const newFiltersArray = [...totalFilters, sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, genre[0], { category: id }]
-        dispatch(categoryAction([{ category: id }]));
+    /* function categoryHandler(event) {
+        const id = event.target.id; // pasamos la categoría como si fuera una búsqueda del search bar, para que pise lo que se busca con él.
+        const newFiltersArray = [...totalFilters, sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: id }, genre[0]]
+        // dispatch(categoryAction([{ category: id }]));
         dispatch(getProducts(newFiltersArray));
-        navigate('/search');
-    }
+        if (pathname !== '/search') navigate('/search');
+    } */
 
-    function handleMouseEnter() {
-        setImgHover(true);
-    }
+    function categoryHandler(event) {
+        const id = event.target.id; // pasamos la categoría como si fuera una búsqueda del search bar, para que pise lo que se busca con él.
+        const propertiesArray = [{ search: id }];
+        dispatch(genreFilterAction([{ gender: '' }]));
+        dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+        dispatch(priceFilterAction(['', '']));
+        dispatch(discountProducts([{ discount: 0 }]));
+        dispatch(searchActivity(id));
+        dispatch(categoryAction(id));
+        dispatch(sportAction([{ sport: '' }]));
+        dispatch(brandAction([{ brand: '' }]));
+        dispatch(filterCounterAction({}));
 
-    function handleMouseLeave() {
-        setImgHover(false);
+        dispatch(getProducts(propertiesArray));
+        if (pathname !== '/search') navigate('/search');
     }
 
     async function getAllCategories() {
@@ -69,7 +78,7 @@ function CategoryBar() {
                             return (
                                 <div key={i}>
                                     <img src={imgArray[index]} alt="" />
-                                    <p id={_category} onClick={categoryHandler} className={category[0].category === _category ? styles.selectedCategory : ''}>{_category}</p>
+                                    <p id={_category} onClick={categoryHandler} className={search_Activity === _category ? styles.selectedCategory : ''}>{_category}</p>
                                 </div>
                             )
                         })}

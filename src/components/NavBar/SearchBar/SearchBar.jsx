@@ -1,16 +1,18 @@
 import styles from './SearchBar.module.css';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts } from '../../../redux/actions';
+import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts, filterCounterAction, sportAction, brandAction } from '../../../redux/actions';
 
 function SearchBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const { t, i18n } = useTranslation();
   const [isInputFocused, setIsInputFocused] = useState(false);
   const search_Activity = useSelector((state => state.search));
+  const category = useSelector((state => state.category));
   const [searchTerm, setSearchTerm] = useState(search_Activity);
 
   const handleSearch = () => {
@@ -22,9 +24,12 @@ function SearchBar() {
       dispatch(priceFilterAction(['', '']));
       dispatch(discountProducts([{ discount: 0 }]));
       dispatch(searchActivity(searchTerm));
+      dispatch(sportAction([{ sport: '' }]));
+      dispatch(brandAction([{ brand: '' }]));
+      dispatch(filterCounterAction({}));
 
       dispatch(getProducts(propertiesArray));
-      navigate('/search');
+      if (pathname !== '/search') navigate('/search');
     }
   };
 
@@ -35,6 +40,10 @@ function SearchBar() {
   const handleInputBlur = () => {
     setIsInputFocused(false);
   };
+
+  useEffect(() => {
+    setSearchTerm('');
+  }, [search_Activity]);
 
   return (
     <div className={`${styles.mainView} ${isInputFocused ? styles.onClick : ''}`}>

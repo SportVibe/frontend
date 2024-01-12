@@ -95,9 +95,9 @@ function UserForm() {
         newUsers.address === '' &&
         newUsers.city === '' &&
         newUsers.country) {
-        alert("Por Favor llena los campos");
+          Swal.fire("Por favor llena los campos!");
       } else if (newUsers.firstName === '') {
-        alert("Falta el primer nombre. Por favor, completa el campo correspondiente.");
+        Swal.fire("Falta el primer nombre. Por favor, completa el campo correspondiente.");
       // } else if (newUsers.lastName === '') {
       //   alert("Falta el Apellido. Por favor, completa el campo correspondiente.");
       // } else if (newUsers.phoneNumber === '') {
@@ -127,7 +127,8 @@ function UserForm() {
       // } else if (newErrors.address !== 'Se requiere una direccion' && newErrors.address !== '') {
       //   alert('Direccion erronea, por favor corrige el campo correspondiente')
         } else if (newErrors.password !== 'Se requiere un correo' && newErrors.password !== '') {
-        alert('Contraseña erronea, por favor corrige el campo correspondiente')
+        
+        Swal.fire("Contraseña erronea, por favor corrige el campo correspondiente");
       // } else if (newErrors.city !== 'Se requiere una ciudad' && newErrors.city !== '') {
       //   alert('Ciudad erronea, por favor corrige el campo correspondiente')
       // } else if (newErrors.country !== 'Se requiere un País' && newErrors.country !== '') {

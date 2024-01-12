@@ -145,7 +145,6 @@ export default function ProductForm({setSidebarRender,setActive,setVisibleSideba
       setVisibleSidebar(!visibleSidebar);
     }
   
-   
     return (
     <div className="bg-body-tertiary d-flex flex-column position-relative">
       <div className="d-flex mt-2 w-100 bg-body-secondary rounded-3 justify-content-start">
@@ -179,17 +178,17 @@ export default function ProductForm({setSidebarRender,setActive,setVisibleSideba
               <div className={style.inputBox}>
                 <label className={style.labels}>Categoria</label>
                 <select
-              className={errors.category ? "form-select w-75 border border-danger border-3 opacity-75" : "form-select w-75"}
-              aria-label="category"
-              name="category"
-              onChange={handleChange}>
-              <option disabled selected>
+               className={errors.category ? "form-select w-75 border border-danger border-3 opacity-75" : "form-select w-75"}
+               aria-label="category"
+               name="category"
+               onChange={handleChange}>
+                <option disabled selected>
                 Seleccione Categoria
-              </option>
-              {categories?.map((cat) => 
+                </option>
+                {categories?.map((cat) => 
                 <option value={cat.toLowerCase()}>{cat}</option>
-              )}
-            </select>
+                )}
+                </select>
               </div>
             </div> 
             <div className={style.divLabels}>

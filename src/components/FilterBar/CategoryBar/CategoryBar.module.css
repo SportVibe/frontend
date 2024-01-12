@@ -78,9 +78,9 @@
     background-color: transparent;
     height: 100%;
     max-width: 100%;
-    display: flex;
     gap: 25px;
     padding: 0 50px;
+    display: flex;
     align-items: center;
     justify-content: flex-start;
     overflow-y: hidden;

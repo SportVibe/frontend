@@ -27,11 +27,11 @@ const Reviews = ({ productId, userId, setModal }) => {
                     });
                     if (data) {
                         setModal(false);
-                        alert('Calificación actualizada');
+                        Swal.fire("Calificación actualizada");
                     }
                 }
                 else {
-                    alert('Modifique alguno de los campos')
+                    Swal.fire("Modifique alguno de los campos");
                 }
             }
             else {
@@ -45,17 +45,17 @@ const Reviews = ({ productId, userId, setModal }) => {
                     });
                     if (data) {
                         setModal(false);
-                        alert('Calificación enviada');
+                        Swal.fire("Calificación enviada");
                     }
                 }
                 else {
-                    alert('Debe completar todos los campos')
+                    Swal.fire("Debe completar todos los campos");
                 }
             }
         } catch (error) {
             console.error('Error al enviar la reseña:', error.message);
             setError('Error al enviar la reseña. Por favor, intenta nuevamente.');
-            alert('El usuario ya comentó este producto');
+            Swal.fire("El usuario ya completó éste producto");
         }
     };
 

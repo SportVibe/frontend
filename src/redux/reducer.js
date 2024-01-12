@@ -18,7 +18,8 @@ import {
   GET_CURRENT_ADMIN,
   CATEGORY_FILTER,
   BRAND_FILTER,
-  SPORT_FILTER
+  SPORT_FILTER,
+  FILTER_COUNT,
 } from "./actions";
 
 const initialState = {
@@ -57,35 +58,40 @@ const productReducer = (state = initialState, action) => {
         ...state,
         currentAdminData: action.payload
       };
+    case FILTER_COUNT:
+      return {
+        ...state,
+        filterCounter: action.payload
+      };
     case PRICE_FILTER:
       return {
         ...state,
         priceFilter: action.payload,
-        filterCounter: [...state.filterCounter, action.payload],
+        filterCounter: { ...state.filterCounter, price: action.payload },
       };
     case DISCOUNT_PRODUCTS:
       return {
         ...state,
         discount: action.payload,
-        filterCounter: [...state.filterCounter, action.payload],
+        filterCounter: { ...state.filterCounter, discount: action.payload },
       };
     case GENRES_FILTER:
       return {
         ...state,
         genre: action.payload,
-        filterCounter: [...state.filterCounter, action.payload],
+        filterCounter: { ...state.filterCounter, genres: action.payload },
       };
     case SPORT_FILTER:
       return {
         ...state,
         sport: action.payload,
-        filterCounter: [...state.filterCounter, action.payload],
+        filterCounter: { ...state.filterCounter, sport: action.payload },
       };
     case BRAND_FILTER:
       return {
         ...state,
         brand: action.payload,
-        filterCounter: [...state.filterCounter, action.payload],
+        filterCounter: { ...state.filterCounter, brand: action.payload },
       };
     case CATEGORY_FILTER:
       return {

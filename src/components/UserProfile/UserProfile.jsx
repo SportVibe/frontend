@@ -20,6 +20,7 @@ function UserProfile() {
     const navigate = useNavigate();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [notify, setNotify] = useState({});
     const [userPurchases, setUserPurchases] = useState(null);
     const [loading, setLoading] = useState(true);
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
@@ -47,17 +48,20 @@ function UserProfile() {
         console.log(deleteData);
         try {
             let editData = deleteData ? deleteData : editUserData; // si la data llega por parámetro, es porque estámos eliminando la cuenta.
-            if (editData && !editData.firstName.trim().length) alert('FirstName no puede estar vacío');
+            if (editData && !editData.firstName.trim().length)  
+            Swal.fire("El primer nombre no puede estar vacío!");
+
             else {
                 if (emailRegex.test(editData.email)) {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editData);
                     setIsValidEmail(true);
-                    console.log(data);
+                    // console.log(data);
                     if (deleteData) {
-                        alert('Su cuenta ha sido eliminada');
+                        
+                        Swal.fire("Su cuenta ha sido eliminada!");
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
                     }
-                    else alert('Usuario actualizado con éxito');
+                    else Swal.fire("Usuario actualizado con éxito!");
                 }
                 else {
                     setIsValidEmail(false);
@@ -96,6 +100,11 @@ function UserProfile() {
                 if (data.active) { // solo si la cuenta del usuario está activa.
                     const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
                     console.log(userPurchasesData.data);
+                    const findNullValue = Object.values(data).some(value => {
+                        return value === null;
+                    })
+                    if (findNullValue) setNotify({ ...notify, userDataMissing: 'Complete la información de su perfil' })
+                    else if (!findNullValue) setNotify({ ...notify, userDataMissing: null })
                     setUserPurchases(userPurchasesData.data);
                     dispatch(getCurrentUserAction(data));
                     setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
@@ -138,9 +147,15 @@ function UserProfile() {
                                 <div className={mainComponent === 'editUser' ? styles.selectedProfile : styles.editProfile} id='editUser' onClick={handlerComponent}>
                                     <i className="fa-regular fa-pen-to-square" id='editUser' onClick={handlerComponent}></i>
                                     <p id='editUser' onClick={handlerComponent}>Editar</p>
+                                    {notify.userDataMissing && <div className={styles.circleNotify}></div>}
                                 </div>
                                 <div onClick={handleSignOut} className={styles.editProfile}>
                                     <p onClick={handleSignOut}>Cerrar sesión</p>
+                                </div>
+                            </div>
+                            <div className={styles.progressContainer}>
+                                <div>
+                                    <p>75%</p>
                                 </div>
                             </div>
                         </div>
@@ -167,16 +182,21 @@ function UserProfile() {
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
                                 <p className={styles.titleMain}>Historial de compra:</p>
-                                {userPurchases?.map((purchase, i) => {
+                                {(userPurchases && userPurchases.length) ? userPurchases?.map((purchase, i) => {
                                     if (purchase.purchases.length) {
                                         return <Table key={i} records={purchase} userId={userDataRender.id} />
                                     }
                                     return null;
-                                })}
+                                })
+                                    :
+                                    <div>
+                                        <p>No hay registro de órdenes</p>
+                                    </div>
+                                }
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
-                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
+                                <EditUser notify={notify} editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
                             </div>}
                     </div>
                 </div>

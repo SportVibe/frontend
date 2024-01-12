@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction } from '../../redux/actions';
+import FalseCard from '../FalseCard/FalseCard';
 
 const CarouselModel2 = (prop) => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const CarouselModel2 = (prop) => {
 
     async function getSports() {
         // const { data } = await axios(`${API_URL}/property?property=${property}`);
-        const {data} = await axios(`${API_URL}/product/sports`);
+        const { data } = await axios(`${API_URL}/product/sports`);
         setSportArray(data);
     }
 
@@ -39,7 +40,7 @@ const CarouselModel2 = (prop) => {
 
     return (
         <div className="mainView" >
-            <p className="DeportesTitle">{t(`translation.Sports`)}</p>
+            <p className="DeportesTitle">{t(`translation.Sports`)}<span> {`(${sportArray?.length})`}</span></p>
             <div className="carouselContainer">
                 {sportArray?.length ? sportArray.map((sport, i) => {
                     let sportName = sport.name;
@@ -54,12 +55,9 @@ const CarouselModel2 = (prop) => {
                         </div>
                     )
                 }) :
-                    <div className="carouselItem">
-                        <div>
-                            <img src={img} />
-                        </div>
-                        <p></p>
-                    </div>
+                    [1, 2, 3, 4, 5].map((brand, i) => {
+                        return <FalseCard key={i} />
+                    })
                 }
             </div>
         </div>
