@@ -16,7 +16,8 @@ import {
   UserForm,
   PaymentForm,
   Loading,
-  PaymentStatus
+  PaymentStatus, 
+  Metrics
 } from "./helpers/indexComponents";
 import styles from './App.module.css';
 import PrivacyPolitic from "./components/Footer/privacyPolitic/privacyPolitic";
@@ -144,6 +145,7 @@ function App() {
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
                 <Route path="/dashboard" element={<AdminDashBoard />}></Route>
+                <Route path="/dashboard/metrics" element={<Metrics />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
