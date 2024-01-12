@@ -10,6 +10,7 @@ import ReviewsAdmin from "../ReviewsAdmin/ReviewsAdmin"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUserAction } from "../../redux/actions";
+import EditUsers from "../EditUser/EditUsers";
 
 function AdminDashBoard() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function AdminDashBoard() {
               <ProductForm setActive={setActive} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender}/>
             </div>
           )}
-        {sidebarRender === "usuarios" ? <UserForm /> : null}
+        {sidebarRender === "usuarios" ? <EditUsers handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
         {sidebarRender === "comentarios" ? <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} /> : null}
       </div>
     </div>
