@@ -16,4 +16,5 @@ import PaymentForm from "../components/PaymentForm/PaymentForm";
 import PaymentStatus from "../components/PaymentStatus/PaymentStatus";
 import CarouselModel2 from "../components/CarouselModel2/CarouselModel2";
 import Loading from "../components/loading/Loading";
-export {About, Loading, CarouselModel2, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm, PaymentForm, PaymentStatus}
+import Metrics from "../components/Metrics/Metrics";
+export {About, Loading, CarouselModel2, Table, UserProfile, CategoryBar, ShoppingCart, Login, NavBar, Home, CarouselComponent, Carousel2, ProductCard, NotFound, Footer, UserForm, PaymentForm, PaymentStatus, Metrics}
