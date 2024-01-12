@@ -18,7 +18,7 @@ const ReviewsAdmin = ({setVisibleSidebar,visibleSidebar,setSidebarRender,handleS
       .catch((err) => console.log(err));
   }, [reload]);
 
-    useEffect(()=>{handleVisibleSidebar()},[])
+    //useEffect(()=>{handleVisibleSidebar()},[])
 
 
   const hanlderScore = (score)=>{
