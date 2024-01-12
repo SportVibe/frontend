@@ -18,6 +18,8 @@ function AdminDashBoard() {
   const [sidebarRender, setSidebarRender] = useState("productos");
   const [visibleSidebar, setVisibleSidebar] = useState(true);
   const [reloadDetails, setReloadDetails] = useState(false); // recargo imagenes y titulos de reviews de dashboard por demora de react
+  const [active,setActive] = useState(); // muestra menu activo del sidebar
+  console.log(active);
 
   async function handleSignOut() {
     try {
@@ -38,7 +40,7 @@ function AdminDashBoard() {
 
   return (
     <div className="d-flex min-vh-100 w-100">
-      {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
+      {visibleSidebar && <Sidebar setActive={setActive} active={active} setSidebarRender={setSidebarRender} />}
       <div className="bg-body-tertiary w-100">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
@@ -52,7 +54,7 @@ function AdminDashBoard() {
         {sidebarRender === "nuevo" &&
           (
             <div>
-              <ProductForm />
+              <ProductForm setActive={setActive} setSidebarRender={setSidebarRender}/>
             </div>
           )}
         {sidebarRender === "usuarios" ? <UserForm /> : null}
