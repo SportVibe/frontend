@@ -137,15 +137,17 @@ function FilterBar() {
                         <ColorBox />
                     </div>
                     <div className={styles.divider}></div> */}
-                    <div className={styles.videoContainer}>
-                        <video autoPlay muted loop>
-                            <source src={videoSource} type="video/mp4" />
-                            Tu navegador no soporta el elemento de video.
-                        </video>
-                    </div>
-                    <div className={styles.imageContainer}>
-                        <img src={img1} alt="" />
-                    </div>
+                    {pathname !== '/search' &&
+                        <div className={styles.videoContainer}>
+                            <video autoPlay muted loop>
+                                <source src={videoSource} type="video/mp4" />
+                                Tu navegador no soporta el elemento de video.
+                            </video>
+                        </div>}
+                    {pathname !== '/search' &&
+                        <div className={styles.imageContainer}>
+                            <img src={img1} alt="" />
+                        </div>}
                 </div>
             </div>
             <div className={styles.layoutUp}>
