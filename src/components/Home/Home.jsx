@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import styles from "./Home.module.css";
 import { useEffect } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -58,27 +57,25 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     handleUserData(); // para saber si hay algún usuario logueado en este compu y renderizar su imagen en el navbar.
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [search_Activity]);
 
   return (
     <div className={styles.mainView}>
       {location.pathname !== '/search' && <hr />}
       <div className={styles.subMainView}>
-        {/* {location.pathname === '/search' &&
-          <div className={styles.FilterBarContainer}>
-            <FilterBar />
-          </div>
-        } */}
-        <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
+        {/* <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
           <FilterBar />
-        </div>
+        </div> */}
+        {<div className={styles.FilterBarContainer}>
+          <FilterBar />
+        </div>}
         {productRender.data?.length > 0 ?
           <div className={styles.conteinerHome}>
-            {/* <div className={styles.paginado}>
-              <Paginado />
-            </div> */}
             <div className={styles.results}>
               <p>Resultados: {productRender?.totalFilteredCount}</p>
             </div>

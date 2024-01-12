@@ -22,8 +22,9 @@ function Sports({ sportHandler, sport }) {
         <div className={styles.mainView}>
             <p className={styles.title}>Deportes</p>
             <div className={styles.genreBox}>
+                <p onClick={sportHandler} id='' className={sport[0]?.sport === '' ? styles.selected : ''}>Todo</p>
                 {sportArray?.map((_sport, i) => {
-                    return <p onClick={sportHandler} id={_sport.name} key={i} className={sport[0].sport === _sport.name ? styles.selected : ''}>{capitalize(_sport.name)}</p>
+                    return <p onClick={sportHandler} id={_sport.name} key={i} className={sport[0]?.sport === _sport.name ? styles.selected : ''}>{capitalize(_sport.name)}</p>
                 })}
             </div>
         </div>

@@ -8,15 +8,19 @@ function SearchResults(props) {
     const dispatch = useDispatch();
     const { search, totalCount } = props;
 
-    useEffect(() => {
+    /* useEffect(() => {
         dispatch(getProducts());
         dispatch(searchActivity(""));
-    }, []);
+    }, []); */
     return (
         <div className={styles.mainView}>
-            {/* {search && <p>Estás buscando:</p>} */}
-            {search && <p className={styles.searchText}>{`"${search}"`}</p>}
-            <p>Resultados encontrados: {totalCount}</p>
+            <p>Estás buscando:</p>
+            {/* <p>Resultados encontrados: {totalCount}</p> */}
+            {search ?
+                <p className={styles.searchText}>{`"${search}"`} <span>{`(${totalCount})`}</span></p>
+                :
+                <p className={styles.searchText}>Todo</p>
+            }
         </div>
     );
 }

@@ -8,7 +8,6 @@ import { API_URL } from '../../helpers/config';
 import FalseCard from '../FalseCard/FalseCard';
 
 const CrouselProducts = (prop) => {
-    const displayCardAmount = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     const property = prop.property || [];
     const [productArray, setProductArray] = useState(property);
     const order = prop?.order ? prop.order : 'id';
@@ -41,13 +40,10 @@ const CrouselProducts = (prop) => {
                         </div>
                     )
                 }) :
-                    displayCardAmount.map((product, i) => {
-                        return (
-                            <div key={i} className={styles.cardComponentContainer}>
-                                <FalseCard />
-                            </div>
-                        )
-                    })}
+                    [1, 2, 3, 4, 5].map((brand, i) => {
+                        return <FalseCard key={i} />
+                    })
+                }
             </div>
         </div>
     );

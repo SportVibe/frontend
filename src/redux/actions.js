@@ -31,6 +31,7 @@ export const QUANTITY__TOTAL_CART = "QUANTITY__TOTAL_CART";
 export const CATEGORY_FILTER = "CATEGORY_FILTER";
 export const SPORT_FILTER = "SPORT_FILTER";
 export const BRAND_FILTER = "BRAND_FILTER";
+export const FILTER_COUNT = "FILTER_COUNT";
 
 
 export const getProducts = (filters) => async (dispatch) => {
@@ -106,6 +107,14 @@ export const responsiveNavBar = (value) => async (dispatch) => {
 export const totalFiltersAction = (value) => async (dispatch) => {
   try {
     return dispatch({ type: TOTAL_FILTERS, payload: value });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const filterCounterAction = (value) => async (dispatch) => {
+  try {
+    return dispatch({ type: FILTER_COUNT, payload: value });
   } catch (error) {
     console.error(error.message);
   }

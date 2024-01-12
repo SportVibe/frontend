@@ -159,11 +159,11 @@ function App() {
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/payment-status" element={<PaymentStatus />} />
               </Routes>
-              {(location.pathname === '/search') &&
+              {/* {(location.pathname === '/search') &&
                 <div className={styles.carousel2Container}>
                   <Carousel2 />
                 </div>
-              }
+              } */}
               {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
               }

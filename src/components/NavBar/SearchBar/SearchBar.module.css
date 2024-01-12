@@ -5,7 +5,12 @@
     border: 1px solid rgba(128, 128, 128, 0.437);
     border-radius: 20px;
     overflow: hidden;
-    transition: all .2s;
+    transition: border-radius .2s;
+
+    &:hover {
+        /* box-shadow: 0 3px 7px rgba(43, 43, 43, 0.109); */
+        border: 2px solid var(--button-color);
+    }
 
     & input {
         background-color: transparent;
@@ -33,5 +38,10 @@
 .onClick {
     border-radius: 0;
     border: 2px solid var(--button-color);
-    transition: all .2s;
+    transition: border-radius .2s;
+
+    &:hover {
+        box-shadow: none;
+        border: 2px solid var(--button-color);
+    }
 }

@@ -102,6 +102,7 @@
 
             & .editProfile {
                 background-color: var(--bg-color-gray);
+                position: relative;
                 font-size: 15px;
                 display: flex;
                 align-items: center;
@@ -118,8 +119,10 @@
             }
 
             & .selectedProfile {
+                position: relative;
                 border: 2px solid var(--button-color);
-                color: black;
+                background-color: var(--button-color);
+                color: white;
                 font-size: 15px;
                 display: flex;
                 align-items: center;
@@ -127,6 +130,43 @@
                 padding: 3px 6px;
                 border-radius: 5px;
                 cursor: pointer;
+            }
+
+            & .circleNotify {
+                background-color: red;
+                position: absolute;
+                width: 13px;
+                height: 13px;
+                border: 1px solid white;
+                border-radius: 100%;
+                right: -6px;
+                top: -6px;
+            }
+        }
+
+        & .progressContainer {
+            background-color: var(--bg-color-gray);
+            width: 100%;
+            height: 15px;
+            margin-top: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+
+            & div {
+                height: 100%;
+                width: 75%;
+                background-color: var(--button-color);
+
+                & p{
+                    padding: 0;
+                    margin: 0;
+                    color: white;
+                    font-size: 12px;
+                    font-weight: 400;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
 

@@ -50,6 +50,7 @@
 @media only screen and (min-width: 1000px) {
     .navBarContainer {
         position: sticky;
+        /* position: fixed; */
         top: 0;
         left: 0;
     }
@@ -58,6 +59,7 @@
 /* CATEGORY BAR */
 .categoryBarContainer {
     position: sticky;
+    /* position: fixed; */
     top: var(--navBar-height);
     left: 0;
     height: var(--categoryBar-height);

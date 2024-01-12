@@ -13,26 +13,18 @@
   /* background-color: rgb(243, 243, 243); */
 }
 
-.categoryBarContainer {
-  position: sticky;
-  top: -1px;
-  left: 0;
-  height: var(--categoryBar-height);
-  width: 100%;
-  z-index: 200;
-}
-
 .FilterBarHidden{
   display: none;
 }
 
 .FilterBarContainer {
-  position: sticky;
+  /* position: sticky; */
+  /* position: fixed; */
   top: 115px;
   left: 0;
-  max-width: 240px;
-  min-width: 240px;
-  height: 100vh;
+  max-width: 250px;
+  min-width: 250px;
+  /* height: 100vh; */
   z-index: 100;
   /* border-right: 1px solid var(--bg-color-gray); */
 }
@@ -57,6 +49,8 @@
   flex-direction: column;
   /* padding-top: 45px; */
   padding-top: 50px;
+  /* padding-left: 240px; */
+  /* background-color: green; */
 
   & h2 {
     position: absolute;
