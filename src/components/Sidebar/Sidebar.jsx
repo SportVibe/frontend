@@ -6,11 +6,12 @@ function Sidebar({setSidebarRender,setActive,active}) {
 
     const opcionSeleccionadaSidebar = (e) =>{
         e.preventDefault();
+        console.log(e.target.attributes.name.nodeValue);
         setSidebarRender(e.target.attributes.name.nodeValue)
     }
 
     
-    // const [active,setActive] = useState();
+    //const [active,setActive] = useState();
     return (
          <div className='text d-flex sticky-sm-top justify-content-between flex-column bg-dark p-3'>
             <div>
@@ -20,8 +21,8 @@ function Sidebar({setSidebarRender,setActive,active}) {
                 </a>
                 <hr className="text-secondary mt-3" />
                 <ul className="nav nav-pills flex-column mt-2">
-                    <li className={active === 1 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} >
-                    <a href="" className="p-1 text-white">
+                    <li className={active === 1 ? "active nav-item p-1 mb-3" : "nav-item p-1 mb-3"} value="metricas" name="metricas" onClick={(e) =>setActive(1)}>
+                    <a href="" className="p-1 text-white" onClick={opcionSeleccionadaSidebar}>
                         <i className="bi bi-speedometer2 me-3 fs-5"></i>
                         <span className="fs-5" name="metricas">Metricas</span>
                     </a>

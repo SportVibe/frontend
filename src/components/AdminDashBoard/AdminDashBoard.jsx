@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCurrentUserAction } from "../../redux/actions";
 import EditUsers from "../EditUser/EditUsers";
+import Metrics from "../Metrics/Metrics";
 
 function AdminDashBoard() {
   const dispatch = useDispatch();
@@ -18,9 +19,8 @@ function AdminDashBoard() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
   const [visibleSidebar, setVisibleSidebar] = useState(true);
-  const [reloadDetails, setReloadDetails] = useState(false); // recargo imagenes y titulos de reviews de dashboard por demora de react
   const [active,setActive] = useState(); // muestra menu activo del sidebar
-  console.log(active);
+ 
 
   async function handleSignOut() {
     try {
@@ -49,7 +49,7 @@ function AdminDashBoard() {
           </div>
         ) : null}
         {selectedRow &&
-          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" ? styles.conteinerCardsHidden : styles.render}>
+          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" || sidebarRender === "metricas" ? styles.conteinerCardsHidden : styles.render}>
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow} />
           </div>}
         {sidebarRender === "nuevo" &&
@@ -60,6 +60,7 @@ function AdminDashBoard() {
           )}
         {sidebarRender === "usuarios" ? <EditUsers handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
         {sidebarRender === "comentarios" ? <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} /> : null}
+        {sidebarRender === "metricas" ? <Metrics />: null}
       </div>
     </div>
   );
