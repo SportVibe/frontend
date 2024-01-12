@@ -48,17 +48,20 @@ function UserProfile() {
         console.log(deleteData);
         try {
             let editData = deleteData ? deleteData : editUserData; // si la data llega por parámetro, es porque estámos eliminando la cuenta.
-            if (editData && !editData.firstName.trim().length) alert('FirstName no puede estar vacío');
+            if (editData && !editData.firstName.trim().length)  
+            Swal.fire("El primer nombre no puede estar vacío!");
+
             else {
                 if (emailRegex.test(editData.email)) {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editData);
                     setIsValidEmail(true);
-                    console.log(data);
+                    // console.log(data);
                     if (deleteData) {
-                        alert('Su cuenta ha sido eliminada');
+                        
+                        Swal.fire("Su cuenta ha sido eliminada!");
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
                     }
-                    else alert('Usuario actualizado con éxito');
+                    else Swal.fire("Usuario actualizado con éxito!");
                 }
                 else {
                     setIsValidEmail(false);
