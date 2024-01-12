@@ -95,7 +95,7 @@ const ShoppingCart = () => {
 
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
-      <h2>Shopping Cart</h2>
+      <h2>Carrito de compra</h2>
       {loading && <div><Loading /></div>}
 
       {useMemo(

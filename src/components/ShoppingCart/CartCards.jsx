@@ -62,7 +62,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
                 className="btn btn-danger mt-2"
                 onClick={() => handleRemoveFromCart(item.id, productSize)}
               >
-                Remove
+                Remover
               </button>
             </div>
           </div>
