@@ -189,14 +189,7 @@ export const deleteProductFromCart = (productId) => async (dispatch) => {
     console.error(error.message);
   }
 };
-export const deleteMultipleProductsFromCart = (userId) => async (dispatch) => {
-  try {
-    await axios.delete(`${API_URL}/cart/${userId}/delete-multiple`);
-    dispatch({ type: DELETE_MULTIPLE_PRODUCTS_FROM_CART });
-  } catch (error) {
-    console.error(error.message);
-  }
-};
+
 export const clearShoppingCart = (userId) => async (dispatch) => {
   try {
     await axios.put(`${API_URL}/cart/${userId}/delete`);
