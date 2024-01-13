@@ -201,7 +201,7 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
           />
         </div>
         <div class="btn-group me-2">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn bg-body-secondary border-secondary rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
           </button>
           <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>

@@ -20,7 +20,7 @@ const EditUsers = ({setVisibleSidebar, visibleSidebar,handleSignOut}) => {
     useEffect(()=>{
         axios(`${API_URL}/users`)
         .then(({data}) => {setUsers(data.Users)
-                            setTimeout(()=>{setUserCreatedSuccess(false)},6000)
+                            setTimeout(()=>{setUserCreatedSuccess(false)},9000)
                         })
         .catch((err) => console.log(err))
     },[users,reload])
@@ -191,7 +191,7 @@ const EditUsers = ({setVisibleSidebar, visibleSidebar,handleSignOut}) => {
                   </button>
         </div>
         <div class="btn-group me-2">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn bg-body-secondary border-secondary rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
           </button>
           <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
