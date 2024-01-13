@@ -19,7 +19,7 @@ function SearchResults(props) {
             {search ?
                 <p className={styles.searchText}>{`"${search}"`} <span>{`(${totalCount})`}</span></p>
                 :
-                <p className={styles.searchText}>Todo</p>
+                <p className={styles.searchText}>Todo <span>{`(${totalCount})`}</span></p>
             }
         </div>
     );

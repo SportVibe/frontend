@@ -35,9 +35,9 @@
         border-radius: 10px;
         transition: .1s linear;
 
-        &:hover {
+        /* &:hover {
             color: var(--button-color);
-        }
+        } */
     }
 
     & .selected {

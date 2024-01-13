@@ -20,6 +20,7 @@ import {
   BRAND_FILTER,
   SPORT_FILTER,
   FILTER_COUNT,
+  GET_MASTER_FILTER_PRODUCTS,
 } from "./actions";
 
 const initialState = {
@@ -36,7 +37,7 @@ const initialState = {
   category: [{ category: '' }],
   totalFilters: [],
   search: '',
-  productsBackup: [],
+  masterFilter: [],
   products: [],
   userData: '',
   carousel2Render: [],
@@ -57,6 +58,19 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         currentAdminData: action.payload
+      };
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        error: null,
+      };
+    case GET_MASTER_FILTER_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        masterFilter: action.payload,
+        error: null,
       };
     case FILTER_COUNT:
       return {
@@ -112,13 +126,6 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         responsiveNavBar: action.payload,
-      };
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: action.payload,
-        productsBackup: action.payload,
-        error: null,
       };
     case GET_PRODUCTS_SUCCESS:
       return {

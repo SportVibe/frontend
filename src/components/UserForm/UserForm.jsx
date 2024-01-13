@@ -7,6 +7,7 @@ import { getCurrentUserAction } from "../../redux/actions.js";
 import { API_URL } from "../../helpers/config.js";
 import validation from "./Validation";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function UserForm() {
   const dispatch = useDispatch();
@@ -217,16 +218,8 @@ function UserForm() {
         </div>
         <div className="contenedor1">
           <div className="contenedor2">
-            <label className="label" htmlFor="">
-              Primer nombre{" "}
-            </label>
-            <input
-              className="input"
-              type="text"
-              name="firstName"
-              onChange={handleChange}
-              value={newUsers.firstName}
-            />
+            <label className="label" htmlFor=""><span>*</span>Primer nombre </label>
+            <input className="input" type="text" name="firstName" onChange={handleChange} value={newUsers.firstName} />
           </div>
           {inputFirstName && newErrors.firstName ? (
             <p className="messError"> {newErrors.firstName}</p>
@@ -302,16 +295,8 @@ function UserForm() {
             <p className="puntos">...</p>
           )}
           <div className="contenedor2">
-            <label className="label" htmlFor="">
-              Correo electrónico{" "}
-            </label>
-            <input
-              className="input"
-              type="text"
-              name="email"
-              value={newUsers.email}
-              onChange={handleChange}
-            />
+            <label className="label" htmlFor=""><span>*</span>Correo electrónico </label>
+            <input className="input" type="text" name="email" value={newUsers.email} onChange={handleChange} />
           </div>
           {inputEmail && newErrors.email ? (
             <p className="messError"> {newErrors.email}</p>
@@ -319,17 +304,8 @@ function UserForm() {
             <p className="puntos">...</p>
           )}
           <div className="contenedor2">
-            <label className="label" htmlFor="">
-              Contraseña{" "}
-            </label>
-            <input
-              className="input"
-              type="password"
-              autoComplete="off"
-              name="password"
-              value={newUsers.password}
-              onChange={handleChange}
-            />
+            <label className="label" htmlFor=""><span>*</span>Contraseña </label>
+            <input className="input" type="password" autoComplete='off' name="password" value={newUsers.password} onChange={handleChange} />
           </div>
           {inputPassword && newErrors.password ? (
             <p className="messError"> {newErrors.password}</p>

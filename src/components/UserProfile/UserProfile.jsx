@@ -12,6 +12,7 @@ import upperLowerCase from '../../utils/upperLowerCase';
 import { getCurrentUserAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import Swal from 'sweetalert2';
 // import userPurchases from '../../utils/userPurchases';
 
 
@@ -21,8 +22,10 @@ function UserProfile() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [notify, setNotify] = useState({});
+    const [dataProgress, setDataProgress] = useState('0');
     const [userPurchases, setUserPurchases] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [reloadPage, setReloadPage] = useState(false);
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
     const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
@@ -48,8 +51,8 @@ function UserProfile() {
         console.log(deleteData);
         try {
             let editData = deleteData ? deleteData : editUserData; // si la data llega por parámetro, es porque estámos eliminando la cuenta.
-            if (editData && !editData.firstName.trim().length)  
-            Swal.fire("El primer nombre no puede estar vacío!");
+            if (editData && !editData.firstName.trim().length)
+                Swal.fire("El primer nombre no puede estar vacío!");
 
             else {
                 if (emailRegex.test(editData.email)) {
@@ -57,11 +60,14 @@ function UserProfile() {
                     setIsValidEmail(true);
                     // console.log(data);
                     if (deleteData) {
-                        
+                        setReloadPage(!reloadPage);
                         Swal.fire("Su cuenta ha sido eliminada!");
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
                     }
-                    else Swal.fire("Usuario actualizado con éxito!");
+                    else {
+                        setReloadPage(!reloadPage);
+                        Swal.fire("Usuario actualizado con éxito!");
+                    }
                 }
                 else {
                     setIsValidEmail(false);
@@ -100,10 +106,17 @@ function UserProfile() {
                 if (data.active) { // solo si la cuenta del usuario está activa.
                     const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
                     console.log(userPurchasesData.data);
-                    const findNullValue = Object.values(data).some(value => {
-                        return value === null;
-                    })
-                    if (findNullValue) setNotify({ ...notify, userDataMissing: 'Complete la información de su perfil' })
+                    const findNullValue = Object.values(data).reduce((acc, value) => {
+                        if (value === null) {
+                            return acc + 1;
+                        }
+                        return acc;
+                    }, 0);
+                    const nullFormat = 7 - findNullValue;
+                    const percent = Math.ceil((nullFormat * 100) / 7);
+                    setDataProgress(`${percent.toString()}`);
+                    // console.log(findNullValue);
+                    if (findNullValue > 0) setNotify({ ...notify, userDataMissing: 'Complete la información de su perfil' })
                     else if (!findNullValue) setNotify({ ...notify, userDataMissing: null })
                     setUserPurchases(userPurchasesData.data);
                     dispatch(getCurrentUserAction(data));
@@ -122,7 +135,7 @@ function UserProfile() {
     useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
         window.scrollTo(0, 0);
         handleUserData();
-    }, [user]);
+    }, [user, reloadPage]);
 
     return (
         <div className={styles.mainView}>
@@ -154,8 +167,8 @@ function UserProfile() {
                                 </div>
                             </div>
                             <div className={styles.progressContainer}>
-                                <div>
-                                    <p>75%</p>
+                                <div className={styles[`class${dataProgress}`]}>
+                                    <p>{dataProgress}%</p>
                                 </div>
                             </div>
                         </div>

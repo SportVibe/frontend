@@ -3,8 +3,9 @@ import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import Loading from '../loading/Loading';
 import styles from './Reviews.module.css';
+import Swal from 'sweetalert2';
 
-const Reviews = ({ productId, userId, setModal }) => {
+const Reviews = ({ productId, userId, setModal, setReloadPage, reloadPage }) => {
     const [inputsUsed, setInputUsed] = useState(false);
     const [stars, setStars] = useState([]);
     const [score, setScore] = useState(0);
@@ -27,6 +28,7 @@ const Reviews = ({ productId, userId, setModal }) => {
                     });
                     if (data) {
                         setModal(false);
+                        setReloadPage(!reloadPage);
                         Swal.fire("Calificación actualizada");
                     }
                 }
@@ -45,6 +47,7 @@ const Reviews = ({ productId, userId, setModal }) => {
                     });
                     if (data) {
                         setModal(false);
+                        setReloadPage(!reloadPage);
                         Swal.fire("Calificación enviada");
                     }
                 }
@@ -55,6 +58,7 @@ const Reviews = ({ productId, userId, setModal }) => {
         } catch (error) {
             console.error('Error al enviar la reseña:', error.message);
             setError('Error al enviar la reseña. Por favor, intenta nuevamente.');
+            setReloadPage(!reloadPage);
             Swal.fire("El usuario ya completó éste producto");
         }
     };

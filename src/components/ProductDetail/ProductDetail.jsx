@@ -88,7 +88,7 @@ const ProductDetail = () => {
       return size === selectSize && quantity <= stock[size];
     });
     if (selectedStock) {
-      const dataToAdd = {
+      let dataToAdd = {
         idUser: userId,
         products: [{
           id,
@@ -99,6 +99,7 @@ const ProductDetail = () => {
         }]
       }
       await axios.post(`${API_URL}/addToCart`, dataToAdd);
+      // await axios.put(`${API_URL}/shopping`, dataToAdd);
       if (!storageCart) {
         newItem = {
           id,
@@ -112,6 +113,7 @@ const ProductDetail = () => {
           "currentCart",
           JSON.stringify({ userId: userId, cart: [newItem] })
         );
+        await axios.post(`${API_URL}/addToCart`, dataToAdd);
         const newTotalQuantity = Number(quantity);
         dispatch(quantityCartAction(newTotalQuantity));
         dispatch(addToCart(newItem));
@@ -129,6 +131,17 @@ const ProductDetail = () => {
               Number(object.quantity) + Number(quantity);
             setStorageCart({ ...object, quantity: newProductQuantity });
             dispatch(addToCart({ ...object, quantity: newProductQuantity }));
+            // si se repite el id del producto y el size, entonces modificamos el quantity a mandar a la base de datos.
+            dataToAdd = {
+              idUser: userId,
+              products: [{
+                id,
+                title: data.title,
+                quantity: newTotalQuantity, // nuevo quantity para la base de datos.
+                size: selectSize,
+                price: data.price,
+              }]
+            }
             return { ...object, quantity: newProductQuantity };
           } else {
             newTotalQuantity = newTotalQuantity + Number(object.quantity);
@@ -144,6 +157,7 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
+          await axios.post(`${API_URL}/addToCart`, dataToAdd);
           newTotalQuantity = newTotalQuantity + Number(quantity);
           setStorageCart([...storageCart.cart, newItem]);
           dispatch(addToCart(newItem));
@@ -153,6 +167,8 @@ const ProductDetail = () => {
           "currentCart",
           JSON.stringify({ userId: userId, cart: updateLocalStorageCart })
         );
+        // si se repite el size del producto, entonces usamos el put para actualizarl el quantity en la base de datos. 
+        if (repeat) await axios.put(`${API_URL}/shopping`, dataToAdd);
         setReloadPage(!reloadPage);
         dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
         // navigate("/shoppingcart");

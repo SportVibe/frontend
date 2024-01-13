@@ -237,7 +237,7 @@
     align-items: center;
 
     &:hover{
-      & img {
+      & img, p {
         border-radius: 5px;
         transition: .4s;
       }
@@ -253,8 +253,8 @@
         height: 13px;
         border: 1px solid white;
         border-radius: 100%;
-        right: -6px;
-        top: -6px;
+        right: -2px;
+        top: -2px;
     }
     }
 
@@ -289,7 +289,9 @@
         font-size: 16px;
         font-weight: 400;
         background-color: var(--button-color);
+        border-radius: 100%;
         color: white;
+        transition: .4s;
       }
     }
   }
