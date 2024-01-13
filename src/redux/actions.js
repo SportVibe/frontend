@@ -37,7 +37,7 @@ export const FILTER_COUNT = "FILTER_COUNT";
 
 export const getProducts = (filters, masterFilter) => async (dispatch) => {
   try {
-    // console.log(filters);
+    console.log(filters);
     // primero unificamos todas las quieries que se entreguen, si esque las hay
     const queryString = buildQueryString(filters);
     const { data } = await axios.get(`${API_URL}/product?${queryString}`);

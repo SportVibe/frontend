@@ -30,7 +30,7 @@ function FilterBar() {
     const brand = useSelector((state => state.brand));
     const discount = useSelector((state => state.discount));
     const { totalFilteredCount } = useSelector((state) => state.products);
-
+    // console.log(masterFilter);
     function genreHandler(event) {
         const id = event.target.id;
         const newFiltersArray = [...totalFilters, category[0], sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, { gender: id }]
@@ -97,13 +97,13 @@ function FilterBar() {
     function handleDiscounts() {
         if (discount?.length && discount[0].discount > 0) {
             const newFiltersArray = [...totalFilters, { discount: 0 }, category[0], brand[0], sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], { search: search_Activity }]
-            dispatch(discountProducts({ discount: 0 }));
+            dispatch(discountProducts([{ discount: 0 }]));
             dispatch(getProducts(newFiltersArray));
             if (pathname !== '/search') navigate('/search');
         }
         else {
             const newFiltersArray = [...totalFilters, { discount: 1 }, category[0], brand[0], sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], { search: search_Activity }]
-            dispatch(discountProducts({ discount: 1 }));
+            dispatch(discountProducts([{ discount: 1 }]));
             dispatch(getProducts(newFiltersArray));
             if (pathname !== '/search') navigate('/search');
         }

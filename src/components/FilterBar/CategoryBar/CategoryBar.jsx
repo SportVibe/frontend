@@ -37,13 +37,13 @@ function CategoryBar() {
 
     function categoryHandler(event) {
         const id = event.target.id; // pasamos la categoría como si fuera una búsqueda del search bar, para que pise lo que se busca con él.
-        const propertiesArray = [{ search: id }];
+        const propertiesArray = [{ search: id }, discount[0]];
         dispatch(genreFilterAction([{ gender: '' }]));
         dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
         dispatch(priceFilterAction(['', '']));
-        dispatch(discountProducts([{ discount: 0 }]));
+        // dispatch(discountProducts([{ discount: 0 }]));
         dispatch(searchActivity(id));
-        dispatch(categoryAction(id));
+        dispatch(categoryAction([{ category: '' }]));
         dispatch(sportAction([{ sport: '' }]));
         dispatch(brandAction([{ brand: '' }]));
         dispatch(filterCounterAction({}));
@@ -89,8 +89,9 @@ function CategoryBar() {
                     <div className={styles.siderRight}></div>
                 </div>
                 <div className={styles.divider}></div>
-                <div className={styles.otrasDiv}>
-                    <p>Ver más</p>
+                <div id='' className={styles.otrasDiv}>
+                    <p id='' onClick={categoryHandler} className={search_Activity === '' ? styles.allSelected : ''}>Todo</p>
+                    {/* <p>Ver más</p> */}
                 </div>
             </div>
         </div>

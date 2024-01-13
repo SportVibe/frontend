@@ -79,9 +79,9 @@
         cursor: pointer;
 
         & div {
-            height: 100%;
             width: 20px;
             height: 20px;
+            float: right;
             border-radius: 100%;
             background-color: white;
             /* transform: translateX(90%); */
@@ -94,7 +94,7 @@
         border: 1px solid var(--button-color);
 
         & div {
-            transform: translateX(90%);
+            transform: translateX(-90%);
             transition: .2s;
         }
     }

@@ -31,15 +31,21 @@
         border: 1px solid var(--font-color-hard);
         transition: .2s ease-out;
     }
+
+    & .allSelected {
+        background-color: var(--bg-color2);
+        color: white;
+    }
 }
 
 .subMainView {
     background-color: transparent;
     height: 100%;
     width: 100%;
-    max-width: 800px;
+    max-width: 850px;
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 0 auto;
 }
 
@@ -53,16 +59,17 @@
     height: 100%;
     flex: 1;
     /* min-width: 100px; */
+    max-width: 150px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
     & p {
         border: 1px solid var(--font-color-hard);
 
         &:hover {
-        background-color: var(--bg-color2);
-        color: white;
+            background-color: var(--bg-color2);
+            color: white;
         }
     }
 }
@@ -106,8 +113,8 @@
     top: 0;
     height: 100%;
     width: 30px;
-    background: rgb(255,255,255);
-background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3929471032745592) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3929471032745592) 100%);
 }
 
 .siderRight {
@@ -116,6 +123,6 @@ background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.39
     top: 0;
     height: 100%;
     width: 30px;
-    background: rgb(255,255,255);
-background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3929471032745592) 100%);
+    background: rgb(255, 255, 255);
+    background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3929471032745592) 100%);
 }
