@@ -156,6 +156,7 @@
                 height: 100%;
                 width: 75%;
                 background-color: var(--button-color);
+                transition: .5s;
 
                 & p{
                     padding: 0;
@@ -167,6 +168,46 @@
                     align-items: center;
                     justify-content: center;
                 }
+            }
+
+            & .class0 {
+                width: 0%;
+                transition: .5s;
+            }
+
+            & .class15 {
+                width: 15%;
+                transition: .5s;
+            }
+
+            & .class29 {
+                width: 29%;
+                transition: .5s;
+            }
+
+            & .class43 {
+                width: 43%;
+                transition: .5s;
+            }
+
+            & .class58 {
+                width: 58%;
+                transition: .5s;
+            }
+
+            & .class72 {
+                width: 72%;
+                transition: .5s;
+            }
+
+            & .class86 {
+                width: 86%;
+                transition: .5s;
+            }
+
+            & .class100 {
+                width: 100%;
+                transition: .5s;
             }
         }
 

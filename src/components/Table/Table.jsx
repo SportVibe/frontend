@@ -7,6 +7,7 @@ import axios from 'axios';
 import Loading from '../loading/Loading';
 
 function Table(props) {
+    const [reloadPage, setReloadPage] = useState(false);
     const [modal, setModal] = useState(false);
     const [productId, setProductId] = useState(null);
     const [userId, setUserId] = useState(props.userId);
@@ -126,7 +127,7 @@ function Table(props) {
 
     useEffect(() => {
         getReview(porpsRecords);
-    }, []);
+    }, [reloadPage]);
 
     useEffect(() => {
         // Agrega un event listener para el evento de redimensionamiento de la ventana
@@ -143,7 +144,7 @@ function Table(props) {
         <div className={styles.mainView}>
             <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderId}</p>
             {modal &&
-                <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} />
+                <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} reloadPage={reloadPage} setReloadPage={setReloadPage} />
             }
             {loading ? <Loading /> :
                 <div className={`${styles.tableContainer} ${!displayTable ? styles.displayTableOff : styles.displayTableOn}`}>

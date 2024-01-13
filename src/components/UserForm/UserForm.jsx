@@ -7,6 +7,7 @@ import { getCurrentUserAction } from "../../redux/actions.js";
 import { API_URL } from "../../helpers/config.js";
 import validation from "./Validation";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function UserForm() {
   const dispatch = useDispatch();
