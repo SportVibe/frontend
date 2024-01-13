@@ -2,7 +2,7 @@ import styles from './ReviewsModal.module.css';
 import Reviews from '../Reviews/Reviews';
 
 
-function LoginModal({ setModal, modal, userId, productId }) {
+function LoginModal({ setModal, modal, userId, productId, reloadPage, setReloadPage }) {
 
     function handleCloseModal(e) {
         const id = e.target.id;
@@ -14,7 +14,7 @@ function LoginModal({ setModal, modal, userId, productId }) {
     return (
         <div id='outSideModal' className={styles.mainView} onClick={handleCloseModal}>
             <div className={styles.reviewsContainer}>
-                <Reviews userId={userId} productId={productId} setModal={setModal} />
+                <Reviews userId={userId} productId={productId} setModal={setModal} setReloadPage={setReloadPage} reloadPage={reloadPage} />
             </div>
         </div>
     )

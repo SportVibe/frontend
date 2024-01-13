@@ -48,7 +48,10 @@ function Home() {
       dispatch(getProducts(sumFilters));
     } // ya que queremos que en la ruta Home no se apliquen los filtros del Search bar.
     else if (location.pathname !== '/search') {
-      dispatch(getProducts());
+      // el segundo valor en true del dispatch, es para indicar
+      // que usaremos el backup del reducer para mantener el filtrado
+      // madre de los filtros, así los items de la barra lateral de filtros no pierden su cantidad entre paréntesis.
+      dispatch(getProducts(null, true));
     }
     dispatch(responsiveNavBar(false));
     if (!search_Activity) {

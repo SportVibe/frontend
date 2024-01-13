@@ -164,11 +164,6 @@ function App() {
                 <Route path="/password-recover" element={<RecoveryPassword />} />
 
               </Routes>
-              {/* {(location.pathname === '/search') &&
-                <div className={styles.carousel2Container}>
-                  <Carousel2 />
-                </div>
-              } */}
               {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
               }

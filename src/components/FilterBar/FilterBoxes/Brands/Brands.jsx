@@ -4,7 +4,7 @@ import axios from 'axios';
 import { API_URL } from '../../../../helpers/config';
 import capitalize from '../../../../utils/capitalize';
 
-function Brands({ brandHandler, brand }) {
+function Brands({ brandStatistics, brandHandler, brand }) {
     const [brandArray, setBrandArray] = useState(null);
 
     async function getSports() {
@@ -22,9 +22,13 @@ function Brands({ brandHandler, brand }) {
         <div className={styles.mainView}>
             <p className={styles.title}>Marcas</p>
             <div className={styles.genreBox}>
-                <p onClick={brandHandler} id='' className={brand[0]?.brand === '' ? styles.selected : ''}>Todo</p>
+                {/* <p onClick={brandHandler} id='' className={brand[0]?.brand === '' ? styles.selected : ''}>Todo</p>
                 {brandArray?.map((_brand, i) => {
                     return <p onClick={brandHandler} key={i} id={_brand.name} className={brand[0]?.brand === _brand.name ? styles.selected : ''}>{capitalize(_brand.name)}</p>
+                })} */}
+                <p id='' onClick={brandHandler} className={brand[0].brand === '' ? styles.selected : ''}>Todo</p>
+                {brandStatistics && brandStatistics.length && brandStatistics.map((item, i) => {
+                    return <p key={i} id={item.brand} onClick={brandHandler} className={brand[0].brand === item.brand ? styles.selected : ''}>{capitalize(item.brand)} <span>{`(${item.productCount})`}</span></p>
                 })}
             </div>
         </div>

@@ -92,8 +92,18 @@
 }
 
 .label{
+    position: relative;
     font-size: 0.7rem;
     font-weight: 700;
+
+    & span {
+        position: absolute;
+        top: -5px;
+        left: -8px;
+        color: red;
+        font-size: 18px;
+        font-weight: 300;
+    }
 }
 
 

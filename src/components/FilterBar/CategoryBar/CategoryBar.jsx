@@ -37,18 +37,21 @@ function CategoryBar() {
 
     function categoryHandler(event) {
         const id = event.target.id; // pasamos la categoría como si fuera una búsqueda del search bar, para que pise lo que se busca con él.
-        const propertiesArray = [{ search: id }];
+        const propertiesArray = [{ search: id }, discount[0]];
         dispatch(genreFilterAction([{ gender: '' }]));
         dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
         dispatch(priceFilterAction(['', '']));
-        dispatch(discountProducts([{ discount: 0 }]));
+        // dispatch(discountProducts([{ discount: 0 }]));
         dispatch(searchActivity(id));
-        dispatch(categoryAction(id));
+        dispatch(categoryAction([{ category: '' }]));
         dispatch(sportAction([{ sport: '' }]));
         dispatch(brandAction([{ brand: '' }]));
         dispatch(filterCounterAction({}));
 
-        dispatch(getProducts(propertiesArray));
+        // el segundo valor en true del dispatch, es para indicar
+        // que usaremos el backup del reducer para mantener el filtrado
+        // madre de los filtros, así los items de la barra lateral de filtros no pierden su cantidad entre paréntesis.
+        dispatch(getProducts(propertiesArray, true));
         if (pathname !== '/search') navigate('/search');
     }
 
@@ -86,8 +89,9 @@ function CategoryBar() {
                     <div className={styles.siderRight}></div>
                 </div>
                 <div className={styles.divider}></div>
-                <div className={styles.otrasDiv}>
-                    <p>Ver más</p>
+                <div id='' className={styles.otrasDiv}>
+                    <p id='' onClick={categoryHandler} className={search_Activity === '' ? styles.allSelected : ''}>Todo</p>
+                    {/* <p>Ver más</p> */}
                 </div>
             </div>
         </div>
