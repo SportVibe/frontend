@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './PriceBox.module.css';
+import { useSelector } from 'react-redux';
 
 function PriceBox({ priceFilter, priceSubmit, submitPriceInput, setMinimumValue, setMaximumValue, minimumValue, maximumValue }) {
 

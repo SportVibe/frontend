@@ -7,6 +7,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_MASTER_FILTER_PRODUCTS = "GET_MASTER_FILTER_PRODUCTS";
 export const GET_PRODUCT_PAGE_SUCCESS = "GET_PRODUCT_PAGE_SUCCESS";
 export const GET_PRODUCT_PAGE_FAILURE = "GET_PRODUCT_PAGE_FAILURE";
 export const GET_PRODUCT_PAGE = "GET_PRODUCT_PAGE";
@@ -34,12 +35,14 @@ export const BRAND_FILTER = "BRAND_FILTER";
 export const FILTER_COUNT = "FILTER_COUNT";
 
 
-export const getProducts = (filters) => async (dispatch) => {
+export const getProducts = (filters, masterFilter) => async (dispatch) => {
   try {
+    // console.log(filters);
     // primero unificamos todas las quieries que se entreguen, si esque las hay
     const queryString = buildQueryString(filters);
     const { data } = await axios.get(`${API_URL}/product?${queryString}`);
-    return dispatch({ type: GET_PRODUCTS, payload: data });
+    if (masterFilter) return dispatch({ type: GET_MASTER_FILTER_PRODUCTS, payload: data });
+    else return dispatch({ type: GET_PRODUCTS, payload: data });
   } catch (error) {
     console.error(error.message);
     return dispatch({ type: GET_PRODUCTS_FAILURE, payload: error.message });

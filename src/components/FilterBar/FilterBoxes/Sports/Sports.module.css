@@ -37,8 +37,15 @@
         padding: 2px 0;
         transition: .1s linear;
 
+        & span {
+            color: gray;
+            font-size: 13px;
+        }
+    }
+
+    & .notSelected {
         &:hover {
-            color: var(--button-color);
+            /* color: var(--button-color); */
         }
     }
 
@@ -46,10 +53,15 @@
         /* color: white; */
         color: var(--button-color);
         font-weight: 700;
-        font-size: 16px;
+        /* font-size: 16px; */
 
         &:hover {
             color: var(--button-color);
         }
+    }
+
+    & .hidden {
+        opacity: .3;
+        cursor: not-allowed;
     }
 }

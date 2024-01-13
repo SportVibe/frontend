@@ -48,7 +48,10 @@ function CategoryBar() {
         dispatch(brandAction([{ brand: '' }]));
         dispatch(filterCounterAction({}));
 
-        dispatch(getProducts(propertiesArray));
+        // el segundo valor en true del dispatch, es para indicar
+        // que usaremos el backup del reducer para mantener el filtrado
+        // madre de los filtros, así los items de la barra lateral de filtros no pierden su cantidad entre paréntesis.
+        dispatch(getProducts(propertiesArray, true));
         if (pathname !== '/search') navigate('/search');
     }
 

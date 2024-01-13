@@ -4,7 +4,7 @@ import { PriceBox, SizeBox, ColorBox, GenreBox, Sort, SearchResults } from '../.
 import Sports from './FilterBoxes/Sports/Sports';
 import Brands from './FilterBoxes/Brands/Brands';
 import { useEffect, useState } from 'react';
-import { brandAction, genreFilterAction, getProducts, priceFilterAction, responsiveNavBar, sortAction, sportAction } from '../../redux/actions';
+import { brandAction, discountProducts, genreFilterAction, getProducts, priceFilterAction, responsiveNavBar, sortAction, sportAction } from '../../redux/actions';
 import { useLocation, useNavigate } from 'react-router-dom';
 import videoSource from '../../Images/bike_-_76618 (1080p).mp4';
 import img1 from '../../Images/camiseta-seleccion-argentina-adidas.webp';
@@ -16,6 +16,9 @@ function FilterBar() {
     const dispatch = useDispatch();
     const [minimumValue, setMinimumValue] = useState('');
     const [maximumValue, setMaximumValue] = useState('');
+    const products = useSelector((state => state.products));
+    const masterFilter = useSelector((state => state.masterFilter));
+    // console.log(products.filterStatics.genderStatistics);
     const filterCounter = useSelector((state => state.filterCounter));
     const search_Activity = useSelector((state => state.search));
     const totalFilters = useSelector((state => state.totalFilters));
@@ -91,6 +94,21 @@ function FilterBar() {
         else alert('Debe completar ambos campos');
     }
 
+    function handleDiscounts() {
+        if (discount?.length && discount[0].discount > 0) {
+            const newFiltersArray = [...totalFilters, { discount: 0 }, category[0], brand[0], sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], { search: search_Activity }]
+            dispatch(discountProducts({ discount: 0 }));
+            dispatch(getProducts(newFiltersArray));
+            if (pathname !== '/search') navigate('/search');
+        }
+        else {
+            const newFiltersArray = [...totalFilters, { discount: 1 }, category[0], brand[0], sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], { search: search_Activity }]
+            dispatch(discountProducts({ discount: 1 }));
+            dispatch(getProducts(newFiltersArray));
+            if (pathname !== '/search') navigate('/search');
+        }
+    }
+
     useEffect(() => {
         /* const sumFilters = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], { search: search_Activity }]
         dispatch(getProducts(sumFilters)); */
@@ -108,6 +126,13 @@ function FilterBar() {
                         <SearchResults search={search_Activity} totalCount={totalFilteredCount} />
                         <div className={styles.divider}></div>
                     </div>
+                    <div className={styles.dicountContainer}>
+                        <div onClick={handleDiscounts} className={`${styles.dicountButton} ${discount[0]?.discount > 0 ? styles.discountOff : ''}`}>
+                            <div onClick={handleDiscounts}>
+                            </div>
+                        </div>
+                        <p className={discount[0]?.discount > 0 ? styles.textDisplayed : ''}>Con descuento</p>
+                    </div>
                     {/* {(filterCounter && Object.values(filterCounter).length > 0) &&
                         <div className={styles.filtrosAplicados}>
                             <p>Filtros aplicados:</p>
@@ -119,15 +144,15 @@ function FilterBar() {
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
-                        <GenreBox genre={genre} genreHandler={genreHandler} />
+                        <GenreBox genderStatistics={masterFilter?.filterStatics?.genderStatistics} genreHandler={genreHandler} genre={genre} brand={brand} sport={sport} />
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
-                        <Sports sportHandler={sportHandler} sport={sport} />
+                        <Sports sportStatistics={masterFilter?.filterStatics?.sportStatistics} sportHandler={sportHandler} sport={sport} genre={genre} brand={brand} />
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.filterBox}>
-                        <Brands brandHandler={brandHandler} brand={brand} />
+                        <Brands brandStatistics={masterFilter?.filterStatics?.brandStatistics} brandHandler={brandHandler} brand={brand} sport={sport} genre={genre} />
                     </div>
                     {/* <div className={styles.filterBox}>
                         <SizeBox />
