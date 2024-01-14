@@ -28,13 +28,24 @@
 
     & .selectedCategory {
         color: var(--font-color-hard);
-        border: 1px solid var(--font-color-hard);
+        border: 1px solid rgb(103, 174, 255);
+        background-color: rgb(229, 241, 255);
         transition: .2s ease-out;
+
+        &:hover {
+            border: 1px solid rgb(103, 174, 255);
+        }
     }
 
     & .allSelected {
-        background-color: var(--bg-color2);
-        color: white;
+        color: var(--font-color-hard);
+        border: 1px solid rgb(103, 174, 255);
+        background-color: rgb(229, 241, 255);
+        transition: .2s ease-out;
+
+        &:hover {
+            border: 1px solid rgb(103, 174, 255);
+        }
     }
 }
 
@@ -63,15 +74,6 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    & p {
-        border: 1px solid var(--font-color-hard);
-
-        &:hover {
-            background-color: var(--bg-color2);
-            color: white;
-        }
-    }
 }
 
 .carouselContainer {

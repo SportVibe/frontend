@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from "../../components/ProductCard/ProductCard";
 import FilterBar from "../FilterBar/FilterBar";
 import Paginado from "../Paginado/Paginado";
@@ -10,6 +10,7 @@ import { getCurrentUserAction, getProducts, responsiveNavBar } from "../../redux
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import Loading from '../loading/Loading';
 
 
 
@@ -17,6 +18,7 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const [loading, setLoading] = useState();
   const productRender = useSelector((state) => state.products);
   // productRender && console.log(productRender);
   let search_Activity = useSelector((state => state.search));
@@ -30,6 +32,7 @@ function Home() {
   const discount = useSelector((state => state.discount));
 
   async function handleUserData() {
+    setLoading(true);
     try { // necesitamos usar el local storage de manera asíncrona para poder guardarlo en redux y poder renderizarlo en el nav bar u otras partes.
       const storageData = await getLocalStorageData('currentUser'); // la llamada al local storage lo hacemos con promesa para poder usar el await y esperar a que se cargue el local storage.
       const userData = storageData ? JSON.parse(storageData) : null;
@@ -37,7 +40,9 @@ function Home() {
         const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
         dispatch(getCurrentUserAction(data));
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error(error.message);
     }
   }
@@ -70,36 +75,40 @@ function Home() {
   return (
     <div className={styles.mainView}>
       {location.pathname !== '/search' && <hr />}
-      <div className={styles.subMainView}>
-        {/* <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
+      {loading ?
+        <Loading />
+        :
+        <div className={styles.subMainView}>
+          {/* <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
           <FilterBar />
         </div> */}
-        {<div className={styles.FilterBarContainer}>
-          <FilterBar />
-        </div>}
-        {productRender.data?.length > 0 ?
-          <div className={styles.conteinerHome}>
-            <div className={styles.results}>
-              <p>Resultados: {productRender?.totalFilteredCount}</p>
+          {<div className={styles.FilterBarContainer}>
+            <FilterBar />
+          </div>}
+          {productRender.data?.length > 0 ?
+            <div className={styles.conteinerHome}>
+              <div className={styles.results}>
+                <p>Resultados: {productRender?.totalFilteredCount}</p>
+              </div>
+              <div className={styles.conteinerCards}>
+                {productRender.data?.length > 0 && productRender.data.map((product, i) => {
+                  return (
+                    <div key={i} className={styles.cardComponentContainer}>
+                      <ProductCard productData={product} />
+                    </div>
+                  )
+                })}
+              </div>
+              <div className={styles.paginado}>
+                <Paginado />
+              </div>
+            </div> :
+            <div className={styles.searchNoResultsContainer}>
+              <SearchResults />
             </div>
-            <div className={styles.conteinerCards}>
-              {productRender.data?.length > 0 && productRender.data.map((product, i) => {
-                return (
-                  <div key={i} className={styles.cardComponentContainer}>
-                    <ProductCard productData={product} />
-                  </div>
-                )
-              })}
-            </div>
-            <div className={styles.paginado}>
-              <Paginado />
-            </div>
-          </div> :
-          <div className={styles.searchNoResultsContainer}>
-            <SearchResults />
-          </div>
-        }
-      </div>
+          }
+        </div>
+      }
     </div>
   );
 }

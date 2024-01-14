@@ -11,7 +11,7 @@ import { UserAuth } from "../../context/AuthContext";
 import LoginModal from "../Modals/LoginModal";
 import Swal from "sweetalert2";
 
-const login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { googleSignIn, user } = UserAuth() ?? {};
@@ -54,6 +54,7 @@ const login = () => {
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
+        // console.log(data);
         if (data) {
           if (data.user.rol === 'admin') {
             if (!data.user.active) {
@@ -95,22 +96,6 @@ const login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const handleForgotPassword = async () => {
-    const { value: email } = await Swal.fire({
-      title: "Ingresa tu email",
-      input: "email",
-      inputPlaceholder: "Email que usaste para registrarte"
-    });
-    if (email) {
-      axios.post(`${API_URL}/password-recover`, {email:email})
-      .then(({data}) => {
-        console.log(data)
-        Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
-      .catch(err => console.log(err))
-      
-    }
-  }
 
   return (
     <div className="contenedorLogin">
@@ -186,13 +171,12 @@ const login = () => {
             <button className="botton2">CREAR UNA CUENTA</button>
           </NavLink>
         </div>
-      <a href="#" className="textForgotPassword" onClick={handleForgotPassword}>¿Olvidaste tu contraseña?</a>
       </div>
     </div>
   );
 };
 
-export default login;
+export default Login;
 
 // const validacion = ({ email, password }) => {
 //   let error = {};

@@ -1,0 +1,26 @@
+.mainVew {
+    background-color: white;
+    width: 100%;
+}
+
+.suMainVew {
+    width: 100%;
+}
+
+.conteinerCards {
+    padding: 10px;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    min-height: 600px;
+    padding: 50px 10px;
+}
+
+.cardComponentContainer {
+    margin-bottom: 30px;
+    width: 230px;
+    /* min-height: 390px; */
+}

@@ -3,7 +3,7 @@
     height: 100%;
     display: flex;
     border: 1px solid rgba(128, 128, 128, 0.437);
-    border-radius: 20px;
+    border-radius: 5px;
     overflow: hidden;
     transition: border-radius .2s;
 

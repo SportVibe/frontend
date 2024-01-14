@@ -1,16 +1,21 @@
 import styles from "./ProductCard.module.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import capitalize from '../../utils/capitalize.js';
 import { useDispatch, useSelector } from "react-redux";
 import { brandAction, categoryAction, discountProducts, filterCounterAction, genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction, sportAction } from "../../redux/actions";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { API_URL } from "../../helpers/config";
 
 function ProductCard({ productData }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
+    const [favorite, setFavorite] = useState(false);
     const [imgHover, setImgHover] = useState(false);
+    const currentUserData = useSelector((state => state.currentUserData));
     const genre = useSelector((state => state.genre));
     const sport = useSelector((state => state.sport));
     const _category = useSelector((state => state.category));
@@ -75,9 +80,45 @@ function ProductCard({ productData }) {
         setImgHover(false);
     }
 
-    function handleNavigate() {
-        navigate(`/detail/${id}`);
+    async function handleNavigate(e) {
+        try {
+            const _id = e.target.id;
+            if (_id !== 'like') {
+                navigate(`/detail/${id}`);
+            }
+            if (!currentUserData) {
+                navigate('login');
+            }
+            else {
+                const { data } = await axios.post(`${API_URL}/postFavorite?userId=${currentUserData.id}&productId=${id}`);
+                // console.log(data);
+                setFavorite(true);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Producto agregado a tu colección!"
+                });
+            }
+        } catch (error) {
+            console.error({ error: error.message });
+        }
     }
+    // console.log(currentUserData?.favorites);
+    useEffect(() => {
+        if (currentUserData && currentUserData?.favorites?.includes(id)) {
+            setFavorite(true);
+        }
+    }, [currentUserData]);
 
     return (
         <div className={styles.mainView}>
@@ -93,9 +134,12 @@ function ProductCard({ productData }) {
                     <img src={Images[0]} alt="imagen" />
                     {imgHover && (
                         <div className={styles.layout}>
-                            <div>
-                                <i className="fa-regular fa-heart"></i>
+                            <div id="like" className={favorite ? styles.markOn : ''}>
+                                <i id="like" className='bx bx-bookmark' ></i>
                             </div>
+                            {/* <div id="like" className={favorite ? styles.markOn : ''}>
+                                <i id="like" className="fa-regular fa-thumbs-up"></i>
+                            </div> */}
                         </div>
                     )}
                 </div>
