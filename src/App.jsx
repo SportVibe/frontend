@@ -102,7 +102,7 @@ function App() {
         <Elements stripe={stripePromise}>
           <AuthContextProvider>
             <div className={styles.mainView}>
-              {location.pathname !== "/dashboard" &&
+              {location.pathname !== "/dashboard" && location.pathname !== "/password-recover" &&
                 <div className={styles.navBarContainer}>
                   <NavBar />
                 </div>
@@ -164,7 +164,7 @@ function App() {
                 <Route path="/password-recover" element={<RecoveryPassword />} />
 
               </Routes>
-              {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
+              {(location.pathname !== '/login' && location.pathname !== '/dashboard' ) &&
                 <Footer />
               }
             </div>
