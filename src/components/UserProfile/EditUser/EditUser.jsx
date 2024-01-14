@@ -119,12 +119,14 @@ function EditUser({
         } else {
           setNewPassword({ currentP: "", newP1: "", newP2: "" });
 
-          Swal.fire("Debe completar los 3 campos");
+          Swal.fire({ icon: "info",
+            title:"Debe completar los 3 campos"});
         }
       } else {
         setNewPassword({ currentP: "", newP1: "", newP2: "" });
 
-        Swal.fire("Las contraseñas no coinciden");
+        Swal.fire({ icon:"error",
+          title:"Las contraseñas no coinciden"});
       }
     } catch (error) {
       console.error({ error: error.message });
@@ -156,13 +158,14 @@ function EditUser({
 
           Swal.fire({
             icon: "error",
-            text: "Contraseña inválida",
+            text: "Contraseña inválida!",
           });
         }
       } else {
         setPassword({ p1: "", p2: "" });
 
-        Swal.fire("Las contraseñas no coinciden");
+        Swal.fire({ icon:"error",
+        title:"Las contraseñas no coinciden"});
       }
     } catch (error) {
       console.error({ error: error.message });
