@@ -127,7 +127,7 @@ function FilterBar() {
                         <div className={styles.divider}></div>
                     </div>
                     <div className={styles.dicountContainer}>
-                        <div onClick={handleDiscounts} className={`${styles.dicountButton} ${discount[0]?.discount > 0 ? styles.discountOff : ''}`}>
+                        <div onClick={handleDiscounts} className={`${styles.dicountButton} ${discount[0]?.discount > 0 ? styles.discountOn : ''}`}>
                             <div onClick={handleDiscounts}>
                             </div>
                         </div>

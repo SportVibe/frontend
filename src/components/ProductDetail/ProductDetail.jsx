@@ -31,7 +31,7 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
-  
+  console.log(reviews);
 
   useEffect(() => {
     axios
