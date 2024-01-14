@@ -23,7 +23,7 @@ const EditUsers = ({setVisibleSidebar, visibleSidebar,handleSignOut}) => {
                             setTimeout(()=>{setUserCreatedSuccess(false)},9000)
                         })
         .catch((err) => console.log(err))
-    },[users,reload])
+    },[reload])
 
     const handleVisibleSidebar = () => {
         setVisibleSidebar(!visibleSidebar);
@@ -110,6 +110,7 @@ const EditUsers = ({setVisibleSidebar, visibleSidebar,handleSignOut}) => {
                       timer: 1000,
                       showConfirmButton: false,
                     });
+                    setReload(!reload)
                 })
             } else if (
               result.dismiss === Swal.DismissReason.cancel

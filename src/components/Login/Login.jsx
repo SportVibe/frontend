@@ -53,7 +53,6 @@ const login = () => {
     else {
       try {
         const { data } = await axios.post(`${API_URL}/login`, username);
-        // console.log(data);
         if (data) {
           if (data.user.rol === 'admin') {
             localStorage.setItem('adminUser', JSON.stringify(data.user));
@@ -90,6 +89,22 @@ const login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleForgotPassword = async () => {
+    const { value: email } = await Swal.fire({
+      title: "Ingresa tu email",
+      input: "email",
+      inputPlaceholder: "Email que usaste para registrarte"
+    });
+    if (email) {
+      axios.post(`${API_URL}/password-recover`, {email:email})
+      .then(({data}) => {
+        console.log(data)
+        Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
+      .catch(err => console.log(err))
+      
+    }
+  }
 
   return (
     <div className="contenedorLogin">
@@ -165,6 +180,7 @@ const login = () => {
             <button className="botton2">CREAR UNA CUENTA</button>
           </NavLink>
         </div>
+      <a href="#" className="textForgotPassword" onClick={handleForgotPassword}>¿Olvidaste tu contraseña?</a>
       </div>
     </div>
   );
