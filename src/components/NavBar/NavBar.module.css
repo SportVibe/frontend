@@ -236,8 +236,10 @@
     display: flex;
     align-items: center;
 
-    &:hover{
-      & img, p {
+    &:hover {
+
+      & img,
+      p {
         border-radius: 5px;
         transition: .4s;
       }
@@ -255,10 +257,12 @@
         border-radius: 100%;
         right: -2px;
         top: -2px;
-    }
+      }
     }
 
-    & .adminLogContainer { /* estilos de admin */
+    & .adminLogContainer {
+
+      /* estilos de admin */
       & p {
         background-color: rgb(126, 42, 165);
       }
@@ -298,19 +302,41 @@
 }
 
 .cartContainer {
+  /* background-color: white; */
+  background-color: rgb(229, 241, 255);
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  padding: 2px 0;
+  color: var(--button-color);
+
+  &:hover {
+    scale: .95;
+  }
+
+  & p {
+    font-weight: 500;
+  }
+
   & .cartNumber {
     background-color: transparent;
     color: var(--button-color);
     animation: move 1s ease-out both;
 
     & p {
-      border: 1px solid var(--button-color);
+      /* border: 1px solid var(--button-color); */
       border-radius: 5px;
       min-width: 22px;
+      font-size: 12px;
       padding: 0;
       margin: 0;
+      color: var(--button-color);
       text-align: center;
     }
+  }
+
+  & .quantity {
+    background-color: white;
   }
 }
 
@@ -323,13 +349,17 @@
 @keyframes move {
   0% {
     transform: rotate(510deg);
+    background-color: var(--button-color);
     scale: .9;
   }
+
   50% {
     scale: 1.2;
   }
+
   100% {
     transform: rotate(0deg);
+    background-color: white;
     scale: 1;
   }
 }

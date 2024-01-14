@@ -13,6 +13,7 @@ import { getCurrentUserAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
 import Swal from 'sweetalert2';
+import Favorites from './Favorites/Favorites';
 // import userPurchases from '../../utils/userPurchases';
 
 
@@ -103,6 +104,7 @@ function UserProfile() {
             const userData = JSON.parse(userDataLocalStorage);
             if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                 const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+                // console.log(data);
                 if (data.active) { // solo si la cuenta del usuario está activa.
                     const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
                     console.log(userPurchasesData.data);
@@ -136,7 +138,6 @@ function UserProfile() {
         window.scrollTo(0, 0);
         handleUserData();
     }, [user, reloadPage]);
-
     return (
         <div className={styles.mainView}>
             {loading ?
@@ -177,14 +178,14 @@ function UserProfile() {
                                 <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
+                            <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
+                                <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
+                                <p id='favorites' onClick={handlerComponent}>Mi colección</p>
+                            </div>
                             {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
                                 <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
                                 <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
                             </div> */}
-                            <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
-                                <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
-                                <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
-                            </div>
                             {/* <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
                                 <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
                                 <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
@@ -203,13 +204,17 @@ function UserProfile() {
                                 })
                                     :
                                     <div>
-                                        <p>No hay registro de órdenes</p>
+                                        <p>No registra órdenes</p>
                                     </div>
                                 }
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
                                 <EditUser notify={notify} editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
+                            </div>}
+                        {mainComponent === 'favorites' &&
+                            <div className={styles.componentContainer}>
+                                <Favorites userDataRender={editUserData} />
                             </div>}
                     </div>
                 </div>

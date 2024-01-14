@@ -20,21 +20,36 @@
         transition: .2s ease-out;
 
         &:hover {
-            color: var(--font-color-hard);
-            border: 1px solid var(--font-color-hard);
+            /* border: 1px solid var(--font-color-hard); */
+            border: 1px solid var(--button-color);
             transition: .2s ease-out;
         }
     }
 
     & .selectedCategory {
         color: var(--font-color-hard);
-        border: 1px solid var(--font-color-hard);
+        border: 1px solid rgb(229, 241, 255);
+        /* background-color: rgb(229, 241, 255); */
+        background-color: var(--button-color);
+        color: white;
         transition: .2s ease-out;
+
+        &:hover {
+            border: 1px solid var(--button-color);
+        }
     }
 
     & .allSelected {
-        background-color: var(--bg-color2);
+        color: var(--font-color-hard);
+        border: 1px solid rgb(229, 241, 255);
+        /* background-color: rgb(229, 241, 255); */
+        background-color: var(--button-color);
+        transition: .2s ease-out;
         color: white;
+
+        &:hover {
+            border: 1px solid var(--button-color);
+        }
     }
 }
 
@@ -63,15 +78,6 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    & p {
-        border: 1px solid var(--font-color-hard);
-
-        &:hover {
-            background-color: var(--bg-color2);
-            color: white;
-        }
-    }
 }
 
 .carouselContainer {

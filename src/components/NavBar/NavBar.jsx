@@ -27,6 +27,7 @@ function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState('0.00');
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
   const filterCounter = useSelector((state) => state.filterCounter);
@@ -82,9 +83,29 @@ function NavBar() {
     i18n.changeLanguage(language);
   };
 
+  const initialStorageCart = async () => {
+    try {
+      const cartDataStorage = await getLocalStorageData("currentCart");
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      if (parseCartDataStorage) {
+        const subTotalPrice = parseCartDataStorage?.cart.reduce((acc, product) => {
+          return acc + (product.price * product.quantity);
+        }, 0);
+        // console.log(subTotalPrice.toFixed(2).replace(',', ','));
+        setCartItems(subTotalPrice.toFixed(2).replace(',', ','));
+      }
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  };
+
   useEffect(() => {
     dispatch(responsiveNavBar(false));
   }, []);
+
+  useEffect(() => {
+    initialStorageCart();
+  }, [totalCartQuantity]);
 
   return (
     <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
@@ -118,10 +139,11 @@ function NavBar() {
             </div>
 
             <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
-              <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
+              {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
+              {<p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>}
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
               <div id='/shoppingcart' onClick={handleNavigate} className={styles.cartNumber}>
-                <p id='/shoppingcart' onClick={handleNavigate}>{totalCartQuantity}</p>
+                <p id='/shoppingcart' onClick={handleNavigate} className={styles.quantity}>{totalCartQuantity}</p>
               </div>
             </div>
             {(userDataRender || currentAdminData) ? (
