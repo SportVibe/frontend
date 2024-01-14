@@ -43,6 +43,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
+import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -160,6 +161,8 @@ function App() {
                 <Route path="/payment" element={<PaymentForm />} />
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/payment-status" element={<PaymentStatus />} />
+                <Route path="/password-recover" element={<RecoveryPassword />} />
+
               </Routes>
               {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
