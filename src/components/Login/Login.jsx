@@ -108,7 +108,11 @@ const Login = () => {
       .then(({data}) => {
         console.log(data)
         Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
-      .catch(err => console.log(err))
+      .catch(err => {Swal.fire({
+        title: err.response.data.message,
+        text: "Por favor no sea tan pelotudo",
+        icon: "question"
+      })})
       
     }
   }
@@ -187,7 +191,7 @@ const Login = () => {
             <button className="botton2">CREAR UNA CUENTA</button>
           </NavLink>
         </div>
-        <a href="#" className="textForgotPassword" onClick={handleForgotPassword}>¿Olvidaste tu contraseña?</a>
+        <a href="#" className="textForgotPassword" onClick={handleForgotPassword}>¿Olvidaste tu contraseña IDIOTA?</a>
       </div>
     </div>
   );
