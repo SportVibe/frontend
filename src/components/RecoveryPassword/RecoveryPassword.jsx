@@ -58,7 +58,9 @@ const RecoveryPassword = () => {
           title:
             "Contraseña actualizada con exito, por favor ingrese nuevamente",
         });
+        navigate("/login")
       } catch (error) {
+        console.log(error);
         Swal.fire({
           width: "20em",
           icon: "warning",
