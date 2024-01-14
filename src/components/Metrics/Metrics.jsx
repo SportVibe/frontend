@@ -1,13 +1,29 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../helpers/config';
-import Chart from 'chart.js/auto';
 import { PolarArea, Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
-Chart.defaults.scale = 'linear';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Metrics = () => {
-  const [commentMetrics, setCommentMetrics] = useState({
+  
+ const [commentMetrics, setCommentMetrics] = useState({
     accepted: 0,
     rejected: 0,
     pending: 0,
@@ -16,16 +32,51 @@ const Metrics = () => {
     mostSold: null,
     highestRated: null,
   });
+  const [stars,setStars] = useState([])
+  console.log(stars);
+
+  const [totalReviews,setTotalReviews] = useState("")
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await Promise.all([fetchCommentMetrics(), fetchProductMetrics(),fetchScorestMetrics()]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   const fetchCommentMetrics = async () => {
     try {
       const { data } = await axios.get(`${API_URL}/reviews`);
-      if (Array.isArray(data)) {
-        const accepted = data.filter(comment => comment.status === 'accepted').length;
-        const rejected = data.filter(comment => comment.status === 'rejected').length;
-        const pending = data.filter(comment => comment.status === 'pending').length;
-        setCommentMetrics({ accepted, rejected, pending });
+      if (Array.isArray(data.data)) {
+        const Aceptado = data.data.filter(comment => comment.status === 'accepted').length;
+        const Rechazado = data.data.filter(comment => comment.status === 'rejected').length;
+        const Pendiente = data.data.filter(comment => comment.status === 'pending').length;
+        setCommentMetrics({Aceptado,Rechazado,Pendiente});
+        setTotalReviews(data.data.length)
+      }
+    } catch (error) {
+      console.error('Error fetching comment metrics:', error);
+      setError('Error al cargar las métricas de comentarios. Inténtelo de nuevo.');
+    }
+  };
+  
+  const fetchScorestMetrics = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/reviews`);
+      if (Array.isArray(data.data)) {
+        const fiveStars = data.data.filter(prod => prod.score === 5).length;
+        const fourStars = data.data.filter(prod => prod.score === 4).length;
+        const threeStars = data.data.filter(prod => prod.score === 3).length;
+        const twoStarts= data.data.filter(prod => prod.score === 2).length;
+        const oneStars = data.data.filter(prod => prod.score === 1).length;
+        const zeroStars = data.data.filter(prod => prod.score === 0).length;
+        setStars([fiveStars,fourStars,threeStars,twoStarts,oneStars,zeroStars])
       }
     } catch (error) {
       console.error('Error fetching comment metrics:', error);
@@ -35,13 +86,13 @@ const Metrics = () => {
 
   const fetchProductMetrics = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/product`);
-      if (Array.isArray(data) && data.length > 0) {
-        const mostSold = data.reduce((mostSoldProduct, product) => {
+      const { data } = await axios.get(`${API_URL}/admin`);
+      if (Array.isArray(data.modifiedProducts) && data.modifiedProducts.length > 0) {
+        const mostSold = data.modifiedProducts.reduce((mostSoldProduct, product) => {
           return mostSoldProduct && mostSoldProduct.sales < product.sales ? mostSoldProduct : product;
         }, null);
 
-        const highestRated = data.reduce((highestRatedProduct, product) => {
+        const highestRated = data.modifiedProducts.reduce((highestRatedProduct, product) => {
           return highestRatedProduct && highestRatedProduct.averageScore < product.averageScore ? highestRatedProduct : product;
         }, null);
 
@@ -53,70 +104,83 @@ const Metrics = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await Promise.all([fetchCommentMetrics(), fetchProductMetrics()]);
-      } finally {
-        setLoading(false);
-      }
-    };
+  
+  const options = {
+    responsive: true,
+    animation:true,
+    plugins: {
+        title: {
+        display: true,
+        text: 'Metricas SportVibe',
+      },
+    },
+    scales: {
+      y :{
+       min: 0,
+       max: (totalReviews)
+     },
+  }
+  };
+  const options1 = {
+    responsive: true,
+    animation:true,
+    plugins: {
+        title: {
+        display: true,
+        text: '',
+      },
+    },
+    scales: {
+      y :{
+       min: 0,
+       max: totalReviews
+     },
+  }
+  };
 
-    fetchData();
-  }, []);
 
-  const commentChartData = {
-    labels: ['Aceptados', 'Rechazados', 'Pendientes'],
+  const data = {
+    labels:[],
     datasets: [
       {
-        label: 'Comentarios',
-        backgroundColor: ['#28a745', '#dc3545', '#ffc107'],
-        data: [commentMetrics.accepted, commentMetrics.rejected, commentMetrics.pending],
+        label: 'Administradores de SportVibe',
+        data: commentMetrics,
+        backgroundColor: ['rgba(17, 122, 101, 0.5)','rgba(41, 128, 185, 0.5)','rgba(214, 137, 16, 0.5)']
       },
     ],
   };
 
-  const productChartData = {
-    labels: ['Producto más vendido', 'Mejor evaluado'],
+  const estrellas=["5 Estrellas","4 Estrellas","3 Estrellas","2 Estrellas","1 Estrellas","0 Estrellas",]
+  const data1 = {
+    labels:estrellas,
     datasets: [
       {
-        label: 'Ventas',
-        backgroundColor: ['#007bff', '#ffc107'],
-        data: [
-          productMetrics.mostSold ? productMetrics.mostSold.sales : 0,
-          productMetrics.highestRated ? productMetrics.highestRated.averageScore : 0,
-        ],
+        label: 'Puntuaciones reales hechas por usuarios',
+        data: stars,
+        backgroundColor: ['rgba(155, 89, 182, 0.5)','rgba(241, 196, 15, 0.5)','rgba(220, 118, 51, 0.5)','rgba(231, 76, 60, 0.5)','rgba(231, 76, 60, 0.5)']
       },
     ],
   };
-
-  return (
-    <div>
+  
+  
+ 
+   return (
+    <div className='d-flex flex-column justify-content-center align-items-center w-100 text-center bg-body-tertiary'>
       {loading ? (
         <p>Cargando métricas...</p>
       ) : (
         <>
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <h2>Métricas de Comentarios</h2>
-          <PolarArea data={commentChartData} />
-
-          <h2>Métricas de Comentarios por Estado</h2>
-          <div>
-            <p>Aceptados: {commentMetrics.accepted}</p>
-            <p>Rechazados: {commentMetrics.rejected}</p>
-            <p>Pendientes: {commentMetrics.pending}</p>
+          <h4 className='mt-5'>Estado de Comentarios</h4>
+          <div className='w-75 d-flex justify-content-center'>
+            <Bar data={data} options={options}/>
           </div>
+          
 
-          <h2>Métricas de Productos</h2>
-          {productMetrics.mostSold ? (
-            <>
-              <p>Producto más vendido: {productMetrics.mostSold.title}</p>
-              <p>Mejor evaluado: {productMetrics.highestRated.title} (Puntuación: {productMetrics.highestRated.averageScore})</p>
-              <Bar data={productChartData} />
-            </>
-          ) : (
-            <p>No hay datos de productos</p>
-          )}
+          <h4 className='mt-5'>Puntuaciones de los Productos</h4>
+          <div className='w-75 d-flex justify-content-center'>
+          <Bar data={data1} options={options1}/>
+          </div>
         </>
       )}
     </div>
