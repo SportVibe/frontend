@@ -9,6 +9,7 @@ import { API_URL } from '../../helpers/config';
 import { useDispatch } from "react-redux";
 import { UserAuth } from "../../context/AuthContext";
 import LoginModal from "../Modals/LoginModal";
+import Swal from "sweetalert2";
 
 const login = () => {
   const dispatch = useDispatch();
@@ -55,9 +56,14 @@ const login = () => {
         const { data } = await axios.post(`${API_URL}/login`, username);
         if (data) {
           if (data.user.rol === 'admin') {
-            localStorage.setItem('adminUser', JSON.stringify(data.user));
-            dispatch(getAdminUserAction(data.user));
-            navigate('/dashboard');
+            if (!data.user.active) {
+              setModal(data.user); // toda la data del usuario se pasa a la modal.
+            }
+            else {
+              localStorage.setItem('adminUser', JSON.stringify(data.user));
+              dispatch(getAdminUserAction(data.user));
+              navigate('/dashboard');
+            }
           }
           else if (!data.user.active) {
             setModal(data.user); // toda la data del usuario se pasa a la modal.
@@ -69,11 +75,11 @@ const login = () => {
           }
         }
         else {
-         Swal.fire("La contraseña o email son invalidos!");
+          Swal.fire("La contraseña o email son invalidos!");
           setUser({ ...username, password: '' });
         }
       } catch (error) {
-       Swal.fire("Contraseña o email son invalidos!");
+        Swal.fire("Contraseña o email son invalidos!");
         setUser({ ...username, password: '' });
         console.error({ error: error.message });
       }

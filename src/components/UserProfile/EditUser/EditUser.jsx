@@ -4,6 +4,7 @@ import ButtonComponent from "../../FilterBar/FilterBoxes/ButtonComponent/ButtonC
 import axios from "axios";
 import { API_URL } from "../../../helpers/config";
 import { Await } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function EditUser({
   notify,
@@ -109,7 +110,7 @@ function EditUser({
             }
           } else {
             setNewPassword({ currentP: "", newP1: "", newP2: "" });
-            
+
             Swal.fire({
               icon: "error",
               text: "Contraseña inválida!",
@@ -152,7 +153,7 @@ function EditUser({
           handleSubmit({ ...editUserData, active: false });
         } else {
           setPassword({ p1: "", p2: "" });
-          
+
           Swal.fire({
             icon: "error",
             text: "Contraseña inválida",
@@ -160,7 +161,7 @@ function EditUser({
         }
       } else {
         setPassword({ p1: "", p2: "" });
-        
+
         Swal.fire("Las contraseñas no coinciden");
       }
     } catch (error) {
