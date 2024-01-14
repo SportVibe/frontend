@@ -97,6 +97,22 @@ const Login = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleForgotPassword = async () => {
+    const { value: email } = await Swal.fire({
+      title: "Ingresa tu email",
+      input: "email",
+      inputPlaceholder: "Email que usaste para registrarte"
+    });
+    if (email) {
+      axios.post(`${API_URL}/password-recover`, {email:email})
+      .then(({data}) => {
+        console.log(data)
+        Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
+      .catch(err => console.log(err))
+      
+    }
+  }
+
   return (
     <div className="contenedorLogin">
       {modal && <LoginModal modal={modal} setModal={setModal} handleLoginP={(e) => handleLoginP(e)} />}
@@ -171,6 +187,7 @@ const Login = () => {
             <button className="botton2">CREAR UNA CUENTA</button>
           </NavLink>
         </div>
+        <a href="#" className="textForgotPassword" onClick={handleForgotPassword}>¿Olvidaste tu contraseña?</a>
       </div>
     </div>
   );
