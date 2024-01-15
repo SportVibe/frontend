@@ -20,9 +20,11 @@ const RecoveryPassword = () => {
     //Captura los parámetros de la URL
     const searchParams = new URLSearchParams(window.location.search);
     const token = searchParams.get("token");
-    setNuevaClave({ ...nuevaClave, token });
+    if (token){
+      setNuevaClave({ ...nuevaClave, token });
+    }
   }, [nuevaClave.token]);
-  console.log(nuevaClave.token.length);
+  
 
 
   const [confirmarClave, setConfirmarClave] = useState({
@@ -71,12 +73,10 @@ const RecoveryPassword = () => {
           navigate("/login")
         })
         .catch ((error) => {
-
-        console.log(error);
         Swal.fire({
           width: "20em",
           icon: "warning",
-          title: "Error en actualizacion",
+          title: `Error en actualizacion (${error.response.data.message})`,
           text: "Dispone de 1 minuto para ingresar la nueva contraseña",
           footer: "Por favor intentelo nuevamente",
         });
