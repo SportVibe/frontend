@@ -117,10 +117,8 @@ const Login = () => {
         })})
       }else{
         Swal.fire({
-          title: "Ingresaste un usuario externo a nuestra app",
-          text: "Si tienes una cuenta con Google abajo te proporcionamos los pasos a seguir, vuelve pronto!",
+          title: "No existe ese correo en nuestra base de datos",
           icon: "question",
-          footer: '<a href="https://support.google.com/accounts/answer/7682439?hl=es-419?"><strong>Recuperar contraseña de Google</strong></a>'
         });
       }
       
