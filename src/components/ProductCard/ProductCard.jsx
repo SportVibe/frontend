@@ -9,10 +9,11 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { API_URL } from "../../helpers/config";
 
-function ProductCard({ productData }) {
+function ProductCard({ productData, setFavReload, favReload }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { pathname } = useLocation();
+    const [reloadPage, setReloadPage] = useState(false);
     const [favorite, setFavorite] = useState(false);
     const [imgHover, setImgHover] = useState(false);
     const currentUserData = useSelector((state => state.currentUserData));
@@ -86,18 +87,52 @@ function ProductCard({ productData }) {
             if (_id !== 'like') {
                 navigate(`/detail/${id}`);
             }
-            if (!currentUserData) {
+            else if (!currentUserData) {
                 navigate('login');
             }
-            else {
+            else if (_id === 'like') {
+                handleFavorite();
+            }
+        } catch (error) {
+            console.error({ error: error.message });
+        }
+    }
+
+    async function handleFavorite() {
+        try {
+            if (favorite) { // delete favorite
+                const { data } = await axios.delete(`${API_URL}/deleteFavorite?userId=${currentUserData.id}&productId=${id}`);
+                // console.log(data);
+                setFavorite(false);
+                // setReloadPage(!reloadPage);
+                if (data && setFavReload && typeof favReload === 'boolean' && typeof setFavReload === 'function') {
+                    setFavReload(!favReload);
+                }
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-start",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "info",
+                    title: "Producto eliminado de tu colección!"
+                });
+            }
+            else { // add favorite
                 const { data } = await axios.post(`${API_URL}/postFavorite?userId=${currentUserData.id}&productId=${id}`);
                 // console.log(data);
                 setFavorite(true);
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: "top-end",
+                    position: "top-start",
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 2000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
@@ -113,12 +148,25 @@ function ProductCard({ productData }) {
             console.error({ error: error.message });
         }
     }
-    // console.log(currentUserData?.favorites);
-    useEffect(() => {
-        if (currentUserData && currentUserData?.favorites?.includes(id)) {
-            setFavorite(true);
+
+    async function getFavorite() {
+        try {
+            const { data } = await axios.get(`${API_URL}/getOneFavByUser?userId=${currentUserData.id}&productId=${id}`);
+            if (data) {
+                setFavorite(true);
+            }
+            else {
+                setFavorite(false);
+            }
+        } catch (error) {
+            setFavorite(false);
+            // console.error({ error: error.message });
         }
-    }, [currentUserData]);
+    }
+
+    useEffect(() => {
+        getFavorite();
+    }, [reloadPage]);
 
     return (
         <div className={styles.mainView}>
@@ -137,6 +185,11 @@ function ProductCard({ productData }) {
                             <div id="like" className={favorite ? styles.markOn : ''}>
                                 <i id="like" className='bx bx-bookmark' ></i>
                             </div>
+                            {favorite &&
+                                <div className={styles.favSaved}>
+                                    <p>Guardado</p>
+                                </div>
+                            }
                             {/* <div id="like" className={favorite ? styles.markOn : ''}>
                                 <i id="like" className="fa-regular fa-thumbs-up"></i>
                             </div> */}

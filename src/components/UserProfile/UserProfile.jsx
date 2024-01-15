@@ -99,6 +99,7 @@ function UserProfile() {
     }
 
     async function handleUserData() {
+        setLoading(true);
         try { // recuperamos toda la data necesaria del usuario en la base de datos, para renderizarla en su perfil.
             const userDataLocalStorage = await getLocalStorageData('currentUser'); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
             const userData = JSON.parse(userDataLocalStorage);
@@ -107,7 +108,7 @@ function UserProfile() {
                 // console.log(data);
                 if (data.active) { // solo si la cuenta del usuario está activa.
                     const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
-                    console.log(userPurchasesData.data);
+                    // console.log(userPurchasesData.data);
                     const findNullValue = Object.values(data).reduce((acc, value) => {
                         if (value === null) {
                             return acc + 1;
@@ -214,7 +215,7 @@ function UserProfile() {
                             </div>}
                         {mainComponent === 'favorites' &&
                             <div className={styles.componentContainer}>
-                                <Favorites userDataRender={editUserData} />
+                                <Favorites userDataRender={editUserData} setReloadPage={setReloadPage} reloadPage={reloadPage} />
                             </div>}
                     </div>
                 </div>

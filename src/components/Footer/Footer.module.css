@@ -4,7 +4,8 @@
   overflow: hidden;
   color: black;
   /* background-color: var(--bg-color2); */
-  background-color: rgba(136, 136, 136, 0.164);
+  /* background-color: rgba(136, 136, 136, 0.164); */
+  background-color: var(--bg-color-gray);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,10 +53,19 @@
   }
 }
 
+.hr {
+  margin: 0;
+}
+
 #lastBox {
   padding: 20px;
-  background-color: var(--bg-color2);
-  color: white;
+  /* background-color: var(--bg-color2); */
+  background-color: var(--bg-color-gray);
+  color: var(--font-color-hard);
+
+  & p {
+    opacity: .6;
+  }
 }
 
 .derechosReservados {

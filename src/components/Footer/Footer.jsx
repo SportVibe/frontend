@@ -114,7 +114,7 @@ const Footer = () => (
         <img src={logoSportVibe} alt="" />
       </div>
     </div>
-
+    <hr className={styles.hr} />
     <div id={styles.lastBox} className="footer-copyright text-center py-3">
       © 2023 Copyright:
       <p className={styles.derechosReservados}>
