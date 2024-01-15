@@ -104,15 +104,25 @@ const Login = () => {
       inputPlaceholder: "Email que usaste para registrarte"
     });
     if (email) {
-      axios.post(`${API_URL}/password-recover`, {email:email})
-      .then(({data}) => {
-        console.log(data)
-        Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
-      .catch(err => {Swal.fire({
-        title: err.response.data.message,
-        text: "Por favor ingrese el email que uso para registrarse",
-        icon: "question"
-      })})
+      let dominio = email.split("@")[1];
+      if (dominio === "sportvibe.com"){
+        axios.post(`${API_URL}/password-recover`, {email:email})
+        .then(({data}) => {
+          console.log(data)
+          Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
+        .catch(err => {Swal.fire({
+          title: err.response.data.message,
+          text: "Por favor ingrese el email que uso para registrarse",
+          icon: "question"
+        })})
+      }else{
+        Swal.fire({
+          title: "Ingresaste un usuario externo a nuestra app",
+          text: "Si tienes una cuenta con Google abajo te proporcionamos los pasos a seguir, vuelve pronto!",
+          icon: "question",
+          footer: '<a href="https://support.google.com/accounts/answer/7682439?hl=es-419?"><strong>Recuperar contraseña de Google</strong></a>'
+        });
+      }
       
     }
   }
