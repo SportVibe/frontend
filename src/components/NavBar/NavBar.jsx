@@ -181,31 +181,56 @@ function NavBar() {
       </div>
 
       <div className={styles.responsiveContainer}>
-        {(location.pathname === '/' || location.pathname === '/search') && (
-          <div id={styles.searchbarResponsiveContainer}>
-            <SearchBar />
-          </div>
-        )}
-
-        <div className={styles.linksResponsive} id='/' onClick={handleNavigate}>
+        <div id='/' onClick={handleNavigate}>
           <p id='/' onClick={handleNavigate}>{t('translation.home')}</p>
         </div>
 
-        <div className={styles.linksResponsive} id='/about' onClick={handleNavigate}>
+        <div className={styles.linksContainer}>
+          <select onChange={(e) => changeLanguage(e.target.value)}>
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+
+        <div id='/about' onClick={handleNavigate}>
           <p id='/about' onClick={handleNavigate}>{t('translation.about')}</p>
         </div>
 
-        <div className={styles.linksResponsive} id='/shoppingcart' onClick={handleNavigate}>
-          <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
+        <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
+          {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
+          {<p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>}
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
-
+          <div id='/shoppingcart' onClick={handleNavigate} className={styles.cartNumber}>
+            <p id='/shoppingcart' onClick={handleNavigate} className={styles.quantity}>{totalCartQuantity}</p>
+          </div>
         </div>
-
-        <div className={styles.linksResponsive} id='/login' onClick={handleNavigate}>
-          <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
-          <p id='/login' onClick={handleNavigate}>👤</p>
-
-        </div>
+        {(userDataRender || currentAdminData) ? (
+          <div className={styles.userLogContainer}>
+            {currentAdminData ?
+              <div id='/dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
+                {currentAdminData?.image ? (
+                  <img id='/dashboard' src={userDataRender?.image} alt="" onClick={handleNavigate} />
+                ) : (
+                  <p id='/dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
+                )}
+              </div> :
+              <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
+                {notify && <div className={styles.circleNotify}></div>}
+                {userDataRender?.image ? (
+                  <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
+                ) : (
+                  <p id='/profile' onClick={handleNavigate}>{firstName}{lastName}</p>
+                )}
+              </div>
+            }
+          </div>
+        ) : (
+          <div id='/login' onClick={handleNavigate}>
+            <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
+            <p id='/login' onClick={handleNavigate}>👤</p>
+          </div>
+        )}
       </div>
     </div>
   );
