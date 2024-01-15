@@ -53,7 +53,7 @@ const PaymentForm = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3005/create-order", {
+      const response = await axios.post(`${API_URL}/create-order`, {
         userId: userItems.user.id,
         ShoppingCartId: userItems.user.cartId,
         total: sumaTotal,
