@@ -303,23 +303,25 @@
 
 .cartContainer {
   /* background-color: white; */
-  background-color: rgb(229, 241, 255);
+  /* background-color: rgb(229, 241, 255); */
   display: flex;
   align-items: center;
   min-width: 120px;
   padding: 2px 0;
   color: var(--button-color);
 
-  &:hover {
-    scale: .95;
-  }
-
   & p {
+    color: var(--button-color);
     font-weight: 500;
+    }
+
+  &:hover {
+    background-color: rgb(229, 241, 255);
   }
 
   & .cartNumber {
     background-color: transparent;
+    border: 1px solid var(--button-color);
     color: var(--button-color);
     animation: move 1s ease-out both;
 
