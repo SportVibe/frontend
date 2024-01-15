@@ -16,7 +16,7 @@ import {
   UserForm,
   PaymentForm,
   Loading,
-  PaymentStatus, 
+  PaymentStatus,
   Metrics
 } from "./helpers/indexComponents";
 import styles from './App.module.css';
@@ -109,7 +109,7 @@ function App() {
               }
               {location.pathname === '/' &&
                 <div className={styles.carouselContainer}>
-                  <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
+                  <CarouselComponent text={['Descuentos de hasta 40%', 'No te pierdas estas ofertas!']} />
                 </div>
               }
               {(location.pathname === '/' || location.pathname === '/search') &&
@@ -164,7 +164,7 @@ function App() {
                 <Route path="/password-recover" element={<RecoveryPassword />} />
 
               </Routes>
-              {(location.pathname !== '/login' && location.pathname !== '/dashboard' ) &&
+              {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
               }
             </div>
