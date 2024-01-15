@@ -12,6 +12,9 @@ import upperLowerCase from '../../utils/upperLowerCase';
 import { getCurrentUserAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import Swal from 'sweetalert2';
+import Favorites from './Favorites/Favorites';
+// import userPurchases from '../../utils/userPurchases';
 
 
 function UserProfile() {
@@ -19,7 +22,11 @@ function UserProfile() {
     const navigate = useNavigate();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validar el formato estandar de un email.
     const [isValidEmail, setIsValidEmail] = useState(true);
+    const [notify, setNotify] = useState({});
+    const [dataProgress, setDataProgress] = useState('0');
+    const [userPurchases, setUserPurchases] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [reloadPage, setReloadPage] = useState(false);
     const { user, logOut } = UserAuth() ?? {}; // condicional de distructuring para que no se rompa la app si hay un valor null o undefined.
     const [mainComponent, setMainComponent] = useState('purchasesTable');
     const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
@@ -45,17 +52,23 @@ function UserProfile() {
         console.log(deleteData);
         try {
             let editData = deleteData ? deleteData : editUserData; // si la data llega por parámetro, es porque estámos eliminando la cuenta.
-            if (editData && !editData.firstName.trim().length) alert('FirstName no puede estar vacío');
+            if (editData && !editData.firstName.trim().length)
+                Swal.fire("El primer nombre no puede estar vacío!");
+
             else {
                 if (emailRegex.test(editData.email)) {
                     const { data } = await axios.put(`${API_URL}/user/${id}`, editData);
                     setIsValidEmail(true);
-                    console.log(data);
+                    // console.log(data);
                     if (deleteData) {
-                        alert('Su cuenta ha sido eliminada');
+                        setReloadPage(!reloadPage);
+                        Swal.fire("Su cuenta ha sido eliminada!");
                         handleSignOut(); // si eliminamos la cuenta, debemos cerrar sesión.
-                    } 
-                    else alert('Usuario actualizado con éxito');
+                    }
+                    else {
+                        setReloadPage(!reloadPage);
+                        Swal.fire("Usuario actualizado con éxito!");
+                    }
                 }
                 else {
                     setIsValidEmail(false);
@@ -91,7 +104,23 @@ function UserProfile() {
             const userData = JSON.parse(userDataLocalStorage);
             if (userData) { // hacemos la petición con el email ya que es lo primero que tenemos de Firebase, ellos no nos entregan un id.
                 const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+                // console.log(data);
                 if (data.active) { // solo si la cuenta del usuario está activa.
+                    const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
+                    console.log(userPurchasesData.data);
+                    const findNullValue = Object.values(data).reduce((acc, value) => {
+                        if (value === null) {
+                            return acc + 1;
+                        }
+                        return acc;
+                    }, 0);
+                    const nullFormat = 7 - findNullValue;
+                    const percent = Math.ceil((nullFormat * 100) / 7);
+                    setDataProgress(`${percent.toString()}`);
+                    // console.log(findNullValue);
+                    if (findNullValue > 0) setNotify({ ...notify, userDataMissing: 'Complete la información de su perfil' })
+                    else if (!findNullValue) setNotify({ ...notify, userDataMissing: null })
+                    setUserPurchases(userPurchasesData.data);
                     dispatch(getCurrentUserAction(data));
                     setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
                     setLoading(false);
@@ -108,8 +137,7 @@ function UserProfile() {
     useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
         window.scrollTo(0, 0);
         handleUserData();
-    }, [user]);
-
+    }, [user, reloadPage]);
     return (
         <div className={styles.mainView}>
             {loading ?
@@ -133,9 +161,15 @@ function UserProfile() {
                                 <div className={mainComponent === 'editUser' ? styles.selectedProfile : styles.editProfile} id='editUser' onClick={handlerComponent}>
                                     <i className="fa-regular fa-pen-to-square" id='editUser' onClick={handlerComponent}></i>
                                     <p id='editUser' onClick={handlerComponent}>Editar</p>
+                                    {notify.userDataMissing && <div className={styles.circleNotify}></div>}
                                 </div>
                                 <div onClick={handleSignOut} className={styles.editProfile}>
                                     <p onClick={handleSignOut}>Cerrar sesión</p>
+                                </div>
+                            </div>
+                            <div className={styles.progressContainer}>
+                                <div className={styles[`class${dataProgress}`]}>
+                                    <p>{dataProgress}%</p>
                                 </div>
                             </div>
                         </div>
@@ -144,28 +178,43 @@ function UserProfile() {
                                 <i className="fa-solid fa-cart-shopping" id='purchasesTable' onClick={handlerComponent}></i>
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
-                            <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
-                                <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
-                                <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
-                            </div>
                             <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
                                 <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
-                                <p id='favorites' onClick={handlerComponent}>Mis favoritos</p>
+                                <p id='favorites' onClick={handlerComponent}>Mi colección</p>
                             </div>
-                            <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
+                            {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
+                                <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
+                                <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
+                            </div> */}
+                            {/* <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
                                 <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
                                 <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className={styles.mainComponentsContainer}>
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
-                                <Table records={null} userId={userDataRender.id}/>
+                                <p className={styles.titleMain}>Historial de compra:</p>
+                                {(userPurchases && userPurchases.length) ? userPurchases?.map((purchase, i) => {
+                                    if (purchase.purchases.length) {
+                                        return <Table key={i} records={purchase} userId={userDataRender.id} />
+                                    }
+                                    return null;
+                                })
+                                    :
+                                    <div>
+                                        <p>No registra órdenes</p>
+                                    </div>
+                                }
                             </div>}
                         {mainComponent === 'editUser' &&
                             <div className={styles.componentContainer}>
-                                <EditUser editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
+                                <EditUser notify={notify} editUserData={editUserData} setEditUserData={setEditUserData} isValidEmail={isValidEmail} handleSubmit={(e) => handleSubmit(e)} />
+                            </div>}
+                        {mainComponent === 'favorites' &&
+                            <div className={styles.componentContainer}>
+                                <Favorites userDataRender={editUserData} />
                             </div>}
                     </div>
                 </div>

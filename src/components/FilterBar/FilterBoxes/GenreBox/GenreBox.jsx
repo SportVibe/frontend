@@ -1,36 +1,25 @@
 import styles from './GenreBox.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { genreFilterAction, getProducts } from '../../../../redux/actions';
+import capitalize from '../../../../utils/capitalize';
+import { useSelector } from 'react-redux';
 
-function GenreBox() {
-    const dispatch = useDispatch();
-    const genre = useSelector((state => state.genre));
-    const search_Activity = useSelector((state => state.search));
-    const totalFilters = useSelector((state => state.totalFilters));
-    const priceFilter = useSelector((state => state.priceFilter));
-    const sort = useSelector((state => state.sort));
-    const discount = useSelector((state => state.discount));
-
-    function genreHandler(event) {
-        const name = event.target.name;
-        const newFiltersArray = [...totalFilters, priceFilter[0], priceFilter[1], sort[0], sort[1], discount[0], { search: search_Activity }, { gender: name }]
-        dispatch(genreFilterAction([{ gender: name }]));
-        dispatch(getProducts(newFiltersArray));
-    }
-
+function GenreBox({ genderStatistics, genreHandler, genre, sport, brand }) {
+    const products = useSelector((state) => state.products);
+    // console.log(products.filterStatics.genderStatistics);
+    // con la variable "surviveFilters", recupero los filtros del filtrado madre, que se mantienen luego del filtrado secundario. Los que no, les bajamos la opacidad en el renderizado.
+    const surviveFilters = (products && products?.filterStatics?.genderStatistics?.length) ? products?.filterStatics?.genderStatistics?.map(item => {
+        return Object.values(item)[0];
+    }) : [];
     return (
         <div className={styles.mainView}>
-            <p>Genre</p>
+            <p className={styles.title}>Géneros</p>
             <div className={styles.genreBox}>
-                <div className={genre[0].gender === 'HOMBRE' ? styles.selectedGenre : styles.button}>
-                    <button name='HOMBRE' onClick={genreHandler}>Hombre</button>
-                </div>
-                <div className={genre[0].gender === 'MUJER' ? styles.selectedGenre : styles.button}>
-                    <button name='MUJER' onClick={genreHandler}>Mujer</button>
-                </div>
-                <div className={genre[0].gender === '' ? styles.selectedGenre : styles.button}>
-                    <button name='' onClick={genreHandler}>Todo</button>
-                </div>
+                {/* <p id='' onClick={genreHandler} className={genre[0].gender === '' ? styles.selected : ''}>Todo</p>
+                <p id='HOMBRE' onClick={genreHandler} className={genre[0].gender === 'HOMBRE' ? styles.selected : ''}>Hombre</p>
+                <p id='MUJER' onClick={genreHandler} className={genre[0].gender === 'MUJER' ? styles.selected : ''}>Mujer</p> */}
+                <p id='' onClick={genreHandler} className={genre[0].gender === '' ? styles.selected : ''}>Todo</p>
+                {genderStatistics && genderStatistics.length && genderStatistics.map((item, i) => {
+                    return <p key={i} id={item.gender} onClick={genreHandler} className={genre[0].gender === item.gender ? styles.selected : ''}>{capitalize(item.gender)} <span>{`(${item.productCount})`}</span></p>
+                })}
             </div>
         </div>
     );

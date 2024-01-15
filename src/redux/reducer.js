@@ -15,20 +15,29 @@ import {
   GET_CURRENT_USER,
   DISCOUNT_PRODUCTS,
   QUANTITY__TOTAL_CART,
-  GET_CURRENT_ADMIN
+  GET_CURRENT_ADMIN,
+  CATEGORY_FILTER,
+  BRAND_FILTER,
+  SPORT_FILTER,
+  FILTER_COUNT,
+  GET_MASTER_FILTER_PRODUCTS,
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
   currentUserData: null,
   currentAdminData: null,
+  filterCounter: [],
   sort: [{ sort: 'id' }, { typeSort: 'desc' }],
   discount: [{ discount: 0 }],
   priceFilter: ['', ''],
   genre: [{ gender: '' }],
+  brand: [{ brand: '' }],
+  sport: [{ sport: '' }],
+  category: [{ category: '' }],
   totalFilters: [],
   search: '',
-  productsBackup: [],
+  masterFilter: [],
   products: [],
   userData: '',
   carousel2Render: [],
@@ -50,20 +59,58 @@ const productReducer = (state = initialState, action) => {
         ...state,
         currentAdminData: action.payload
       };
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        error: null,
+      };
+    case GET_MASTER_FILTER_PRODUCTS:
+      return {
+        ...state,
+        products: action.payload,
+        masterFilter: action.payload,
+        error: null,
+      };
+    case FILTER_COUNT:
+      return {
+        ...state,
+        filterCounter: action.payload
+      };
     case PRICE_FILTER:
       return {
         ...state,
         priceFilter: action.payload,
+        filterCounter: { ...state.filterCounter, price: action.payload },
       };
     case DISCOUNT_PRODUCTS:
       return {
         ...state,
         discount: action.payload,
+        filterCounter: { ...state.filterCounter, discount: action.payload },
       };
     case GENRES_FILTER:
       return {
         ...state,
         genre: action.payload,
+        filterCounter: { ...state.filterCounter, genres: action.payload },
+      };
+    case SPORT_FILTER:
+      return {
+        ...state,
+        sport: action.payload,
+        filterCounter: { ...state.filterCounter, sport: action.payload },
+      };
+    case BRAND_FILTER:
+      return {
+        ...state,
+        brand: action.payload,
+        filterCounter: { ...state.filterCounter, brand: action.payload },
+      };
+    case CATEGORY_FILTER:
+      return {
+        ...state,
+        category: action.payload,
       };
     case SORT:
       return {
@@ -79,13 +126,6 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         responsiveNavBar: action.payload,
-      };
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: action.payload,
-        productsBackup: action.payload,
-        error: null,
       };
     case GET_PRODUCTS_SUCCESS:
       return {

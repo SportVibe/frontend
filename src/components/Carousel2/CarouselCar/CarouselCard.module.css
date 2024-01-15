@@ -41,7 +41,7 @@
         overflow: hidden;
         height: 15px;
         color: gray;
-        font-size: 11px;
+        font-size: 13px;
         text-align: center;
         padding: 0;
         margin: 0;
@@ -54,11 +54,13 @@
         /* height: 15px; */
         color: var(--font-color-hard);
         font-size: 13px;
+        font-weight: 300;
         text-align: center;
 
         & span {
-            font-size: 18px;
-            color: var(--button-color);
+            font-size: 15px;
+            /* color: var(--button-color); */
+            color: var(--newPrice-color);
 
         }
     }
@@ -77,12 +79,13 @@
     & .newPriceAfter {
         padding: 0;
         margin: 0;
-        font-weight: 500;
-        font-size: 20px;
+        font-weight: 300;
+        font-size: 18px;
 
         & span {
             /* color: rgb(37, 115, 37); */
-            color: var(--newPrice-color);
+            /* color: var(--newPrice-color); */
+            color: var(--font-color-hard);
         }
     }
 }

@@ -15,6 +15,10 @@ import {
   genreFilterAction,
   sortAction,
   priceFilterAction,
+  categoryAction,
+  sportAction,
+  brandAction,
+  filterCounterAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -23,14 +27,16 @@ function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState('0.00');
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
+  const filterCounter = useSelector((state) => state.filterCounter);
   // const storageData = window.localStorage.getItem('currentUser');
   // const userData = storageData ? JSON.parse(storageData) : null;
   const userDataRender = useSelector((state) => state.currentUserData); // data del usuario a renderizar
   let currentAdminData = useSelector((state) => state.currentAdminData); // data del admin a renderizar
   let adminLocalStorage = JSON.parse(localStorage.getItem('adminUser'));
-  currentAdminData = currentAdminData ? currentAdminData : adminLocalStorage;
+  currentAdminData = adminLocalStorage ? adminLocalStorage : null;
   // convertimos los nombres en iniciales para mostrar en la foto de perfil si esque no tiene imagen.
   const firstNameFull = userDataRender ? userDataRender.firstName : '';
   let firstName = userDataRender ? userDataRender.firstName?.charAt(0).toUpperCase() : '';
@@ -45,18 +51,26 @@ function NavBar() {
     }
   }
   const { t, i18n } = useTranslation();
+  // buscamos si hay que notificar sobre datos incompletos al usuario.
+  const notify = userDataRender ? Object.values(userDataRender).some(value => {
+    return value === null;
+  }) : null;
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (userDataRender) {
+    if (userDataRender && (id === 'profile' || id === 'dashboard')) {
       navigate(`${id}`);
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
       dispatch(getProducts());
       dispatch(genreFilterAction([{ gender: '' }]));
+      dispatch(sportAction([{ sport: '' }]));
+      dispatch(brandAction([{ brand: '' }]));
+      dispatch(categoryAction([{ category: '' }]));
       dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
       dispatch(priceFilterAction(['', '']));
+      dispatch(filterCounterAction({}));
       navigate(`${id}`);
     }
   }
@@ -69,9 +83,29 @@ function NavBar() {
     i18n.changeLanguage(language);
   };
 
+  const initialStorageCart = async () => {
+    try {
+      const cartDataStorage = await getLocalStorageData("currentCart");
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      if (parseCartDataStorage) {
+        const subTotalPrice = parseCartDataStorage?.cart.reduce((acc, product) => {
+          return acc + (product.price * product.quantity);
+        }, 0);
+        // console.log(subTotalPrice.toFixed(2).replace(',', ','));
+        setCartItems(subTotalPrice.toFixed(2).replace(',', ','));
+      }
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  };
+
   useEffect(() => {
     dispatch(responsiveNavBar(false));
   }, []);
+
+  useEffect(() => {
+    initialStorageCart();
+  }, [totalCartQuantity]);
 
   return (
     <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
@@ -105,14 +139,15 @@ function NavBar() {
             </div>
 
             <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
-              <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p>
+              {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
+              {<p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>}
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
               <div id='/shoppingcart' onClick={handleNavigate} className={styles.cartNumber}>
-                <p id='/shoppingcart' onClick={handleNavigate}>{totalCartQuantity}</p>
+                <p id='/shoppingcart' onClick={handleNavigate} className={styles.quantity}>{totalCartQuantity}</p>
               </div>
             </div>
             {(userDataRender || currentAdminData) ? (
-              <div id='/dashboard' className={styles.userLogContainer} onClick={handleNavigate}>
+              <div className={styles.userLogContainer}>
                 {currentAdminData ?
                   <div id='/dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
                     {currentAdminData?.image ? (
@@ -121,7 +156,8 @@ function NavBar() {
                       <p id='/dashboard' onClick={handleNavigate}>{currentAdminData?.firstName[0]}</p>
                     )}
                   </div> :
-                  <div id='/profile' onClick={handleNavigate}>
+                  <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
+                    {notify && <div className={styles.circleNotify}></div>}
                     {userDataRender?.image ? (
                       <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                     ) : (

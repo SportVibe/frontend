@@ -1,11 +1,30 @@
 import styles from "./ProductCard.module.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import capitalize from '../../utils/capitalize.js';
+import { useDispatch, useSelector } from "react-redux";
+import { brandAction, categoryAction, discountProducts, filterCounterAction, genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction, sportAction } from "../../redux/actions";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { API_URL } from "../../helpers/config";
 
 function ProductCard({ productData }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { pathname } = useLocation();
+    const [favorite, setFavorite] = useState(false);
     const [imgHover, setImgHover] = useState(false);
+    const currentUserData = useSelector((state => state.currentUserData));
+    const genre = useSelector((state => state.genre));
+    const sport = useSelector((state => state.sport));
+    const _category = useSelector((state => state.category));
+    const search_Activity = useSelector((state => state.search));
+    const totalFilters = useSelector((state => state.totalFilters));
+    const priceFilter = useSelector((state => state.priceFilter));
+    const sort = useSelector((state => state.sort));
+    const _discount = useSelector((state => state.discount));
+
     const id = productData?.id ? productData.id : "";
     const Colors = productData?.Colors.length ? productData.Colors : [""];
     const Images = productData?.Images.length ? productData.Images : [""];
@@ -17,19 +36,41 @@ function ProductCard({ productData }) {
     const gender = productData?.gender ? productData.gender : "";
     const brand = productData?.brand ? productData.brand : "";
     const subCategory = productData?.subCategory ? productData.subCategory : "";
-    const title = productData?.title ? productData.title : "";
+    const title = productData?.title ? capitalize(productData.title) : "";
     let currentPrice = productData?.price ? Number(productData.price) : '';
     let oldPrice = (discount && Number(discount) > 0) ? currentPrice * 100 / (100 - discount) : '';
     currentPrice = (currentPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     oldPrice = (oldPrice / 1).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    const array = productData?.Reviews ? productData.Reviews : [];
-    let avgScore = array?.reduce((acc, review) => {
-        return acc + parseInt(review.score);
-    }, 0);
-    avgScore = avgScore / array.length;
+    const countReviews = productData?.countReviews ? productData?.countReviews : 0;
+    let avgScore = productData?.averageScore ? productData?.averageScore : 0;
     avgScore = parseFloat(avgScore.toFixed(1));
-    // console.log(avgScore, `id: ${id}`);
+
+
+    function categoryHandler(event) {
+        const id = event.target.id; // pasamos la categoría como si fuera una búsqueda del search bar, para que pise lo que se busca con él.
+        const propertiesArray = [{ search: id }];
+        dispatch(genreFilterAction([{ gender: '' }]));
+        dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+        dispatch(priceFilterAction(['', '']));
+        dispatch(discountProducts([{ discount: 0 }]));
+        dispatch(searchActivity(id));
+        dispatch(categoryAction(id));
+        dispatch(sportAction([{ sport: '' }]));
+        dispatch(brandAction([{ brand: '' }]));
+        dispatch(filterCounterAction({}));
+
+        dispatch(getProducts(propertiesArray));
+        if (pathname !== '/search') navigate('/search');
+    }
+
+    function brandHandler(event) {
+        const id = event.target.id;
+        const newFiltersArray = [...totalFilters, _category[0], { brand: id }, sport[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], _discount[0], { search: search_Activity }]
+        dispatch(brandAction([{ brand: id }]));
+        dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
+    }
 
     function handleMouseEnter() {
         setImgHover(true);
@@ -39,13 +80,50 @@ function ProductCard({ productData }) {
         setImgHover(false);
     }
 
-    function handleNavigate() {
-        navigate(`/detail/${id}`);
+    async function handleNavigate(e) {
+        try {
+            const _id = e.target.id;
+            if (_id !== 'like') {
+                navigate(`/detail/${id}`);
+            }
+            if (!currentUserData) {
+                navigate('login');
+            }
+            else {
+                const { data } = await axios.post(`${API_URL}/postFavorite?userId=${currentUserData.id}&productId=${id}`);
+                // console.log(data);
+                setFavorite(true);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "success",
+                    title: "Producto agregado a tu colección!"
+                });
+            }
+        } catch (error) {
+            console.error({ error: error.message });
+        }
     }
+    // console.log(currentUserData?.favorites);
+    useEffect(() => {
+        if (currentUserData && currentUserData?.favorites?.includes(id)) {
+            setFavorite(true);
+        }
+    }, [currentUserData]);
 
     return (
         <div className={styles.mainView}>
             <div className={styles.subMainView}>
+                <p className={`${styles.newProduct} ${(id && parseInt(id) >= 30) ? '' : styles.hiddenText}`}>Nuevo</p>
                 <div
                     onClick={handleNavigate}
                     className={styles.imgContainer}
@@ -56,17 +134,20 @@ function ProductCard({ productData }) {
                     <img src={Images[0]} alt="imagen" />
                     {imgHover && (
                         <div className={styles.layout}>
-                            <div>
-                                <i className="fa-regular fa-heart"></i>
+                            <div id="like" className={favorite ? styles.markOn : ''}>
+                                <i id="like" className='bx bx-bookmark' ></i>
                             </div>
+                            {/* <div id="like" className={favorite ? styles.markOn : ''}>
+                                <i id="like" className="fa-regular fa-thumbs-up"></i>
+                            </div> */}
                         </div>
                     )}
                 </div>
                 <div className={styles.downSideContainer}>
                     <div className={styles.categoryNameContainer}>
-                        <p className={styles.category}>{category}</p>
+                        <p id={category} className={styles.category} onClick={categoryHandler}>{category}</p>
                         <div className={styles.starContainer}>
-                            <p className={styles.category}>{avgScore}</p>
+                            <p>{avgScore}</p>
                             {(avgScore > 0 && avgScore < 1) && <i className="fa-solid fa-star-half-stroke"></i>}
                             {avgScore >= 1 && <i className="fa-solid fa-star"></i>}
                             {(avgScore > 1 && avgScore < 2) && <i className="fa-solid fa-star-half-stroke"></i>}
@@ -83,11 +164,14 @@ function ProductCard({ productData }) {
                             {(avgScore <= 2) && <i className="fa-regular fa-star"></i>}
                             {(avgScore <= 1) && <i className="fa-regular fa-star"></i>}
                             {(avgScore === 0) && <i className="fa-regular fa-star"></i>}
-                            <p className={styles.category}>{`(${array.length})`}</p>
+                            <p>{`(${countReviews})`}</p>
                         </div>
                     </div>
-                    <div className={styles.titleContainer}>
-                        <p>{title}</p>
+                    <div className={styles.titleContainer} onClick={handleNavigate}>
+                        <p onClick={handleNavigate}>{title}</p>
+                    </div>
+                    <div id={brand} onClick={brandHandler} className={styles.brandContainer}>
+                        <p id={brand} onClick={brandHandler}>{capitalize(brand)}</p>
                     </div>
                     <div className={styles.priceContainer}>
                         {!discount ?

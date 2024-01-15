@@ -7,6 +7,7 @@ export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_MASTER_FILTER_PRODUCTS = "GET_MASTER_FILTER_PRODUCTS";
 export const GET_PRODUCT_PAGE_SUCCESS = "GET_PRODUCT_PAGE_SUCCESS";
 export const GET_PRODUCT_PAGE_FAILURE = "GET_PRODUCT_PAGE_FAILURE";
 export const GET_PRODUCT_PAGE = "GET_PRODUCT_PAGE";
@@ -28,14 +29,20 @@ export const CLEAR_SHOPPING_CART = "CLEAR_SHOPPING_CART";
 export const CAPTURE_ORDER = "CAPTURE_ORDER";
 export const UPDATE_CART_ITEM_QUANTITY = "UPDATE_CART_ITEM_QUANTITY";
 export const QUANTITY__TOTAL_CART = "QUANTITY__TOTAL_CART";
+export const CATEGORY_FILTER = "CATEGORY_FILTER";
+export const SPORT_FILTER = "SPORT_FILTER";
+export const BRAND_FILTER = "BRAND_FILTER";
+export const FILTER_COUNT = "FILTER_COUNT";
 
 
-export const getProducts = (filters) => async (dispatch) => {
+export const getProducts = (filters, masterFilter) => async (dispatch) => {
   try {
+    console.log(filters);
     // primero unificamos todas las quieries que se entreguen, si esque las hay
     const queryString = buildQueryString(filters);
     const { data } = await axios.get(`${API_URL}/product?${queryString}`);
-    return dispatch({ type: GET_PRODUCTS, payload: data });
+    if (masterFilter) return dispatch({ type: GET_MASTER_FILTER_PRODUCTS, payload: data });
+    else return dispatch({ type: GET_PRODUCTS, payload: data });
   } catch (error) {
     console.error(error.message);
     return dispatch({ type: GET_PRODUCTS_FAILURE, payload: error.message });
@@ -108,6 +115,14 @@ export const totalFiltersAction = (value) => async (dispatch) => {
   }
 };
 
+export const filterCounterAction = (value) => async (dispatch) => {
+  try {
+    return dispatch({ type: FILTER_COUNT, payload: value });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 export const sortAction = (sort) => async (dispatch) => {
   try {
     return dispatch({ type: SORT, payload: sort });
@@ -127,6 +142,30 @@ export const priceFilterAction = (price) => async (dispatch) => {
 export const genreFilterAction = (genre) => async (dispatch) => {
   try {
     return dispatch({ type: GENRES_FILTER, payload: genre });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const categoryAction = (category) => async (dispatch) => {
+  try {
+    return dispatch({ type: CATEGORY_FILTER, payload: category });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const sportAction = (sport) => async (dispatch) => {
+  try {
+    return dispatch({ type: SPORT_FILTER, payload: sport });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const brandAction = (brand) => async (dispatch) => {
+  try {
+    return dispatch({ type: BRAND_FILTER, payload: brand });
   } catch (error) {
     console.error(error.message);
   }
@@ -162,14 +201,7 @@ export const deleteProductFromCart = (productId) => async (dispatch) => {
     console.error(error.message);
   }
 };
-export const deleteMultipleProductsFromCart = (userId) => async (dispatch) => {
-  try {
-    await axios.delete(`${API_URL}/cart/${userId}/delete-multiple`);
-    dispatch({ type: DELETE_MULTIPLE_PRODUCTS_FROM_CART });
-  } catch (error) {
-    console.error(error.message);
-  }
-};
+
 export const clearShoppingCart = (userId) => async (dispatch) => {
   try {
     await axios.put(`${API_URL}/cart/${userId}/delete`);
@@ -196,7 +228,7 @@ export const captureOrder = (orderId) => async (dispatch) => {
 };
 export const updateCartItemQuantity = (productId, newQuantity) => async (dispatch) => {
   try {
-    
+
     dispatch({ type: UPDATE_CART_ITEM_QUANTITY, payload: { productId, newQuantity } });
   } catch (error) {
     console.error(error.message);

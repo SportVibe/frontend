@@ -16,7 +16,8 @@ import {
   UserForm,
   PaymentForm,
   Loading,
-  PaymentStatus
+  PaymentStatus, 
+  Metrics
 } from "./helpers/indexComponents";
 import styles from './App.module.css';
 import PrivacyPolitic from "./components/Footer/privacyPolitic/privacyPolitic";
@@ -42,6 +43,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
+import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -100,19 +102,19 @@ function App() {
         <Elements stripe={stripePromise}>
           <AuthContextProvider>
             <div className={styles.mainView}>
-              {location.pathname !== "/dashboard" &&
+              {location.pathname !== "/dashboard" && location.pathname !== "/password-recover" &&
                 <div className={styles.navBarContainer}>
                   <NavBar />
                 </div>
               }
-              {/* {(location.pathname === '/' || location.pathname === '/search') &&
-              <div className={styles.categoryBarContainer}>
-                <CategoryBar />
-              </div>
-            } */}
               {location.pathname === '/' &&
                 <div className={styles.carouselContainer}>
                   <CarouselComponent text={['Descuentos de hasta 50%', 'No te pierdas estas ofertas!']} />
+                </div>
+              }
+              {(location.pathname === '/' || location.pathname === '/search') &&
+                <div className={styles.categoryBarContainer}>
+                  <CategoryBar />
                 </div>
               }
               {(location.pathname === '/') &&
@@ -132,13 +134,19 @@ function App() {
               }
               {location.pathname === '/' &&
                 <div className={styles.CarouselProductsContainer}>
-                  <CarouselProducts />
+                  <CarouselProducts order='id' type='desc' title='Nuevos productos' />
+                </div>
+              }
+              {location.pathname === '/' &&
+                <div className={styles.CarouselProductsContainer}>
+                  <CarouselProducts order='averageScore' type='desc' title='Productos mejor evaluados' />
                 </div>
               }
               <Routes className={styles.routesContainer}>
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
                 <Route path="/dashboard" element={<AdminDashBoard />}></Route>
+                <Route path="/dashboard/metrics" element={<Metrics />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
@@ -153,13 +161,10 @@ function App() {
                 <Route path="/payment" element={<PaymentForm />} />
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/payment-status" element={<PaymentStatus />} />
+                <Route path="/password-recover" element={<RecoveryPassword />} />
+
               </Routes>
-              {(location.pathname === '/search') &&
-                <div className={styles.carousel2Container}>
-                  <Carousel2 />
-                </div>
-              }
-              {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
+              {(location.pathname !== '/login' && location.pathname !== '/dashboard' ) &&
                 <Footer />
               }
             </div>

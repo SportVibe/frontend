@@ -7,43 +7,60 @@ import UserForm from "../UserForm/UserForm";
 import ProductPrueba from "../ProductForm/ProductPrueba";
 import ProductUpdate from "../ProductUpdate/ProductUpdate";
 import ReviewsAdmin from "../ReviewsAdmin/ReviewsAdmin"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getCurrentUserAction } from "../../redux/actions";
+import EditUsers from "../EditUser/EditUsers";
+import Metrics from "../Metrics/Metrics";
 
 function AdminDashBoard() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedRow, setSelectedRow] = useState(null);
   const [sidebarRender, setSidebarRender] = useState("productos");
-  const [visibleSidebar,setVisibleSidebar] = useState(false);
-  
+  const [visibleSidebar, setVisibleSidebar] = useState(true);
+  const [active,setActive] = useState(); // muestra menu activo del sidebar
+ 
+
+  async function handleSignOut() {
+    try {
+      // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.
+      localStorage.removeItem('adminUser');
+      dispatch(getCurrentUserAction(null));
+      // y nos aseguramos de irnos al home ya que hicimos un log out.
+      navigate('/');
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  function handleClose() {
-    setSelectedRow(null);
-  }
 
   return (
-    <div className="d-flex">
-      {visibleSidebar && <Sidebar setSidebarRender={setSidebarRender} />}
-      <div className="bg-transparent w-100">
+    <div className="d-flex min-vh-100 w-100">
+      {visibleSidebar && <Sidebar setActive={setActive} active={active} setSidebarRender={setSidebarRender} />}
+      <div className="bg-body-tertiary w-100">
         {sidebarRender === "productos" ? (
           <div className={selectedRow ? styles.conteinerCardsHidden : styles.conteinerCards}>
-          {<ProductPrueba setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow} />}
+            {<ProductPrueba handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSelectedRow={setSelectedRow}/>}
           </div>
         ) : null}
-        {selectedRow && 
-          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" ? styles.conteinerCardsHidden : styles.render}>
-            <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow}/>
-            {/* <p onClick={handleClose}>✕</p> */}
+        {selectedRow &&
+          <div className={sidebarRender === "nuevo" || sidebarRender === "usuarios" || sidebarRender === "comentarios" || sidebarRender === "metricas" ? styles.conteinerCardsHidden : styles.render}>
+            <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow} />
           </div>}
         {sidebarRender === "nuevo" &&
-        (
-          <div>
-            <ProductForm />
-          </div>
-        )}
-        {sidebarRender === "usuarios" ? <UserForm /> : null}
-        {sidebarRender === "comentarios" ? <ReviewsAdmin setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
+          (
+            <div>
+              <ProductForm setActive={setActive} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender}/>
+            </div>
+          )}
+        {sidebarRender === "usuarios" ? <EditUsers handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/> : null}
+        {sidebarRender === "comentarios" ? <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} /> : null}
+        {sidebarRender === "metricas" ? <Metrics />: null}
       </div>
     </div>
   );

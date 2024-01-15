@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import FalseCard from '../FalseCard/FalseCard';
 import { genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction } from '../../redux/actions';
 
 const CarouselModel = (prop) => {
@@ -16,7 +17,7 @@ const CarouselModel = (prop) => {
 
     async function getSports() {
         // const { data } = await axios(`${API_URL}/property?property=${property}`);
-        const {data} = await axios(`${API_URL}/product/brands`);
+        const { data } = await axios(`${API_URL}/product/brands`);
         setBrandArray(data);
     }
 
@@ -39,9 +40,9 @@ const CarouselModel = (prop) => {
 
     return (
         <div className="mainView" >
-            <p className="DeportesTitle">{t('translation.Brands')}</p>
+            <p className="DeportesTitle">{t('translation.Brands')}<span> {`(${brandArray?.length})`}</span></p>
             <div className="carouselContainer">
-            {brandArray?.length ? brandArray.map((brand, i) => {
+                {brandArray?.length ? brandArray.map((brand, i) => {
                     let brandName = brand.name;
                     let brandImage = brand.image;
                     brandName = brandName.charAt(0).toUpperCase() + brandName.slice(1).toLowerCase();
@@ -54,12 +55,9 @@ const CarouselModel = (prop) => {
                         </div>
                     )
                 }) :
-                    <div className="carouselItem">
-                        <div>
-                            <img src={img} />
-                        </div>
-                        <p></p>
-                    </div>
+                    [1, 2, 3, 4, 5].map((brand, i) => {
+                        return <FalseCard key={i} />
+                    })
                 }
             </div>
         </div>
@@ -67,5 +65,4 @@ const CarouselModel = (prop) => {
 };
 
 export default CarouselModel;
-
 

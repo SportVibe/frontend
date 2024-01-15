@@ -1,90 +1,16 @@
 .mainView {
-    width: 100%;
-    height: 100%;
-    /* overflow: hidden; */
-    background-color: transparent;
-    color: black;
-}
-
-.subMainView {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.imgContainer {
     position: relative;
-    width: 100%;
-    height: 70%;
     overflow: hidden;
+    background-color: rgb(156, 156, 156);
     border-radius: 20px;
-
-    & img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
-        transition: .4s ease-in-out;
-    }
+    padding: 2px;
+    min-width: 230px;
+    height: 160px;
+    animation: shiny 1.2s ease-in-out infinite alternate;
 }
 
-.layout {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 21%, rgba(0, 0, 0, 0.38672768878718533) 96%);
-
-    & i {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        font-size: 30px;
-        font-weight: 500;
-        color: white;
-    }
-}
-
-.downSideContainer {
-    width: 100%;
-    padding-top: 10px;
-}
-
-.titleContainer {
-    width: 100%;
-    cursor: pointer;
-
-    & p {
-        font-size: 18px;
-        font-weight: 500;
-        padding: 0;
-        margin: 0;
-    }
-}
-
-.categoryNameContainer {
-    cursor: pointer;
-
-    & p {
-        width: auto;
-        font-size: 14px;
-        font-weight: 500;
-        color: gray;
-        padding: 0;
-        margin: 0;
-    }
-}
-
-.priceContainer {
-    width: 100%;
-
-    & p {
-        font-size: 30px;
-        padding: 0;
-        margin: 0;
+@keyframes shiny {
+    to{
+        background-color: rgb(214, 214, 214);
     }
 }

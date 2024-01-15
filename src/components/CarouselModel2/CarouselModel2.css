@@ -15,11 +15,17 @@
     margin: 0;
     padding: 0 50px;
     font-size: 22px;
+    font-weight: 300;
     color: var(--font-color-hard);
     cursor: pointer;
 
     &:hover {
         text-decoration: underline;
+    }
+
+    & span {
+        font-weight: 300;
+        font-size: 18px;
     }
 }
 

@@ -5,6 +5,12 @@ function upperLowerCase(value) {
         });
         return array;
     }
+    else if (Array.isArray(value)) {
+        const array = value.map(word => {
+            return word.trim().charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        });
+        return array;
+    }
     return;
 }
 

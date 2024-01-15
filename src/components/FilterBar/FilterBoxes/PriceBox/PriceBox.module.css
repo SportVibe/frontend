@@ -1,48 +1,85 @@
 .mainView {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--gap--elements-filterBox);
+    background-color: transparent;
 
     & p {
         margin: 0;
-        padding: 0;
+        padding: 2px 5px;
         width: auto;
-        font-weight: var(--font-weight);
+        font-size: var(--font-size);
+        font-weight: var(--font-weight2);
         opacity: var(--opacity-soft-solid);
+        color: var(--font-color-hard);
+    }
+
+    & .title {
+        margin-bottom: 15px;
+        /* font-weight: 400; */
+        font-size: 16px;
+        margin-top: 5px;
     }
 }
 
 .rangeBox {
     display: flex;
-    height: var(--input-height);
+    flex-direction: column;
+    /* align-items: flex-start; */
     width: 100%;
+    gap: 2px;
 
     & p {
-        width: 20px;
-        padding: 0;
-        margin: 0;
+        cursor: pointer;
+        padding-right: 10px;
+        border-radius: 10px;
+        transition: .1s linear;
+
+        /* &:hover {
+            color: var(--button-color);
+        } */
+    }
+
+    & .selected {
+        /* color: white; */
+        color: var(--button-color);
+        font-weight: 700;
+        font-size: 16px;
+
+        &:hover {
+            color: var(--button-color);
+        }
+    }
+
+    .inputDiv {
+        width: 100%;
         display: flex;
         align-items: center;
+        margin: 10px 0;
+
+        & p {
+            text-align: center;
+            padding: 0 2px;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        & i {
+            color: gray;
+            padding-left: 5px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        & input {
+            width: 50%;
+            border: 1px solid var(--bg-color-gray);
+            border-radius: 15px;
+            padding-left: 5px;
+            padding: 2px 0 2px 5px;
+            font-size: 13px;
+            font-weight: var(--font-weight2);
+            color: var(--font-color-hard);
+        }
     }
-}
-
-.inputBox {
-    height: 100%;
-    flex: 1;
-
-    & input {
-        width: 100%;
-        height: 100%;
-        border: 1px solid gray;
-        border-radius: 5px;
-        text-align: center;
-    }
-}
-
-.buttonContainer{
-    text-align: center;
-    margin-top: 10px;
-    height: var(--height-button);
 }

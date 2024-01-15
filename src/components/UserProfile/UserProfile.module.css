@@ -8,7 +8,7 @@
     background-color: white;
     width: 100%;
     min-height: 100vh;
-    padding: 10px;
+    padding: 10px 10px 100px 10px;
     color: var(--font-color-hard);
 
     & p {
@@ -49,6 +49,7 @@
                 flex-direction: column;
                 align-items: flex-start;
                 background-color: var(--button-color);
+                /* background-color: var(--bg-color2); */
                 color: white;
                 padding: 10px;
                 border-radius: 10px;
@@ -56,7 +57,7 @@
 
                 & .imgContainer {
                     width: 100%;
-    
+
                     & div {
                         width: 80px;
                         height: 80px;
@@ -64,14 +65,14 @@
                         background-color: white;
                         color: black;
                         border-radius: 100%;
-    
+
                         & img {
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
                             object-position: top;
                         }
-    
+
                         & p {
                             width: 100%;
                             height: 100%;
@@ -101,6 +102,7 @@
 
             & .editProfile {
                 background-color: var(--bg-color-gray);
+                position: relative;
                 font-size: 15px;
                 display: flex;
                 align-items: center;
@@ -117,8 +119,10 @@
             }
 
             & .selectedProfile {
+                position: relative;
                 border: 2px solid var(--button-color);
-                color: black;
+                background-color: var(--button-color);
+                color: white;
                 font-size: 15px;
                 display: flex;
                 align-items: center;
@@ -126,6 +130,84 @@
                 padding: 3px 6px;
                 border-radius: 5px;
                 cursor: pointer;
+            }
+
+            & .circleNotify {
+                background-color: red;
+                position: absolute;
+                width: 13px;
+                height: 13px;
+                border: 1px solid white;
+                border-radius: 100%;
+                right: -4px;
+                top: -4px;
+            }
+        }
+
+        & .progressContainer {
+            background-color: var(--bg-color-gray);
+            width: 100%;
+            height: 15px;
+            margin-top: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+
+            & div {
+                height: 100%;
+                width: 75%;
+                background-color: var(--button-color);
+                transition: .5s;
+
+                & p{
+                    padding: 0;
+                    margin: 0;
+                    color: white;
+                    font-size: 12px;
+                    font-weight: 400;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            & .class0 {
+                width: 0%;
+                transition: .5s;
+            }
+
+            & .class15 {
+                width: 15%;
+                transition: .5s;
+            }
+
+            & .class29 {
+                width: 29%;
+                transition: .5s;
+            }
+
+            & .class43 {
+                width: 43%;
+                transition: .5s;
+            }
+
+            & .class58 {
+                width: 58%;
+                transition: .5s;
+            }
+
+            & .class72 {
+                width: 72%;
+                transition: .5s;
+            }
+
+            & .class86 {
+                width: 86%;
+                transition: .5s;
+            }
+
+            & .class100 {
+                width: 100%;
+                transition: .5s;
             }
         }
 
@@ -148,7 +230,8 @@
                 gap: 6px;
                 border-radius: 5px;
                 cursor: pointer;
-    
+                transition: .2s ease;
+
                 &:hover {
                     color: var(--button-color);
                 }
@@ -156,7 +239,7 @@
 
             & .divSelected {
                 width: 100%;
-                padding: 10px;
+                padding: 10px 10px 10px 20px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
@@ -164,6 +247,7 @@
                 border-radius: 5px;
                 color: var(--button-color);
                 cursor: pointer;
+                transition: padding .2s ease;
             }
         }
     }
@@ -187,6 +271,19 @@
     min-height: 500px;
 
     & .componentContainer {
+        max-width: 800px;
+        margin: 0 auto;
         padding: var(--padding-full) 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+    }
+
+    & .titleMain {
+        color: var(--font-color-hard);
+        font-size: 24px;
+        font-weight: 300;
+        width: 100%;
     }
 }

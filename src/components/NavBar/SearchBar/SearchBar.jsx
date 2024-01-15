@@ -1,15 +1,18 @@
 import styles from './SearchBar.module.css';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts } from '../../../redux/actions';
+import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts, filterCounterAction, sportAction, brandAction } from '../../../redux/actions';
 
 function SearchBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const { t, i18n } = useTranslation();
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const search_Activity = useSelector((state => state.search));
+  const category = useSelector((state => state.category));
   const [searchTerm, setSearchTerm] = useState(search_Activity);
 
   const handleSearch = () => {
@@ -21,16 +24,36 @@ function SearchBar() {
       dispatch(priceFilterAction(['', '']));
       dispatch(discountProducts([{ discount: 0 }]));
       dispatch(searchActivity(searchTerm));
+      dispatch(sportAction([{ sport: '' }]));
+      dispatch(brandAction([{ brand: '' }]));
+      dispatch(filterCounterAction({}));
 
-      dispatch(getProducts(propertiesArray));
-      navigate('/search');
+      // el segundo valor en true del dispatch, es para indicar
+      // que usaremos el backup del reducer para mantener el filtrado
+      // madre de los filtros, así los items de la barra lateral de filtros no pierden su cantidad entre paréntesis.
+      dispatch(getProducts(propertiesArray, true));
+      if (pathname !== '/search') navigate('/search');
     }
   };
 
+  const handleInputClick = () => {
+    setIsInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false);
+  };
+
+  useEffect(() => {
+    setSearchTerm('');
+  }, [search_Activity]);
+
   return (
-    <div className={styles.mainView}>
+    <div className={`${styles.mainView} ${isInputFocused ? styles.onClick : ''}`}>
       <input
         type="text"
+        onClick={handleInputClick}
+        onBlur={handleInputBlur}
         placeholder={t('translation.Product')}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

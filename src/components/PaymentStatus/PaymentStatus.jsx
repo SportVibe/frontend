@@ -28,22 +28,6 @@ const PaymentStatus = () => {
         <p>Te enviaremos un correo electrónico con la confirmación y detalles adicionales.</p>
       </>
       );
-    } else if (trimmedMessage === "CANCELLED") {
-      content = (
-      <>
-        <h2>Tu pago en SportVibe ha sido cancelado</h2>
-        <div className={styles.paymentDetails}>
-          <h3>Detalles del Pago</h3>
-          <p>ID del Pago: {orderId}</p>
-          <p>Estado: Cancelled</p>
-        </div>
-        <div className={styles.purchaseDetails}>
-          <h3>Detalles de la Compra</h3>
-          <p>Producto: Artículos deportivos en SportVibe</p>
-          <p>Impuesto de compra (incluido): $0.00</p>
-        </div>
-      </>
-      );
     } else {
      
       content = (
