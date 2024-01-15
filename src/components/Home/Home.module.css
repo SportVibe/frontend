@@ -29,13 +29,13 @@
   /* border-right: 1px solid var(--bg-color-gray); */
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   .FilterBarContainer {
     display: none;
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 800px) {
   .FilterBarContainer {
     width: 30%;
   }

@@ -83,8 +83,11 @@
     left: 0;
     width: 100%;
     height: 50px;
-    background-color: rgba(0, 0, 0, 0.501);
+    /* background-color: rgba(0, 0, 0, 0.501);
+    backdrop-filter: blur(5px); */
+    background-color: rgba(0, 179, 255, 0.729);
     backdrop-filter: blur(5px);
+    box-shadow: 1px 3px 5px rgba(0, 69, 99, 0.469);
     color: white;
     z-index: 80;
 
@@ -107,8 +110,8 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: 400;
+    font-size: 22px;
 }
 
 @media only screen and (max-width: 500px) {

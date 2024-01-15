@@ -79,9 +79,6 @@ function Home() {
         <Loading />
         :
         <div className={styles.subMainView}>
-          {/* <div className={location.pathname === '/search' ? styles.FilterBarContainer : styles.FilterBarHidden}>
-          <FilterBar />
-        </div> */}
           {<div className={styles.FilterBarContainer}>
             <FilterBar />
           </div>}
