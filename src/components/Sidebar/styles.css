@@ -1,16 +1,17 @@
 .text{
-    width:300px;
+    width:200px;
     min-height: 100%;
-  }
+    }
   
   .text ul li:hover {
-    background-color:rebeccapurple;
+    background-color:rgba(194, 185, 197, 0.685);
     border-radius: 10px;
     cursor:pointer;
-  }
+   }
 
 .text a{ 
     text-decoration:none;
+    & :hover{color:black}
 }
 
 .active{
