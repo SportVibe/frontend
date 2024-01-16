@@ -4,11 +4,10 @@ import axios from "axios";
 import { API_URL } from "../../helpers/config";
 
 
-const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, handleSignOut }) => {
+const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, handleSignOut , actualUser}) => {
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
   const [alertProducts, setAlertProducts] = useState("AUX");
-
 
   useEffect(() => {
     axios(`${API_URL}/admin`)
@@ -202,7 +201,7 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
         </div>
         <div class="btn-group me-2">
           <button type="button" class="btn bg-body-secondary border-secondary rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
+          {actualUser.firstName ? actualUser.firstName : "Admin"}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
             <li onClick={handleSignOut}><a class="dropdown-item" href="#" onClick={handleSignOut}>Cerrar Sesion</a></li>
