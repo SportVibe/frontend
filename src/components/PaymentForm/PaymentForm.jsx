@@ -53,12 +53,10 @@ const PaymentForm = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(`${API_URL}/create-order`, {
-        userId: userItems.user.id,
-        ShoppingCartId: userItems.user.cartId,
-        total: sumaTotal,
-        shippingInfo: form,
+      const response = await axios.post(`${API_URL}/postOrder`, {
+        userId: parseInt(userItems.user.id)
       });
+      console.log(response);
 
       window.location.href = response.data.orderUrl;
     } catch (error) {
@@ -99,7 +97,7 @@ const PaymentForm = () => {
         onChange={handleChange}
         className={`form-control ${styles.input} ${errors.country ? 'is-invalid' : ''}`}
       >
-        <option value="">Selecciona un país *</option>
+        <option value="">Selecciona un país <span>*</span></option>
         <option value="Colombia">Colombia</option>
         <option value="Chile">Chile</option>
         <option value="Argentina">Argentina</option>
