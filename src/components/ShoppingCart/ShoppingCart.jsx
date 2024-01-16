@@ -85,7 +85,9 @@ const ShoppingCart = () => {
         return true;
       }
     });
-    const result = await axios.delete(`${API_URL}/deleteShoppingProduct?userId=${userId}&productId=${productId}&productSize=${productSize}`);
+    if (userId) {
+      const result = await axios.delete(`${API_URL}/deleteShoppingProduct?userId=${userId}&productId=${productId}&productSize=${productSize}`);
+    }
     setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
