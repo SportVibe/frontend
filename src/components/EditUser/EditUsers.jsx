@@ -4,12 +4,11 @@ import axios from "axios";
 import validationEditUsers from "./ValidationEditUsers";
 import Swal from "sweetalert2";
 
-const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
+const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUser}) => {
   const [users, setUsers] = useState(null);
   const [createUser, setCreateUser] = useState(false);
   const [reload, setReload] = useState(true);
   const [userCreatedSuccess, setUserCreatedSuccess] = useState(false);
-  const [actualUser, setActualUser] = useState("");
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -17,15 +16,14 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
     rol: "",
   });
   const [errors, setErrors] = useState("");
-
-  useEffect(() => {
-    let loguedUser = JSON.parse(localStorage.getItem("adminUser"));
-    setActualUser(loguedUser);
-  }, []);
+  const [rolSelect, setRolSelect] = useState(false);
 
   useEffect(() => {
     axios(`${API_URL}/users`)
       .then(({ data }) => {
+        data.Users?.sort(function(a, b) {
+          return a.id - b.id;
+        });
         setUsers(data.Users);
         setTimeout(() => {
           setUserCreatedSuccess(false);
@@ -78,7 +76,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
     } else {
       if (
         (actualUser.rol === "admin" && user.rol === "client") ||
-        (actualUser.rol === "super_admin" && user.rol === "admin")
+        (actualUser.rol === "super_admin" && user.rol === "admin" || user.rol === "client")
       ) {
         Swal.fire({
           title: `Ingrese nueva contraseña para ${user.firstName}`,
@@ -133,8 +131,6 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
       },
       buttonsStyling: true,
     });
-    // if((actualUser.rol === "admin" && user.rol === "client") || (actualUser.rol === "super_admin" && user.rol === "admin")){
-    if (validationPrivileges(user)) {
       swalWithBootstrapButtons
         .fire({
           title: `Desactivar la cuenta de ${user.firstName}?`,
@@ -168,14 +164,6 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
             });
           }
         });
-    } else {
-      Swal.fire({
-        text: "No tiene permiso para esa accion.",
-        timer: 1500,
-        showConfirmButton: false,
-        icon: "warning",
-      });
-    }
   };
   const handleShowCreateuser = () => {
     setCreateUser(!createUser);
@@ -188,7 +176,6 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
   };
 
   const handleRol = (e) => {
-    console.log(e.target.id);
     setUser({ ...user, rol: e.target.id });
   };
 
@@ -219,6 +206,66 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
       rol: "",
     });
   };
+
+  const handleChangeRol = async (user) => {
+    const inputOptions = new Promise((resolve) => {
+        resolve({
+          "Client": "Cliente",
+          "Admin": "Admin",
+          "Super_admin": "Super_admin"
+        });
+    });
+    const { value: rol } = await Swal.fire({
+      title: "Seleccione Rol",
+      input: "radio",
+      inputOptions,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Seleccione alguna opcion!";
+        }
+      }
+    });
+    if (rol) {
+      axios.put(`${API_URL}/user/${user.id}`, {rol:rol.toLowerCase()})
+      .then(({data})=> {
+        setReload(!reload)
+          Swal.fire({ 
+            icon:"succes",
+            title: data.message,
+            footer: `El usuario ${user.firstName} ahora es ${rol}`
+           });
+      }).catch((err)=> console.log(err))
+    }
+    
+  }
+
+  const handleEditUser = (user,e) => {
+    if (validationPrivileges(user)){
+
+      switch (e.target.id){
+        case "contraseña": {
+          handleEdition(user,e)
+          break;
+        }
+        case "desactivar":{
+          handleDelete(user);
+          break;
+        }
+        case "rol":{
+          handleChangeRol(user);
+          setRolSelect(true)
+          break;
+        }
+      }
+    }else {
+      Swal.fire({
+        text: "No tiene permiso para esa accion.",
+        timer: 1500,
+        showConfirmButton: false,
+        icon: "warning",
+      });
+    }
+  }
 
   const validationPrivileges = (user) => {
     if (
@@ -272,7 +319,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {actualUser.firstName ? actualUser.firstName : "Admin"}
+            {actualUser?.firstName ? actualUser?.firstName : "Admin"}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
             <li onClick={handleSignOut}>
@@ -342,7 +389,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
                   <a
                     name="rol"
                     id="super_admin"
-                    className="dropdown-item"
+                    className={actualUser.rol === "admin" ? "dropdown-item disabled" : "dropdown-item"}
                     href="#"
                     onClick={handleRol}
                   >
@@ -457,23 +504,21 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
                         {user.active === true ? "Activo" : "Inactivo"}
                       </td>
                       <td>
-                        <button
-                          type="button"
-                          className="btn btn-outline-primary border me-1 mb-0 mt-0"
-                          onClick={(e) => handleEdition(user, e)}
-                          data-bs-toggle="modal"
-                          data-bs-target="#staticBackdrop"
-                        >
-                          <i className="bi bi-pencil-square"></i>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger border"
-                          onClick={() => handleDelete(user)}
-                        >
-                          <i className="bi bi-person-fill-dash"></i>
-                        </button>
+                        <div>
+                        <div class="btn-group">
+                            <button type="button" class="btn bg-success-subtle"><i className="bi bi-pencil-square fs-5"></i></button>
+                            <button type="button" class="btn bg-dark-subtle dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                              <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a id="contraseña" onClick={(e)=>handleEditUser(user,e)} class="dropdown-item" href="#">Cambiar Contraseña</a></li>
+                              <li><a id="desactivar" onClick={(e)=>handleEditUser(user,e)} class="dropdown-item" href="#">Desactivar Cuenta</a></li>
+                              <li><a id="rol" onClick={(e)=>handleEditUser(user,e)} class="dropdown-item" href="#">Cambiar Rol</a></li>
+                            </ul>
+                          </div>     
+                          </div>
                       </td>
+                      {!rolSelect ? null : ()=>handleChangeRol(user)}
                     </tr>
                   ))}
               </tbody>
