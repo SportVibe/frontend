@@ -271,6 +271,16 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut }) => {
           </div>
         </div>
       </div>
+      <div class="progress sticky-bottom">
+  <div class="progress-bar bg-success w-25 opacity-25 sticky-bottom" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-info w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-warning w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-danger w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-success w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-info w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-warning w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar bg-danger w-25 opacity-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
       {errors.name &&
         <div className="position-fixed alert alert-danger w-20 sticky-bottom" role="alert">
           <div className="d-flex justify-content-center fs-5">{errors.name}<i className="bi bi-exclamation-octagon fs-5 ms-2"></i></div>
