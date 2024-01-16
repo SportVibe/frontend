@@ -16,16 +16,12 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
     // dispatch(updateCartItemQuantity(productId, newQuantity));
     const newQuantity = e.target.value;
     let newItemBack = {};
-    let repeatIdSize = false;
-    let repeatIdProduct = false;
     setQuantity(newQuantity);
     let newTotalQuantity = 0;
     const updateCart = cartItems?.map(product => {
       if (Number(product.id) === Number(productId) && product.size === productSize) {
-        repeatIdSize = true;
-        repeatIdProduct = true;
         newTotalQuantity = newTotalQuantity + Number(newQuantity);
-        newItemBack = { ...product, quantity: newQuantity };
+        newItemBack = { ...product, quantity: newQuantity }; // se actualiza para la base de datos también
         return { ...product, quantity: newQuantity }
       }
       else {
@@ -33,15 +29,13 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
         return product;
       }
     });
+    // console.log({ userId, shoppingProduct: newItemBack });
+    const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
+    // console.log(result.data);
     setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity));
     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
     setReloadPage(!reloadPage);
-    if (repeatIdProduct && repeatIdSize) {
-      console.log({ idUser: userId, products: [newItemBack] });
-      const result = await axios.put(`${API_URL}/shopping`, { idUser: userId, products: [newItemBack] });
-      console.log(result.data);
-    }
   };
 
   function handleNavigate() {

@@ -82,11 +82,8 @@ const ProductDetail = () => {
 
   const handleAddToCart = async () => {
     let newItem = {};
-    let newItemBack = {};
-    let quantityOverwrite = 0;
+    let newItemBack = {}; // el objeto que irá a la base de datos
     let repeat = false;
-    let repeatIdSize = false;
-    let repeatIdProduct = false;
     const selectedStock = data.Stocks.find((stock) => {
       const size = Object.keys(stock)[0];
       return size === selectSize && quantity <= stock[size];
@@ -113,7 +110,9 @@ const ProductDetail = () => {
           size: selectSize,
           price: data.price,
         };
-        const result = await axios.post(`${API_URL}/addToCart`, { idUser: userId, products: [newItemBack] });
+        console.log({ userId, shoppingProduct: newItemBack });
+        const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+        console.log(result.data);
         const newTotalQuantity = Number(quantity);
         dispatch(quantityCartAction(newTotalQuantity));
         dispatch(addToCart(newItem));
@@ -121,17 +120,13 @@ const ProductDetail = () => {
       } else {
         let newTotalQuantity = 0;
         let updateLocalStorageCart = storageCart?.cart.map((object) => {
-          if (Number(object.id) === Number(id)) {
-            repeatIdProduct = true;
-          }
           if (Number(object.id) === Number(id) && object.size === selectSize) {
             repeat = true;
-            repeatIdSize = true;
             newTotalQuantity = newTotalQuantity + Number(object.quantity) + Number(quantity);
             const newProductQuantity = Number(object.quantity) + Number(quantity);
-            quantityOverwrite = newProductQuantity;
             setStorageCart({ ...object, quantity: newProductQuantity });
             dispatch(addToCart({ ...object, quantity: newProductQuantity }));
+            newItemBack = { ...object, quantity: newProductQuantity }; // se actualiza para la base de datos también
             return { ...object, quantity: newProductQuantity };
           } else {
             newTotalQuantity = newTotalQuantity + Number(object.quantity);
@@ -151,46 +146,26 @@ const ProductDetail = () => {
           setStorageCart([...storageCart.cart, newItem]);
           dispatch(addToCart(newItem));
           updateLocalStorageCart = [...updateLocalStorageCart, newItem];
+          newItemBack = {
+            id,
+            title: data.title,
+            imagen1: data.Images[0],
+            quantity,
+            size: selectSize,
+            price: data.price,
+          };
+          console.log({ userId, shoppingProduct: newItemBack });
+          const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+          console.log(result.data);
+        }
+        if (repeat) {
+          const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
+          console.log(result.data);
         }
         localStorage.setItem(
           "currentCart",
           JSON.stringify({ userId: userId, cart: updateLocalStorageCart })
         );
-        if (!repeatIdProduct) {
-          newItemBack = {
-            id,
-            title: data.title,
-            imagen1: data.Images[0],
-            quantity,
-            size: selectSize,
-            price: data.price,
-          };
-          console.log({ idUser: userId, products: [newItemBack] });
-          const result = await axios.post(`${API_URL}/addToCart`, { idUser: userId, products: [newItemBack] });
-          console.log(result.data);
-        }
-        if (repeatIdProduct && !repeatIdSize) {
-          newItemBack = {
-            id,
-            title: data.title,
-            imagen1: data.Images[0],
-            quantity,
-            size: selectSize,
-            price: data.price,
-          };
-          const result = await axios.put(`${API_URL}/shopping`, { idUser: userId, products: [newItemBack] });
-        }
-        if (repeatIdProduct && repeatIdSize) {
-          newItemBack = {
-            id,
-            title: data.title,
-            imagen1: data.Images[0],
-            quantity: quantityOverwrite,
-            size: selectSize,
-            price: data.price,
-          };
-          const result = await axios.put(`${API_URL}/shopping`, { idUser: userId, products: [newItemBack] });
-        }
         setReloadPage(!reloadPage);
         dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
       }

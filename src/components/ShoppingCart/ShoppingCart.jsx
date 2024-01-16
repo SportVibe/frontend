@@ -10,6 +10,8 @@ import {
   quantityCartAction,
 } from '../../redux/actions';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import axios from 'axios';
+import { API_URL } from '../../helpers/config';
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
@@ -74,42 +76,7 @@ const ShoppingCart = () => {
     }
   };
 
-
-
-
-
-
-  /*  const _handleRemoveFromCart = (productId, productSize) => {
-     let newTotalQuantity = 0;
-   
-     const updateCart = cartItems?.cart.filter(product => {
-       if ((Number(product.id) === Number(productId)) && (product.size !== productSize.toString()) || (Number(product.id) !== Number(productId))) {
-         newTotalQuantity += Number(product.quantity);
-         return true;
-       }
-     });
-   
-     const isLastProduct = !updateCart.some(product => Number(product.id) === Number(productId));
-   
-     setCartItems({ userId: userId, cart: updateCart });
-     dispatch(quantityCartAction(newTotalQuantity));
-   
-     if (isLastProduct) {
-       // Si es el último producto, realiza las acciones adicionales que necesites
-       console.log(`El producto con id ${productId} es el último en el carrito.`);
-     }
-   
-     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
-     setReloadPage(!reloadPage);
-   }; */
-
-
-
-
-
-
-
-  const handleRemoveFromCart = (productId, productSize) => {
+  const handleRemoveFromCart = async (productId, productSize) => {
     // dispatch(deleteProductFromCart(productId));
     let newTotalQuantity = 0;
     const updateCart = cartItems?.cart.filter(product => {
@@ -118,6 +85,7 @@ const ShoppingCart = () => {
         return true;
       }
     });
+    const result = await axios.delete(`${API_URL}/deleteShoppingProduct?userId=${userId}&productId=${productId}&productSize=${productSize}`);
     setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
