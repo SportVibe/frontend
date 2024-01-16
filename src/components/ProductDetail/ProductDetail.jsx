@@ -111,8 +111,10 @@ const ProductDetail = () => {
           price: data.price,
         };
         console.log({ userId, shoppingProduct: newItemBack });
-        const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
-        console.log(result.data);
+        if (userId) {
+          const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+          // console.log(result.data);
+        }
         const newTotalQuantity = Number(quantity);
         dispatch(quantityCartAction(newTotalQuantity));
         dispatch(addToCart(newItem));
@@ -154,13 +156,15 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
-          console.log({ userId, shoppingProduct: newItemBack });
-          const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
-          console.log(result.data);
+          // console.log({ userId, shoppingProduct: newItemBack });
+          if (userId) {
+            const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+            // console.log(result.data);
+          }
         }
-        if (repeat) {
+        if (repeat && userId) {
           const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
-          console.log(result.data);
+          // console.log(result.data);
         }
         localStorage.setItem(
           "currentCart",

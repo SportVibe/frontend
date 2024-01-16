@@ -30,8 +30,10 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
       }
     });
     // console.log({ userId, shoppingProduct: newItemBack });
-    const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
-    // console.log(result.data);
+    if (userId) {
+      const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
+      // console.log(result.data);
+    }
     setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity));
     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
