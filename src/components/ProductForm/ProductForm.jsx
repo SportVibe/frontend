@@ -8,7 +8,7 @@ import validation from "./ValidationForm";
 import { Toast } from "react-bootstrap";
 
 
-export default function ProductForm({setSidebarRender,setActive,setVisibleSidebar, visibleSidebar}) {
+export default function ProductForm({setSidebarRender,setActive,setVisibleSidebar, visibleSidebar, handleSignOut , actualUser}) {
 
   const [arrayImages, setArrayImages] = useState("");
   const [errors, setErrors] = useState({});
@@ -158,6 +158,14 @@ export default function ProductForm({setSidebarRender,setActive,setVisibleSideba
       <p className="fs-2 mt-2 d-flex mx-auto">
       Nuevo Producto
       </p>
+      <div class="btn-group me-2 my-auto mb-4">
+          <button type="button" class="btn bg-body-secondary border-secondary rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          {actualUser?.firstName ? actualUser.firstName : "Admin"}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" onClick={handleSignOut}>
+            <li onClick={handleSignOut}><a class="dropdown-item" href="#" onClick={handleSignOut}>Cerrar Sesion</a></li>
+          </ul>
+        </div>
       </div>
         <div className={style.containerForm}>
         <div className={style.divForm}>
