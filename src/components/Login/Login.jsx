@@ -104,24 +104,31 @@ const Login = () => {
       inputPlaceholder: "Email que usaste para registrarte"
     });
     if (email) {
-      let dominio = email.split("@")[1];
-      if (dominio === "sportvibe.com"){
-        axios.post(`${API_URL}/password-recover`, {email:email})
-        .then(({data}) => {
+      // let dominio = email.split("@")[1];
+      const { data } = axios.post(`${API_URL}/password-recover`, { email: email })
+        .then(({ data }) => {
           console.log(data)
-          Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
-        .catch(err => {Swal.fire({
-          title: err.response.data.message,
-          text: "Por favor ingrese el email que uso para registrarse",
-          icon: "question"
-        })})
-      }else{
+          Swal.fire(`Enviamos un link de recuperacion a (${email}). `);
+        })
+        .catch(err => {
+          Swal.fire({
+            title: err.response.data.message,
+            text: "Por favor ingrese el email que uso para registrarse",
+            icon: "question"
+          })
+        });
+      if (!data) {
         Swal.fire({
-          title: "No existe ese correo en nuestra base de datos",
+          title: "No existe una cuenta registrada con ese correo",
           icon: "question",
         });
       }
-      
+    }
+    else {
+      Swal.fire({
+        title: "Por favor ingrese el email que uso para registrarse",
+        icon: "question",
+      });
     }
   }
 
