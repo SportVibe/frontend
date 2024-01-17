@@ -27,6 +27,8 @@ function NavBar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [borderNavBar, setBorderNavBar] = useState(true);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const [cartItems, setCartItems] = useState('0.00');
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
@@ -101,23 +103,24 @@ function NavBar() {
 
   useEffect(() => {
     dispatch(responsiveNavBar(false));
-  }, []);
+    if (location.pathname === '/search') setBorderNavBar(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     initialStorageCart();
   }, [totalCartQuantity]);
 
   return (
-    <div className={responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}>
+    <div className={` ${borderNavBar && styles.borderNavBar} ${responsiveGlobalNavBar ? styles.mainViewResponsive : styles.mainView}`}>
       <div className={styles.subMainView}>
-        <div className={styles.logoContainer}>
+        <div className={`${styles.logoContainer} ${isInputFocused && styles.logoContainerHidden}`}>
           <img src={Logo} alt="" id='/' onClick={handleNavigate} />
         </div>
         <p className={styles.logoTitle} onClick={handleNavigate}>𝗦𝗽𝗼𝗿𝘁𝗩𝗶𝗯𝗲</p>
         <div className={styles.navBarContainer}>
           {(location.pathname === '/' || location.pathname === '/search') && (
             <div id={styles.searchbarContainer}>
-              <SearchBar />
+              <SearchBar isInputFocused={isInputFocused} setIsInputFocused={setIsInputFocused} />
             </div>
           )}
 
@@ -174,11 +177,14 @@ function NavBar() {
             )}
           </div>
 
-          <div className={styles.menuContainer} onClick={handlerResponsive}>
+          <div className={`${styles.menuContainer} ${isInputFocused && styles.menuContainerHidden}`} onClick={handlerResponsive}>
             <i className="fa-solid fa-bars"></i>
           </div>
         </div>
       </div>
+
+
+
 
       <div className={styles.responsiveContainer}>
         <div id='/' onClick={handleNavigate}>
@@ -186,7 +192,7 @@ function NavBar() {
         </div>
 
         <div className={styles.linksContainer}>
-          <select onChange={(e) => changeLanguage(e.target.value)}>
+          <select className={styles.selectResponsive} onChange={(e) => changeLanguage(e.target.value)}>
             <option value="es">Español</option>
             <option value="en">English</option>
             <option value="de">Deutsch</option>
@@ -197,7 +203,7 @@ function NavBar() {
           <p id='/about' onClick={handleNavigate}>{t('translation.about')}</p>
         </div>
 
-        <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
+        <div className={styles.cartContainerResponsibe} id='/shoppingcart' onClick={handleNavigate}>
           {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
           {<p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>}
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
@@ -220,7 +226,7 @@ function NavBar() {
                 {userDataRender?.image ? (
                   <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                 ) : (
-                  <p id='/profile' onClick={handleNavigate}>{firstName}{lastName}</p>
+                  <p id='/profile' onClick={handleNavigate}>Mi perfil</p>
                 )}
               </div>
             }
