@@ -56,11 +56,11 @@
         object-position: center;
         transition: .4s ease-in-out;
     }
-}
 
-#imgHover {
-    & img {
-        scale: 1.06;
+    &:hover {
+        & img {
+            scale: 1.06;
+        }
     }
 }
 
@@ -70,8 +70,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 21%, rgba(0, 0, 0, 0.38672768878718533) 96%);
+    /* background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 21%, rgba(0, 0, 0, 0.38672768878718533) 96%); */
 
     & div {
         position: absolute;
@@ -113,7 +113,7 @@
         right: 45px;
         width: auto;
         padding: 0 5px;
-        border-radius: 10px;
+        border-radius: 5px;
         background-color: white;
 
         & p {
