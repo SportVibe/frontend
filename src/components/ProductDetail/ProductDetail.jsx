@@ -218,8 +218,9 @@ const ProductDetail = () => {
     let suma = 0;
     let promedio = 0;
     let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
-    setReviews(reviewData.data.data);
-    reviewData.data.data.map((review) => {
+    let acceptedReviews = reviewData.data.data.filter((rev)=> rev.status === "accepted");
+    setReviews(acceptedReviews);
+    acceptedReviews.data.data.map((review) => {
       suma = suma + review.score;
     });
     promedio = (suma / reviewData.data.data.length);
@@ -235,6 +236,15 @@ const ProductDetail = () => {
 
 
   const hanldeScore = (reviewsAvg) => {
+    if (reviewsAvg === 0) {
+      return (<>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+      </>);
+    }
     if (reviewsAvg === 1) {
       return (<>
         <i className="bi bi-star-fill text-primary fs-5"></i>
