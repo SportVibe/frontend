@@ -5,6 +5,7 @@ import image1 from "../../Images/instagram.png";
 import image2 from "../../Images/facebook.png";
 import image3 from "../../Images/apoyo-tecnico.png";
 import logo from '../../Images/logoSportvibeSolid.jpeg';
+import { API_URL } from "../../helpers/config";
 
 
 const Footer = () => (
@@ -71,7 +72,7 @@ const Footer = () => (
           <h5 className="text-uppercase">Institucional</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="http://localhost:5173/about">Quienes somos</a>
+              <a href="/about">Quienes somos</a>
             </li>
             <li>
               <a href="/privacy">Politicas de Privacidad</a>
