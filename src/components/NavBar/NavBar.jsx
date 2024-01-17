@@ -217,7 +217,7 @@ function NavBar() {
                 <p id='/dashboard' onClick={handleNavigate}>Admin</p>
               </div> :
               <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
-                <p id='/profile' onClick={handleNavigate}>Mi perfil<span><i className="fa-solid fa-circle-exclamation"></i></span></p>
+                <p id='/profile' onClick={handleNavigate}>Mi perfil<span>{notify && <i className="fa-solid fa-circle-exclamation"></i>}</span></p>
               </div>
             }
           </div>
