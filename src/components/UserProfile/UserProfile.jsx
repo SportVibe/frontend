@@ -181,7 +181,7 @@ function UserProfile() {
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
                             <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
-                                <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
+                                <i className='bx bx-bookmark' id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mi colección</p>
                             </div>
                             {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
@@ -213,7 +213,13 @@ function UserProfile() {
                             </div>}
                         {mainComponent === 'favorites' &&
                             <div className={styles.componentContainer}>
-                                <Favorites userDataRender={editUserData} setReloadPage={setReloadPage} reloadPage={reloadPage} />
+                                {editUserData?.favorites.length ?
+                                    <Favorites userDataRender={editUserData} setReloadPage={setReloadPage} reloadPage={reloadPage} />
+                                    :
+                                    <div>
+                                        <p>Colección sin productos</p>
+                                    </div>
+                                }
                             </div>}
                     </div>
                 </div>
