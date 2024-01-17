@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProducts, searchActivity, genreFilterAction, sortAction, priceFilterAction, discountProducts, filterCounterAction, sportAction, brandAction } from '../../../redux/actions';
 
-function SearchBar() {
+function SearchBar({ isInputFocused, setIsInputFocused }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const { t, i18n } = useTranslation();
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  // const [isInputFocused, setIsInputFocused] = useState(false);
   const search_Activity = useSelector((state => state.search));
   const category = useSelector((state => state.category));
   const [searchTerm, setSearchTerm] = useState(search_Activity);
