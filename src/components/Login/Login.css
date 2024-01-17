@@ -92,7 +92,7 @@
 }
 
 .o {
-  background-color: white;
+  background: #f3f3f3;
   font-size: 0.8rem;
   width: 1rem;
 }
@@ -147,7 +147,7 @@
 
 .googleButton {
   border: none;
-  /* background-color: white; */
+  background: #f3f3f3;
 }
 
 .googleImag {
