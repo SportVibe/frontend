@@ -197,7 +197,7 @@ function UserProfile() {
                     <div className={styles.mainComponentsContainer}>
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
-                                <p className={styles.titleMain}>Historial de compra:</p>
+                                {/* <p className={styles.titleMain}>Historial de compra:</p> */}
                                 {(userPurchases && userPurchases?.length) ? userPurchases?.map((purchase, i) => {
                                     return <Table key={i} records={purchase} userId={userDataRender.id} />
                                 })
