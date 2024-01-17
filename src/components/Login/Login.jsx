@@ -56,7 +56,7 @@ const Login = () => {
         const { data } = await axios.post(`${API_URL}/login`, username);
         // console.log(data);
         if (data) {
-          if (data.user.rol === 'admin') {
+          if (data.user.rol === 'admin' || data.user.rol === 'super_admin' ) {
             if (!data.user.active) {
               setModal(data.user); // toda la data del usuario se pasa a la modal.
             }
