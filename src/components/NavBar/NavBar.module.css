@@ -360,6 +360,7 @@
       height: 100%;
       border: none;
       cursor: pointer;
+      color: var(--font-color-hard);
       text-align: center;
     }
 
@@ -375,6 +376,11 @@
 
   & .cartContainerResponsibe {
     color: var(--button-color);
+    display: flex;
+    gap: 8px;
+  }
+
+  & .access {
     display: flex;
     gap: 8px;
   }

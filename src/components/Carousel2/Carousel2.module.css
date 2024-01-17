@@ -115,6 +115,13 @@
         background-color: rgb(156, 156, 156);
         animation: shiny 1.2s ease-in-out infinite alternate;
     }
+
+    @media only screen and (max-width: 700px) {
+        .falseCard {
+            width: 70px;
+            height: 70px;
+        }
+    }
 }
 
 
