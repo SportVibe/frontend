@@ -104,7 +104,7 @@
     }
 }
 
-.imgContainer {
+.imgContainerFalse {
     height: 100%;
     /* min-width: 130px; */
 
@@ -120,6 +120,7 @@
         .falseCard {
             width: 70px;
             height: 70px;
+            margin: 0 22px;
         }
     }
 }

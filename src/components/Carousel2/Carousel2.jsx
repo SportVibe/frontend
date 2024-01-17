@@ -59,7 +59,7 @@ function Carousel2() {
                     }) :
                         count.map((item, i) => {
                             return (
-                                <div key={i} className={styles.imgContainer}>
+                                <div key={i} className={styles.imgContainerFalse}>
                                     <div className={styles.falseCard}>
                                     </div>
                                 </div>
