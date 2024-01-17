@@ -31,9 +31,9 @@ const svgBad = <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fi
     .catch(err=> window.alert(err.message))
  }
     return (
-        <div className=''>
-            <input type="file" className='btn btn-outline-primary' onChange={handleFile}/>
-            {responseOk >= 200 && responseOk < 400 ? <>{svgOK}</> : <>{svgBad}</>}
+        <div className='d-flex'>
+            <input type="file" className='botder-2  w-100 form-control' onChange={handleFile}/>
+            {responseOk >= 200 && responseOk < 400 ? <div className='d-flex justify-items-end'>{svgOK}</div> : <>{svgBad}</>}
         </div>
         );
 }
