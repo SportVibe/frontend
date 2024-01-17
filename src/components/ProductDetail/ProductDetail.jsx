@@ -31,7 +31,7 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
-  console.log(reviews);
+  /* console.log(reviews); */
 
   useEffect(() => {
     axios
@@ -81,74 +81,16 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = async () => {
-    let newItem = {};
-    let repeat = false;
-    const selectedStock = data.Stocks.find((stock) => {
-      const size = Object.keys(stock)[0];
-      return size === selectSize && quantity <= stock[size];
-    });
-    if (selectedStock) {
-      let dataToAdd = {
-        idUser: userId,
-        products: [{
-          id,
-          title: data.title,
-          quantity,
-          size: selectSize,
-          price: data.price,
-        }]
-      }
-      await axios.post(`${API_URL}/addToCart`, dataToAdd);
-      // await axios.put(`${API_URL}/shopping`, dataToAdd);
-      if (!storageCart) {
-        newItem = {
-          id,
-          title: data.title,
-          imagen1: data.Images[0],
-          quantity,
-          size: selectSize,
-          price: data.price,
-        };
-        localStorage.setItem(
-          "currentCart",
-          JSON.stringify({ userId: userId, cart: [newItem] })
-        );
-        await axios.post(`${API_URL}/addToCart`, dataToAdd);
-        const newTotalQuantity = Number(quantity);
-        dispatch(quantityCartAction(newTotalQuantity));
-        dispatch(addToCart(newItem));
-        setReloadPage(!reloadPage);
-        // navigate("/shoppingcart");
-      } else {
-        let newTotalQuantity = 0;
-        console.log(storageCart);
-        let updateLocalStorageCart = storageCart?.cart.map((object) => {
-          if (Number(object.id) === Number(id) && object.size === selectSize) {
-            repeat = true;
-            newTotalQuantity =
-              newTotalQuantity + Number(object.quantity) + Number(quantity);
-            const newProductQuantity =
-              Number(object.quantity) + Number(quantity);
-            setStorageCart({ ...object, quantity: newProductQuantity });
-            dispatch(addToCart({ ...object, quantity: newProductQuantity }));
-            // si se repite el id del producto y el size, entonces modificamos el quantity a mandar a la base de datos.
-            dataToAdd = {
-              idUser: userId,
-              products: [{
-                id,
-                title: data.title,
-                quantity: newTotalQuantity, // nuevo quantity para la base de datos.
-                size: selectSize,
-                price: data.price,
-              }]
-            }
-            return { ...object, quantity: newProductQuantity };
-          } else {
-            newTotalQuantity = newTotalQuantity + Number(object.quantity);
-            return object;
-          }
-        });
-        if (!repeat) {
+    if (selectSize) {
+      let newItem = {};
+      let newItemBack = {}; // el objeto que irá a la base de datos
+      let repeat = false;
+      const selectedStock = data.Stocks.find((stock) => {
+        const size = Object.keys(stock)[0];
+        return size === selectSize && quantity <= stock[size];
+      });
+      if (selectedStock) {
+        if (!storageCart) {
           newItem = {
             id,
             title: data.title,
@@ -157,29 +99,95 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
-          await axios.post(`${API_URL}/addToCart`, dataToAdd);
-          newTotalQuantity = newTotalQuantity + Number(quantity);
-          setStorageCart([...storageCart.cart, newItem]);
+          localStorage.setItem(
+            "currentCart",
+            JSON.stringify({ userId: userId, cart: [newItem] })
+          );
+          newItemBack = {
+            id,
+            title: data.title,
+            imagen1: data.Images[0],
+            quantity,
+            size: selectSize,
+            price: data.price,
+          };
+          console.log({ userId, shoppingProduct: newItemBack });
+          if (userId) {
+            const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+            // console.log(result.data);
+          }
+          const newTotalQuantity = Number(quantity);
+          dispatch(quantityCartAction(newTotalQuantity));
           dispatch(addToCart(newItem));
-          updateLocalStorageCart = [...updateLocalStorageCart, newItem];
+          setReloadPage(!reloadPage);
+        } else {
+          let newTotalQuantity = 0;
+          let updateLocalStorageCart = storageCart?.cart.map((object) => {
+            if (Number(object.id) === Number(id) && object.size === selectSize) {
+              repeat = true;
+              newTotalQuantity = newTotalQuantity + Number(object.quantity) + Number(quantity);
+              const newProductQuantity = Number(object.quantity) + Number(quantity);
+              setStorageCart({ ...object, quantity: newProductQuantity });
+              dispatch(addToCart({ ...object, quantity: newProductQuantity }));
+              newItemBack = { ...object, quantity: newProductQuantity }; // se actualiza para la base de datos también
+              return { ...object, quantity: newProductQuantity };
+            } else {
+              newTotalQuantity = newTotalQuantity + Number(object.quantity);
+              return object;
+            }
+          });
+          if (!repeat) {
+            newItem = {
+              id,
+              title: data.title,
+              imagen1: data.Images[0],
+              quantity,
+              size: selectSize,
+              price: data.price,
+            };
+            newTotalQuantity = newTotalQuantity + Number(quantity);
+            setStorageCart([...storageCart.cart, newItem]);
+            dispatch(addToCart(newItem));
+            updateLocalStorageCart = [...updateLocalStorageCart, newItem];
+            newItemBack = {
+              id,
+              title: data.title,
+              imagen1: data.Images[0],
+              quantity,
+              size: selectSize,
+              price: data.price,
+            };
+            // console.log({ userId, shoppingProduct: newItemBack });
+            if (userId) {
+              const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
+              // console.log(result.data);
+            }
+          }
+          if (repeat && userId) {
+            const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
+            // console.log(result.data);
+          }
+          localStorage.setItem(
+            "currentCart",
+            JSON.stringify({ userId: userId, cart: updateLocalStorageCart })
+          );
+          setReloadPage(!reloadPage);
+          dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
         }
-        localStorage.setItem(
-          "currentCart",
-          JSON.stringify({ userId: userId, cart: updateLocalStorageCart })
-        );
-        // si se repite el size del producto, entonces usamos el put para actualizarl el quantity en la base de datos. 
-        if (repeat) await axios.put(`${API_URL}/shopping`, dataToAdd);
-        setReloadPage(!reloadPage);
-        dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
-        // navigate("/shoppingcart");
+      } else {
+        Swal.fire({
+          title: '¡No hay stock de esa Talla!',
+          icon: 'error',
+          confirmButtonText: 'ok!'
+        });
       }
-    } else {
+    }
+    else {
       Swal.fire({
-        title: '¡Porfavor selecciona una Talla!',
+        title: '¡Debe ingresar una talla!',
         icon: 'error',
         confirmButtonText: 'ok!'
       });
-
     }
   };
 

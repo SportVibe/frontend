@@ -8,6 +8,7 @@ import { brandAction, discountProducts, genreFilterAction, getProducts, priceFil
 import { useLocation, useNavigate } from 'react-router-dom';
 import videoSource from '../../Images/bike_-_76618 (1080p).mp4';
 import img1 from '../../Images/camiseta-seleccion-argentina-adidas.webp';
+import img2 from '../../Images/imagesVidal.jpeg';
 
 
 function FilterBar() {
@@ -162,16 +163,20 @@ function FilterBar() {
                         <ColorBox />
                     </div>
                     <div className={styles.divider}></div> */}
-                    {pathname !== '/search' &&
+                    {/* {pathname !== '/search' &&
                         <div className={styles.videoContainer}>
                             <video autoPlay muted loop>
                                 <source src={videoSource} type="video/mp4" />
                                 Tu navegador no soporta el elemento de video.
                             </video>
-                        </div>}
+                        </div>} */}
                     {pathname !== '/search' &&
                         <div className={styles.imageContainer}>
                             <img src={img1} alt="" />
+                        </div>}
+                    {pathname !== '/search' &&
+                        <div className={styles.imageContainer}>
+                            <img src={img2} alt="" />
                         </div>}
                 </div>
             </div>

@@ -10,12 +10,14 @@ import {
   quantityCartAction,
 } from '../../redux/actions';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import axios from 'axios';
+import { API_URL } from '../../helpers/config';
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const userId = useSelector((state) => state.auth?.userId || null);
+  const currentUserData = useSelector((state) => state.currentUserData);
+  const userId = currentUserData ? currentUserData.id : null;
   const [reloadPage, setReloadPage] = useState(false);
   const [cartItems, setCartItems] = useState(null);
   const [localSubtotal, setLocalSubtotal] = useState(0);
@@ -53,9 +55,9 @@ const ShoppingCart = () => {
     }
   }, [cartItems, localSubtotal]);
 
-/*   useEffect(() => {
-    localStorage.setItem('currentCart', JSON.stringify(cartItems));
-  }, [cartItems]); */
+  /*   useEffect(() => {
+      localStorage.setItem('currentCart', JSON.stringify(cartItems));
+    }, [cartItems]); */
 
   useEffect(() => {
     initialStorageCart();
@@ -74,7 +76,7 @@ const ShoppingCart = () => {
     }
   };
 
-  const handleRemoveFromCart = (productId, productSize) => {
+  const handleRemoveFromCart = async (productId, productSize) => {
     // dispatch(deleteProductFromCart(productId));
     let newTotalQuantity = 0;
     const updateCart = cartItems?.cart.filter(product => {
@@ -83,9 +85,12 @@ const ShoppingCart = () => {
         return true;
       }
     });
-    setCartItems({userId: userId, cart: updateCart});
+    if (userId) {
+      const result = await axios.delete(`${API_URL}/deleteShoppingProduct?userId=${userId}&productId=${productId}&productSize=${productSize}`);
+    }
+    setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
-    localStorage.setItem("currentCart", JSON.stringify({userId: userId, cart: updateCart}));
+    localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
     setReloadPage(!reloadPage); // para estar recuperando el carrito del localStorage cada vez que se actualice.
   };
 
@@ -102,7 +107,7 @@ const ShoppingCart = () => {
         () =>
           cartItems?.cart.map((item) => (
             <CartCards
-            userId={userId}
+              userId={userId}
               key={item.id}
               item={item}
               cartItems={cartItems.cart}

@@ -133,9 +133,9 @@
 .videoContainer {
     margin: 0 0 20px 0;
     /* width: 100%; */
-    height: 300px;
-    /* border-radius: 10px; */
+    border-radius: 10px;
     overflow: hidden;
+    height: 300px;
 
     & video {
         height: 100%;
@@ -144,7 +144,7 @@
 
 .imageContainer {
     margin: 0 0 20px 0;
-    /* width: 100%; */
+    width: 100%;
     height: 300px;
     /* border-radius: 10px; */
     overflow: hidden;

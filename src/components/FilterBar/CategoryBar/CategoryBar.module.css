@@ -70,6 +70,12 @@
     height: 50%;
 }
 
+@media only screen and (max-width: 700px) {
+    .divider {
+        display: none;
+    }
+}
+
 .otrasDiv {
     height: 100%;
     flex: 1;
@@ -85,6 +91,12 @@
     position: relative;
     height: 100%;
     width: 70%;
+}
+
+@media only screen and (max-width: 700px) {
+    .carouselContainer {
+        width: 82%;
+    }
 }
 
 .carouselDiv {
@@ -113,6 +125,12 @@
     }
 }
 
+@media only screen and (max-width: 700px) {
+    .carouselDiv {
+        padding: 0 10px;
+    }
+}
+
 .siderLeft {
     position: absolute;
     left: 0;
@@ -123,12 +141,22 @@
     background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3929471032745592) 100%);
 }
 
+@media only screen and (max-width: 700px) {
+    .siderLeft {
+        display: none;
+    }
+
+    /* .siderRight {
+        display: none;
+    } */
+}
+
 .siderRight {
     position: absolute;
     right: 0;
     top: 0;
     height: 100%;
     width: 30px;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(270deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.3929471032745592) 100%);
+    background: rgb(255,255,255);
+background: linear-gradient(270deg, rgba(255,255,255,1) 24%, rgba(255,255,255,0) 83%);
 }

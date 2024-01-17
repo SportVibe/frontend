@@ -4,10 +4,13 @@ import logoSportVibe from "../../Images/Logo.jpg";
 import image1 from "../../Images/instagram.png";
 import image2 from "../../Images/facebook.png";
 import image3 from "../../Images/apoyo-tecnico.png";
+import logo from '../../Images/logoSportvibeSolid.jpeg';
+import { API_URL } from "../../helpers/config";
 
 
 const Footer = () => (
   <footer className="page-footer font-small blue ">
+    <hr />
     <div className={styles.mainView}>
       <div id={styles.subMainView} className="row">
         <div className="col-md-3 mb-md-0 mb-3">
@@ -69,7 +72,7 @@ const Footer = () => (
           <h5 className="text-uppercase">Institucional</h5>
           <ul className="list-unstyled">
             <li>
-              <a href="http://localhost:5173/about">Quienes somos</a>
+              <a href="/about">Quienes somos</a>
             </li>
             <li>
               <a href="/privacy">Politicas de Privacidad</a>
@@ -110,13 +113,16 @@ const Footer = () => (
           </ul>
         </div>
       </div>
-      <div className={styles.logoContainer}>
-        <img src={logoSportVibe} alt="" />
+      <div className={styles.logoContainerSV}>
+        <div className={styles.imgLogoContainer}>
+          <img src={logo} alt="" id='/' />
+        </div>
+        <p className={styles.logoTitle}>𝗦𝗽𝗼𝗿𝘁𝗩𝗶𝗯𝗲</p>
       </div>
     </div>
-    <hr className={styles.hr} />
+    {/* <hr className={styles.hr} /> */}
     <div id={styles.lastBox} className="footer-copyright text-center py-3">
-      © 2023 Copyright:
+      <p>© 2023 Copyright:</p>
       <p className={styles.derechosReservados}>
         TODOS LOS DERECHOS RESERVADOS. Las fotos contenidas en este site, el
         logotipo y las marcas son propiedad de SportVibe y/o de sus respectivos

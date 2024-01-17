@@ -56,7 +56,7 @@ const Login = () => {
         const { data } = await axios.post(`${API_URL}/login`, username);
         // console.log(data);
         if (data) {
-          if (data.user.rol === 'admin') {
+          if (data.user.rol === 'admin' || data.user.rol === 'super_admin') {
             if (!data.user.active) {
               setModal(data.user); // toda la data del usuario se pasa a la modal.
             }
@@ -104,24 +104,32 @@ const Login = () => {
       inputPlaceholder: "Email que usaste para registrarte"
     });
     if (email) {
-      let dominio = email.split("@")[1];
-      if (dominio === "sportvibe.com"){
-        axios.post(`${API_URL}/password-recover`, {email:email})
-        .then(({data}) => {
-          console.log(data)
-          Swal.fire(`Enviamos un link de recuperacion a (${email}). `);})
-        .catch(err => {Swal.fire({
-          title: err.response.data.message,
-          text: "Por favor ingrese el email que uso para registrarse",
-          icon: "question"
-        })})
-      }else{
-        Swal.fire({
-          title: "No existe ese correo en nuestra base de datos",
-          icon: "question",
+      // let dominio = email.split("@")[1];
+      const { data } = axios.post(`${API_URL}/password-recover`, { email: email })
+        .then(({ data }) => {
+          if (data) {
+            Swal.fire(`Enviamos un link de recuperacion a (${email}). `);
+          }
+          else {
+            Swal.fire({
+              title: "No existe una cuenta registrada con ese correo",
+              icon: "question",
+            });
+          }
+        })
+        .catch(err => {
+          Swal.fire({
+            title: err.response.data.message,
+            text: "Por favor ingrese el email que uso para registrarse",
+            icon: "question"
+          })
         });
-      }
-      
+    }
+    else {
+      Swal.fire({
+        title: "Por favor ingrese el email que uso para registrarse",
+        icon: "question",
+      });
     }
   }
 

@@ -239,7 +239,8 @@
 
             & .divSelected {
                 width: 100%;
-                padding: 10px 10px 10px 20px;
+                /* padding: 10px 10px 10px 20px; */
+                padding: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
@@ -282,8 +283,9 @@
 
     & .titleMain {
         color: var(--font-color-hard);
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 300;
         width: 100%;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.489);
     }
 }
