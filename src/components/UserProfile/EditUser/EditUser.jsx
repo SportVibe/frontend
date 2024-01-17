@@ -119,14 +119,18 @@ function EditUser({
         } else {
           setNewPassword({ currentP: "", newP1: "", newP2: "" });
 
-          Swal.fire({ icon: "info",
-            title:"Debe completar los 3 campos"});
+          Swal.fire({
+            icon: "info",
+            title: "Debe completar los 3 campos"
+          });
         }
       } else {
         setNewPassword({ currentP: "", newP1: "", newP2: "" });
 
-        Swal.fire({ icon:"error",
-          title:"Las contraseñas no coinciden"});
+        Swal.fire({
+          icon: "error",
+          title: "Las contraseñas no coinciden"
+        });
       }
     } catch (error) {
       console.error({ error: error.message });
@@ -164,8 +168,10 @@ function EditUser({
       } else {
         setPassword({ p1: "", p2: "" });
 
-        Swal.fire({ icon:"error",
-        title:"Las contraseñas no coinciden"});
+        Swal.fire({
+          icon: "error",
+          title: "Las contraseñas no coinciden"
+        });
       }
     } catch (error) {
       console.error({ error: error.message });
@@ -331,52 +337,54 @@ function EditUser({
             </div>
           </div>
         )}
-        <div
-          className={
-            deleteHidden
-              ? styles.deleteAcountHidden
-              : styles.deleteAcountContainer
-          }
-        >
-          <p
-            className={styles.p}
-            id="deleteAcount"
-            onClick={handleContainerHidden}
+        {!externalSignIn && (
+          <div
+            className={
+              deleteHidden
+                ? styles.deleteAcountHidden
+                : styles.deleteAcountContainer
+            }
           >
-            Eliminar cuenta
-          </p>
-          <div className={styles.inputPasswordContainer}>
-            <p className={styles.BorrarCuentaP}>
-              Para borrar su cuenta debe ingresar su contraseña
-            </p>
-            <div className={styles.inputContainer}>
-              <input
-                id="p1"
-                onChange={handlePasswordVerify}
-                value={password.p1}
-                type="password"
-                autoComplete="off"
-                placeholder="Contraseña"
-              />
-            </div>
-            <div className={styles.inputContainer}>
-              <input
-                id="p2"
-                onChange={handlePasswordVerify}
-                value={password.p2}
-                type="password"
-                autoComplete="off"
-                placeholder="Repita su contraseña"
-              />
-            </div>
-            <div
-              onClick={handleDelete}
-              className={styles.submitButtoncontainer}
+            <p
+              className={styles.p}
+              id="deleteAcount"
+              onClick={handleContainerHidden}
             >
-              <ButtonComponent text={"Eliminar cuenta"} />
+              Eliminar cuenta
+            </p>
+            <div className={styles.inputPasswordContainer}>
+              <p className={styles.BorrarCuentaP}>
+                Para borrar su cuenta debe ingresar su contraseña
+              </p>
+              <div className={styles.inputContainer}>
+                <input
+                  id="p1"
+                  onChange={handlePasswordVerify}
+                  value={password.p1}
+                  type="password"
+                  autoComplete="off"
+                  placeholder="Contraseña"
+                />
+              </div>
+              <div className={styles.inputContainer}>
+                <input
+                  id="p2"
+                  onChange={handlePasswordVerify}
+                  value={password.p2}
+                  type="password"
+                  autoComplete="off"
+                  placeholder="Repita su contraseña"
+                />
+              </div>
+              <div
+                onClick={handleDelete}
+                className={styles.submitButtoncontainer}
+              >
+                <ButtonComponent text={"Eliminar cuenta"} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
