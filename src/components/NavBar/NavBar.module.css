@@ -19,72 +19,8 @@
   transition: .3s ease-in-out;
 }
 
-.mainViewResponsive {
-  overflow: hidden;
-  width: 100%;
-  height: 300px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.373);
-  transition: all .3s ease-in-out;
-}
-
-@media only screen and (min-width: 1000px) {
-  .responsiveContainer {
-    display: none;
-  }
-
-  .mainViewResponsive {
-    height: 60px;
-  }
-}
-
-.responsiveContainer {
-  width: 100%;
-  max-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 10px;
-  background-color: red;
-
-
-  & div {
-    width: 100%;
-    height: 45px;
-    padding: 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 25px;
-    cursor: pointer;
-
-    & p {
-      padding: 5px 0;
-      margin: 0;
-      font-size: 18px;
-    }
-  }
-
-  & .linksResponsive:hover {
-    color: var(--button-color);
-  }
-}
-
-#searchbarResponsiveContainer {
-  max-width: 100%;
-  min-height: 40px;
-  margin-bottom: 10px;
-}
-
-@media only screen and (min-width: 550px) {
-  #searchbarResponsiveContainer {
-    display: none;
-  }
-
-  .searchbarContainer {
-    display: none;
-  }
+.borderNavBar {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.158);
 }
 
 .subMainView {
@@ -115,6 +51,7 @@
   top: 0;
   right: 10px; */
   height: 100%;
+  margin: 0 0 0 10px;
   /* width: 50px; */
 
   & i {
@@ -129,11 +66,13 @@
 }
 
 @media only screen and (min-width: 1000px) {
-  /* .navBarContainer {
-    display: flex;
-  } */
-
   .menuContainer {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .menuContainerHidden {
     display: none;
   }
 }
@@ -141,6 +80,7 @@
 .logoContainer {
   width: 45px;
   height: 45px;
+  margin: 0 10px 0 0;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -156,24 +96,30 @@
   }
 }
 
+@media only screen and (max-width: 700px) {
+  .logoContainerHidden {
+    display: none;
+  }
+}
+
 .logoTitle {
   padding: 0;
-  margin: 0;
+  margin: 0 10px 0 0;
   font-size: 22px;
   color: var(--font-color-hard);
   cursor: pointer;
 }
 
+@media only screen and (max-width: 1000px) {
+  .logoTitle {
+    display: none;
+  }
+}
+
 #searchbarContainer {
   flex: 1;
   height: 70%;
-  margin: 0 10px 0 10px;
-}
-
-@media only screen and (max-width: 550px) {
-  #searchbarContainer {
-    display: none;
-  }
+  /* margin: 0 10px 0 10px; */
 }
 
 .linksContainer {
@@ -315,7 +261,7 @@
   & p {
     color: var(--button-color);
     font-weight: 500;
-    }
+  }
 
   &:hover {
     background-color: rgb(229, 241, 255);
@@ -349,6 +295,103 @@
     display: none;
   }
 }
+
+
+
+
+
+
+
+
+/* RESPONSIVE */
+
+.mainViewResponsive {
+  overflow: hidden;
+  width: 100%;
+  height: 350px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.373);
+  /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.106); */
+  transition: all .3s ease-in-out;
+}
+
+@media only screen and (min-width: 1000px) {
+  .responsiveContainer {
+    display: none;
+  }
+
+  .mainViewResponsive {
+    height: 60px;
+  }
+}
+
+.responsiveContainer {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 10px 10px; */
+  color: var(--button-color);
+
+
+  & div {
+    width: 100%;
+    min-height: 45px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: var(--font-color-hard);
+    cursor: pointer;
+
+    & p {
+      padding: 5px 0;
+      margin: 0;
+      font-size: 16px;
+      width: auto;
+    }
+
+    & .selectResponsive {
+      background-color: transparent;
+      /* width: 100%; */
+      height: 100%;
+      border: none;
+      cursor: pointer;
+      color: var(--font-color-hard);
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: var(--bg-color3-hard);
+      color: white;
+
+      & .selectResponsive {
+        color: white;
+      }
+    }
+  }
+
+  & .cartContainerResponsibe {
+    color: var(--button-color);
+    display: flex;
+    gap: 8px;
+  }
+
+  & .access {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+
+
+
+
+
+/* ANIMATIONS */
 
 @keyframes move {
   0% {

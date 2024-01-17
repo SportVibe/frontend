@@ -109,7 +109,7 @@ function App() {
               }
               {location.pathname === '/' &&
                 <div className={styles.carouselContainer}>
-                  <CarouselComponent text={['Descuentos de hasta 40%', 'No te pierdas estas ofertas!']} />
+                  <CarouselComponent text={['Descuentos de hasta 40%', 'No te lo pierdas!']} />
                 </div>
               }
               {(location.pathname === '/' || location.pathname === '/search') &&
