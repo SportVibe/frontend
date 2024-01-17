@@ -221,7 +221,7 @@ function NavBar() {
             }
           </div>
         ) : (
-          <div id='/login' onClick={handleNavigate}>
+          <div className={styles.access} id='/login' onClick={handleNavigate}>
             <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
             <p id='/login' onClick={handleNavigate}>👤</p>
           </div>
