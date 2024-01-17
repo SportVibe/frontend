@@ -18,9 +18,8 @@ const validationEditUsers = (user , input) => {
         if (check.length === 2) errors.email = 'Por favor elimine el caracter @';
     }
 
-    // if (input === "rol"){
-    //     if (!user.rol) errors.rol = 'Por favor seleccione un rol';
-    // }
+    if (!user.rol) errors.rol = 'Por favor seleccione un rol';
+    
     return errors
 }
 export default validationEditUsers;

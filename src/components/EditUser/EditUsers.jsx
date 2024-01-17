@@ -81,6 +81,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
         Swal.fire({
           title: `Ingrese nueva contraseña para ${user.firstName}`,
           input: "text",
+          width:"300px",
           inputAttributes: {
             autocapitalize: "off",
           },
@@ -232,7 +233,6 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
           Swal.fire({ 
             icon:"succes",
             title: data.message,
-            footer: `El usuario ${user.firstName} ahora es ${rol}`
            });
       }).catch((err)=> console.log(err))
     }
@@ -259,10 +259,11 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
       }
     }else {
       Swal.fire({
-        text: "No tiene permiso para esa accion.",
+        text: "Permiso Denegado.",
         timer: 1500,
         showConfirmButton: false,
         icon: "warning",
+        width:"200px"
       });
     }
   }
@@ -334,7 +335,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
       {createUser && (
         <div className="w-75 d-flex flex-column align-content-center align-items-center mx-auto my-3 bg-body-secondary rounded-4">
           <div className="mb-2 text-secondary mt-2">Alta Usuario</div>
-          <div class="input-group mb-3 w-50">
+          <div className="input-group mb-3 w-50">
             <span className="input-group-text" id="basic-addon1">
               Nombre
             </span>
@@ -344,15 +345,15 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
               value={user.name}
               className={
                 errors.name
-                  ? "form-control border-danger border-3 opacity-75 border-2"
-                  : "form-control"
+                  ? "form-control border-danger border-3 opacity-75 border-2 rounded-2"
+                  : "form-control rounded-2"
               }
               placeholder=""
               aria-label="Username"
               aria-describedby="basic-addon1"
               onChange={handleChange}
             />
-            <div class="dropdown ms-2">
+            <div className="dropdown ms-2 d-flex">
               <button
                 className="btn btn-light dropdown-toggle"
                 type="button"
@@ -418,8 +419,8 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
               value={user.password}
               className={
                 errors.password
-                  ? "form-control border-danger border-3 opacity-75 border-2"
-                  : "form-control"
+                  ? "form-control border-danger border-3 opacity-75 border-2 rounded-2"
+                  : "form-control rounded-2"
               }
               placeholder=""
               aria-label="Username"
@@ -434,8 +435,8 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
               value={user.email}
               className={
                 errors.email
-                  ? "form-control border-danger border-3 opacity-75 border-1"
-                  : "form-control"
+                  ? "form-control border-danger opacity-75 border-3 rounded-2"
+                  : "form-control rounded-2"
               }
               placeholder="Email"
               aria-label="Recipient's username"
@@ -454,7 +455,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
                 user.name &&
                 user.password &&
                 user.email &&
-                Object.keys(errors).length === 0 &&
+              
                 user.rol !== ""
                   ? "btn btn-success"
                   : "btn btn-success disabled"
@@ -617,7 +618,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
           </div>
         </div>
       )}
-      {errors.rol && (
+      {user.name && user.password && user.email && !user.rol && (
         <div
           className="position-fixed alert alert-danger w-20 sticky-bottom"
           role="alert"
