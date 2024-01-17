@@ -1,4 +1,4 @@
-.contenedorLogin{
+.contenedorLogin {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,157 +7,161 @@
 }
 
 .box {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    flex-direction: column;
-    background-color: #ffffff;
-    height: 478px;
-    width: 304px;
-    padding: 1rem;
-    /* box-shadow: 0rem 0rem 2rem ; */
-    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.332);
-    border-radius: 0.5rem;
-  }
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  flex-direction: column;
+  background: #f3f3f3;
+  box-shadow: -24px 24px 32px #bebebeb0,
+    24px -24px 32px #ffffff;
+  height: 478px;
+  width: 304px;
+  padding: 1rem;
+  /* box-shadow: 0rem 0rem 2rem ; */
+  /* box-shadow: 1px 1px 20px 1px rgba(0, 0, 0, 0.334); */
+  border-radius: 0.5rem;
+}
 
-  .label {
-    display: inline-flex;
-    align-items: start;
-    flex-direction: column;
-    justify-content: start;
-  }
-  
-  .label .text-wrapper {
-    color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 24px;
-    font-weight: 800;
-    text-align: center;
-    width: 136px;
-    margin-bottom: -0.1rem;
-  }
+.label {
+  display: inline-flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: start;
+}
 
-  .label .text-wrapper2 {
-    color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 15px;
-    font-weight: 400;
-    width: 268px;
-    margin-bottom: 2rem;
-  }
+.label .text-wrapper {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  width: 136px;
+  margin-bottom: -0.1rem;
+}
 
-  .label .text-wrapper3 {
-    color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 15px;
-    font-weight: 400;
-    width: 268px;
-  }
+.label .text-wrapper2 {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  width: 268px;
+  margin-bottom: 2rem;
+}
 
-  .boxInput {
-    display: inline-flex;
-    align-items: start;
-    flex-direction: column;
-    justify-content: start;
-  }
-  
-  .box .input {
-    background-color: #d9d9d9;
-    height: 30px;
-    width: 261px;
-    margin-bottom: 1rem;
-    border-radius: 0.2rem;
-    font-size: 0.8rem;
-  }
+.label .text-wrapper3 {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  width: 268px;
+}
 
-  .box .button {
-    background-color: #0091fb;
-    height: 30px;
-    width: 261px;
-    color: white;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
-    font-weight: 500;
-  }
+.boxInput {
+  display: inline-flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: start;
+}
 
-  .boxlin{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: -1.7rem;
-    z-index: 0;
-  }
+.box .input {
+  background-color: #d9d9d9;
+  height: 30px;
+  width: 261px;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+}
 
-  .o{
-    background-color: white;
-    font-size: 0.8rem;
-    width: 1rem;
-  }
+.box .button {
+  background-color: #0091fb;
+  height: 30px;
+  width: 261px;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
+  font-weight: 500;
+}
 
-  .crear {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    justify-content: start;
-    margin-top: 1rem;
-  }
-  
-  .crear .text-wrapper4 {
-    color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0;
-    line-height: normal;
-    width: 261px;
-    
-  }
+.boxlin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: -1.7rem;
+  z-index: 0;
+}
 
-  .crear .botton2 {
-    height: 30px;
-    font-size: 0.8rem;
-    border-radius: 0.2rem;
-    width: 261px;
-    color: #0091fb;
-    font-weight: 500;
-  }
-  .boxlogo{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2.5rem;
-    margin-top: -1rem;
-  }
+.o {
+  background-color: white;
+  font-size: 0.8rem;
+  width: 1rem;
+}
 
-  .logo{
-    width: 12rem;
-    border-radius: 2rem 0rem 2rem 0rem;
-    border: 1px solid;
-  }
+.crear {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: start;
+  margin-top: 1rem;
+}
 
-  .error{
-    color: red;
-    font-size: 12px;
-    margin-top: -0.8rem;
-    font-weight: 600;
-  }
-  .googleButton{
-    border: none;
-    background-color: white;
-  }
-  .googleImag{
-    width: 13rem;
-    padding: 3rem;
-    margin: -3rem;
-  }
+.crear .text-wrapper4 {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+  width: 261px;
 
-  .textForgotPassword{
-    font-size: 14px;
-    display: flex;
-    align-items: end;
-    position: relative;
-    top:27px;
-    left:0px;
-    cursor: pointer;
-    }
-  
+}
+
+.crear .botton2 {
+  height: 30px;
+  font-size: 0.8rem;
+  border-radius: 0.2rem;
+  width: 261px;
+  color: #0091fb;
+  font-weight: 500;
+}
+
+.boxlogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  margin-top: -1rem;
+}
+
+.logo {
+  width: 12rem;
+  border-radius: 2rem 0rem 2rem 0rem;
+  border: 1px solid;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: -0.8rem;
+  font-weight: 600;
+}
+
+.googleButton {
+  border: none;
+  background-color: white;
+}
+
+.googleImag {
+  width: 13rem;
+  padding: 3rem;
+  margin: -3rem;
+}
+
+.textForgotPassword {
+  font-size: 14px;
+  display: flex;
+  align-items: end;
+  position: relative;
+  top: 27px;
+  left: 0px;
+  cursor: pointer;
+}
