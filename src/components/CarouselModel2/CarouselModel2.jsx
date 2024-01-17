@@ -4,16 +4,25 @@ import { useEffect, useState } from 'react';
 import { API_URL } from '../../helpers/config';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction } from '../../redux/actions';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { genreFilterAction, getProducts, priceFilterAction, searchActivity, sortAction, sportAction } from '../../redux/actions';
 import FalseCard from '../FalseCard/FalseCard';
 
 const CarouselModel2 = (prop) => {
+    const { pathname } = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
     const [sportArray, setSportArray] = useState(null);
+    const search_Activity = useSelector((state => state.search));
+    const totalFilters = useSelector((state => state.totalFilters));
+    const category = useSelector((state => state.category));
+    const priceFilter = useSelector((state => state.priceFilter));
+    const genre = useSelector((state => state.genre));
+    const sort = useSelector((state => state.sort));
+    const brand = useSelector((state => state.brand));
+    const discount = useSelector((state => state.discount));
 
     async function getSports() {
         // const { data } = await axios(`${API_URL}/property?property=${property}`);
@@ -21,7 +30,7 @@ const CarouselModel2 = (prop) => {
         setSportArray(data);
     }
 
-    const handleFilter = (e) => {
+    /* const handleFilter = (e) => {
         const id = e.target.id;
         const propertiesArray = [{ search: id }]
         // reseteamos todos los filtrso y ordenamientos
@@ -32,7 +41,15 @@ const CarouselModel2 = (prop) => {
 
         dispatch(getProducts(propertiesArray));
         navigate('/search');
-    };
+    }; */
+
+    function handleFilter(event) {
+        const id = event.target.id;
+        const newFiltersArray = [...totalFilters, category[0], { sport: id }, brand[0], priceFilter[0], priceFilter[1], genre[0], sort[0], sort[1], discount[0], { search: search_Activity }]
+        dispatch(sportAction([{ sport: id }]));
+        dispatch(getProducts(newFiltersArray));
+        if (pathname !== '/search') navigate('/search');
+    }
 
     useEffect(() => {
         getSports(); // recuperamos los deportes que existen en nuestra base de datos.
