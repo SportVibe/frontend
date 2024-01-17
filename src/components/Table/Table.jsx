@@ -14,7 +14,6 @@ function Table(props) {
     const [breakPoint, setBreakPoint] = useState(false);
     const [loading, setLoading] = useState(true);
     const [displayTable, setDisplayTable] = useState(false);
-
     const [porpsRecords, setPorpsRecords] = useState(props.records || {
         purchases: [
             {
@@ -103,7 +102,7 @@ function Table(props) {
     async function getReview(porpsRecords) {
         setLoading(true);
         try {
-            const myProductReviews = await Promise.all(porpsRecords?.purchases.map(async (product) => {
+            const myProductReviews = await Promise.all(porpsRecords?.userProducts.map(async (product) => {
                 try {
                     const { data } = await axios(`${API_URL}/reviews?productId=${product.productId}&userId=${userId}`);
                     if (data) {
@@ -116,7 +115,7 @@ function Table(props) {
                     return product;
                 }
             }));
-            setPorpsRecords({ ...porpsRecords, purchases: myProductReviews });
+            setPorpsRecords({ ...porpsRecords, userProducts: myProductReviews });
         } catch (error) {
             console.error({ error: error.message });
         } finally {
@@ -142,16 +141,16 @@ function Table(props) {
 
     return (
         <div className={styles.mainView}>
-            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderId}</p>
+            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderIdPaypal}</p>
             {modal &&
                 <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} reloadPage={reloadPage} setReloadPage={setReloadPage} />
             }
             {loading ? <Loading /> :
                 <div className={`${styles.tableContainer} ${!displayTable ? styles.displayTableOff : styles.displayTableOn}`}>
                     <div className={styles.orderContainer} onClick={handleDisplayTable}>
-                        <p onClick={handleDisplayTable}>Fecha de compra: {porpsRecords.date}</p>
-                        <p onClick={handleDisplayTable}>Hora: {porpsRecords.time}</p>
-                        <p onClick={handleDisplayTable}>Total: ${porpsRecords.totalPaid}</p>
+                        <p onClick={handleDisplayTable}>Fecha de compra: </p>
+                        <p onClick={handleDisplayTable}>Hora: </p>
+                        <p onClick={handleDisplayTable}>Total: ${porpsRecords.totalOrder}</p>
                     </div>
                     <div className={styles.paramsContainer}>
                         <p className={styles.counterParam}>#</p>
@@ -160,14 +159,14 @@ function Table(props) {
                         })}
                     </div>
                     <div className={styles.recordsContainer}>
-                        {porpsRecords?.purchases.map((record, i) => {
+                        {porpsRecords?.userProducts.map((record, i) => {
                             return (
                                 <div className={styles.records} key={i}>
                                     <p className={styles.counterValue}>{record.productId}</p>
-                                    <p className={styles.value} id={styles.p} key={i}>{record.product}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.title}</p>
                                     <p className={styles.value} id={styles.p} key={i}>{record.quantity}</p>
                                     <p className={styles.value} id={styles.p} key={i}>{record.price}</p>
-                                    <p className={styles.value} id={styles.p} key={i}>{record.total}</p>
+                                    <p className={styles.value} id={styles.p} key={i}>{record.subtotal}</p>
                                     <div id={record.productId} className={styles.buttonReviews} onClick={HandleDisplayModal}>
                                         {record.reviewData ?
                                             <p className={styles.coment} id={record.productId}>Editar</p>
