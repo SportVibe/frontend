@@ -108,7 +108,7 @@ function UserProfile() {
                 // console.log(data);
                 if (data.active) { // solo si la cuenta del usuario está activa.
                     const userPurchasesData = await axios(`${API_URL}/purchases/${id}`);
-                    // console.log(userPurchasesData.data);
+                    console.log(userPurchasesData.data);
                     const findNullValue = Object.values(data).reduce((acc, value) => {
                         if (value === null) {
                             return acc + 1;
@@ -120,8 +120,8 @@ function UserProfile() {
                     setDataProgress(`${percent.toString()}`);
                     // console.log(findNullValue);
                     if (findNullValue > 0) setNotify({ ...notify, userDataMissing: 'Complete la información de su perfil' })
-                    else if (!findNullValue) setNotify({ ...notify, userDataMissing: null })
-                    setUserPurchases(userPurchasesData.data);
+                    if (!findNullValue) setNotify({ ...notify, userDataMissing: null });
+                    if (userPurchasesData) setUserPurchases(userPurchasesData.data);
                     dispatch(getCurrentUserAction(data));
                     setEditUserData(data); // seteamos el estado local para mostrar la data del usuario en la tabla "Edit".
                     setLoading(false);
@@ -130,6 +130,7 @@ function UserProfile() {
             }
             else navigate('/'); // significa que no hay nada en el local storage.
         } catch (error) {
+            setUserPurchases([]); // ante cualquier error seteamos un array vacío para que no se rompa el componente.
             console.error(error.message);
             navigate('/');
         }
@@ -180,7 +181,7 @@ function UserProfile() {
                                 <p id='purchasesTable' onClick={handlerComponent}>Historial de compra</p>
                             </div>
                             <div className={mainComponent === 'favorites' ? styles.divSelected : styles.div} id='favorites' onClick={handlerComponent}>
-                                <i className="fa-regular fa-heart" id='favorites' onClick={handlerComponent}></i>
+                                <i className='bx bx-bookmark' id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mi colección</p>
                             </div>
                             {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
@@ -196,12 +197,9 @@ function UserProfile() {
                     <div className={styles.mainComponentsContainer}>
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
-                                <p className={styles.titleMain}>Historial de compra:</p>
-                                {(userPurchases && userPurchases.length) ? userPurchases?.map((purchase, i) => {
-                                    if (purchase.purchases.length) {
-                                        return <Table key={i} records={purchase} userId={userDataRender.id} />
-                                    }
-                                    return null;
+                                {/* <p className={styles.titleMain}>Historial de compra:</p> */}
+                                {(userPurchases && userPurchases?.length) ? userPurchases?.map((purchase, i) => {
+                                    return <Table key={i} records={purchase} userId={userDataRender.id} />
                                 })
                                     :
                                     <div>
@@ -215,7 +213,13 @@ function UserProfile() {
                             </div>}
                         {mainComponent === 'favorites' &&
                             <div className={styles.componentContainer}>
-                                <Favorites userDataRender={editUserData} setReloadPage={setReloadPage} reloadPage={reloadPage} />
+                                {editUserData?.favorites.length ?
+                                    <Favorites userDataRender={editUserData} setReloadPage={setReloadPage} reloadPage={reloadPage} />
+                                    :
+                                    <div>
+                                        <p>Colección sin productos</p>
+                                    </div>
+                                }
                             </div>}
                     </div>
                 </div>

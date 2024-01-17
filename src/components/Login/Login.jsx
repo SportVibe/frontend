@@ -56,7 +56,7 @@ const Login = () => {
         const { data } = await axios.post(`${API_URL}/login`, username);
         // console.log(data);
         if (data) {
-          if (data.user.rol === 'admin' || data.user.rol === 'super_admin' ) {
+          if (data.user.rol === 'admin' || data.user.rol === 'super_admin') {
             if (!data.user.active) {
               setModal(data.user); // toda la data del usuario se pasa a la modal.
             }
@@ -107,8 +107,15 @@ const Login = () => {
       // let dominio = email.split("@")[1];
       const { data } = axios.post(`${API_URL}/password-recover`, { email: email })
         .then(({ data }) => {
-          console.log(data)
-          Swal.fire(`Enviamos un link de recuperacion a (${email}). `);
+          if (data) {
+            Swal.fire(`Enviamos un link de recuperacion a (${email}). `);
+          }
+          else {
+            Swal.fire({
+              title: "No existe una cuenta registrada con ese correo",
+              icon: "question",
+            });
+          }
         })
         .catch(err => {
           Swal.fire({
@@ -117,12 +124,6 @@ const Login = () => {
             icon: "question"
           })
         });
-      if (!data) {
-        Swal.fire({
-          title: "No existe una cuenta registrada con ese correo",
-          icon: "question",
-        });
-      }
     }
     else {
       Swal.fire({

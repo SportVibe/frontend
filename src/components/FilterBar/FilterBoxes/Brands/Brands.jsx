@@ -3,6 +3,7 @@ import styles from './Brands.module.css';
 import axios from 'axios';
 import { API_URL } from '../../../../helpers/config';
 import capitalize from '../../../../utils/capitalize';
+import normalizeString from '../../../../utils/normalizeString';
 
 function Brands({ brandStatistics, brandHandler, brand }) {
     const [brandArray, setBrandArray] = useState(null);
@@ -28,7 +29,7 @@ function Brands({ brandStatistics, brandHandler, brand }) {
                 })} */}
                 <p id='' onClick={brandHandler} className={brand[0].brand === '' ? styles.selected : ''}>Todo</p>
                 {brandStatistics && brandStatistics.length && brandStatistics.map((item, i) => {
-                    return <p key={i} id={item.brand} onClick={brandHandler} className={brand[0].brand === item.brand ? styles.selected : ''}>{capitalize(item.brand)} <span>{`(${item.productCount})`}</span></p>
+                    return <p key={i} id={item.brand} onClick={brandHandler} className={normalizeString(brand[0]?.brand.toUpperCase()) === normalizeString(item?.brand.toUpperCase()) ? styles.selected : ''}>{capitalize(item.brand)} <span>{`(${item.productCount})`}</span></p>
                 })}
             </div>
         </div>
