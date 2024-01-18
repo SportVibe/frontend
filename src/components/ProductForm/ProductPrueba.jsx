@@ -8,16 +8,20 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
   const [productRender, setProductRender] = useState([]);
   const [productSearch, setProductSearch] = useState([]);
   const [alertProducts, setAlertProducts] = useState("AUX");
+  const [reload,setReload] = useState(false)
 
   useEffect(() => {
     axios(`${API_URL}/admin`)
       .then(({ data }) => {
+        data?.modifiedProducts?.sort(function(a, b) {
+          return a.id - b.id})
         let prod = formatProductTable(data.modifiedProducts);
         setProductSearch(prod);
+        setReload(!reload)
       })
       .catch((err) => window.alert(err));
     //return setProducRender([]);
-  }, []);
+  }, [reload]);
 
   const columns = [
     {
@@ -123,7 +127,7 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
         stocks: cont,
         colors: colores,
         available: inStock,
-        precio: data[i].price
+        precio: data[i].price.toFixed(2)
       };
       dataObject.push(obj);
     }
