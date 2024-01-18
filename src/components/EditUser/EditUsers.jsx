@@ -209,12 +209,19 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
   };
 
   const handleChangeRol = async (user) => {
+    console.log(user.rol);
     const inputOptions = new Promise((resolve) => {
+      if(!user.rol === "client"){
         resolve({
           "Client": "Cliente",
           "Admin": "Admin",
           "Super_admin": "Super_admin"
         });
+      }else {
+        resolve({
+          "Admin": "Admin",
+        });
+      }
     });
     const { value: rol } = await Swal.fire({
       title: "Seleccione Rol",
@@ -617,8 +624,8 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
             <i className="bi bi-exclamation-octagon fs-5 ms-2"></i>
           </div>
         </div>
-      ) ||
-      user.name && user.password  && !user.rol && (
+      )}
+      {user.name && user.password  && !user.rol && (
         <div
           className="position-fixed alert alert-danger w-20 sticky-bottom"
           role="alert"
@@ -629,7 +636,6 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
           </div>
         </div>
       )}
-      
     </div>
   );
 };
