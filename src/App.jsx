@@ -45,6 +45,7 @@ import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
 import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+import GenderBox from './components/GenderBox/GenderBox';
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -55,7 +56,7 @@ function App() {
   const currentUserData = useSelector((state) => state.currentUserData);
   const [cartDataInit, setCartDataInit] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [adminLoguedUser,setAdminLoguedUser] = useState("");
+  const [adminLoguedUser, setAdminLoguedUser] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -103,7 +104,7 @@ function App() {
   }, [location.pathname]);
 
   const getAdminLocalStorage = async () => {
-    const adminDataLocalStorage = await getLocalStorageData('adminUser'); 
+    const adminDataLocalStorage = await getLocalStorageData('adminUser');
     const adminData = JSON.parse(adminDataLocalStorage);
     if (adminData) {
       setAdminLoguedUser(adminData);
@@ -139,6 +140,11 @@ function App() {
                   <Carousel2 />
                 </div>
               }
+              {(location.pathname === '/') &&
+                <div className={styles.genderBoxContainer}>
+                  <GenderBox />
+                </div>
+              }
               {location.pathname === '/' &&
                 <div className={styles.CarouselModelContainer}>
                   <CarouselModel />
@@ -163,9 +169,9 @@ function App() {
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
                 <Route path="/dashboard" element={
-                <ProtectedRoutes user={adminLoguedUser} redirectTo="/dashboard">
-                  <AdminDashBoard />
-                </ProtectedRoutes>} />
+                  <ProtectedRoutes user={adminLoguedUser} redirectTo="/dashboard">
+                    <AdminDashBoard />
+                  </ProtectedRoutes>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
