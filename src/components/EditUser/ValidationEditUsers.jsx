@@ -1,6 +1,7 @@
 
 
 const validationEditUsers = (user , input) => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const errors = {};
     console.log(input);
     if (input === "name"){
@@ -14,8 +15,7 @@ const validationEditUsers = (user , input) => {
     }
     
     if (input === "email") {
-        if (!regexEmail.test(newUsers.email)) errors.email = 'Ingrese un correo valido'
-        else errors.email = '';
+        if (!regexEmail.test(user.email)) errors.email = 'Ingrese un correo valido'
     } 
 
     

@@ -617,18 +617,19 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
             <i className="bi bi-exclamation-octagon fs-5 ms-2"></i>
           </div>
         </div>
-      )}
-      {user.name && user.password && user.email && !user.rol && (
+      ) ||
+      user.name && user.password  && !user.rol && (
         <div
           className="position-fixed alert alert-danger w-20 sticky-bottom"
           role="alert"
         >
           <div className="d-flex justify-content-center fs-5">
-            {errors.rol}
+            <p>Seleccione un rol</p>
             <i className="bi bi-exclamation-octagon fs-5 ms-2"></i>
           </div>
         </div>
       )}
+      
     </div>
   );
 };
