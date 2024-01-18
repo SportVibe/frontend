@@ -75,6 +75,11 @@
     }
 }
 
+/* GENDER BOX */
+.genderBoxContainer {
+    width: 100%;
+}
+
 /* CAROUSEL COMPONENT CONTAINER */
 .carouselContainer {
     height: 400px;

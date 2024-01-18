@@ -1,6 +1,7 @@
 import styles from './GenreBox.module.css';
 import capitalize from '../../../../utils/capitalize';
 import { useSelector } from 'react-redux';
+import normalizeString from '../../../../utils/normalizeString';
 
 function GenreBox({ genderStatistics, genreHandler, genre, sport, brand }) {
     const products = useSelector((state) => state.products);
@@ -18,7 +19,7 @@ function GenreBox({ genderStatistics, genreHandler, genre, sport, brand }) {
                 <p id='MUJER' onClick={genreHandler} className={genre[0].gender === 'MUJER' ? styles.selected : ''}>Mujer</p> */}
                 <p id='' onClick={genreHandler} className={genre[0].gender === '' ? styles.selected : ''}>Todo</p>
                 {genderStatistics && genderStatistics.length && genderStatistics.map((item, i) => {
-                    return <p key={i} id={item.gender} onClick={genreHandler} className={genre[0].gender === item.gender ? styles.selected : ''}>{capitalize(item.gender)} <span>{`(${item.productCount})`}</span></p>
+                    return <p key={i} id={item.gender} onClick={genreHandler} className={normalizeString(genre[0]?.gender.toUpperCase()) === normalizeString(item?.gender.toUpperCase()) ? styles.selected : ''}>{capitalize(item.gender)}</p>
                 })}
             </div>
         </div>

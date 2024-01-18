@@ -31,6 +31,7 @@ function NavBar() {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [cartItems, setCartItems] = useState('0.00');
   const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
+  const cart = useSelector((state) => state.cart);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
   const filterCounter = useSelector((state) => state.filterCounter);
   // const storageData = window.localStorage.getItem('currentUser');
@@ -57,6 +58,10 @@ function NavBar() {
   const notify = userDataRender ? Object.values(userDataRender).some(value => {
     return value === null;
   }) : null;
+  let newTotalQuantity = cart?.cart.reduce((acc, product) => {
+    return acc + (parseInt(product.price) * parseInt(product.quantity));
+  }, 0);
+  newTotalQuantity = newTotalQuantity ? newTotalQuantity?.toFixed(2).replace(',', ',') : '0.00';
 
   function handleNavigate(event) {
     const id = event.target.id;
@@ -143,7 +148,7 @@ function NavBar() {
 
             <div className={styles.cartContainer} id='/shoppingcart' onClick={handleNavigate}>
               {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
-              <p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>
+              <p id='/shoppingcart' onClick={handleNavigate}>${newTotalQuantity}</p>
               <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
               <div id='/shoppingcart' onClick={handleNavigate} className={styles.cartNumber}>
                 <p id='/shoppingcart' onClick={handleNavigate} className={styles.quantity}>{totalCartQuantity}</p>
@@ -164,7 +169,7 @@ function NavBar() {
                     {userDataRender?.image ? (
                       <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                     ) : (
-                      <p id='/profile' onClick={handleNavigate}>{firstName}{lastName}</p>
+                      <p id='/profile' onClick={handleNavigate} className={styles.pName}>{firstName}{lastName}</p>
                     )}
                   </div>
                 }
@@ -206,7 +211,7 @@ function NavBar() {
 
         <div className={styles.cartContainerResponsibe} id='/shoppingcart' onClick={handleNavigate}>
           {/* <p id='/shoppingcart' onClick={handleNavigate}>{t('translation.shoppingcart')}</p> */}
-          <p id='/shoppingcart' onClick={handleNavigate}>${cartItems}</p>
+          <p id='/shoppingcart' onClick={handleNavigate}>${newTotalQuantity}</p>
           <p id='/shoppingcart' onClick={handleNavigate}>🛒</p>
           <p id='/shoppingcart' onClick={handleNavigate} className={styles.quantity}>{`(${totalCartQuantity})`}</p>
         </div>
@@ -216,8 +221,8 @@ function NavBar() {
               <div id='/dashboard' className={styles.adminLogContainer} onClick={handleNavigate}>
                 <p id='/dashboard' onClick={handleNavigate}>Admin</p>
               </div> :
-              <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
-                <p id='/profile' onClick={handleNavigate}>Mi perfil<span>{notify && <i className="fa-solid fa-circle-exclamation"></i>}</span></p>
+              <div id='/profile' onClick={handleNavigate} className={styles.profileLogoResponsive}>
+                <p id='/profile' onClick={handleNavigate}>Mi perfil<span id='/profile'>{notify && <i id='/profile' className="fa-solid fa-circle-exclamation"></i>}</span></p>
               </div>
             }
           </div>

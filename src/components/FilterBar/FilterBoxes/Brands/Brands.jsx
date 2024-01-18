@@ -29,7 +29,7 @@ function Brands({ brandStatistics, brandHandler, brand }) {
                 })} */}
                 <p id='' onClick={brandHandler} className={brand[0].brand === '' ? styles.selected : ''}>Todo</p>
                 {brandStatistics && brandStatistics.length && brandStatistics.map((item, i) => {
-                    return <p key={i} id={item.brand} onClick={brandHandler} className={normalizeString(brand[0]?.brand.toUpperCase()) === normalizeString(item?.brand.toUpperCase()) ? styles.selected : ''}>{capitalize(item.brand)} <span>{`(${item.productCount})`}</span></p>
+                    return <p key={i} id={item.brand} onClick={brandHandler} className={normalizeString(brand[0]?.brand.toUpperCase()) === normalizeString(item?.brand.toUpperCase()) ? styles.selected : ''}>{capitalize(item.brand)} </p>
                 })}
             </div>
         </div>

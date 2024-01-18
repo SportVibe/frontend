@@ -3,6 +3,7 @@ import buildQueryString from '../utils/queryAlgorithm';
 import { API_URL } from '../helpers/config';
 
 export const ADD_TO_CART = "ADD_TO_CART";
+export const CART = "CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
 export const GET_PRODUCTS_FAILURE = "GET_PRODUCTS_FAILURE";
@@ -60,6 +61,14 @@ export const getAdminUserAction = (admin) => async (dispatch) => {
   console.log(admin);
   try {
     return dispatch({ type: GET_CURRENT_ADMIN, payload: admin });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const cartAction = (data) => async (dispatch) => {
+  try {
+    return dispatch({ type: CART, payload: data });
   } catch (error) {
     console.error(error.message);
   }

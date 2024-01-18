@@ -44,7 +44,7 @@ function Carousel2() {
     return (
         <div className={styles.mainView}>
             <div className={styles.mostSold} onClick={handleFilter}>
-                Descuentos
+                <p>Revisa nuestras ofertas!</p>
             </div>
             <div className={styles.backgroundMidle}>
             </div>

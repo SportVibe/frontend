@@ -35,7 +35,7 @@ function Sports({ sportStatistics, sportHandler, sport, genre, brand }) {
                 <p id='' onClick={sportHandler} className={sport[0].sport === '' ? styles.selected : ''}>Todo</p>
                 {sportStatistics && sportStatistics.length && sportStatistics.map((item, i) => {
                     // console.log(normalizeString(item.sport));
-                    return <p key={i} id={item.sport} onClick={sportHandler} className={normalizeString(sport[0]?.sport.toUpperCase()) === normalizeString(item?.sport.toUpperCase()) ? styles.selected : ''}>{capitalize(item.sport)} <span>{`(${item.productCount})`}</span></p>
+                    return <p key={i} id={item.sport} onClick={sportHandler} className={normalizeString(sport[0]?.sport.toUpperCase()) === normalizeString(item?.sport.toUpperCase()) ? styles.selected : ''}>{capitalize(item.sport)} </p>
                 })}
             </div>
         </div>
