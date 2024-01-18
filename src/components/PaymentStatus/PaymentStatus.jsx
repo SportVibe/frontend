@@ -1,9 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./PaymentStatus.module.css";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { cartAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
 
 const PaymentStatus = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const queryParams = new URLSearchParams(location.search);
   const orderId = queryParams.get("orderId");
   const message = queryParams.get("status");
@@ -27,31 +31,41 @@ const PaymentStatus = () => {
         </div>
         <p>Te enviaremos un correo electrónico con la confirmación y detalles adicionales.</p>
       </>
-      );
-    } else {
-     
-      content = (
-        <div>
-          <h2>Estado de pago no reconocido</h2>
-          <p>El estado del pago ({message}) no se reconoce.</p>
-        </div>
-      );
-    }
+    );
+  } else {
 
-    return (
-      <div className={styles.container}>
-        {content}
-  
-        <Link to="/" className={`btn btn-primary ${styles.btn}`}>
-          Ir al Sitio
-        </Link>
+    content = (
+      <div>
+        <h2>Estado de pago no reconocido</h2>
+        <p>El estado del pago ({message}) no se reconoce.</p>
       </div>
     );
-  };
-  
-  PaymentStatus.propTypes = {
-    orderId: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-  };
-  
-  export default PaymentStatus;
+  }
+
+  function resetCart() {
+    localStorage.removeItem('currentCart');
+    dispatch(quantityCartAction(0));
+    dispatch(cartAction(null));
+  }
+
+  useEffect(() => {
+    resetCart();
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      {content}
+
+      <Link to="/" className={`btn btn-primary ${styles.btn}`}>
+        Ir al Sitio
+      </Link>
+    </div>
+  );
+};
+
+PaymentStatus.propTypes = {
+  orderId: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+};
+
+export default PaymentStatus;

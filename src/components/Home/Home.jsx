@@ -6,7 +6,7 @@ import Paginado from "../Paginado/Paginado";
 import SearchResults from "../SearchResults/SearchResults";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getCurrentUserAction, getProducts, responsiveNavBar } from "../../redux/actions";
+import { brandAction, categoryAction, filterCounterAction, genreFilterAction, getCurrentUserAction, getProducts, priceFilterAction, responsiveNavBar, searchActivity, sortAction, sportAction } from "../../redux/actions";
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -48,6 +48,7 @@ function Home() {
   }
 
   useEffect(() => {
+    setLoading(true);
     if (location.pathname === '/search') {
       const sumFilters = [...totalFilters, category[0], sport[0], brand[0], priceFilter[0], priceFilter[1], sort[0], sort[1], genre[0], discount[0], { search: search_Activity }]
       dispatch(getProducts(sumFilters));
@@ -57,15 +58,22 @@ function Home() {
       // que usaremos el backup del reducer para mantener el filtrado
       // madre de los filtros, así los items de la barra lateral de filtros no pierden su cantidad entre paréntesis.
       dispatch(getProducts(null, true));
+      // reseteamos todos los filtros y ordenamientos
+      dispatch(searchActivity(''));
+      dispatch(getProducts());
+      dispatch(genreFilterAction([{ gender: '' }]));
+      dispatch(sportAction([{ sport: '' }]));
+      dispatch(brandAction([{ brand: '' }]));
+      dispatch(categoryAction([{ category: '' }]));
+      dispatch(sortAction([{ sort: 'id' }, { typeSort: 'desc' }]));
+      dispatch(priceFilterAction(['', '']));
+      dispatch(filterCounterAction({}));
     }
     dispatch(responsiveNavBar(false));
-    if (!search_Activity) {
-      navigate('/');
-    }
-  }, []);
-
-  useEffect(() => {
     handleUserData(); // para saber si hay algún usuario logueado en este compu y renderizar su imagen en el navbar.
+    /* if (!search_Activity) {
+      navigate('/');
+    } */
   }, []);
 
   useEffect(() => {

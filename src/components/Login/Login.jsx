@@ -3,13 +3,14 @@ import { useNavigate, NavLink } from "react-router-dom";
 import "./Login.css";
 import logo from "../../Images/Logo.jpg";
 import google from "../../Images/google-signin-button.png"
-import { getAdminUserAction, getCurrentUserAction } from "../../redux/actions";
+import { cartAction, getAdminUserAction, getCurrentUserAction, quantityCartAction } from "../../redux/actions";
 import axios from "axios";
 import { API_URL } from '../../helpers/config';
 import { useDispatch } from "react-redux";
 import { UserAuth } from "../../context/AuthContext";
 import LoginModal from "../Modals/LoginModal";
 import Swal from "sweetalert2";
+import getLocalStorageData from "../../utils/getLocalStorage";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -72,7 +73,8 @@ const Login = () => {
           else {
             localStorage.setItem('currentUser', JSON.stringify(data));
             dispatch(getCurrentUserAction(data));
-            navigate('/');
+            initialStorageCart(data.user)
+            // navigate('/');
           }
         }
         else {
@@ -86,6 +88,73 @@ const Login = () => {
       }
     }
   }
+
+  const initialStorageCart = async (userData) => {
+    try {
+      let totalProducts = 0;
+      const cartDataStorage = await getLocalStorageData("currentCart");
+      const parseCartDataStorage = JSON.parse(cartDataStorage);
+      if (parseCartDataStorage) {
+        totalProducts = parseCartDataStorage?.cart.reduce((acc, product) => {
+          return acc + Number(product.quantity);
+        }, 0);
+        dispatch(quantityCartAction(totalProducts));
+        dispatch(cartAction(parseCartDataStorage));
+      }
+      getCartFromBack(userData, totalProducts, parseCartDataStorage);
+    } catch (error) {
+      console.error({ error: error.message });
+    }
+  };
+
+  const getCartFromBack = async (userData, totalProducts, parseCartDataStorage) => {
+    try {
+      // console.log(userData);
+      const id = userData.id || null;
+      // console.log(cartDataInit);
+      if (userData && totalProducts) {
+        // console.log('pisaremos su back');
+        // console.log(parseCartDataStorage);
+        const { data } = await axios.put(`${API_URL}/putAllCart`, parseCartDataStorage);
+        // console.log(data);
+        if (data) {
+          localStorage.setItem("currentCart", JSON.stringify(data));
+          const newTotalQuantity = data?.cart.reduce((acc, product) => {
+            return acc + Number(product.quantity);
+          }, 0);
+          dispatch(quantityCartAction(newTotalQuantity));
+          dispatch(cartAction(data));
+        }
+        navigate('/');
+      }
+      else {
+        // console.log(id);
+        const { data } = await axios(`${API_URL}/getUserCart?userId=${id}`);
+        // console.log(data);
+        if (data) {
+          localStorage.setItem("currentCart", JSON.stringify(data));
+          const newTotalQuantity = data?.cart.reduce((acc, product) => {
+            return acc + Number(product.quantity);
+          }, 0);
+          dispatch(quantityCartAction(newTotalQuantity));
+          dispatch(cartAction(data));
+        }
+        navigate('/');
+      }
+    } catch (error) {
+      navigate('/');
+      console.error({ error: error.message });
+    }
+  };
+
+
+
+
+
+
+
+
+
 
   useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
     if (user != null) {

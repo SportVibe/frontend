@@ -9,7 +9,7 @@ import Loading from '../loading/Loading';
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import upperLowerCase from '../../utils/upperLowerCase';
-import { getCurrentUserAction } from '../../redux/actions';
+import { cartAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
 import Swal from 'sweetalert2';
@@ -90,7 +90,10 @@ function UserProfile() {
             if (userDataRender.externalSignIn && logOut) await logOut();
             // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentCart');
+            dispatch(quantityCartAction(0));
             dispatch(getCurrentUserAction(null));
+            dispatch(cartAction(null));
             // y nos aseguramos de irnos al home ya que hicimos un log out.
             navigate('/');
         } catch (error) {
@@ -198,8 +201,8 @@ function UserProfile() {
                         {mainComponent === 'purchasesTable' &&
                             <div className={styles.componentContainer}>
                                 {/* <p className={styles.titleMain}>Historial de compra:</p> */}
-                                {(userPurchases && userPurchases?.length) ? userPurchases?.map((purchase, i) => {
-                                    return <Table key={i} records={purchase} userId={userDataRender.id} />
+                                {(editUserData && userPurchases && userPurchases?.length) ? userPurchases?.map((purchase, i) => {
+                                    return <Table key={i} records={purchase} userId={editUserData.id} />
                                 })
                                     :
                                     <div>

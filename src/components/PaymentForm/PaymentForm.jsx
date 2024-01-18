@@ -4,8 +4,14 @@ import validate from './Validationpayment';
 import { API_URL } from '../../helpers/config';
 import styles from './PaymentForm.module.css';
 import getLocalStorageData from '../../utils/getLocalStorage';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const PaymentForm = () => {
+  const navigate = useNavigate();
+  const currentUserData = useSelector((state) => state.currentUserData);
+  const cart = useSelector((state) => state.cart);
   const [isLoading, setIsLoading] = useState(false);
   const [cartItems, setCartItems] = useState(null);
   const [userItems, setUserItems] = useState(null);
@@ -37,6 +43,20 @@ const PaymentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!currentUserData) {
+      Swal.fire({
+        icon: "warning",
+        text: "Debe iniciar sesión",
+      });
+      navigate('/login');
+    }
+    if (!cart || !cart?.cart.length) {
+      Swal.fire({
+        icon: "warning",
+        text: "Su carrito está vacío",
+      });
+      navigate('/');
+    }
 
     const clickedField = Object.keys(form)[0];
     const validationErrors = validate(form, clickedField);
@@ -79,8 +99,23 @@ const PaymentForm = () => {
     }
   };
 
+  const dataInputs = () => {
+    if (currentUserData) {
+      setForm({
+        country: currentUserData.country || '',
+        city: currentUserData.city || '',
+        address: currentUserData.address || '',
+        zipCode: currentUserData.zipCode || '',
+        mail: currentUserData.email || '',
+        cel: currentUserData.phoneNumber || '',
+        sameBilling: false,
+      })
+    }
+  }
+
   useEffect(() => {
     initialStorageCart();
+    dataInputs()
   }, []);
 
   return (
@@ -104,7 +139,7 @@ const PaymentForm = () => {
       </select>
       {errors.country && <div className={`invalid-feedback ${styles.invalidFeedback}`}>{errors.country}</div>}
 
-      <label>
+      {/* <label>
         <input
           type="checkbox"
           name="sameBilling"
@@ -112,9 +147,9 @@ const PaymentForm = () => {
           onChange={handleChange}
         />
         La información de envío es la misma que la registrada en el perfil de usuario
-      </label>
+      </label> */}
 
-      <div>
+      <div className={styles.inputsContainer}>
         <h2>Información de Envío</h2>
         <form onSubmit={handleSubmit}>
           <div className={`form-group ${styles.formGroup}`}>

@@ -249,10 +249,31 @@
         transition: .4s;
       }
     }
+
+    & .profileLogo {
+      position: relative;
+
+      & .circleNotify {
+        background-color: red;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 13px;
+    height: 13px;
+    border: 1px solid white;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: white;
+    cursor: pointer;
+      }
+    }
   }
 }
 
-& .profileLogo {
+& .profileLogoResponsive {
 
   & p {
     position: relative;

@@ -52,6 +52,8 @@ const stripePromise = loadStripe('Henry2023?');
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const currentUserData = useSelector((state) => state.currentUserData);
+  const [cartDataInit, setCartDataInit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adminLoguedUser,setAdminLoguedUser] = useState("");
 
@@ -60,43 +62,43 @@ function App() {
     getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
   }, [location.pathname]);
 
-  async function handleUserData() {
-    try { // necesitamos usar el local storage de manera asíncrona para esperar la respuesta antes de setear el loading en false y mostrar la página recargada.
-      const userDataLocalStorage = await getLocalStorageData('currentUser'); // una vez finalizada esta función, seteamos el loading en false y se muestra la página recargada.
-      const userData = JSON.parse(userDataLocalStorage);
-      if (userData) {
-        const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
-        dispatch(getCurrentUserAction(data));
-      }
-      setLoading(false);
-    } catch (error) {
-      console.error(error.message);
-      setLoading(false);
-    }
-  }
-
   const initialStorageCart = async () => {
     try {
-      let newTotalQuantity = 0;
       setLoading(true);
+      // Ejecuta el primer await
       const cartDataStorage = await getLocalStorageData("currentCart");
-      setLoading(false);
       const parseCartDataStorage = JSON.parse(cartDataStorage);
+      // Si el primer await ha terminado, ejecuta el segundo await
       if (parseCartDataStorage) {
-        parseCartDataStorage?.cart.map(product => {
-          newTotalQuantity = newTotalQuantity + Number(product.quantity);
+        let newTotalQuantity = 0;
+        parseCartDataStorage?.cart.forEach(product => {
+          newTotalQuantity += Number(product.quantity);
         });
         dispatch(quantityCartAction(newTotalQuantity));
       }
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error({ error: error.message });
     }
   };
 
+  async function handleUserData() {
+    try {
+      const userDataLocalStorage = await getLocalStorageData('currentUser');
+      const userData = JSON.parse(userDataLocalStorage);
+      if (userData) {
+        const { data } = await axios(`${API_URL}/user?email=${userData.user.email}&externalSignIn=${userData.user.externalSignIn}`);
+        dispatch(getCurrentUserAction(data));
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
+    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario. 
     initialStorageCart();
   }, [location.pathname]);
 

@@ -21,6 +21,7 @@ import {
   SPORT_FILTER,
   FILTER_COUNT,
   GET_MASTER_FILTER_PRODUCTS,
+  CART
 } from "./actions";
 
 const initialState = {
@@ -44,7 +45,8 @@ const initialState = {
   error: null,
   currentPage: 1,
   limitPage: 20,
-  totalCartQuantity: 0
+  totalCartQuantity: 0,
+  cart: null,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -58,6 +60,11 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         currentAdminData: action.payload
+      };
+    case CART:
+      return {
+        ...state,
+        cart: action.payload
       };
     case GET_PRODUCTS:
       return {

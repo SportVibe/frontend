@@ -10,7 +10,7 @@ function Table(props) {
     const [reloadPage, setReloadPage] = useState(false);
     const [modal, setModal] = useState(false);
     const [productId, setProductId] = useState(null);
-    const [userId, setUserId] = useState(props.userId);
+    const [userId, setUserId] = useState(props.userId || '');
     const [breakPoint, setBreakPoint] = useState(false);
     const [loading, setLoading] = useState(true);
     const [displayTable, setDisplayTable] = useState(false);
