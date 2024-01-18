@@ -17,7 +17,6 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
           return a.id - b.id})
         let prod = formatProductTable(data.modifiedProducts);
         setProductSearch(prod);
-        setReload(!reload)
       })
       .catch((err) => window.alert(err));
     //return setProducRender([]);
@@ -184,6 +183,10 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
     setVisibleSidebar(!visibleSidebar);
   }
 
+  const handleReload = () => {
+    setReload(!reload);
+  };
+
   return (
     <>
       <nav className="navbar navbar-ligth bg-body-secondary justify-content-between w-100">
@@ -194,7 +197,18 @@ const ProductPrueba = ({ setSelectedRow, setVisibleSidebar, visibleSidebar, hand
             onClick={handleVisibleSidebar}
           ><i className="bi bi-list fs-3"></i></button>
         </div>
-        <div className="d-flex mx-auto">
+        <div className="me-auto">
+          <button
+            className="btn ms-1"
+            onClick={handleReload}
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            data-bs-title="Tooltip on bottom"
+          >
+            <i className="bi bi-arrow-counterclockwise fs-4"></i>
+          </button>
+        </div>
+        <div className="d-flex me-auto">
           <i className="bi bi-search fs-3 me-2"></i>
           <input
             className="form-control"
