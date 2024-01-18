@@ -233,15 +233,15 @@ export default function ProductForm({setSidebarRender,setActive,setVisibleSideba
                 <label className={style.labels}>Talle</label>                
                   <select name="size" onChange={handleSizes} className={errors.sizes ? "style.tipos form-select w-75 border-danger border-3 opacity-75" : "style.tipos form-select w-75"}>
                   <option  disabled selected>Seleccione Talle</option>
-                  <option value="xs">XS</option>
-                  <option value="s">S</option>
-                  <option value="m">M</option>
-                  <option value="l">L</option>
-                  <option value="xl">XL</option>
-                  <option value="xxl">XXL</option>
-                  <option value="xxxl">XXXL</option>
-                  <option value="otro">Otro</option>
-                  <option value="noAplica">No Aplica</option>
+                  <option value="XS">XS</option>
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                  <option value="XXL">XXL</option>
+                  <option value="XXXL">XXXL</option>
+                  <option value="OTRO">Otro</option>
+                  <option value="NO-APLICA">No Aplica</option>
                  </select>
               </div>
             </div>
