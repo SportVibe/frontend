@@ -44,6 +44,7 @@ import axios from "axios";
 import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
 import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -54,6 +55,12 @@ function App() {
   const currentUserData = useSelector((state) => state.currentUserData);
   const [cartDataInit, setCartDataInit] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [adminLoguedUser,setAdminLoguedUser] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
+  }, [location.pathname]);
 
   const initialStorageCart = async () => {
     try {
@@ -94,6 +101,14 @@ function App() {
     handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario. 
     initialStorageCart();
   }, [location.pathname]);
+
+  const getAdminLocalStorage = async () => {
+    const adminDataLocalStorage = await getLocalStorageData('adminUser'); 
+    const adminData = JSON.parse(adminDataLocalStorage);
+    if (adminData) {
+      setAdminLoguedUser(adminData);
+    }
+  }
 
   if (loading) {
     return <Loading />
@@ -147,8 +162,10 @@ function App() {
               <Routes className={styles.routesContainer}>
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
-                <Route path="/dashboard" element={<AdminDashBoard />}></Route>
-                <Route path="/dashboard/metrics" element={<Metrics />} />
+                <Route path="/dashboard" element={
+                <ProtectedRoutes user={adminLoguedUser} redirectTo="/dashboard">
+                  <AdminDashBoard />
+                </ProtectedRoutes>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
@@ -164,7 +181,6 @@ function App() {
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/payment-status" element={<PaymentStatus />} />
                 <Route path="/password-recover" element={<RecoveryPassword />} />
-
               </Routes>
               {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
