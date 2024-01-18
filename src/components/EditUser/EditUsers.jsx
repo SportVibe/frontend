@@ -185,7 +185,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
 
     let userCreate = {
       firstName: user.name,
-      email: `${user.email}@sportvibe.com`,
+      email: user.email,
       rol: user.rol,
       password: user.password,
     };
@@ -443,9 +443,9 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
               aria-describedby="basic-addon2"
               onChange={handleChange}
             />
-            <span className="input-group-text" id="basic-addon2">
+            {/* <span className="input-group-text" id="basic-addon2">
               @sportvibe.com
-            </span>
+            </span> */}
           </div>
           <div className="bg-light d-flex justify-content-start w-50"></div>
           <div className="d-flex mb-3">
