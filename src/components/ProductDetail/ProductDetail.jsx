@@ -229,11 +229,11 @@ const ProductDetail = () => {
     let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
     let acceptedReviews = reviewData.data.data.filter((rev)=> rev.status === "accepted");
     setReviews(acceptedReviews);
-    acceptedReviews.data.data.map((review) => {
+    acceptedReviews?.map((review) => {
       suma = suma + review.score;
     });
-    promedio = (suma / reviewData.data.data.length);
-    if (promedio === 1.0 || promedio === 2.0 || promedio === 3.0 || promedio === 4.0 || promedio === 5.0) {
+    promedio = (suma / acceptedReviews.length);
+    if (promedio === 1.0 || promedio === 2.0 || promedio === 3.0 || promedio === 4.0 || promedio === 5.0 || promedio === 0) {
       promedio = parseInt(promedio);
     } else {
       promedio = Number(promedio.toFixed(1));
@@ -245,15 +245,7 @@ const ProductDetail = () => {
 
 
   const hanldeScore = (reviewsAvg) => {
-    if (reviewsAvg === 0) {
-      return (<>
-        <i className="bi bi-star text-primary fs-5"></i>
-        <i className="bi bi-star text-primary fs-5"></i>
-        <i className="bi bi-star text-primary fs-5"></i>
-        <i className="bi bi-star text-primary fs-5"></i>
-        <i className="bi bi-star text-primary fs-5"></i>
-      </>);
-    }
+    
     if (reviewsAvg === 1) {
       return (<>
         <i className="bi bi-star-fill text-primary fs-5"></i>
@@ -336,6 +328,15 @@ const ProductDetail = () => {
           <i className="bi bi-star-fill text-primary fs-5"></i>
         </>
       );
+    }
+    if (reviewsAvg === 0) {
+      return (<>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+      </>);
     }
   }
 
