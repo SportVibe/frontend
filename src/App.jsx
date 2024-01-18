@@ -44,6 +44,7 @@ import axios from "axios";
 import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
 import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 
 const stripePromise = loadStripe('Henry2023?');
 
