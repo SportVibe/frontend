@@ -3,7 +3,7 @@ import logo from "../../Images/Logo.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../helpers/config.js";
-import "./RecoveryPassword.module.css";
+import styles from "./RecoveryPassword.module.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -50,6 +50,16 @@ const RecoveryPassword = () => {
         title:"La contraseña debe tener al menos 6 caracteres",
         icon:"info"
       });
+    } else if (!nuevaClave.newPassword || !confirmarClave.password) {
+        Swal.fire({
+          title: "Por favor ingrese todas las contraseñas",
+          icon: "info",
+        });
+    }else if (!nuevaClave.newPassword.trim() || !confirmarClave.password.trim()) {
+          Swal.fire({
+            title: "Por favor ingrese contraseñas válidas",
+            icon: "info",
+          });
     } else {
     
         await axios.post(`${API_URL}/password-update`,nuevaClave)
@@ -87,42 +97,40 @@ const RecoveryPassword = () => {
 
   return (
     <form onSubmit={submit}>
-      <div className="contenedorLogin">
-        <div className="box">
-          <div className="boxlogo">
+      <div className={styles.contenedorLogin}>
+        <div className={styles.box}>
+          <div className={styles.boxlogo}>
             <NavLink to="/">
-              <img className="logo" src={logo} alt="" />
+              <img className={styles.logo} src={logo} alt="" />
             </NavLink>
           </div>
-          <div className="label">
-            <div className="text-wrapper3">Nueva contraseña</div>
-          </div>
-          <div className="boxInput">
+       
+           <div className={styles.label2}>Nueva Contraseña</div>
+          
+          <div className={styles.boxInput}>
             <input
               onChange={handleChangeN}
               value={nuevaClave.password}
-              className="input"
+              className={styles.input}
               type="password"
               autoComplete="off"
             />
           </div>
-          <div className="label">
-            <div className="text-wrapper3">Confirmar contraseña</div>
-          </div>
-          <div className="boxInput">
+            <div className={styles.label2}>Confirmar Contraseña</div>
+          <div className={styles.boxInput}>
             <input
               onChange={handleChangeC}
               value={confirmarClave.password}
-              className="input"
+              className={styles.input}
               type="password"
               autoComplete="off"
             />
           </div>
-          <hr />
-          <div className="boxlin"></div>
-          <div className="crear">
-            <p className="text-wrapper4"></p>
-            <button type="submit" className="botton2" value="submit">
+          <hr/>
+          <div className={styles.boxlin}></div>
+          <div className={styles.crear}>
+            <p className={styles.label4}/>
+            <button type="submit" className={styles.botton2} value="submit">
               Enviar
             </button>
           </div>

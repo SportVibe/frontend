@@ -14,6 +14,7 @@ function ProductCard({ productData, setFavReload, favReload }) {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
     const [reloadPage, setReloadPage] = useState(false);
+    const [colection, setColection] = useState(false);
     const [favorite, setFavorite] = useState(false);
     const [imgHover, setImgHover] = useState(false);
     const currentUserData = useSelector((state => state.currentUserData));
@@ -79,6 +80,14 @@ function ProductCard({ productData, setFavReload, favReload }) {
 
     function handleMouseLeave() {
         setImgHover(false);
+    }
+
+    function handleEnterIcon() {
+        setColection(true);
+    }
+
+    function handleLeaveIcon() {
+        setColection(false);
     }
 
     async function handleNavigate(e) {
@@ -176,25 +185,21 @@ function ProductCard({ productData, setFavReload, favReload }) {
                     onClick={handleNavigate}
                     className={styles.imgContainer}
                     id={imgHover && styles.imgHover}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <img src={Images[0]} alt="imagen" />
-                    {imgHover && (
-                        <div className={styles.layout}>
-                            <div id="like" className={favorite ? styles.markOn : ''}>
-                                <i id="like" className='bx bx-bookmark' ></i>
+                    <div className={styles.layout}>
+                        <div id="like" className={favorite ? styles.markOn : ''} onMouseEnter={handleEnterIcon} onMouseLeave={handleLeaveIcon}>
+                            <i id="like" className='bx bx-bookmark' onMouseEnter={handleEnterIcon} onMouseLeave={handleLeaveIcon}></i>
+                        </div>
+                        {(!favorite && colection) &&
+                            <div className={styles.favSaved}>
+                                <p>Guardar</p>
                             </div>
-                            {favorite &&
-                                <div className={styles.favSaved}>
-                                    <p>Guardado</p>
-                                </div>
-                            }
-                            {/* <div id="like" className={favorite ? styles.markOn : ''}>
+                        }
+                        {/* <div id="like" className={favorite ? styles.markOn : ''}>
                                 <i id="like" className="fa-regular fa-thumbs-up"></i>
                             </div> */}
-                        </div>
-                    )}
+                    </div>
                 </div>
                 <div className={styles.downSideContainer}>
                     <div className={styles.categoryNameContainer}>

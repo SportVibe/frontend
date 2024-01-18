@@ -179,6 +179,7 @@ function NavBar() {
 
           <div className={`${styles.menuContainer} ${isInputFocused && styles.menuContainerHidden}`} onClick={handlerResponsive}>
             <i className="fa-solid fa-bars"></i>
+            {!responsiveGlobalNavBar && <div className={styles.circleCartNotify}>{totalCartQuantity}</div>}
           </div>
         </div>
       </div>
@@ -216,7 +217,7 @@ function NavBar() {
                 <p id='/dashboard' onClick={handleNavigate}>Admin</p>
               </div> :
               <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
-                <p id='/profile' onClick={handleNavigate}>Mi perfil</p>
+                <p id='/profile' onClick={handleNavigate}>Mi perfil<span>{notify && <i className="fa-solid fa-circle-exclamation"></i>}</span></p>
               </div>
             }
           </div>

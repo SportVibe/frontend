@@ -31,7 +31,9 @@ const ProductDetail = () => {
   const [reviewsAvg, setReviewsAvg] = useState(0);
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
-  /* console.log(reviews); */
+  const [msjBackReviewsNull,setMsjBackReviewsNull] = useState("");
+  
+  
 
   useEffect(() => {
     axios
@@ -111,10 +113,8 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
-          console.log({ userId, shoppingProduct: newItemBack });
           if (userId) {
             const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
-            // console.log(result.data);
           }
           const newTotalQuantity = Number(quantity);
           dispatch(quantityCartAction(newTotalQuantity));
@@ -157,15 +157,14 @@ const ProductDetail = () => {
               size: selectSize,
               price: data.price,
             };
-            // console.log({ userId, shoppingProduct: newItemBack });
             if (userId) {
               const result = await axios.post(`${API_URL}/postShoppingProduct`, { userId, shoppingProduct: newItemBack });
-              // console.log(result.data);
+          
             }
           }
           if (repeat && userId) {
             const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
-            // console.log(result.data);
+           
           }
           localStorage.setItem(
             "currentCart",
@@ -226,13 +225,18 @@ const ProductDetail = () => {
   const handleReviews = async () => {
     let suma = 0;
     let promedio = 0;
-    let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
-    setReviews(reviewData.data.data);
-    reviewData.data.data.map((review) => {
+    try{
+      let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
+    if(reviewData.data.message.includes("No se encuentran")){
+      setMsjBackReviewsNull(reviewData.data.message)
+    }
+    let acceptedReviews = reviewData.data.data.filter((rev)=> rev.status === "accepted");
+    setReviews(acceptedReviews);
+    acceptedReviews?.map((review) => {
       suma = suma + review.score;
     });
-    promedio = (suma / reviewData.data.data.length);
-    if (promedio === 1.0 || promedio === 2.0 || promedio === 3.0 || promedio === 4.0 || promedio === 5.0) {
+    promedio = (suma / acceptedReviews.length);
+    if (promedio === 1.0 || promedio === 2.0 || promedio === 3.0 || promedio === 4.0 || promedio === 5.0 || promedio === 0) {
       promedio = parseInt(promedio);
     } else {
       promedio = Number(promedio.toFixed(1));
@@ -240,10 +244,12 @@ const ProductDetail = () => {
     setReviewsAvg(promedio);
     promedio = 0;
     suma = 0;
+    }catch{(err) => console.log(err);}
   };
 
 
   const hanldeScore = (reviewsAvg) => {
+    
     if (reviewsAvg === 1) {
       return (<>
         <i className="bi bi-star-fill text-primary fs-5"></i>
@@ -326,6 +332,15 @@ const ProductDetail = () => {
           <i className="bi bi-star-fill text-primary fs-5"></i>
         </>
       );
+    }
+    if (reviewsAvg === 0) {
+      return (<>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+        <i className="bi bi-star text-primary fs-5"></i>
+      </>);
     }
   }
 
@@ -443,7 +458,7 @@ const ProductDetail = () => {
                 data-bs-target="#reviewsModal"
               >
                 ({(reviewsAvg)}) {hanldeScore(reviewsAvg)} (
-                {reviews?.length})
+                {reviews? reviews.length : 0})
               </button>
               {/* MODAL DE REVIEWS */}
               <div
@@ -474,15 +489,15 @@ const ProductDetail = () => {
                     <div class="modal-body">
                       <div className="w-100">
                         <ul class="list-group rounded-pill">
-                          {reviews?.map((rev, i) => (
+                          {reviews? reviews?.map((rev, i) => (
                             <div key={i} className="">
                               <li className="list-group-item rounded-3 mt-1">
                                 ({(reviewsAvg)}) {hanldeScore(rev.score)} (
-                                {reviews?.length})
+                                {reviews? reviews.length : 0})
                                 <p className="fs-6 mb-0">{rev.description}</p>
                               </li>
                             </div>
-                          ))}
+                          )) : <p>{msjBackReviewsNull}</p>}
                         </ul>
                       </div>
                     </div>

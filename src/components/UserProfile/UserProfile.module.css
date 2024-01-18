@@ -223,14 +223,15 @@
 
             & .div {
                 width: 100%;
-                padding: 10px;
+                height: 35px;
+                /* padding: 5px 0 0 5px; */
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 gap: 6px;
                 border-radius: 5px;
                 cursor: pointer;
-                transition: .2s ease;
+                transition: .2s;
 
                 &:hover {
                     color: var(--button-color);
@@ -239,8 +240,10 @@
 
             & .divSelected {
                 width: 100%;
+                height: 35px;
                 /* padding: 10px 10px 10px 20px; */
-                padding: 10px;
+                font-size: 18px;
+                /* padding: 5px 0 0 5px; */
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
@@ -248,7 +251,7 @@
                 border-radius: 5px;
                 color: var(--button-color);
                 cursor: pointer;
-                transition: padding .2s ease;
+                transition: .2s;
             }
         }
     }

@@ -13,12 +13,11 @@ const validationEditUsers = (user , input) => {
         if (user.password.length === 0) errors.password = 'Por favor agregue una contraseña';
     }
     
-    if (input === "email"){
-        let check = user.email.split("@");
-        if (check.length === 2) errors.email = 'Por favor elimine el caracter @';
-    }
+    if (input === "email") {
+        if (!regexEmail.test(newUsers.email)) errors.email = 'Ingrese un correo valido'
+        else errors.email = '';
+    } 
 
-    if (!user.rol) errors.rol = 'Por favor seleccione un rol';
     
     return errors
 }
