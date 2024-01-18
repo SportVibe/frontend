@@ -52,6 +52,12 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const [adminLoguedUser,setAdminLoguedUser] = useState("");
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
+  }, [location.pathname]);
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para esperar la respuesta antes de setear el loading en false y mostrar la página recargada.
@@ -92,6 +98,14 @@ function App() {
     handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario.
     initialStorageCart();
   }, [location.pathname]);
+
+  const getAdminLocalStorage = async () => {
+    const adminDataLocalStorage = await getLocalStorageData('adminUser'); 
+    const adminData = JSON.parse(adminDataLocalStorage);
+    if (adminData) {
+      setAdminLoguedUser(adminData);
+    }
+  }
 
   if (loading) {
     return <Loading />
@@ -162,7 +176,6 @@ function App() {
                 <Route path="/payments" element={<Payments />} />
                 <Route path="/payment-status" element={<PaymentStatus />} />
                 <Route path="/password-recover" element={<RecoveryPassword />} />
-
               </Routes>
               {(location.pathname !== '/login' && location.pathname !== '/dashboard') &&
                 <Footer />
