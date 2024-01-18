@@ -1,6 +1,7 @@
 
 
 const validationEditUsers = (user , input) => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     const errors = {};
     console.log(input);
     if (input === "name"){
@@ -13,12 +14,10 @@ const validationEditUsers = (user , input) => {
         if (user.password.length === 0) errors.password = 'Por favor agregue una contraseña';
     }
     
-    if (input === "email"){
-        let check = user.email.split("@");
-        if (check.length === 2) errors.email = 'Por favor elimine el caracter @';
-    }
+    if (input === "email") {
+        if (!regexEmail.test(user.email)) errors.email = 'Ingrese un correo valido'
+    } 
 
-    if (!user.rol) errors.rol = 'Por favor seleccione un rol';
     
     return errors
 }

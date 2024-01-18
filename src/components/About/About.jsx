@@ -18,7 +18,7 @@ function About() {
     {
       id: 2,
       name: 'María Sol Escobares',
-      image: 'https://scontent.fcor4-1.fna.fbcdn.net/v/t1.6435-9/100063182_2900412403340596_1017695249566269440_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7a1959&_nc_eui2=AeG9gxSJdRV23CxBVSIbC6QtVNfqUEO0hC1U1-pQQ7SELbsXHsmadUBvCGf6c9zYsqtTGNLJ7MJZ_B0vl46leSSW&_nc_ohc=R0fPayvcglcAX8at2yC&_nc_ht=scontent.fcor4-1.fna&oh=00_AfA7nWtiukEqXSz_pUhOEfzXJlbU2n7PJK12zy6jcuoNGg&oe=65A3D8F3',
+      image: 'https://res.cloudinary.com/drrswxx5y/image/upload/v1705543149/AboutSol_htq3l5.png',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/escobares-maria-sol-14b588216/',
       github: 'https://github.com/Sunny1606',
