@@ -32,6 +32,8 @@ const ProductDetail = () => {
   const [reviews, setReviews] = useState(null);
   const dispatch = useDispatch();
   const [msjBackReviewsNull,setMsjBackReviewsNull] = useState("");
+  console.log(reviews,"REVIEWS");
+  console.log(msjBackReviewsNull,"MSJ");
   
   
 
@@ -223,7 +225,8 @@ const ProductDetail = () => {
     let promedio = 0;
     try{
       let reviewData = await axios(`${API_URL}/reviews?productId=${id}`);
-    if(reviewData.data.message.includes("No se encuentran")){
+      console.log(reviewData);
+    if(reviewData.data.message.includes("Este producto aun")){
       setMsjBackReviewsNull(reviewData.data.message)
     }
     let acceptedReviews = reviewData.data.data.filter((rev)=> rev.status === "accepted");
@@ -485,7 +488,7 @@ const ProductDetail = () => {
                     <div class="modal-body">
                       <div className="w-100">
                         <ul class="list-group rounded-pill">
-                          {reviews? reviews?.map((rev, i) => (
+                          {reviews? reviews.map((rev, i) => (
                             <div key={i} className="">
                               <li className="list-group-item rounded-3 mt-1">
                                 ({(reviewsAvg)}) {hanldeScore(rev.score)} (
