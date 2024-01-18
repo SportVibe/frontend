@@ -44,6 +44,7 @@ import axios from "axios";
 import { API_URL } from "./helpers/config";
 import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
 import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx/ProtectedRoutes";
 
 const stripePromise = loadStripe('Henry2023?');
 
@@ -52,6 +53,7 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const [loading, setLoading] = useState(true);
+  const [adminLoguedUser,setAdminLoguedUser] = useState("");
 
   async function handleUserData() {
     try { // necesitamos usar el local storage de manera asíncrona para esperar la respuesta antes de setear el loading en false y mostrar la página recargada.
@@ -67,6 +69,21 @@ function App() {
       setLoading(false);
     }
   }
+
+  const getAdminLocalStorage = async () => {
+    const adminDataLocalStorage = await getLocalStorageData('adminUser'); 
+    const adminData = JSON.parse(adminDataLocalStorage);
+    if (adminData) {
+      setAdminLoguedUser(adminData);
+    }
+  }
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
+    
+  }, [location.pathname]);
+
 
   const initialStorageCart = async () => {
     try {
@@ -145,8 +162,10 @@ function App() {
               <Routes className={styles.routesContainer}>
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
-                <Route path="/dashboard" element={<AdminDashBoard />}></Route>
-                <Route path="/dashboard/metrics" element={<Metrics />} />
+                <Route path="/dashboard" element={
+                <ProtectedRoutes user={adminLoguedUser} redirectTo="/dashboard">
+                  <AdminDashBoard />
+                </ProtectedRoutes>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
