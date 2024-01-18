@@ -8,6 +8,7 @@ import {
   updateCartItemQuantity,
   getShoppingCart,
   quantityCartAction,
+  cartAction,
 } from '../../redux/actions';
 import getLocalStorageData from '../../utils/getLocalStorage';
 import axios from 'axios';
@@ -91,6 +92,7 @@ const ShoppingCart = () => {
     setCartItems({ userId: userId, cart: updateCart });
     dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
     localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateCart }));
+    dispatch(cartAction({ userId: userId, cart: updateCart }));
     setReloadPage(!reloadPage); // para estar recuperando el carrito del localStorage cada vez que se actualice.
   };
 

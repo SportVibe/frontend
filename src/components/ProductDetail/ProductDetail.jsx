@@ -6,7 +6,7 @@ import Loading from "../loading/Loading";
 import { API_URL } from "../../helpers/config";
 import styles from "./ProductDetail.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, quantityCartAction } from "../../redux/actions";
+import { addToCart, cartAction, quantityCartAction } from "../../redux/actions";
 import imagen1 from "../../Images/pinterest.png";
 import imagen2 from "../../Images/facebook.png";
 import imagen3 from "../../Images/twitter.png";
@@ -99,10 +99,8 @@ const ProductDetail = () => {
             size: selectSize,
             price: data.price,
           };
-          localStorage.setItem(
-            "currentCart",
-            JSON.stringify({ userId: userId, cart: [newItem] })
-          );
+          localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: [newItem] }));
+          dispatch(cartAction({ userId: userId, cart: [newItem] }));
           newItemBack = {
             id,
             title: data.title,
@@ -167,10 +165,8 @@ const ProductDetail = () => {
             const result = await axios.put(`${API_URL}/putShoppingProduct`, { userId, shoppingProduct: newItemBack });
             // console.log(result.data);
           }
-          localStorage.setItem(
-            "currentCart",
-            JSON.stringify({ userId: userId, cart: updateLocalStorageCart })
-          );
+          localStorage.setItem("currentCart", JSON.stringify({ userId: userId, cart: updateLocalStorageCart }));
+          dispatch(cartAction({ userId: userId, cart: updateLocalStorageCart }));
           setReloadPage(!reloadPage);
           dispatch(quantityCartAction(newTotalQuantity)); // totalQuantity para mostrar en el carrito del nav bar.
         }
