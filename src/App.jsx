@@ -159,8 +159,10 @@ function App() {
               <Routes className={styles.routesContainer}>
                 <Route path="/" element={<Home setLoading={setLoading} />}></Route>
                 <Route path="/search" element={<Home />}></Route>
-                <Route path="/dashboard" element={<AdminDashBoard />}></Route>
-                <Route path="/dashboard/metrics" element={<Metrics />} />
+                <Route path="/dashboard" element={
+                <ProtectedRoutes user={adminLoguedUser} redirectTo="/dashboard">
+                  <AdminDashBoard />
+                </ProtectedRoutes>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/shoppingcart" element={<ShoppingCart />} />
                 <Route path="/login" element={<Login />} />
