@@ -366,14 +366,8 @@ const ProductDetail = () => {
                 <div className="carousel-inner">
                   {data?.Images.map((img, i) => (
                     (i === 0 ? <div key={i} id={i} className="carousel-item active">
-                    <img src={img} className={`${styles.image}`} alt="..." />
-                  </div>: <div key={i} id={i} className="carousel-item">
-                  <img src={img} className={`${styles.image}`} alt="..." />
-                </div>)
-                    ))}
-                </div>
-                <button
-                  className="carousel-control-prev text-success-emphasis"
+                  <button
+                  className="carousel-control-prev"
                   type="button"
                   data-bs-target="#carouselExample"
                   data-bs-slide="prev"
@@ -386,11 +380,11 @@ const ProductDetail = () => {
                     transform: "translateY(-50%)", // Centra verticalmente
                     background: "none", // Elimina el fondo
                     border: "none", // Elimina el borde
-                    zIndex: "1", // Asegura que ,
+                    zIndex: "1", // Asegura que ,                
                   }}
                 >
                   <span
-                    className="carousel-control-prev-icon text-success-emphasis bg-secondary w-25 rounded-3"
+                    className="carousel-control-prev-icon bg-secondary w-25 rounded-3"
                     aria-hidden="true"
                     style={{
                       fontSize: "1.5rem",
@@ -405,6 +399,7 @@ const ProductDetail = () => {
                   ></span>
                   <span className="visually-hidden text-success-emphasis"></span>
                 </button>
+                <img src={img} className={`${styles.image}`} alt="..." />
                 <button
                   className="carousel-control-next"
                   type="button"
@@ -438,6 +433,176 @@ const ProductDetail = () => {
                   ></span>
                   <span className="visually-hidden"></span>
                 </button>
+                  </div>: <div key={i} id={i} className="carousel-item">
+                  <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-50%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que
+                  }}
+                >
+                  <span
+                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      right: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden"></span>
+                </button>
+                  <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-50%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que ,                
+                  }}
+                >
+                  <span
+                    className="carousel-control-prev-icon w-25 bg-secondary rounded-3"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      left: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden text-success-emphasis"></span>
+                </button>
+                <img src={img} className={`${styles.image}`} alt="..." />
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-50%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que
+                  }}
+                >
+                  <span
+                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      right: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden"></span>
+                </button>
+                </div>)
+                    ))}
+                </div>
+                {/* <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-50%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que ,                
+                  }}
+                >
+                  <span
+                    className="carousel-control-prev-icon w-25 rounded-3"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      left: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden text-success-emphasis"></span>
+                </button> */}
+                {/* <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "0",
+                    width: "40px",
+                    top: "50%",
+                    transform: "translateY(-50%)", // Centra verticalmente
+                    background: "none", // Elimina el fondo
+                    border: "none", // Elimina el borde
+                    zIndex: "1", // Asegura que
+                  }}
+                >
+                  <span
+                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
+                    aria-hidden="true"
+                    style={{
+                      fontSize: "1.5rem",
+                      padding: "0.25rem 0.75rem",
+                      borderRadius: "0",
+                      width: "40px",
+                      position: "absolute",
+                      right: "10px",
+                      boxShadow: "none",
+                      transition: "box-shadow 0.3s",
+                    }}
+                  ></span>
+                  <span className="visually-hidden"></span>
+                </button> */}
               </div>
               {/*  FIN CAROUSEL */}
             </div>
