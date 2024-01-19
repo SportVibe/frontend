@@ -87,10 +87,10 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
             <div className="card-body">
               <h5 className="card-title">{item.title}</h5>
               <p className="card-text">ID: {item.id}</p>
-              <p className="card-text">Size: {item.size}</p>
-              <p className="card-text">Price: ${item.price}</p>
+              <p className="card-text">Talla: {item.size}</p>
+              <p className="card-text">Precio: ${item.price}</p>
               <div className="input-group">
-                <span className="input-group-text">Quantity:</span>
+                <span className="input-group-text">Cantidad:</span>
                 <input
                   type="number"
                   min={0}
@@ -104,7 +104,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
                 className="btn btn-danger mt-2"
                 onClick={() => handleRemoveFromCart(item.id, productSize)}
               >
-                Remove
+                Remover
               </button>
             </div>
           </div>
