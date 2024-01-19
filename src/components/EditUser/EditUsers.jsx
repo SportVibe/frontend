@@ -194,6 +194,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
       .then(({ data }) => {
         setUserCreatedSuccess(true);
         handleReload();
+        window.scrollTo(0, 10000000000000000000);
       })
       .catch((err) => console.log(err));
   };
@@ -385,7 +386,7 @@ const EditUsers = ({ setVisibleSidebar, visibleSidebar, handleSignOut , actualUs
                   <a
                     name="rol"
                     id="admin"
-                    className="dropdown-item"
+                    className={actualUser.rol === "admin" ? "dropdown-item disabled" : "dropdown-item"}
                     href="#"
                     onClick={handleRol}
                   >

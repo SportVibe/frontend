@@ -40,7 +40,7 @@ function AdminDashBoard() {
   }, []); 
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0,0);
   }, []);
 
  return (
@@ -57,11 +57,13 @@ function AdminDashBoard() {
             <ProductUpdate setSelectedRow={setSelectedRow} data={selectedRow} />
           </div>}
         {sidebarRender === "nuevo" &&
-            <ProductForm setActive={setActive} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} handleSignOut={handleSignOut} actualUser={actualUser}/>
-        }
-        {sidebarRender === "usuarios" && <EditUsers handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} actualUser={actualUser}/>}
-        {sidebarRender === "comentarios" && <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} />}
-        {sidebarRender === "metricas" && <Metrics handleSignOut={handleSignOut} actualUser={actualUser} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/>}
+            <ProductForm setActive={setActive} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} handleSignOut={handleSignOut} actualUser={actualUser}/>}
+        {sidebarRender === "usuarios" && 
+            <EditUsers handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} actualUser={actualUser}/>}
+        {sidebarRender === "comentarios" && 
+            <ReviewsAdmin handleSignOut={handleSignOut} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar} setSidebarRender={setSidebarRender} />}
+        {sidebarRender === "metricas" && 
+            <Metrics handleSignOut={handleSignOut} actualUser={actualUser} setVisibleSidebar={setVisibleSidebar} visibleSidebar={visibleSidebar}/>}
       </div>
     </div>
   );
