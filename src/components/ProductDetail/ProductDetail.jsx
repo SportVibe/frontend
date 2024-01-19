@@ -365,10 +365,12 @@ const ProductDetail = () => {
               <div id="carouselExample" className="carousel slide">
                 <div className="carousel-inner">
                   {data?.Images.map((img, i) => (
-                    <div key={i} id={i} className="carousel-item active">
-                      <img src={img} className={`${styles.image}`} alt="..." />
-                    </div>
-                  ))}
+                    (i === 0 ? <div key={i} id={i} className="carousel-item active">
+                    <img src={img} className={`${styles.image}`} alt="..." />
+                  </div>: <div key={i} id={i} className="carousel-item">
+                  <img src={img} className={`${styles.image}`} alt="..." />
+                </div>)
+                    ))}
                 </div>
                 <button
                   className="carousel-control-prev text-success-emphasis"
@@ -381,14 +383,14 @@ const ProductDetail = () => {
                     borderRadius: "0",
                     width: "40px",
                     top: "50%",
-                    transform: "translateY(-90%)", // Centra verticalmente
+                    transform: "translateY(-50%)", // Centra verticalmente
                     background: "none", // Elimina el fondo
                     border: "none", // Elimina el borde
                     zIndex: "1", // Asegura que ,
                   }}
                 >
                   <span
-                    className="carousel-control-prev-icon text-success-emphasis  "
+                    className="carousel-control-prev-icon text-success-emphasis bg-secondary w-25 rounded-3"
                     aria-hidden="true"
                     style={{
                       fontSize: "1.5rem",
@@ -401,7 +403,7 @@ const ProductDetail = () => {
                       transition: "box-shadow 0.3s",
                     }}
                   ></span>
-                  <span className="visually-hidden text-success-emphasis "></span>
+                  <span className="visually-hidden text-success-emphasis"></span>
                 </button>
                 <button
                   className="carousel-control-next"
@@ -414,14 +416,14 @@ const ProductDetail = () => {
                     borderRadius: "0",
                     width: "40px",
                     top: "50%",
-                    transform: "translateY(-90%)", // Centra verticalmente
+                    transform: "translateY(-50%)", // Centra verticalmente
                     background: "none", // Elimina el fondo
                     border: "none", // Elimina el borde
                     zIndex: "1", // Asegura que
                   }}
                 >
                   <span
-                    className="carousel-control-next-icon"
+                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
                     aria-hidden="true"
                     style={{
                       fontSize: "1.5rem",
