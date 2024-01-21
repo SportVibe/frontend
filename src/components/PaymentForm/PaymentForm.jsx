@@ -73,6 +73,9 @@ const PaymentForm = () => {
 
     try {
       setIsLoading(true);
+      console.log({
+        userId: parseInt(userItems.user.id)
+      });
       const response = await axios.post(`${API_URL}/postOrder`, {
         userId: parseInt(userItems.user.id)
       });

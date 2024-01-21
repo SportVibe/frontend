@@ -93,7 +93,7 @@ function Table(props) {
 
     function HandleDisplayModal(e) {
         const productId = parseInt(e.target.id);
-        if (productId) {
+        if (productId && porpsRecords.status !== 'cancelled') {
             setModal(true);
             setProductId(productId);
         }
@@ -140,8 +140,10 @@ function Table(props) {
     }, []);
 
     return (
-        <div className={styles.mainView}>
+        <div className={`${styles.mainView} ${porpsRecords.status === 'cancelled' && styles.cancelled}`}>
             <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderIdPaypal}</p>
+            {porpsRecords.status === 'cancelled' && <p className={styles.codigoOrden}>Orden cancelada</p>}
+            {porpsRecords.status === 'accepted' && <p className={styles.codigoOrden}>Orden aceptada ✓</p>}
             {modal &&
                 <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} reloadPage={reloadPage} setReloadPage={setReloadPage} />
             }
@@ -169,9 +171,9 @@ function Table(props) {
                                     <p className={styles.value} id={styles.p} key={i}>{record.subtotal}</p>
                                     <div id={record.productId} className={styles.buttonReviews} onClick={HandleDisplayModal}>
                                         {record.reviewData ?
-                                            <p className={styles.coment} id={record.productId}>Editar</p>
+                                            <p className={porpsRecords.status === 'cancelled' ? styles.buttonCancelled : styles.coment} id={record.productId}>Editar</p>
                                             :
-                                            <button id={record.productId}>Nuevo</button>
+                                            <button id={record.productId} className={porpsRecords.status === 'cancelled' ? styles.buttonCancelled : styles.button}>Nuevo</button>
                                         }
                                     </div>
                                 </div>

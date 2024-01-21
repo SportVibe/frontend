@@ -76,7 +76,7 @@ export const AuthContextProvider = ({ children }) => {
       if (userData && totalProducts) {
         // console.log('pisaremos su back');
         // console.log(parseCartDataStorage);
-        const { data } = await axios.put(`${API_URL}/putAllCart`, parseCartDataStorage);
+        const { data } = await axios.put(`${API_URL}/putAllCart`, { userId: id, cart: parseCartDataStorage.cart });
         // console.log(data);
         if (data) {
           localStorage.setItem("currentCart", JSON.stringify(data));
@@ -86,7 +86,7 @@ export const AuthContextProvider = ({ children }) => {
           dispatch(quantityCartAction(newTotalQuantity));
           dispatch(cartAction(data));
         }
-        navigate('/');
+        // navigate('/');
       }
       else {
         // console.log(id);
@@ -100,7 +100,7 @@ export const AuthContextProvider = ({ children }) => {
           dispatch(quantityCartAction(newTotalQuantity));
           dispatch(cartAction(data));
         }
-        navigate('/');
+        // navigate('/');
       }
     } catch (error) {
       navigate('/');

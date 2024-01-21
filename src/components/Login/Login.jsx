@@ -6,7 +6,7 @@ import google from "../../Images/google-signin-button.png"
 import { cartAction, getAdminUserAction, getCurrentUserAction, quantityCartAction } from "../../redux/actions";
 import axios from "axios";
 import { API_URL } from '../../helpers/config';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserAuth } from "../../context/AuthContext";
 import LoginModal from "../Modals/LoginModal";
 import Swal from "sweetalert2";
@@ -18,6 +18,7 @@ const Login = () => {
   const { googleSignIn, user } = UserAuth() ?? {};
   const [userCorrect, setUserCorrect] = useState(false); //declaro un estado con su función de actualización inicializado en false
   const [passwordCorrect, setPasswordCorrect] = useState(false);
+  const userDataRender = useSelector((state) => state.currentUserData);
   const [aux, setAux] = useState(false);
   const [modal, setModal] = useState(null);
   const [username, setUser] = useState({
@@ -157,10 +158,10 @@ const Login = () => {
 
 
   useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
-    if (user != null) {
+    if (user != null || userDataRender) {
       navigate('/');
     }
-  }, [user]);
+  }, [user, userDataRender]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
