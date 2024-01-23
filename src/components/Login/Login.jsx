@@ -159,6 +159,7 @@ const Login = () => {
 
   useEffect(() => { // si user existe (si está logeado) entonces se redirige al home.
     if (user != null || userDataRender) {
+      // console.log(user);
       navigate('/');
     }
   }, [user, userDataRender]);
