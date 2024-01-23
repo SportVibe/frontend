@@ -11,6 +11,7 @@ import imagen1 from "../../Images/pinterest.png";
 import imagen2 from "../../Images/facebook.png";
 import imagen3 from "../../Images/twitter.png";
 import Swal from 'sweetalert2';
+import { Tooltip,ButtonToolbar ,Button,OverlayTrigger} from 'react-bootstrap';
 
 
 const ProductDetail = () => {
@@ -54,6 +55,23 @@ const ProductDetail = () => {
     initialStorageCart();
     handleReviews();
   }, [reloadPage]); // para recuperar el carrito del localStorage cada vez que se actualice.
+
+  const tooltip =(
+    <Tooltip placement="right" className="in" id="tooltip-top">
+       Ver comentarios
+    </Tooltip>)
+
+  const spinner = (<div className="vh-100 d-flex align-items-center">
+  <div class="spinner-grow text-success mx-3" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+  <div class="spinner-grow text-danger mx-3" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+  <div class="spinner-grow text-warning mx-3" role="status">
+    <span class="visually-hidden"></span>
+  </div>
+</div>)
 
   const handleColorSelection = (color) => {
     setSelectColor(color);
@@ -345,19 +363,8 @@ const ProductDetail = () => {
 
   return (
     <div className="d-flex w-100 justify-content-center">
-      {!data ? (
-        <div className="vh-100 d-flex align-items-center">
-          <div class="spinner-grow text-success mx-3" role="status">
-            <span class="visually-hidden"></span>
-          </div>
-          <div class="spinner-grow text-danger mx-3" role="status">
-            <span class="visually-hidden"></span>
-          </div>
-          <div class="spinner-grow text-warning mx-3" role="status">
-            <span class="visually-hidden"></span>
-          </div>
-        </div>
-      ) : (
+      {!data ? spinner
+         : (
         <div className="d-flex flex-column w-75 ms-5 me-5">
           <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center flex-lg-nowrap flex-md-wrap flex-sm-wrap">
             {/* CAROUSEL */}
@@ -433,40 +440,9 @@ const ProductDetail = () => {
                   ></span>
                   <span className="visually-hidden"></span>
                 </button>
-                  </div>: <div key={i} id={i} className="carousel-item">
-                  <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="next"
-                  style={{
-                    fontSize: "1.5rem",
-                    padding: "0.25rem 0.75rem",
-                    borderRadius: "0",
-                    width: "40px",
-                    top: "50%",
-                    transform: "translateY(-50%)", // Centra verticalmente
-                    background: "none", // Elimina el fondo
-                    border: "none", // Elimina el borde
-                    zIndex: "1", // Asegura que
-                  }}
-                >
-                  <span
-                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
-                    aria-hidden="true"
-                    style={{
-                      fontSize: "1.5rem",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "0",
-                      width: "40px",
-                      position: "absolute",
-                      right: "10px",
-                      boxShadow: "none",
-                      transition: "box-shadow 0.3s",
-                    }}
-                  ></span>
-                  <span className="visually-hidden"></span>
-                </button>
+                  </div>
+                  : 
+                  <div key={i} id={i} className="carousel-item">
                   <button
                   className="carousel-control-prev"
                   type="button"
@@ -537,72 +513,6 @@ const ProductDetail = () => {
                 </div>)
                     ))}
                 </div>
-                {/* <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="prev"
-                  style={{
-                    fontSize: "1.5rem",
-                    padding: "0.25rem 0.75rem",
-                    borderRadius: "0",
-                    width: "40px",
-                    top: "50%",
-                    transform: "translateY(-50%)", // Centra verticalmente
-                    background: "none", // Elimina el fondo
-                    border: "none", // Elimina el borde
-                    zIndex: "1", // Asegura que ,                
-                  }}
-                >
-                  <span
-                    className="carousel-control-prev-icon w-25 rounded-3"
-                    aria-hidden="true"
-                    style={{
-                      fontSize: "1.5rem",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "0",
-                      width: "40px",
-                      position: "absolute",
-                      left: "10px",
-                      boxShadow: "none",
-                      transition: "box-shadow 0.3s",
-                    }}
-                  ></span>
-                  <span className="visually-hidden text-success-emphasis"></span>
-                </button> */}
-                {/* <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="next"
-                  style={{
-                    fontSize: "1.5rem",
-                    padding: "0.25rem 0.75rem",
-                    borderRadius: "0",
-                    width: "40px",
-                    top: "50%",
-                    transform: "translateY(-50%)", // Centra verticalmente
-                    background: "none", // Elimina el fondo
-                    border: "none", // Elimina el borde
-                    zIndex: "1", // Asegura que
-                  }}
-                >
-                  <span
-                    className="carousel-control-next-icon bg-secondary w-25 rounded-3"
-                    aria-hidden="true"
-                    style={{
-                      fontSize: "1.5rem",
-                      padding: "0.25rem 0.75rem",
-                      borderRadius: "0",
-                      width: "40px",
-                      position: "absolute",
-                      right: "10px",
-                      boxShadow: "none",
-                      transition: "box-shadow 0.3s",
-                    }}
-                  ></span>
-                  <span className="visually-hidden"></span>
-                </button> */}
               </div>
               {/*  FIN CAROUSEL */}
             </div>
@@ -617,15 +527,28 @@ const ProductDetail = () => {
               <hr />
               <p>{data?.brand}</p>
               {/* ESTRELLAS REVIEWS */}
-              <button
+              <ButtonToolbar>
+                  <OverlayTrigger placement="right" overlay={tooltip}>
+                    <Button 
+                    className="d-flex justify-content-start align-items-center w-25 bg-transparent border-0 overflow-visible text-dark mt-0 mb-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#reviewsModal"
+                    >({(reviewsAvg)})
+                     {hanldeScore(reviewsAvg)} ({reviews? reviews.length : 0})
+                    </Button>
+                  </OverlayTrigger>
+                </ButtonToolbar>
+              {/* <button
                 type="button"
                 className="d-flex justify-content-start align-items-center w-25 bg-transparent border-0 overflow-visible text-dark mt-0 mb-2"
                 data-bs-toggle="modal"
                 data-bs-target="#reviewsModal"
+                onMouseEnter={tooltip}
               >
                 ({(reviewsAvg)}) {hanldeScore(reviewsAvg)} (
                 {reviews? reviews.length : 0})
-              </button>
+              </button> */}
+              {/* <i>Ver comentarios</i> */}
               {/* MODAL DE REVIEWS */}
               <div
                 class="modal fade"
