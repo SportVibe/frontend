@@ -141,9 +141,9 @@ function Table(props) {
 
     return (
         <div className={`${styles.mainView} ${porpsRecords.status === 'cancelled' && styles.cancelled}`}>
-            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderIdPaypal}</p>
             {porpsRecords.status === 'cancelled' && <p className={styles.codigoOrden}>Orden cancelada</p>}
             {porpsRecords.status === 'accepted' && <p className={styles.codigoOrden}>Orden aceptada ✓</p>}
+            <p className={styles.codigoOrden}>Código de la compra: {porpsRecords.orderIdPaypal}</p>
             {modal &&
                 <ReviewsModal setModal={setModal} modal={modal} userId={userId} productId={productId} reloadPage={reloadPage} setReloadPage={setReloadPage} />
             }
