@@ -9,7 +9,7 @@ import Loading from '../loading/Loading';
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import upperLowerCase from '../../utils/upperLowerCase';
-import { cartAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
+import { cartAction, displayDropDownAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
 import Swal from 'sweetalert2';
@@ -86,6 +86,7 @@ function UserProfile() {
 
     async function handleSignOut() {
         try {
+            dispatch(displayDropDownAction(false));
             // solo usamos el logOut de Firebase si el usuario es externo(externalSignIn en true)
             if (userDataRender.externalSignIn && logOut) await logOut();
             // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.

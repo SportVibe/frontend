@@ -69,7 +69,9 @@ function NavBar() {
     const id = event.target.id;
     if (userDataRender && (id === '/profile' || id === '/dashboard')) {
       // navigate(`${id}`);
-      dispatch(displayDropDownAction(!displayDropDown))
+      if (location.pathname !== '/profile') {
+        dispatch(displayDropDownAction(!displayDropDown));
+      }
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));

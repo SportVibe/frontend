@@ -17,12 +17,13 @@ export const AuthContextProvider = ({ children }) => {
   const userDataRender = useSelector((state) => state.currentUserData);
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    // signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider);
+    signInWithPopup(auth, provider);
+    // signInWithRedirect(auth, provider);
   };
 
   const logOut = () => {
     signOut(auth);
+    setUser(null);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentCart');
     dispatch(quantityCartAction(0));

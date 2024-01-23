@@ -150,7 +150,8 @@ function App() {
     window.scrollTo(0, 0);
     handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario. 
     initialStorageCart();
-  }, [location.pathname]);
+    dispatch(displayDropDownAction(false));
+  }, [user, location.pathname]);
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
