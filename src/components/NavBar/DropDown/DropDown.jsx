@@ -3,6 +3,7 @@ import { cartAction, displayDropDownAction, getAdminUserAction, getCurrentUserAc
 import styles from './DropDown.module.css';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../../context/AuthContext';
+import upperLowerCase from '../../../utils/upperLowerCase';
 
 function DropDown({ currentUserData }) {
     const dispatch = useDispatch();
@@ -41,7 +42,8 @@ function DropDown({ currentUserData }) {
     }
     return (
         <div className={styles.dropDownContainer}>
-            <p className={styles.name}>Luca Bruzzone</p>
+            {currentUserData && <p className={styles.name}>{upperLowerCase(currentUserData.firstName)}</p>}
+            {currentAdminData && <p className={styles.name}>{upperLowerCase(currentAdminData.firstName)}</p>}
             <div className={styles.lowSection}>
                 {currentAdminData &&
                     <div onClick={handleNavigate}>
