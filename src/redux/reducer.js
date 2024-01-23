@@ -21,11 +21,13 @@ import {
   SPORT_FILTER,
   FILTER_COUNT,
   GET_MASTER_FILTER_PRODUCTS,
-  CART
+  CART,
+  DISPLAY_DROPDOWN
 } from "./actions";
 
 const initialState = {
   responsiveNavBar: false,
+  displayDropDown: false,
   currentUserData: null,
   currentAdminData: null,
   filterCounter: [],
@@ -133,6 +135,11 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         responsiveNavBar: action.payload,
+      };
+    case DISPLAY_DROPDOWN:
+      return {
+        ...state,
+        displayDropDown: action.payload,
       };
     case GET_PRODUCTS_SUCCESS:
       return {

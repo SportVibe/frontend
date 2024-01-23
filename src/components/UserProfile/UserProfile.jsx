@@ -187,14 +187,6 @@ function UserProfile() {
                                 <i className='bx bx-bookmark' id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mi colección</p>
                             </div>
-                            {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
-                                <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
-                                <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
-                            </div> */}
-                            {/* <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
-                                <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
-                                <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
-                            </div> */}
                         </div>
                     </div>
                     <div className={styles.mainComponentsContainer}>
