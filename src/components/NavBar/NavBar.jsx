@@ -19,6 +19,7 @@ import {
   sportAction,
   brandAction,
   filterCounterAction,
+  displayDropDownAction,
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 import getLocalStorageData from '../../utils/getLocalStorage';
@@ -30,9 +31,10 @@ function NavBar() {
   const [borderNavBar, setBorderNavBar] = useState(true);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [cartItems, setCartItems] = useState('0.00');
-  const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const cart = useSelector((state) => state.cart);
+  const totalCartQuantity = useSelector((state) => state.totalCartQuantity);
   const responsiveGlobalNavBar = useSelector((state) => state.responsiveNavBar);
+  const displayDropDown = useSelector((state) => state.displayDropDown);
   const filterCounter = useSelector((state) => state.filterCounter);
   // const storageData = window.localStorage.getItem('currentUser');
   // const userData = storageData ? JSON.parse(storageData) : null;
@@ -65,8 +67,9 @@ function NavBar() {
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (userDataRender && (id === 'profile' || id === 'dashboard')) {
-      navigate(`${id}`);
+    if (userDataRender && (id === '/profile' || id === '/dashboard')) {
+      // navigate(`${id}`);
+      dispatch(displayDropDownAction(!displayDropDown))
     } else {
       // reseteamos todos los filtros y ordenamientos
       dispatch(searchActivity(''));
@@ -107,6 +110,7 @@ function NavBar() {
   };
 
   useEffect(() => {
+    // dispatch(displayDropDownAction(false));
     dispatch(responsiveNavBar(false));
     if (location.pathname === '/search') setBorderNavBar(false);
   }, [location.pathname]);
@@ -165,7 +169,7 @@ function NavBar() {
                     )}
                   </div> :
                   <div id='/profile' onClick={handleNavigate} className={styles.profileLogo}>
-                    {notify && <div className={styles.circleNotify}></div>}
+                    {notify && <div id='/profile' className={styles.circleNotify}></div>}
                     {userDataRender?.image ? (
                       <img id='/profile' src={userDataRender.image} alt="" onClick={handleNavigate} />
                     ) : (

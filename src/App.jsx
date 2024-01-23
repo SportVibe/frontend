@@ -1,5 +1,6 @@
 import AdminDashBoard from "./components/AdminDashBoard/AdminDashBoard";
 import { AuthContextProvider } from "./context/AuthContext";
+import { UserAuth } from './context/AuthContext';
 import {
   Home,
   UserProfile,
@@ -25,7 +26,7 @@ import Conditions from "./components/Footer/conditions/conditions";
 import Changes from "./components/Footer/changes/changes";
 import Deliveries from "./components/Footer/deliveries/deliveries";
 import Payments from "./components/Footer/payments/payments";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import { I18nextProvider } from 'react-i18next';
 import i18n from './components/Translate/i18n';
@@ -36,13 +37,13 @@ import { loadStripe } from '@stripe/stripe-js';
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import CarouselModel from "./components/CarouselModel/CarouselModel";
 import CarouselProducts from "./components/CarouselProducts/CarouselProducts";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import getLocalStorageData from './utils/getLocalStorage';
 import ProductUpdate from "./components/ProductUpdate/ProductUpdate";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { API_URL } from "./helpers/config";
-import { getCurrentUserAction, quantityCartAction } from "./redux/actions";
+import { displayDropDownAction, getCurrentUserAction, quantityCartAction } from "./redux/actions";
 import RecoveryPassword from "./components/RecoveryPassword/RecoveryPassword";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import GenderBox from './components/GenderBox/GenderBox';
@@ -53,15 +54,17 @@ const stripePromise = loadStripe('Henry2023?');
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const elementoEspecifico = useRef(null);
+  const displayDropDown = useSelector((state) => state.displayDropDown);
+  // console.log(displayDropDown);
   const currentUserData = useSelector((state) => state.currentUserData);
+  const currentAdminData = useSelector((state) => state.currentAdminData);
+  // console.log(currentUserData, currentAdminData);
+  const { user, logOut } = UserAuth() ?? {};
   const [cartDataInit, setCartDataInit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [adminLoguedUser, setAdminLoguedUser] = useState("");
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
-  }, [location.pathname]);
 
   const initialStorageCart = async () => {
     try {
@@ -97,11 +100,14 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario. 
-    initialStorageCart();
-  }, [location.pathname]);
+  function handleNavigate() {
+    if (!currentUserData && currentAdminData) {
+      navigate('/dashboard');
+    }
+    else if (currentUserData && !currentAdminData) {
+      navigate('/profile');
+    }
+  }
 
   const getAdminLocalStorage = async () => {
     const adminDataLocalStorage = await getLocalStorageData('adminUser');
@@ -110,6 +116,46 @@ function App() {
       setAdminLoguedUser(adminData);
     }
   }
+
+  const handleClickOutside = (event) => {
+    /* if (elementoEspecifico.current && !elementoEspecifico.current.contains(event.target)) {
+      dispatch(displayDropDownAction(false));
+    } */
+  };
+
+  async function handleSignOut() {
+    try {
+      dispatch(displayDropDownAction(false));
+      // solo usamos el logOut de Firebase si el usuario es externo(externalSignIn en true)
+      if (currentUserData.externalSignIn && logOut) await logOut();
+      // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('currentCart');
+      dispatch(quantityCartAction(0));
+      dispatch(getCurrentUserAction(null));
+      dispatch(cartAction(null));
+      // y nos aseguramos de irnos al home ya que hicimos un log out.
+      navigate('/');
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getAdminLocalStorage(); // para saber si hay algun usuario administrador logueado y aplicar rutas protegidas a dashboard
+  }, [location.pathname]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    handleUserData(); // para saber si hay algún usuario logueado en este compu y tener de manera global la data del usuario. 
+    initialStorageCart();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => { document.removeEventListener('click', handleClickOutside) }
+  }, [displayDropDown]);
 
   if (loading) {
     return <Loading />
@@ -123,6 +169,26 @@ function App() {
               {location.pathname !== "/dashboard" && location.pathname !== "/password-recover" &&
                 <div className={styles.navBarContainer}>
                   <NavBar />
+                  {displayDropDown &&
+                    <div ref={elementoEspecifico} className={styles.dropDownContainer}>
+                      <p className={styles.name}>Luca Bruzzone</p>
+                      <div className={styles.lowSection}>
+                        {currentAdminData &&
+                          <div onClick={handleNavigate}>
+                            <i onClick={handleNavigate} className="fa-solid fa-chart-line"></i>
+                            <p onClick={handleNavigate}>Dashboard</p>
+                          </div>}
+                        {currentUserData &&
+                          <div onClick={handleNavigate}>
+                            <i onClick={handleNavigate} className="fa-regular fa-user"></i>
+                            <p onClick={handleNavigate}>Mi perfil</p>
+                          </div>}
+                        <div onClick={handleSignOut}>
+                          <i onClick={handleSignOut} className="fa-solid fa-arrow-right-from-bracket"></i>
+                          <p onClick={handleSignOut}>Cerrar sesión</p>
+                        </div>
+                      </div>
+                    </div>}
                 </div>
               }
               {location.pathname === '/' &&

@@ -34,6 +34,7 @@ export const CATEGORY_FILTER = "CATEGORY_FILTER";
 export const SPORT_FILTER = "SPORT_FILTER";
 export const BRAND_FILTER = "BRAND_FILTER";
 export const FILTER_COUNT = "FILTER_COUNT";
+export const DISPLAY_DROPDOWN = "DISPLAY_DROPDOWN";
 
 
 export const getProducts = (filters, masterFilter) => async (dispatch) => {
@@ -110,6 +111,14 @@ export const discountProducts = (discount) => async (dispatch) => {
 export const responsiveNavBar = (value) => async (dispatch) => {
   try {
     return dispatch({ type: RESPONSIVE_NAVBAR, payload: value });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const displayDropDownAction = (value) => async (dispatch) => {
+  try {
+    return dispatch({ type: DISPLAY_DROPDOWN, payload: value });
   } catch (error) {
     console.error(error.message);
   }
