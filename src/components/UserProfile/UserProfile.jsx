@@ -9,7 +9,7 @@ import Loading from '../loading/Loading';
 import axios from 'axios';
 import { API_URL } from '../../helpers/config';
 import upperLowerCase from '../../utils/upperLowerCase';
-import { cartAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
+import { cartAction, displayDropDownAction, getCurrentUserAction, quantityCartAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import getLocalStorageData from '../../utils/getLocalStorage';
 import Swal from 'sweetalert2';
@@ -86,6 +86,7 @@ function UserProfile() {
 
     async function handleSignOut() {
         try {
+            dispatch(displayDropDownAction(false));
             // solo usamos el logOut de Firebase si el usuario es externo(externalSignIn en true)
             if (userDataRender.externalSignIn && logOut) await logOut();
             // reseteamos la data a renderizar y el local storage y automáticamente eso nos redirige al home.
@@ -187,14 +188,6 @@ function UserProfile() {
                                 <i className='bx bx-bookmark' id='favorites' onClick={handlerComponent}></i>
                                 <p id='favorites' onClick={handlerComponent}>Mi colección</p>
                             </div>
-                            {/* <div className={mainComponent === 'orders' ? styles.divSelected : styles.div} id='orders' onClick={handlerComponent}>
-                                <i className="fa-solid fa-truck" id='orders' onClick={handlerComponent}></i>
-                                <p id='orders' onClick={handlerComponent}>Mis órdenes</p>
-                            </div> */}
-                            {/* <div className={mainComponent === 'reviews' ? styles.divSelected : styles.div} id='reviews' onClick={handlerComponent}>
-                                <i className="fa-solid fa-magnifying-glass" id='reviews' onClick={handlerComponent}></i>
-                                <p id='reviews' onClick={handlerComponent}>Mis reviews</p>
-                            </div> */}
                         </div>
                     </div>
                     <div className={styles.mainComponentsContainer}>
