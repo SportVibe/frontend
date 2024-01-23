@@ -21,15 +21,22 @@ export const AuthContextProvider = ({ children }) => {
     // signInWithRedirect(auth, provider);
   };
 
-  const logOut = () => {
-    signOut(auth);
-    setUser(null);
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentCart');
-    dispatch(quantityCartAction(0));
-    dispatch(getCurrentUserAction(null));
-    dispatch(cartAction(null));
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+      // Limpiar el estado y el almacenamiento local después de cerrar sesión
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('currentCart');
+      dispatch(quantityCartAction(0));
+      dispatch(getCurrentUserAction(null));
+      dispatch(cartAction(null));
+      // Redireccionar o realizar otras acciones después del cierre de sesión
+      navigate('/');
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   };
+
 
   const externalUser = async (userData) => {
     try {
@@ -111,6 +118,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      // console.log('onAuthStateChanged:', currentUser);
       setUser(currentUser);
       // guardamos los datos de Firebase en nuestro local storage, igual como lo haríamos logueandonos de manera local.
       if (currentUser) {

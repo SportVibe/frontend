@@ -67,7 +67,7 @@ function NavBar() {
 
   function handleNavigate(event) {
     const id = event.target.id;
-    if (userDataRender && (id === '/profile' || id === '/dashboard')) {
+    if ((userDataRender || currentAdminData) && (id === '/profile' || id === '/dashboard')) {
       // navigate(`${id}`);
       if (location.pathname !== '/profile') {
         dispatch(displayDropDownAction(!displayDropDown));
