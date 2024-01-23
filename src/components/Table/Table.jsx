@@ -150,8 +150,8 @@ function Table(props) {
             {loading ? <Loading /> :
                 <div className={`${styles.tableContainer} ${!displayTable ? styles.displayTableOff : styles.displayTableOn}`}>
                     <div className={styles.orderContainer} onClick={handleDisplayTable}>
-                        <p onClick={handleDisplayTable}>Fecha de compra: </p>
-                        <p onClick={handleDisplayTable}>Hora: </p>
+                        <p onClick={handleDisplayTable}>Fecha de compra: {porpsRecords.date}</p>
+                        <p onClick={handleDisplayTable}>Hora: {porpsRecords.time}</p>
                         <p onClick={handleDisplayTable}>Total: ${porpsRecords.totalOrder}</p>
                     </div>
                     <div className={styles.paramsContainer}>
