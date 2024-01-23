@@ -52,6 +52,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
     try {
       setLoading(true);
       const { data } = await axios(`${API_URL}/detail/${productId}`);
+      console.log(data);
       if (data) {
         setProductImage(data.data?.Images[0]);
       }
@@ -64,7 +65,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
 
   useEffect(() => {
     getImage();
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return <Loading />
@@ -102,7 +103,7 @@ const CartCards = ({ userId, cartItems, setCartItems, item, handleRemoveFromCart
               <button
                 type="button"
                 className="btn btn-danger mt-2"
-                onClick={() => handleRemoveFromCart(item.id, productSize)}
+                onClick={() => handleRemoveFromCart(item.productId, productSize)}
               >
                 Remover
               </button>

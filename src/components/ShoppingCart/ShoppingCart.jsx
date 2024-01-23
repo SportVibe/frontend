@@ -101,7 +101,7 @@ const ShoppingCart = () => {
   const handleGoToPayment = () => {
     navigate("/payment");
   };
-
+  console.log(cartItems);
   return (
     <div className="container mt-4 d-flex flex-column align-items-center">
       <h2>Carrito de Compras</h2>
