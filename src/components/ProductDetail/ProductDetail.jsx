@@ -372,7 +372,7 @@ const ProductDetail = () => {
               <div id="carouselExample" className="carousel slide">
                 <div className="carousel-inner">
                   {data?.Images.map((img, i) => (
-                    (i === 0 ? <div key={i} id={i} className="carousel-item active">
+                    (i === 0 ? <div key={i} id={i} className="carousel-item active bg-transparent">
                   <button
                   className="carousel-control-prev"
                   type="button"
@@ -442,7 +442,7 @@ const ProductDetail = () => {
                 </button>
                   </div>
                   : 
-                  <div key={i} id={i} className="carousel-item">
+                  <div key={i} id={i} className="carousel-item bg-transparent">
                   <button
                   className="carousel-control-prev"
                   type="button"
