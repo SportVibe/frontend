@@ -7,7 +7,7 @@ function CardTeam2({ name, image, banner, description, linkedin, github }) {
     return (
         <div className={styles.mainView}>
             <div className={styles.bannerContainer}>
-                <img src={banner3} alt="" />
+                <img src={banner2} alt="" />
             </div>
             <div className={styles.subMainView}>
                 <div className={styles.imgContainer}>
