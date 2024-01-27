@@ -39,7 +39,7 @@ function About() {
       id: 4,
       name: 'Luca Vincenzo Bruzzone Castillo',
       image: 'https://avatars.githubusercontent.com/u/133311620?v=4',
-      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFJdlKp2Q5v7Q/profile-displaybackgroundimage-shrink_350_1400/0/1706311638033?e=1711584000&v=beta&t=VHlO3lT78BXFzqP_06f62zcCHaqymRUj9abZQ_v4724',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/luca-bruzzone-6152b6278/',
       github: 'https://github.com/lucabruzzone',
