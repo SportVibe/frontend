@@ -4,7 +4,7 @@ import logoSportVibe from "../../Images/Logo.jpg";
 import image1 from "../../Images/instagram.png";
 import image2 from "../../Images/facebook.png";
 import image3 from "../../Images/apoyo-tecnico.png";
-import logo from '../../Images/logoSportvibeSolid.jpeg';
+import logo from '../../Images/sportVibeLogo.png';
 import { API_URL } from "../../helpers/config";
 
 

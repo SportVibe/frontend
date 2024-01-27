@@ -28,3 +28,25 @@
   width: 100%;
   justify-content: flex-start;
 }
+
+.teamTitle {
+  margin: 50px auto;
+  font-size: 25px;
+  font-weight: 300;
+  color: var(--font-color-hard);
+  text-align: center;
+}
+
+.cardSection {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  & .cardContainer {
+    width: 100%;
+    max-width: 300px;
+  }
+}

@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import styles from './NavBar.module.css';
 import SearchBar from './SearchBar/SearchBar';
 // import Logo from '../../Images/Logo.jpg';
-import Logo from '../../Images/logoSportvibeSolid.jpeg';
+import Logo from '../../Images/sportVibeLogo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
@@ -181,9 +181,9 @@ function NavBar() {
                 }
               </div>
             ) : (
-              <div id='/login' onClick={handleNavigate}>
+              <div id='/login' onClick={handleNavigate} className={styles.mainAccess}>
                 <p id='/login' onClick={handleNavigate}>{t('translation.login')}</p>
-                <p id='/login' onClick={handleNavigate}>👤</p>
+                <i id='/login' className="fa-regular fa-user"></i>
               </div>
             )}
           </div>

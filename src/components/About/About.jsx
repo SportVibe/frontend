@@ -1,6 +1,7 @@
 import { Card, Col, Row } from 'react-bootstrap';
 import styles from './About.module.css';
 import CardTeam from './CardTeam/CardTeam';
+import CardTeam2 from './CardTeam2/CardTeam2';
 import Brian from '../../Images/Brian.jpg';
 import Daniel from '../../Images/Daniel.jpg';
 
@@ -10,7 +11,8 @@ function About() {
     {
       id: 1,
       name: 'Maria Angelica Palomino Jaramillo',
-      image: 'https://media.licdn.com/dms/image/D4E03AQGtPUQXcJYRHQ/profile-displayphoto-shrink_800_800/0/1695143059043?e=1707350400&v=beta&t=FRfVlj7cyXD8I0Squ_hA3sgG-ohPEtIpGTjBhhcDD0Q',
+      image: 'https://avatars.githubusercontent.com/u/128256723?v=4',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/mar%C3%ADa-ang%C3%A9lica-palomino-jaramillo/',
       github: 'https://github.com/mangelicapj',
@@ -19,6 +21,7 @@ function About() {
       id: 2,
       name: 'María Sol Escobares',
       image: 'https://res.cloudinary.com/drrswxx5y/image/upload/v1705543149/AboutSol_htq3l5.png',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/escobares-maria-sol-14b588216/',
       github: 'https://github.com/Sunny1606',
@@ -26,7 +29,8 @@ function About() {
     {
       id: 3,
       name: 'Renato Galizzi',
-      image: 'https://media.licdn.com/dms/image/D4E03AQEy22novnnFZQ/profile-displayphoto-shrink_400_400/0/1678133667640?e=1707350400&v=beta&t=4ESk0fHBsQ-VUdfWWvP_pKbrPa-_NmrPl-KNlDGMmx8',
+      image: 'https://avatars.githubusercontent.com/u/123226344?v=4',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/renato-galizzi-07b92b33/',
       github: 'https://github.com/renatogalizzi',
@@ -35,6 +39,7 @@ function About() {
       id: 4,
       name: 'Luca Vincenzo Bruzzone Castillo',
       image: 'https://avatars.githubusercontent.com/u/133311620?v=4',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/luca-bruzzone-6152b6278/',
       github: 'https://github.com/lucabruzzone',
@@ -43,6 +48,7 @@ function About() {
       id: 5,
       name: 'Brian Hernan Rojas',
       image: Brian,
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/brian-rojas-74a174278/',
       github: 'https://github.com/BrianHerR',
@@ -50,7 +56,8 @@ function About() {
     {
       id: 6,
       name: 'Mariano Antonio Vijarra',
-      image: 'https://media.licdn.com/dms/image/D4D03AQF4sTw0IMe9kA/profile-displayphoto-shrink_800_800/0/1681867838912?e=1707955200&v=beta&t=WkaQ1JDU37mOqJPBIAUT1wLwiXmegrgc0fe_D_6wb-A',
+      image: 'https://avatars.githubusercontent.com/u/121908120?v=4',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/mariano-vijarra/',
       github: 'https://github.com/VijarraM',
@@ -59,6 +66,7 @@ function About() {
       id: 7,
       name: 'Kerly Yohana Gomez Giraldo',
       image: 'https://avatars.githubusercontent.com/u/129567578?v=4',
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Front-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/kerly-yohana-gomez-giraldo-65a124276/',
       github: 'https://github.com/KyohanaGomez',
@@ -67,6 +75,7 @@ function About() {
       id: 8,
       name: 'Daniel Enoc Amaya Amaya',
       image: Daniel,
+      banner: 'https://media.licdn.com/dms/image/D4E16AQFu0Fl-BB0t3Q/profile-displaybackgroundimage-shrink_350_1400/0/1699049023012?e=1711584000&v=beta&t=67TvenofJBr9utHTO5qgu2Qls4yOwys0h-hk3Dvn_LM',
       description: 'Full Stack Developer/ Back-End Developer at SportVibe',
       linkedin: 'https://www.linkedin.com/in/daniel-enoc-amaya-amaya/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       github: 'https://github.com/danielamaya1908',
@@ -92,13 +101,21 @@ function About() {
         </Row>
       </Card>
 
-      <Row xs={1} md={2} lg={4} className='d-flex justify-content-center'>
+      {/* <Row xs={1} md={2} lg={4} className='d-flex justify-content-center'>
         {teamMembers.map((member) => (
           <Col key={member.id} xs={12} md={6} lg={3}>
             <CardTeam {...member} />
           </Col>
         ))}
-      </Row>
+      </Row> */}
+      <p className={styles.teamTitle}>Equipo SportVibe</p>
+      <div className={styles.cardSection}>
+        {teamMembers.map((member) => (
+          <div key={member.id} className={styles.cardContainer}>
+            <CardTeam2 {...member} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
