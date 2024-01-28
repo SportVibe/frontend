@@ -362,11 +362,11 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="d-flex w-100 justify-content-center">
+    <div className="d-flex min-vw-100 justify-content-center .smColumn">
       {!data ? spinner
          : (
-        <div className="d-flex flex-column w-75 ms-5 me-5">
-          <div className="d-flex flex-lg-row mt-5 w-100 bg-body-tertiary gap-5 rounded-1 justify-content-center flex-lg-nowrap flex-md-wrap flex-sm-wrap">
+        <div className="d-flex flex-column flex-sm-column w-75 ms-5 me-5">
+          <div className={styles.smColumn}>
             {/* CAROUSEL */}
             <div className="d-flex w-50 ms-4 mt-4">
               <div id="carouselExample" className="carousel slide">
@@ -517,7 +517,7 @@ const ProductDetail = () => {
               {/*  FIN CAROUSEL */}
             </div>
             {/* DETALLE PRODUCTO */}
-            <div className="d-flex flex-column w-50 align-self-start mt-2">
+            <div className="d-flex flex-column w-50 align-self-start mt-2 mx-auto ms-3">
               <div className="mt-3">
                 <p className="text-success-emphasis mx-auto">
                   Nuevo | +1000 vendidos
