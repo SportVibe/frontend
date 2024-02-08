@@ -26,8 +26,7 @@ const Footer = () => (
                   src={image2}
                   alt=""
                   style={{
-                    width: "40px",
-                    height: "35px",
+                    width: "25px",
                     marginBottom: "10px",
                   }}
                 />
@@ -43,8 +42,7 @@ const Footer = () => (
                   src={image1}
                   alt=""
                   style={{
-                    width: "40px",
-                    height: "35px",
+                    width: "25px",
                     marginBottom: "10px",
                   }}
                 />{" "}
@@ -105,10 +103,10 @@ const Footer = () => (
               }}
             />
             <li>
-              <a>Lunes a Viernes de 9 a 20 hs / Sábado de 9 a 17 hs</a>
+              <a className={styles.contact}>Lunes a Viernes de 9 a 20 hs / Sábado de 9 a 17 hs</a>
             </li>
             <li>
-              <a>Teléfono: 0810-888-1234</a>
+              <a className={styles.contact}>Teléfono: 0810-888-1234</a>
             </li>
           </ul>
         </div>
